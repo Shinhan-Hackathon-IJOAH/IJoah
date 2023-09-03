@@ -31,7 +31,7 @@ spring:
         auto_quote_keyword: true
         globally_quoted_identifiers: true
 
-    #ddl-auto ?? ?? ? script ??
+    #ddl-auto 먼저 진행 후 script 진행
     defer-datasource-initialization: true
 
   servlet:
