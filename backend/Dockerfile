@@ -5,5 +5,5 @@ RUN chmod +x ./gradlew
 RUN ./gradlew clean && ./gradlew build
 
 FROM openjdk:11
-COPY --from=builder /app/build/libs/eoullim-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=builder /app/build/libs/ijoah-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
