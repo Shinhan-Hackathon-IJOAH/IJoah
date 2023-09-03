@@ -32,7 +32,7 @@ function App() {
         <Route path="/child/diary" element={<ChildDiaryPage />} />
         <Route path="/child/mission" element={<ChildMissionPage />} />
         <Route
-          path="/child/mission/detail"
+          path="/child/mission/detail/:missionid"
           element={<ChildMissionDetailPage />}
         />
         <Route path="/child/register" element={<ChildRegisterPage />} />
