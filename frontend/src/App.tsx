@@ -1,24 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import SignUpPage from "./pages/LoginPage/SignUpPage";
+import ChildDiaryPage from "./pages/ChildPage/ChildDiaryPage/ChildDiaryPage";
+import ChildMainPage from "./pages/ChildPage/ChildMainPage/ChildMainPage";
+import ChildMenuPage from "./pages/ChildPage/ChildMenuPage/ChildMenuPage";
+import ChildMissionPage from "./pages/ChildPage/ChildMissionPage/ChildMissionPage";
+import ChildMissionDetailPage from "./pages/ChildPage/ChildMissionPage/ChildMissionDetailPage";
+import ChildRegisterPage from "./pages/ChildPage/ChildRegisterPage/ChildRegisterPage";
+import ChildTradePage from "./pages/ChildPage/ChildTradePage/ChildTradePage";
+import ChildTradeDetailPage from "./pages/ChildPage/ChildTradePage/ChildTradeDetailPage";
+import ChildWritePage from "./pages/ChildPage/ChildWritePage/ChildWritePage";
+import ParentGiveMissionPage from "./pages/ParentPage/ParentGiveMissionPage/ParentGiveMissionPage";
+import ParentGiveMoneyPage from "./pages/ParentPage/ParentGiveMoneyPage/ParentGiveMoneyPage";
+import ParentMainPage from "./pages/ParentPage/ParentMainPage/ParentMainPage";
+import ParentMenuPage from "./pages/ParentPage/ParentMenuPage/ParentMenuPage";
+import ParentMissionPage from "./pages/ParentPage/ParentMissionPage/ParentMissionPage";
+import ParentPatternPage from "./pages/ParentPage/ParentPatternPage/ParentPatternPage";
+import ParentRegisterPage from "./pages/ParentPage/ParentRegisterPage/ParentRegisterPage";
+import ParentTradePage from "./pages/ParentPage/ParentTradePage/ParentTradePage";
+import ParentTradeDetailPage from "./pages/ParentPage/ParentTradePage/ParentTradeDetailPage";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/child" element={<ChildMainPage />} />
+        <Route path="/child/menu" element={<ChildMenuPage />} />
+        <Route path="/child/diary" element={<ChildDiaryPage />} />
+        <Route path="/child/mission" element={<ChildMissionPage />} />
+        <Route
+          path="/child/mission/detail"
+          element={<ChildMissionDetailPage />}
+        />
+        <Route path="/child/register" element={<ChildRegisterPage />} />
+        <Route path="/child/trade" element={<ChildTradePage />} />
+        <Route path="/child/trade/detail" element={<ChildTradeDetailPage />} />
+        <Route path="/child/write" element={<ChildWritePage />} />
+        <Route path="/parent" element={<ParentMainPage />} />
+        <Route path="/parent/menu" element={<ParentMenuPage />} />
+        <Route path="/parent/givemission" element={<ParentGiveMissionPage />} />
+        <Route path="/parent/givemoney" element={<ParentGiveMoneyPage />} />
+        <Route path="/parent/mission" element={<ParentMissionPage />} />
+        <Route path="/parent/pattern" element={<ParentPatternPage />} />
+        <Route path="/parent/register" element={<ParentRegisterPage />} />
+        <Route path="/parent/trade" element={<ParentTradePage />} />
+        <Route
+          path="/parent/trade/detail"
+          element={<ParentTradeDetailPage />}
+        />
+      </Routes>
     </div>
   );
 }
