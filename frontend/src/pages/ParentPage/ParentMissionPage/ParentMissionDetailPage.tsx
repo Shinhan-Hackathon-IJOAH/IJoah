@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const ChildMissionDetailPage = () => {
+const ParentMissionDetailPage = () => {
 
     const { missionid } = useParams<{ missionid: string }>();
 
@@ -12,4 +12,4 @@ const ChildMissionDetailPage = () => {
     );
 };
 
-export default ChildMissionDetailPage;
+export default ParentMissionDetailPage;
