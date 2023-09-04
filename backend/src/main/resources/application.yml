@@ -40,14 +40,20 @@ spring:
       max-request-size: 100MB
       #enabled: true
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 logging:
   level:
     org:
       hibernate:
         SQL: trace
     com:
-      ssafy:
-        donworry: debug
+      shinhan:
+        shbhack:
+          ijoa: debug
+
 #  file:
 #    name: /log.log
 
