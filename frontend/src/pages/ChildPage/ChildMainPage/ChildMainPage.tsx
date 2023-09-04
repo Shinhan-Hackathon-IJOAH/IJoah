@@ -1,9 +1,9 @@
 import React from "react";
-import ChildInfo from "../../../components/ChildMainPage/ChildInfo";
-import ChildMissionButton from "../../../components/ChildMainPage/ChildMissionButton";
-import ReadDirayButton from "../../../components/ChildMainPage/ReadDirayButton";
-import WriteDiaryButton from "../../../components/ChildMainPage/WriteDiaryButton";
-import TradeListButton from "../../../components/ChildMainPage/TradeListButton";
+import ChildInfo from "../../../components/ChildMain/ChildInfo";
+import ChildMissionButton from "../../../components/ChildMain/ChildMissionButton";
+import ReadDirayButton from "../../../components/ChildMain/ReadDirayButton";
+import WriteDiaryButton from "../../../components/ChildMain/WriteDiaryButton";
+import TradeListButton from "../../../components/ChildMain/TradeListButton";
 import BottomNav from "../../../components/Common/BottomNav";
 
 import { Button } from "@material-tailwind/react";

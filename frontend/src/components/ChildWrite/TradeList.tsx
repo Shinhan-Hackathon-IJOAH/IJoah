@@ -15,7 +15,7 @@ import {
 const TradeList = () => {
   return (
     <div className="w-[25rem]">
-      오늘의 거래내역 리스트~~
+      오늘은 돈을 어디에 썼을까요?
       <Timeline>
         <TimelineItem className="h-28">
           <TimelineConnector className="!w-[78px]" />
