@@ -8,7 +8,7 @@ const DiaryCalender = () => {
     <div>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={["DatePicker"]}>
-          <DatePicker label="날짜를 선택해주세요" />
+          <DatePicker label="날짜를 선택해주세요." />
         </DemoContainer>
       </LocalizationProvider>
     </div>
