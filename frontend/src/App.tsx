@@ -16,6 +16,7 @@ import ParentGiveMoneyPage from "./pages/ParentPage/ParentGiveMoneyPage/ParentGi
 import ParentMainPage from "./pages/ParentPage/ParentMainPage/ParentMainPage";
 import ParentMenuPage from "./pages/ParentPage/ParentMenuPage/ParentMenuPage";
 import ParentMissionPage from "./pages/ParentPage/ParentMissionPage/ParentMissionPage";
+import ParentMissionDetailPage from "./pages/ParentPage/ParentMissionPage/ParentMissionDetailPage";
 import ParentPatternPage from "./pages/ParentPage/ParentPatternPage/ParentPatternPage";
 import ParentRegisterPage from "./pages/ParentPage/ParentRegisterPage/ParentRegisterPage";
 import ParentTradePage from "./pages/ParentPage/ParentTradePage/ParentTradePage";
@@ -44,6 +45,10 @@ function App() {
         <Route path="/parent/givemission" element={<ParentGiveMissionPage />} />
         <Route path="/parent/givemoney" element={<ParentGiveMoneyPage />} />
         <Route path="/parent/mission" element={<ParentMissionPage />} />
+        <Route 
+          path="/parent/mission/detail/:missionid" 
+          element={<ParentMissionDetailPage/>} 
+        />
         <Route path="/parent/pattern" element={<ParentPatternPage />} />
         <Route path="/parent/register" element={<ParentRegisterPage />} />
         <Route path="/parent/trade" element={<ParentTradePage />} />
