@@ -1,6 +1,6 @@
 package com.shinhan.shbhack.ijoa.api.controller.member;
 
-import com.shinhan.shbhack.ijoa.api.controller.member.requestdto.MemberRequest;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberDetailResponse;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MemberController {
 
-    /**
-     * 원래는 반환은 response dto 반환해야하지만 이번엔 테스트라 request 반환
-     * @return
-     */
     @GetMapping
     @ApiOperation(value = "스웨거 테스트")
-    public ResponseEntity<MemberRequest> testapi(){
-        MemberRequest req = MemberRequest.builder()
+    public ResponseEntity<MemberDetailResponse> testapi(){
+        MemberDetailResponse req = MemberDetailResponse.builder()
                 .email("test")
                 .build();
         return ResponseEntity.ok(req);

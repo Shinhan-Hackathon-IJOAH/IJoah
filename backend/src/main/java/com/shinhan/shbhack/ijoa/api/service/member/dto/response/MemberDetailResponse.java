@@ -1,6 +1,5 @@
-package com.shinhan.shbhack.ijoa.api.controller.member.requestdto;
+package com.shinhan.shbhack.ijoa.api.service.member.dto.response;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +8,12 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class MemberRequest {
+public class MemberDetailResponse {
 
     private String email;
 
     @Builder
-    public MemberRequest(String email) {
+    public MemberDetailResponse(String email) {
         this.email = email;
     }
 }
