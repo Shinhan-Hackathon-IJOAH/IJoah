@@ -1,49 +1,97 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar } from "@material-tailwind/react";
 
-
 const MoodWeather = () => {
-  return <div>
+  const [selectedMood, setSelectedMood] = useState<string | null>(null);
 
-  오늘의 기분 날씨는 어떤가요?
-  <Avatar
-      size="lg"
-      alt="avatar"
-      src="/img/face-2.jpg"
-      className="border border-green-500 shadow-xl shadow-green-900/20 ring-4 ring-green-500/30"
-    />
+  const handleMoodClick = (mood: string) => {
+    if (selectedMood === mood) {
+      // 이미 선택된 버튼을 다시 클릭하면 선택 해제
+      setSelectedMood(null);
+    } else {
+      // 다른 버튼을 클릭하면 선택한 버튼 갱신
+      setSelectedMood(mood);
+    }
+  };
 
-<Avatar
-      size="lg"
-      alt="avatar"
-      src="/img/face-2.jpg"
-      className="border border-green-500 shadow-xl shadow-green-900/20 ring-4 ring-green-500/30"
-    />
+  const isMoodSelected = (mood: string) => {
+    return selectedMood === mood;
+  };
 
-<Avatar
-      size="lg"
-      alt="avatar"
-      src="/img/face-2.jpg"
-      className="border border-green-500 shadow-xl shadow-green-900/20 ring-4 ring-green-500/30"
-    />
+  return (
+    <div>
+      <div className="text-xl">오늘의 기분 날씨는 어떤가요?</div>
+      <div className="flex gap-4">
+        <div>
+          <Avatar
+            size="lg"
+            alt="avatar"
+            src="/weather/sunny.png"
+            className={`border border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
+              isMoodSelected("sunny") ? "ring-[red] border-[red]" : ""
+            }`}
+            onClick={() => {
+              handleMoodClick("sunny");
+            }}
+          />
+        </div>
+        <div>
+          <Avatar
+            size="lg"
+            alt="avatar"
+            src="/weather/sunrise.png"
+            className={`border border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
+              isMoodSelected("sunrise") ? "ring-[red] border-[red]" : ""
+            }`}
+            onClick={() => {
+              handleMoodClick("sunrise");
+            }}
+          />
+        </div>
+        <div>
+          <Avatar
+            size="lg"
+            alt="avatar"
+            src="/weather/drop.png"
+            className={`border border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
+              isMoodSelected("drop") ? "ring-[red] border-[red]" : ""
+            }`}
+            onClick={() => {
+              handleMoodClick("drop");
+            }}
+          />
+        </div>
+        <div>
+          <Avatar
+            size="lg"
+            alt="avatar"
+            src="/weather/wind.png"
+            className={`border border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
+              isMoodSelected("wind") ? "ring-[red] border-[red]" : ""
+            }`}
+            onClick={() => {
+              handleMoodClick("wind");
+            }}
+          />
+        </div>
 
-<Avatar
-      size="lg"
-      alt="avatar"
-      src="/img/face-2.jpg"
-      className="border border-green-500 shadow-xl shadow-green-900/20 ring-4 ring-green-500/30"
-    />
-
-<Avatar
-      size="lg"
-      alt="avatar"
-      src="/img/face-2.jpg"
-      className="border border-green-500 shadow-xl shadow-green-900/20 ring-4 ring-green-500/30"
-    />
-
-
-
-  </div>;
+        <div>
+          <Avatar
+            size="lg"
+            alt="avatar"
+            src="/weather/thunder.png"
+            //보더 넣을거면 참고하기 className="border border-green-500 shadow-xl shadow-green-900/20 ring-4 ring-green-500/30"
+            className={`border border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
+              isMoodSelected("thunder") ? "ring-[red] border-[red]" : ""
+            }`}
+            onClick={() => {
+              handleMoodClick("thunder");
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default MoodWeather;
