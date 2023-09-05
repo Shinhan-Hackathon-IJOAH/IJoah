@@ -1,9 +1,11 @@
 package com.shinhan.shbhack.ijoa.domain.member.entity;
 
 import com.shinhan.shbhack.ijoa.domain.BaseEntity;
+import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.ConfirmStatus;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.NotificationType;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -47,11 +49,18 @@ public class Notification extends BaseEntity {
     @JoinColumn(name = "mission_id")
     private Mission mission;
 
-    /**
-     *  2023-09-03
-     *  diary entity 추가 시 연관관계 맵핑 추가
-     *  builder 추가
-     */
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "diary_id")
+    private Diary diary;
 
-
+    @Builder
+    public Notification(Long id, NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, Diary diary) {
+        this.id = id;
+        this.notificationType = notificationType;
+        this.confirmStatus = confirmStatus;
+        this.receiver = receiver;
+        this.sender = sender;
+        this.mission = mission;
+        this.diary = diary;
+    }
 }
