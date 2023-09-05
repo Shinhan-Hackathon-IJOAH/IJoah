@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 const ChildMissionDetailPage = () => {
 
-     const { missionid } = useParams<{ missionid: string }>();
+    const { missionid } = useParams<{ missionid: string }>();
 
     return (
         <div>

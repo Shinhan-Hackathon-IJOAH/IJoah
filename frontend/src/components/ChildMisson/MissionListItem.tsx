@@ -8,7 +8,7 @@ interface MissionListItemProps{
 const MissionListItem: React.FC<MissionListItemProps> = ({missionid}) => {
     const navigate = useNavigate();
     const detailClick = ()=>{
-        navigate(`/child/mission/detail/${missionid}`)
+        navigate(`/parent/mission/detail/${missionid}`)
     } 
     return (
         <div onClick={detailClick}>
