@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public class MemberQueryRepository {
 
     private final JPAQueryFactory queryFactory;
+
 }
