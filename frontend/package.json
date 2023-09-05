@@ -38,7 +38,8 @@
     "workbox-routing": "^6.6.0",
     "workbox-strategies": "^6.6.0",
     "workbox-streams": "^6.6.0",
-    "zustand": "^4.4.1"
+    "zustand": "^4.4.1",
+    "zustand-persist": "^0.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -65,6 +66,7 @@
     ]
   },
   "devDependencies": {
+    "@types/tailwindcss": "^3.1.0",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.29",
     "tailwindcss": "^3.3.3"
