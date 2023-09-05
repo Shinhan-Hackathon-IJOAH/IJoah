@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
@@ -39,4 +40,12 @@ public class Diary extends BaseEntity {
     @NotNull
     private LocalDate diary_date;
 
+    @OneToMany(mappedBy = "diary")
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "diary")
+    private List<DiaryImage> images;
+
+    @OneToMany(mappedBy = "diary")
+    private List<DiaryShare> shares;
 }
