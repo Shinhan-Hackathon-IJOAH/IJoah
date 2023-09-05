@@ -1,6 +1,9 @@
 package com.shinhan.shbhack.ijoa.domain.member.entity;
 
 import com.shinhan.shbhack.ijoa.domain.BaseEntity;
+import com.shinhan.shbhack.ijoa.domain.diary.entity.Comment;
+import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
+import com.shinhan.shbhack.ijoa.domain.diary.entity.DiaryShare;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.ActivateStatus;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.Gender;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.MemberRole;
@@ -96,12 +99,39 @@ public class Member extends BaseEntity {
     @OneToOne(mappedBy = "member", cascade = ALL, orphanRemoval = true)
     private ProfileImage profileImage;
 
-    /**
-     *  2023-09-03
-     *  diary, diary_share, comment entity 추가 시 연관관계 맵핑 추가
-     *  builder 추가
-     */
+    @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
+    private List<Diary> diaries = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
+    private List<DiaryShare> diaryShares = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
+    @Builder
+    public Member(Long id, String name, String nickname, String email, String password, String account, String address, LocalDate birthDate, Gender gender, MemberRole memberRole, ActivateStatus activateStatus, List<Family> children, List<Family> parents, List<Friend> firstFriends, List<Friend> secondFriends, List<Mission> writers, List<Mission> challengers, List<Notification> receivers, List<Notification> senders, ProfileImage profileImage, List<Diary> diaries, List<DiaryShare> diaryShares, List<Comment> comments) {
+        this.id = id;
+        this.name = name;
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+        this.account = account;
+        this.address = address;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.memberRole = memberRole;
+        this.activateStatus = activateStatus;
+        this.children = children;
+        this.parents = parents;
+        this.firstFriends = firstFriends;
+        this.secondFriends = secondFriends;
+        this.writers = writers;
+        this.challengers = challengers;
+        this.receivers = receivers;
+        this.senders = senders;
+        this.profileImage = profileImage;
+        this.diaries = diaries;
+        this.diaryShares = diaryShares;
+        this.comments = comments;
+    }
 }
