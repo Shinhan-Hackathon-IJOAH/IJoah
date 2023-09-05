@@ -28,6 +28,6 @@ export const ChildContent = styled.div`
 export const ChildImg = styled.div`
     background-image: url(${child});
     background-size: 100% 100%;
-    height: 25vh;
-    width: 25vh;
+    height: 30vh;
+    width: 30vh;
 `
