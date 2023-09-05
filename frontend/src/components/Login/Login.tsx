@@ -1,16 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@material-tailwind/react';
+import { Button,Input } from '@material-tailwind/react';
+import { Logo,LoginContent,InputTag,SignupContainer,SignupAnchor,LoginButton } from './LoginStyles';
+
 const Login = () => {
     const navigate = useNavigate();
 
     return (
-        <div>
-            <h1>우리 프로젝트 명</h1>
-            <label>아이디</label>
-            <input type="text"></input>
-            <label>비밀번호</label>
-            <input type="text"></input>
+        <LoginContent>
+            <Logo/>
+            <InputTag>
+            <div className="flex w-64 flex-col gap-6">
+                <Input color="orange" label="아이디" crossOrigin={undefined} style={{ backgroundColor: '#ffffff' }} />
+                <Input color="orange" label="비밀번호" crossOrigin={undefined} style={{ backgroundColor: '#ffffff' }} />
+            </div>
+            <LoginButton>
             <Button onClick={()=>{
                 navigate('/parent');
             }
@@ -19,10 +23,15 @@ const Login = () => {
                 navigate('/child');
             }
             }>부모 화면으로</Button>
-            <Button color="blue" onClick={()=>{
-                navigate('/signUp');}
-            }>회원가입</Button>
-        </div>
+            </LoginButton>
+            <SignupContainer>
+                <SignupAnchor 
+                onClick={()=>{
+                    navigate('/signUp');}
+                }>아직 회원이 아니신가요?</SignupAnchor>
+            </SignupContainer>
+            </InputTag>
+        </LoginContent>
     );
 };
 
