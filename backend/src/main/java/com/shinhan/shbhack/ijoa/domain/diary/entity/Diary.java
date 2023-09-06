@@ -25,7 +25,7 @@ public class Diary extends BaseEntity {
     @Id
     @Column(name="diary_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer diaryId;
+    private Long diaryId;
 
     @NotNull
     @ManyToOne(fetch = LAZY)
@@ -41,9 +41,6 @@ public class Diary extends BaseEntity {
 
     @NotNull
     private LocalDate diary_date;
-
-    @OneToMany(mappedBy = "diary")
-    private List<Comment> comments;
 
     @OneToMany(mappedBy = "diary")
     private List<DiaryImage> images;

@@ -1,6 +1,9 @@
 package com.shinhan.shbhack.ijoa.api.service.diary.command;
 
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.request.DiaryCreateServiceRequest;
+import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryCalenderResponse;
+import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryDetailResponse;
+import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryImageResponse;
 import com.shinhan.shbhack.ijoa.common.util.file.FileStore;
 import com.shinhan.shbhack.ijoa.common.util.file.UploadFile;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
@@ -48,9 +51,17 @@ public class DiaryService {
         }
     }
 
-    public List<Diary> listDiary(Long memberId){
+    public List<DiaryCalenderResponse> listDiary(Long memberId){
         log.info("멤버 아이디: " + memberId.toString());
 
         return diaryQueryRepository.findByMember(memberId);
+    }
+
+    public DiaryDetailResponse readDiary(Long diaryId){
+        log.info("다이어리 읽기, diaryId : "+diaryId);
+        DiaryDetailResponse result = diaryQueryRepository.findDetailById(diaryId);
+        List<DiaryImageResponse> diaryImageResponseList = diaryQueryRepository.findImagesById(diaryId);
+        result.setImages(diaryImageResponseList);
+        return result;
     }
 }

@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.domain.diary.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.request.DiaryCreateServiceRequest;
 import com.shinhan.shbhack.ijoa.common.util.file.UploadFile;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
@@ -22,7 +23,7 @@ public class DiaryImage {
     @Id
     @Column(name = "diary_image_id")
     @GeneratedValue(strategy = IDENTITY)
-    private Integer diaryImageId;
+    private Long diaryImageId;
 
     @NotNull
     @ManyToOne(fetch = LAZY)

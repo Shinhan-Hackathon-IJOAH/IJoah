@@ -19,7 +19,7 @@ public class DiaryShare extends BaseEntity {
     @Id
     @Column(name="diary_share_id")
     @GeneratedValue(strategy = IDENTITY)
-    private Integer diaryShareId;
+    private Long diaryShareId;
 
     @NotNull
     @ManyToOne(fetch = LAZY)

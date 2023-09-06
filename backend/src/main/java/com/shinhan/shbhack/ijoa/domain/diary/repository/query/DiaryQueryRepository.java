@@ -1,9 +1,17 @@
 package com.shinhan.shbhack.ijoa.domain.diary.repository.query;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
-import com.shinhan.shbhack.ijoa.domain.diary.entity.QDiary;
-import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
+import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryCalenderResponse;
+import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryDetailResponse;
+import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryImageResponse;
+
+import static com.shinhan.shbhack.ijoa.domain.diary.entity.QDiary.diary;
+
+import static com.shinhan.shbhack.ijoa.domain.member.entity.QMember.member;
+import static com.shinhan.shbhack.ijoa.domain.diary.entity.QDiaryImage.diaryImage;
+
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +23,18 @@ public class DiaryQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public List<Diary> findByMember(Long memberID){
-        return queryFactory.selectFrom(QDiary.diary).where(QDiary.diary.member.id.eq(memberID)).fetch();
+    public List<DiaryCalenderResponse> findByMember(Long memberID){
+        return queryFactory.select(Projections.fields(DiaryCalenderResponse.class, diary.diaryId.as("id"), diary.diary_date.as("date"))).from(diary)
+                .join(diary.member, member).where(diary.member.id.eq(memberID)).orderBy(diary.diary_date.asc()).fetch();
+    }
+
+    public DiaryDetailResponse findDetailById(Long diaryId){
+        return queryFactory.select(Projections.fields(DiaryDetailResponse.class, diary.diaryId, diary.title, diary.content, diary.diary_date)).from(diary)
+                .where(diary.diaryId.eq(diaryId)).fetchOne();
+    }
+
+    public List<DiaryImageResponse> findImagesById(Long diaryId){
+        return queryFactory.select(Projections.fields(DiaryImageResponse.class, diaryImage.diaryImageId, diaryImage.uploadFileName, diaryImage.storeFileName)).from(diaryImage)
+                .join(diaryImage.diary, diary).where(diaryImage.diary.diaryId.eq(diaryId)).fetch();
     }
 }
