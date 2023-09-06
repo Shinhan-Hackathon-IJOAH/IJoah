@@ -11,5 +11,6 @@ import static lombok.AccessLevel.PUBLIC;
 @Getter
 @NoArgsConstructor(access = PUBLIC)
 public class DiaryCalenderResponse {
+    private Long id;
     private LocalDate date;
 }
