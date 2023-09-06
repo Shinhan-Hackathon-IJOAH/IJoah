@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.domain.diary.entity;
 
+import com.shinhan.shbhack.ijoa.api.service.diary.dto.request.DiaryCreateServiceRequest;
 import com.shinhan.shbhack.ijoa.domain.BaseEntity;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
 import lombok.*;
@@ -17,6 +18,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = PROTECTED)
 public class Diary extends BaseEntity {
 
@@ -48,4 +50,15 @@ public class Diary extends BaseEntity {
 
     @OneToMany(mappedBy = "diary")
     private List<DiaryShare> shares;
+
+
+    public static Diary of(DiaryCreateServiceRequest diaryCreateServiceRequest, Member member){
+        Diary diary = new Diary();
+        diary.setMember(member);
+        diary.setTitle(diaryCreateServiceRequest.getTitle());
+        diary.setDiary_date(diaryCreateServiceRequest.getDate());
+        diary.setContent(diaryCreateServiceRequest.getContent());
+//        diary.setImages(images);
+        return diary;
+    }
 }

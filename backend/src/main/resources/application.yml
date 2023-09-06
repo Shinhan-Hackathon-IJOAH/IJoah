@@ -65,7 +65,7 @@ app:
     #emailCodeExpirationMs: 100000000
 
 file:
-  dir: /imagesss/
+  dir: C:\\Users\\ssafy\\Downloads\\
 
 
 # spring mail
