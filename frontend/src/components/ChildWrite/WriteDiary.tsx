@@ -14,18 +14,23 @@ const WriteDiary = () => {
   };
 
   return (
-    <div>
-      <div className="w-72">
+    <div className="mt-16 flex justify-center flex-col text-center text-2xl font-['HSYuji-Regular']">
+      <div>오늘의 용돈일기를 작성해주세요 !</div>
+      <div className="w-[70vw] lg:w-[30vw] mt-6 flex justify-center mx-auto font-['HSYuji-Regular']">
         <Input
-          label="제목을 입력해주세요."
+          style={{ backgroundColor: "#ffffff" }}
+          color="orange"
+          label="제목"
           value={title}
           onChange={handleTitleChange}
           crossOrigin={undefined}
         />
       </div>
-      <div className="w-96">
+      <div className="w-[70vw] lg:w-[30vw] mx-auto mt-7 text-2xl flex justify-center font-['HSYuji-Regular']">
         <Textarea
-          label="내용을 입력해주세요."
+          style={{ backgroundColor: "#ffffff" }}
+          color="orange"
+          label="오늘 하루 무슨 일이 있었나요?"
           value={content}
           onChange={handleContentChange}
         />
