@@ -5,19 +5,26 @@ import ReadDirayButton from "../../../components/ChildMain/ReadDirayButton";
 import WriteDiaryButton from "../../../components/ChildMain/WriteDiaryButton";
 import TradeListButton from "../../../components/ChildMain/TradeListButton";
 import BottomNav from "../../../components/Common/BottomNav";
-
 import { Button } from "@material-tailwind/react";
+import {ChildMainPageContent,Logo,ButtonContainer,SideButtonContainer} from "./ChildMainPageStyles"
+
 const ChildMainPage = () => {
   return (
-    <div>
+    <ChildMainPageContent>
+      <Logo/>
       <ChildInfo />
-      <ChildMissionButton />
-      <ReadDirayButton />
-      <WriteDiaryButton />
-      <TradeListButton />
-
-      <BottomNav />
-    </div>
+      <ButtonContainer>
+        <SideButtonContainer>
+          <WriteDiaryButton />
+          <ReadDirayButton />
+        </SideButtonContainer>
+        <SideButtonContainer>
+          <TradeListButton />
+          <ChildMissionButton />
+        </SideButtonContainer>
+      </ButtonContainer>
+      <BottomNav/>
+    </ChildMainPageContent>
   );
 };
 
