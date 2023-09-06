@@ -10,8 +10,8 @@ interface DiaryStore {
   setContent: (content: any) => void;
   date: any;
   setDate: (date: any) => void;
-  picture: any;
-  setPicture: (picture: any) => void;
+  picture: string[]; // picture를 문자열 배열로 정의
+  setPicture: (picture: string[]) => void; // setPicture 함수도 문자열 배열을 받도록 정의
   voice: any;
   setVoice: (voice: any) => void;
   weatherMood: any;
@@ -25,11 +25,13 @@ export const useDiaryStore = create<DiaryStore>()(
         title: "",
         content: "",
         date: "",
-        picture: "",
+        picture: [],
         voice: "",
         weatherMood: "",
         setWeatherMood: (payload) => set({ weatherMood: payload }),
-        setPicture: (payload) => set({ picture: payload }),
+        // setPicture: (payload) => set({ picture: payload }),
+        // 배열을 받기 위한 store
+        setPicture: (payload) => set({ picture: [...payload] }),
         setVoice: (payload) => set({ voice: payload }),
         setContent: (payload) => set({ content: payload }),
         setTitle: (payload) => set({ title: payload }),

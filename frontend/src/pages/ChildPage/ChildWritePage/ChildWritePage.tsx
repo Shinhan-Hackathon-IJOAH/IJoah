@@ -7,7 +7,7 @@ import BottomButton from "../../../components/ChildWrite/BottomButton";
 import MoodWeather from "../../../components/ChildWrite/MoodWeather";
 import WriteDiary from "../../../components/ChildWrite/WriteDiary";
 import { useDiaryStore } from "../../../store/DiaryStore";
-
+import { Carousel } from "@material-tailwind/react";
 const ChildWritePage = () => {
   const {
     setWeatherMood,
@@ -22,26 +22,23 @@ const ChildWritePage = () => {
     setTitle("");
     setContent("");
     setDate("");
-    setPicture("");
+    setPicture([]);
     setVoice("");
     setWeatherMood("");
   }, []);
 
   return (
-    <div>
-      <div>오늘의 용돈일기를 작성해볼까요?</div>
-      <hr></hr>
-      <TradeList></TradeList>
-      <hr></hr>
+    <div className="bg-[#ffecc8] w-[100vw]">
+      <div className="h-[20vh] flex flex-col justify-center items-center text-3xl font-semibold font-['HSYuji-Regular']">
+        <p className="text-center">김하영님,</p>
+        <p className="text-center mt-2">용돈일기를 작성해볼까요?</p>
+      </div>
       <DiaryCalender></DiaryCalender>
-      <hr></hr>
+      <TradeList></TradeList>
       <MoodWeather></MoodWeather>
       <WriteDiary></WriteDiary>
-      <hr></hr>
       <UploadPicture></UploadPicture>
-      <hr></hr>
-      <VoiceRecord></VoiceRecord>
-      <hr></hr>
+      {/* <VoiceRecord></VoiceRecord> */}
       <BottomButton></BottomButton>
     </div>
   );
