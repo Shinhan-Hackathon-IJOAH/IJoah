@@ -21,9 +21,11 @@ const MoodWeather = () => {
   };
 
   return (
-    <div>
-      <div className="text-xl">오늘의 기분 날씨는 어떤가요?</div>
-      <div className="flex gap-4">
+    <div className="mt-10">
+      <div className="text-2xl text-center font-['HSYuji-Regular']">
+        오늘의 기분 날씨는 어떤가요 ?
+      </div>
+      <div className="flex mt-5 gap-4 justify-center">
         <div>
           <Avatar
             size="lg"
