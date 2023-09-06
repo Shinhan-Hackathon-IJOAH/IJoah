@@ -1,19 +1,19 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import {MissionContainer,MissionImg} from "./ChildMissionButtonStyles"
+
 const ChildMissionButton = () => {
   const navigate = useNavigate();
   return (
-    <div>
-      <Button
-        variant="contained"
-        onClick={() => {
-          navigate("/child/mission");
-        }}
-      >
+    <MissionContainer
+    onClick={() => {
+      navigate("/child/mission");
+    }}>
+      <MissionImg/>
         내 미션 확인하기
-      </Button>
-    </div>
+      
+    </MissionContainer>
   );
 };
 
