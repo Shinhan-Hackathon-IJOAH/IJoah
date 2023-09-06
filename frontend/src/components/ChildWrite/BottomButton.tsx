@@ -7,9 +7,10 @@ const BottomButton = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <Button>일기 등록하기</Button>
+    <div className="mt-10 flex justify-center gap-4">
+      <Button className="bg-[#FF8A3D]">일기 쓰기</Button>
       <Button
+        className="bg-[#F8A70C]"
         onClick={() => {
           console.log(title);
           console.log(content);
