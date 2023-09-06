@@ -1,8 +1,12 @@
 package com.shinhan.shbhack.ijoa.domain.diary.entity;
 
+import com.shinhan.shbhack.ijoa.api.service.diary.dto.request.DiaryCreateServiceRequest;
+import com.shinhan.shbhack.ijoa.common.util.file.UploadFile;
+import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 public class DiaryImage {
     @Id
@@ -30,4 +35,11 @@ public class DiaryImage {
     @NotNull
     private String storeFileName;
 
+    public static DiaryImage of(UploadFile fileInfos, Diary diary){
+        DiaryImage diaryImage = new DiaryImage();
+        diaryImage.setDiary(diary);
+        diaryImage.setUploadFileName(fileInfos.getUploadFileName());
+        diaryImage.setStoreFileName(fileInfos.getStoreFileName());
+        return diaryImage;
+    }
 }
