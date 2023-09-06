@@ -12,61 +12,98 @@ import {
   ArchiveBoxIcon,
   CurrencyDollarIcon,
 } from "@heroicons/react/24/solid";
-const TradeList = () => {
-  return (
-    <div className="w-[25rem]">
-      오늘은 돈을 어디에 썼을까요?
-      <Timeline>
-        <TimelineItem className="h-28">
-          <TimelineConnector className="!w-[78px]" />
-          <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-            <TimelineIcon className="p-3" variant="ghost">
-              <BellIcon className="h-5 w-5" />
-            </TimelineIcon>
-            <div className="flex flex-col gap-1">
-              <Typography variant="h6" color="blue-gray">
-                $2400, Design changes
-              </Typography>
-              <Typography variant="small" color="gray" className="font-normal">
-                22 DEC 7:20 PM
-              </Typography>
-            </div>
-          </TimelineHeader>
-        </TimelineItem>
-        <TimelineItem className="h-28">
-          <TimelineConnector className="!w-[78px]" />
-          <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-            <TimelineIcon className="p-3" variant="ghost" color="red">
-              <ArchiveBoxIcon className="h-5 w-5" />
-            </TimelineIcon>
-            <div className="flex flex-col gap-1">
-              <Typography variant="h6" color="blue-gray">
-                New order #1832412
-              </Typography>
-              <Typography variant="small" color="gray" className="font-normal">
-                21 DEC 11 PM
-              </Typography>
-            </div>
-          </TimelineHeader>
-        </TimelineItem>
-        <TimelineItem className="h-28">
-          <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-            <TimelineIcon className="p-3" variant="ghost" color="green">
-              <CurrencyDollarIcon className="h-5 w-5" />
-            </TimelineIcon>
-            <div className="flex flex-col gap-1">
-              <Typography variant="h6" color="blue-gray">
-                Payment completed for order #4395133
-              </Typography>
-              <Typography variant="small" color="gray" className="font-normal">
-                20 DEC 2:20 AM
-              </Typography>
-            </div>
-          </TimelineHeader>
-        </TimelineItem>
-      </Timeline>
-    </div>
-  );
-};
 
+interface TradeList {
+  id: number;
+  bgColor: string;
+  title: string;
+  time: string;
+  amount: string;
+}
+
+const TradeList = () => (
+  <div className="mt-10">
+    <div className="flex justify-center w-[100vw] font-['HSYuji-Regular']  text-2xl mb-5">
+      오늘은 무엇을 샀나요?
+    </div>
+    <div className="container mx-auto w-[80vw] h-full  xl::w-[50vw]">
+      <div className="relative wrap overflow-hidden p-h-full">
+        <div className="border-2-2 absolute border-opacity-20 border-gray-700 h-full border left-1/2"></div>
+        {/* 거래내역1 */}
+
+        <div className="mb-8 flex justify-between items-center w-full right-timeline">
+          <div className="order-1 w-5/12"></div>
+          <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
+            <h1 className="mx-auto font-semibold text-lg text-white">1</h1>
+          </div>
+          <div className="order-1 bg-[#F8A70C] rounded-lg shadow-xl w-5/12 px-6 py-4">
+            <h3 className="mb-2 font-bold text-white text-center text-md lg:text-xl font-['HSYuji-Regular']">
+              거래내역 1
+            </h3>
+            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
+              08시 40분
+            </p>
+            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
+              5,000원
+            </p>
+          </div>
+        </div>
+        {/* 거래내역2 */}
+        <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+          <div className="order-1 w-5/12"></div>
+          <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
+            <h1 className="mx-auto text-white font-semibold text-lg">2</h1>
+          </div>
+          <div className="order-1 bg-[#FF8A3D] rounded-lg shadow-xl w-5/12 px-6 py-4">
+            <h3 className="mb-2 font-bold text-white text-center text-md lg:text-xl font-['HSYuji-Regular']">
+              거래내역 1
+            </h3>
+            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
+              08시 40분
+            </p>
+            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
+              5,000원
+            </p>
+          </div>
+        </div>
+        {/* 거래내역3 flex-row-reverse가 있고 없고 차이 => 즉, 홀수일때는 없고 짝수일때는 있게 설정하면 될듯. 컬러도 다르게! */}
+        <div className="mb-8 flex justify-between  items-center w-full right-timeline">
+          <div className="order-1 w-5/12"></div>
+          <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
+            <h1 className="mx-auto text-white font-semibold text-lg">3</h1>
+          </div>
+          <div className="order-1 bg-[#F8A70C] rounded-lg shadow-xl w-5/12 px-6 py-4">
+            <h3 className="mb-2 font-bold text-white text-center text-md lg:text-xl font-['HSYuji-Regular']">
+              거래내역 1
+            </h3>
+            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
+              08시 40분
+            </p>
+            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
+              5,000원
+            </p>
+          </div>
+        </div>
+        {/* 거래내역4 */}
+        <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+          <div className="order-1 w-5/12"></div>
+          <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
+            <h1 className="mx-auto text-white font-semibold text-lg">4</h1>
+          </div>
+          <div className="order-1 bg-[#FF8A3D] rounded-lg shadow-xl w-5/12 px-6 py-4">
+            <h3 className="mb-2 font-bold text-white text-center text-md lg:text-xl font-['HSYuji-Regular']">
+              거래내역 1
+            </h3>
+            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
+              08시 40분
+            </p>
+            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
+              5,000원
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 export default TradeList;
