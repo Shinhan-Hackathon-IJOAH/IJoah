@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 import { Avatar } from "@material-tailwind/react";
+import { useDiaryStore } from "../../store/DiaryStore";
 
 const MoodWeather = () => {
+  const { weatherMood, setWeatherMood } = useDiaryStore();
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
 
   const handleMoodClick = (mood: string) => {
-    if (selectedMood === mood) {
+    if (weatherMood === mood) {
       // 이미 선택된 버튼을 다시 클릭하면 선택 해제
-      setSelectedMood(null);
+      setWeatherMood(null);
     } else {
       // 다른 버튼을 클릭하면 선택한 버튼 갱신
-      setSelectedMood(mood);
+      setWeatherMood(mood);
     }
   };
 
   const isMoodSelected = (mood: string) => {
-    return selectedMood === mood;
+    return weatherMood === mood;
   };
 
   return (
-    <div>
-      <div className="text-xl">오늘의 기분 날씨는 어떤가요?</div>
-      <div className="flex gap-4">
+    <div className="mt-10">
+      <div className="text-2xl text-center font-['HSYuji-Regular']">
+        오늘의 기분 날씨는 어떤가요 ?
+      </div>
+      <div className="flex mt-5 gap-4 justify-center">
         <div>
           <Avatar
             size="lg"

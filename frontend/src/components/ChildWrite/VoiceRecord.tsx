@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from "react";
-
+import { useDiaryStore } from "../../store/DiaryStore";
 const AudioRecord = () => {
+  const { title, content } = useDiaryStore();
+
   const [stream, setStream] = useState<MediaStream | undefined>(undefined);
   const [media, setMedia] = useState<MediaRecorder | null>(null);
   const [onRec, setOnRec] = useState<boolean>(true);
@@ -12,10 +14,10 @@ const AudioRecord = () => {
   );
   const [audioUrl, setAudioUrl] = useState<Blob | null>(null);
   const [disabled, setDisabled] = useState<boolean>(true); // 😀😀😀
-  
 
   const onRecAudio = () => {
-    const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const audioCtx = new (window.AudioContext ||
+      (window as any).webkitAudioContext)();
     const analyser = audioCtx.createScriptProcessor(0, 1, 1);
     setAnalyser(analyser);
 
@@ -84,11 +86,12 @@ const AudioRecord = () => {
 
   return (
     <>
+      {title}
+      {content}
       <button onClick={onRec ? onRecAudio : offRecAudio}>
         {onRec ? "녹음 시작" : "녹음 중지"}
       </button>
       <button onClick={onSubmitAudioFile}>결과 확인</button>
-  
     </>
   );
 };
