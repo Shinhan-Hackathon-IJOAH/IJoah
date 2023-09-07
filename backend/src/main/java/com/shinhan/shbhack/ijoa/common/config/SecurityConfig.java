@@ -44,10 +44,14 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers("/api/member", "/api/diaries", "/api/auth/kakao", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .antMatchers("/**", "/api/member", "/api/diaries", "/api/auth/kakao", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+                .oauth2Login()
+                .loginPage("/loginForm");
+
+//                .and()
+//                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
