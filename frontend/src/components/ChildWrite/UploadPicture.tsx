@@ -26,6 +26,7 @@ const FileUpload: React.FC = () => {
         imageUrls.push(imageUrl);
       }
       setPicture(imageUrls);
+      console.log(picture);
     }
   };
 
