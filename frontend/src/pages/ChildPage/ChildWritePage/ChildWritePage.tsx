@@ -7,25 +7,24 @@ import BottomButton from "../../../components/ChildWrite/BottomButton";
 import MoodWeather from "../../../components/ChildWrite/MoodWeather";
 import WriteDiary from "../../../components/ChildWrite/WriteDiary";
 import { useDiaryStore } from "../../../store/DiaryStore";
-import { Carousel } from "@material-tailwind/react";
 const ChildWritePage = () => {
-  const {
-    setWeatherMood,
-    setPicture,
-    setVoice,
-    setContent,
-    setTitle,
-    setDate,
-  } = useDiaryStore();
-  // 여기 들어왔을때 스토어 값 불러와서 useEffect활용해서 모두 초기화해주기.
-  useEffect(() => {
-    setTitle("");
-    setContent("");
-    setDate("");
-    setPicture([]);
-    setVoice("");
-    setWeatherMood("");
-  }, []);
+  // const {
+  //   setWeatherMood,
+  //   setPicture,
+  //   setVoice,
+  //   setContent,
+  //   setTitle,
+  //   setDate,
+  // } = useDiaryStore();
+  // // 여기 들어왔을때 스토어 값 불러와서 useEffect활용해서 모두 초기화해주기.
+  // useEffect(() => {
+  //   setTitle("");
+  //   setContent("");
+  //   setDate("");
+  //   setPicture([]);
+  //   setVoice("");
+  //   setWeatherMood("");
+  // }, []);
 
   return (
     <div className="bg-[#ffecc8] w-[100vw]">

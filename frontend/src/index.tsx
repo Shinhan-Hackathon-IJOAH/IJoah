@@ -7,18 +7,20 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 // @material-tailwind/react
 import { ThemeProvider } from "@material-tailwind/react";
+// semantic-ui-react
+import "semantic-ui-css/semantic.min.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <BrowserRouter>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </BrowserRouter>
+  // </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change

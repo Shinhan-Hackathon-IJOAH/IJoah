@@ -19,11 +19,21 @@ const DiaryCalendar = () => {
     <div className="flex justify-center mt-2 ">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={["DatePicker"]}>
-          <DatePicker
+          {/* <DatePicker
             format="YYYY년 MM월 DD일"
             label="날짜를 선택해주세요."
             value={value}
             onChange={(newValue) => setDate(newValue)}
+          /> */}
+          <DatePicker
+            label="날짜를 선택해주세요"
+            onChange={(newDate: dayjs.Dayjs | null) => {
+              if (newDate) {
+                setDate(newDate.format("YYYY-MM-DD"));
+              }
+            }}
+            format="YYYY년-MM월-DD일"
+            sx={{ marginBottom: "1rem" }}
           />
         </DemoContainer>
       </LocalizationProvider>
