@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const ChildSignUp = () => {
-    return (
-        <div>
-            <div>자식 회원가입 페이지</div>
-        </div>
-    );
+  return (
+    <div>
+      <div>아이 회원가입 페이지</div>
+    </div>
+  );
 };
 
 export default ChildSignUp;
