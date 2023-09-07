@@ -22,6 +22,7 @@ public class DiaryCreateServiceRequest {
     private String content;
     private LocalDate date;
     private List<MultipartFile> photo;
+    private MultipartFile record;
 
     public DiaryCreateServiceRequest(DiaryCreateRequest diaryCreateRequest) {
         this.memberId = diaryCreateRequest.getMemberId();
@@ -30,5 +31,6 @@ public class DiaryCreateServiceRequest {
         this.content = diaryCreateRequest.getContent();
         this.date = diaryCreateRequest.getDate();
         this.photo = diaryCreateRequest.getPhoto();
+        this.record = diaryCreateRequest.getRecord();
     }
 }

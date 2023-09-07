@@ -40,14 +40,17 @@ public class Diary extends BaseEntity {
     private String content;
 
     @NotNull
+    private String emotion;
+
+    @NotNull
     private LocalDate diary_date;
 
     @OneToMany(mappedBy = "diary")
     private List<DiaryImage> images;
 
-    @OneToMany(mappedBy = "diary")
-    private List<DiaryShare> shares;
 
+    @OneToOne(mappedBy = "diary")
+    private DiaryRecord record;
 
     public static Diary of(DiaryCreateServiceRequest diaryCreateServiceRequest, Member member){
         Diary diary = new Diary();
@@ -55,7 +58,7 @@ public class Diary extends BaseEntity {
         diary.setTitle(diaryCreateServiceRequest.getTitle());
         diary.setDiary_date(diaryCreateServiceRequest.getDate());
         diary.setContent(diaryCreateServiceRequest.getContent());
-//        diary.setImages(images);
+        diary.setEmotion(diaryCreateServiceRequest.getEmotion());
         return diary;
     }
 }
