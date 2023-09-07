@@ -104,8 +104,6 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
     private List<DiaryShare> diaryShares = new ArrayList<>();
 
-
-
     @Builder
     public Member(Long id, String name, String nickname, String email, String password, String account, String address, LocalDate birthDate, Gender gender, MemberRole memberRole, ActivateStatus activateStatus, List<Family> children, List<Family> parents, List<Friend> firstFriends, List<Friend> secondFriends, List<Mission> writers, List<Mission> challengers, List<Notification> receivers, List<Notification> senders, ProfileImage profileImage, List<Diary> diaries, List<DiaryShare> diaryShares) {
         this.id = id;
