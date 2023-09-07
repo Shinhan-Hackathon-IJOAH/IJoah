@@ -22,6 +22,6 @@ public class DiaryCreateRequest {
     private String content;
     private LocalDate date;
     private List<MultipartFile> photo;
-
+    private MultipartFile record;
 
 }

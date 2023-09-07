@@ -39,4 +39,23 @@ public class DiaryController {
         DiaryDetailResponse result = diaryService.readDiary(diaryId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @PutMapping("/{diaryId}")
+    public ResponseEntity<?> modifyDiary(@PathVariable Long diaryId, @RequestBody DiaryCreateRequest diaryCreateRequest){
+        diaryService.modifyDiary(new DiaryCreateServiceRequest(diaryCreateRequest),diaryId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{diaryId}")
+    public ResponseEntity<?> deleteDiary(@PathVariable Long diaryId){
+        diaryService.deleteDiary(diaryId);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    @PostMapping("/share/{diaryId}")
+    public ResponseEntity<?> shareDiary(@PathVariable Long diaryId){
+        diaryService.shareDiary(diaryId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -10,8 +10,10 @@ import static com.shinhan.shbhack.ijoa.domain.diary.entity.QDiary.diary;
 
 import static com.shinhan.shbhack.ijoa.domain.member.entity.QMember.member;
 import static com.shinhan.shbhack.ijoa.domain.diary.entity.QDiaryImage.diaryImage;
+import static com.shinhan.shbhack.ijoa.domain.diary.entity.QDiaryRecord.diaryRecord;
 
 
+import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryRecordResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -29,12 +31,17 @@ public class DiaryQueryRepository {
     }
 
     public DiaryDetailResponse findDetailById(Long diaryId){
-        return queryFactory.select(Projections.fields(DiaryDetailResponse.class, diary.diaryId, diary.title, diary.content, diary.diary_date)).from(diary)
+        return queryFactory.select(Projections.fields(DiaryDetailResponse.class, diary.diaryId, diary.title, diary.content, diary.diary_date, diary.emotion)).from(diary)
                 .where(diary.diaryId.eq(diaryId)).fetchOne();
     }
 
     public List<DiaryImageResponse> findImagesById(Long diaryId){
         return queryFactory.select(Projections.fields(DiaryImageResponse.class, diaryImage.diaryImageId, diaryImage.uploadFileName, diaryImage.storeFileName)).from(diaryImage)
                 .join(diaryImage.diary, diary).where(diaryImage.diary.diaryId.eq(diaryId)).fetch();
+    }
+
+    public DiaryRecordResponse findRecordById(Long diaryId){
+        return queryFactory.select(Projections.fields(DiaryRecordResponse.class, diaryRecord.diaryRecordId, diaryRecord.uploadFileName, diaryRecord.storeFileName)).from(diaryRecord)
+                .join(diaryRecord.diary, diary).where(diaryRecord.diary.diaryId.eq(diaryId)).fetchOne();
     }
 }
