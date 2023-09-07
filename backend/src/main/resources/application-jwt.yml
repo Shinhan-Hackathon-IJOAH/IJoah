@@ -1,5 +1,5 @@
 app:
   jwt:
-    secret: ssafy_9th_gwanju_c210_donworry_secret_key
+    secret: asldjifiaweghkljhzkxjvhlaisudhflaushdglkjsdkjhviauhrgjklsnhfoivudhs
     accessExpirationMs: 1000000
     refreshExpirationMs: 100000000

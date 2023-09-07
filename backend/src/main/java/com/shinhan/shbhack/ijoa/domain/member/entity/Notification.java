@@ -49,18 +49,18 @@ public class Notification extends BaseEntity {
     @JoinColumn(name = "mission_id")
     private Mission mission;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "diary_id")
-    private Diary diary;
-
-    @Builder
-    public Notification(Long id, NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, Diary diary) {
-        this.id = id;
-        this.notificationType = notificationType;
-        this.confirmStatus = confirmStatus;
-        this.receiver = receiver;
-        this.sender = sender;
-        this.mission = mission;
-        this.diary = diary;
-    }
+//    @ManyToOne(fetch = LAZY)
+//    @JoinColumn(name = "diary_id")
+//    private Diary diary;
+//
+//    @Builder
+//    public Notification(Long id, NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, Diary diary) {
+//        this.id = id;
+//        this.notificationType = notificationType;
+//        this.confirmStatus = confirmStatus;
+//        this.receiver = receiver;
+//        this.sender = sender;
+//        this.mission = mission;
+//        this.diary = diary;
+//    }
 }
