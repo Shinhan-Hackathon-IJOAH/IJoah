@@ -29,19 +29,19 @@ const BottomNav = () => {
         visible={visible}
         width="thin"
       >
-        <div className="">
+        <div className="flex flex-col justify-between h-full">
           <div>
             <Menu.Item as="a">
               <Icon name="home" />
-              Home
+              프로필 수정
             </Menu.Item>
             <Menu.Item as="a">
               <Icon name="gamepad" />
-              Games
+              계좌 등록하기
             </Menu.Item>
             <Menu.Item as="a">
               <Icon name="camera" />
-              Channels
+              엄빠/아이 등록하기
             </Menu.Item>
           </div>
           <div>

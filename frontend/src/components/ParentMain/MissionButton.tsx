@@ -1,17 +1,16 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import {MissionListContainer} from "./MissionButtonStyles"
 
 const MissionButton = () => {
     const navigate = useNavigate();
     return (
-        <div>
-            <button
-            onClick={() => {
-                navigate("/parent/mission");
-              }}>
-                부여한 미션내역
-            </button>
-        </div>
+        <MissionListContainer
+        onClick={() => {
+            navigate("/parent/mission");
+          }}>
+            부여한 미션내역
+        </MissionListContainer>
     );
 };
 
