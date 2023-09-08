@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const MenuPage = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return <div>ㅇㅇㅇ</div>;
 };
 
 export default MenuPage;
