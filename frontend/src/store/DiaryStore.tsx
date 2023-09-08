@@ -20,26 +20,24 @@ interface DiaryStore {
 
 export const useDiaryStore = create<DiaryStore>()(
   devtools(
-    persist(
-      (set) => ({
-        title: "",
-        content: "",
-        date: "",
-        picture: [],
-        voice: "",
-        weatherMood: "",
-        setWeatherMood: (payload) => set({ weatherMood: payload }),
-        // setPicture: (payload) => set({ picture: payload }),
-        // 배열을 받기 위한 store
-        setPicture: (payload) => set({ picture: [...payload] }),
-        setVoice: (payload) => set({ voice: payload }),
-        setContent: (payload) => set({ content: payload }),
-        setTitle: (payload) => set({ title: payload }),
-        setDate: (payload) => set({ date: payload }),
-      }),
-      {
-        name: "Diary-storage", // persist key
-      }
-    )
+    (set) => ({
+      title: "",
+      content: "",
+      date: "",
+      picture: [],
+      voice: "",
+      weatherMood: "",
+      setWeatherMood: (payload) => set({ weatherMood: payload }),
+      // setPicture: (payload) => set({ picture: payload }),
+      // 배열을 받기 위한 store
+      setPicture: (payload) => set({ picture: [...payload] }),
+      setVoice: (payload) => set({ voice: payload }),
+      setContent: (payload) => set({ content: payload }),
+      setTitle: (payload) => set({ title: payload }),
+      setDate: (payload) => set({ date: payload }),
+    }),
+    {
+      name: "Diary-storage", // persist key
+    }
   )
 );

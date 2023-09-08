@@ -11,6 +11,7 @@ import {
   LoginButton,
 } from "./LoginStyles";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { user, setUser } = useUserStore();
@@ -47,7 +48,7 @@ const Login = () => {
         }
       );
       console.log(response.data);
-
+      Swal.fire("Any fool can use a computer");
       // localStorage에 JWT 토큰 저장
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);

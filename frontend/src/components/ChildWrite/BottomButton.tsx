@@ -9,21 +9,29 @@ const BottomButton = () => {
 
   const writeDiary = () => {
     axios
-      .post("https://jsonplaceholder.typicode.com/posts", {
-        memberId: 1,
+      .post("https://ijoah01.duckdns.org/api/diaries/", {
+        memberId: "1",
         title: title,
         emotion: weatherMood,
         content: content,
         date: date,
         record: null,
-        photo: picture,
+        // 사진빼고 post 됨.
+        // photo: picture,
+        photo: [],
       })
       .then((response: any) => {
         console.log("성공");
-
         console.log(response.data);
       })
       .catch((error: any) => {
+        console.log("제목", title, typeof title);
+        console.log("내용", content, typeof content);
+        console.log("날짜", date, typeof date);
+        console.log("기분", weatherMood, typeof weatherMood);
+        console.log("사진", picture, typeof picture);
+        console.log("음성", voice, typeof voice);
+
         console.log("되겠냐");
         console.log(error);
       });
