@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ParentInfo from '../../../components/ParentMain/ParentInfo';
 import PatternButton from '../../../components/ParentMain/PatternButton';
 import GivMissionButton from '../../../components/ParentMain/GiveMissionButton';
@@ -10,9 +10,49 @@ import Avatar from '@mui/material/Avatar';
 import createprofile from '../../../asset/createprofile.png'
 import { useNavigate } from 'react-router-dom';
 import { ParentMainPageContent,Logo,ButtonContainer,SideButtonContainer,ButtonColum} from "./ParentMainPageStyles"
+import axios from 'axios';
+import { register } from './../../../serviceWorkerRegistration';
+import {useSelectChildStore} from "../../../store/SelectChildStore"
+
+interface Profile {
+    id: number;
+    name: string;
+    account: number;
+    imgPath: string;
+    childlist:
+        {
+        id: number;
+        nickname:'';
+        account: '';
+        imgPath : '';
+        }[];
+  }
+  
 
 const ParentMainPage = () => {
+    const {childid,childname,childaccount,setChildId,setChildName,setChildAccount}=useSelectChildStore();
     const navigate = useNavigate();
+    const [parentprofile, setParentProfile] = useState<Profile>();
+
+    const getParentInfo = () =>{
+        axios
+        .get(`....`, {
+            headers: {
+            Authorization: `Bearer`,
+            },
+        })
+        .then((response) => {
+            setParentProfile(response.data.result); 
+            console.log(response.data.result);
+        })
+        .catch((error) => {
+            console.error('데이터 가져오기 오류:', error);
+        });
+    }
+
+    useEffect(() => {
+        getParentInfo();
+      }, []);
 
     return (
         <ParentMainPageContent>
@@ -20,6 +60,20 @@ const ParentMainPage = () => {
             <ParentInfo/>
             <ButtonColum>
             <div className="flex items-center -space-x-4">
+                {parentprofile?.childlist.map((child) => (
+                    <button 
+                        onClick={() => {
+                        setChildId(child.id);
+                        setChildAccount(child.account);
+                        setChildName(child.nickname);
+                    }}>
+                    <Avatar
+                    variant="circular"
+                    className="border-2 border-white hover:z-10 focus:z-10"
+                    src={child.imgPath}
+                    />
+                    </button>
+                ))}
                 <Avatar
                     variant="circular"
                     alt="user 1"
