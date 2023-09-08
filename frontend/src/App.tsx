@@ -21,6 +21,8 @@ import ParentPatternPage from "./pages/ParentPage/ParentPatternPage/ParentPatter
 import ParentRegisterPage from "./pages/ParentPage/ParentRegisterPage/ParentRegisterPage";
 import ParentTradePage from "./pages/ParentPage/ParentTradePage/ParentTradePage";
 import ParentTradeDetailPage from "./pages/ParentPage/ParentTradePage/ParentTradeDetailPage";
+import AlarmPage from "./pages/CommonPage/AlarmPage";
+import MenuPage from "./pages/CommonPage/MenuPage";
 
 function App() {
   return (
@@ -56,6 +58,8 @@ function App() {
           path="/parent/trade/detail"
           element={<ParentTradeDetailPage />}
         />
+        <Route path="/alarm" element={<AlarmPage />} />
+        <Route path="/menu" element={<MenuPage />} />
       </Routes>
     </div>
   );
