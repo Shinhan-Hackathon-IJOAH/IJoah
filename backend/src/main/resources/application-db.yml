@@ -1,6 +1,6 @@
 MYSQL_USER: ssafy
 MYSQL_PASSWORD: ssafy207
-MYSQL_URL: jdbc:mysql://ssafy207.duckdns.org:3306/ijoa?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+MYSQL_URL: jdbc:mysql://ssafy207.duckdns.org:3306/ijoa_test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
 
 ---
 
@@ -11,7 +11,7 @@ spring:
 
 MYSQL_USER: ssafy
 MYSQL_PASSWORD: ssafy
-MYSQL_URL: jdbc:mysql://localhost:3306/ijoa?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+MYSQL_URL: jdbc:mysql://localhost:3306/ijoa_test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
 
 ---
 
@@ -22,4 +22,4 @@ spring:
 
 MYSQL_USER: ssafy
 MYSQL_PASSWORD: ssafy207
-MYSQL_URL: jdbc:mysql://ssafy207.duckdns.org:3306/ijoa?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+MYSQL_URL: jdbc:mysql://ssafy207.duckdns.org:3306/ijoa_test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
