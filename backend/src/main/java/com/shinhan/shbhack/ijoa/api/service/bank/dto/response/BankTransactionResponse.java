@@ -14,9 +14,10 @@ import static lombok.AccessLevel.PUBLIC;
 public class BankTransactionResponse {
     LocalDate date;
     LocalTime time;
-    Long withdrawAccount;
-    Long depositAccount;
+    Long withdrawAmount;
+    Long depositAmount;
     String content;
     Long transactionBalance;
     Integer type;
+    Integer category;
 }

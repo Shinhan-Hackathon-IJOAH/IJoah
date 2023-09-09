@@ -27,13 +27,16 @@ public class TransactionQueryRepository {
     public List<BankTransactionResponse> findDetailByAccount(String accountNumber){
         return queryFactory.select(Projections.fields(BankTransactionResponse.class,
                 transaction.transactionDay.as("date"), transaction.transactionTime.as("time"),
-                transaction.withdrawAmount, transaction.depositAmount, transaction.content, transaction.balance))
+                transaction.withdrawAmount, transaction.depositAmount, transaction.content, transaction.balance.as("transactionBalance"), transaction.category,
+                        transaction.transactionType.as("type")))
                 .from(transaction).where(transaction.accountNumber.eq(accountNumber)).fetch();
     }
 
     public BankBalanceResponse findBalanceByAccount(String accountNumber){
-        return queryFactory.select(Projections.fields(BankBalanceResponse.class, account.balance)).from(account)
+        return queryFactory.select(Projections.fields(BankBalanceResponse.class, account.accountNumber,account.balance)).from(account)
                 .where(account.accountNumber.eq(accountNumber)).fetchOne();
     }
+
+
 
 }
