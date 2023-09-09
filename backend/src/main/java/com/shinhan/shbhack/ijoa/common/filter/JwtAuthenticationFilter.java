@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.common.filter;
 
+import com.shinhan.shbhack.ijoa.common.model.UserInfoModel;
 import com.shinhan.shbhack.ijoa.common.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +17,11 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtUtil jwtTokenProvider;
+    private final JwtUtil jwtUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        final String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         log.debug("token : '{}'", token);
 
         if (token == null || !(token.startsWith("Bearer ") || token.startsWith("Refresh "))) {
@@ -30,12 +31,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (token.startsWith("Bearer ")) {
-            // Access Token 처리
-            if (jwtProvider.isExpired(token, secretKey)) {
+
+            token = token.substring(7);
+
+            if (jwtUtil.isTokenExpired(token)) {
                 log.error("access token is expired");
                 filterChain.doFilter(request, response);
                 return;
             }
+
+            String loginId = jwtUtil.getEmail(token);
+
+//            UserInfoModel
+
         }
 
     }

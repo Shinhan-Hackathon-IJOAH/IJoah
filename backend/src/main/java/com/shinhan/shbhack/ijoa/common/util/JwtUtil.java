@@ -81,11 +81,11 @@ public class JwtUtil {
         throw new InvalidValueException(ErrorCode.INVALID_TOKEN);
     }
 
-    public String getUsername(String token, String key) {
-        return extractAllClaims(token).get("username", String.class);
+    public String getEmail(String token) {
+        return extractAllClaims(token).get("email", String.class);
     }
 
-    public Boolean isTokenExpired(String token, String key) {
+    public Boolean isTokenExpired(String token) {
         Date expiration = extractAllClaims(token).getExpiration();
         return expiration.before(new Date());
     }

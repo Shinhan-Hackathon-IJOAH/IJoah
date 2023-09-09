@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.MemberRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,17 +14,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class UserModel implements UserDetails {
+public abstract class UserInfoModel implements UserDetails {
 
     private Integer id;
-    private String name;
-    private String phoneNumber;
     private String username;
-    private String password;
+    private String email;
     private MemberRole role;
 
     @Override
