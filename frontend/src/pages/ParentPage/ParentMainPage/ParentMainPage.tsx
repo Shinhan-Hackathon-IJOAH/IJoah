@@ -21,7 +21,7 @@ interface Profile {
     imgPath: string;
     childlist:
         {
-        id: number;
+        id: '';
         nickname:'';
         account: '';
         imgPath : '';
@@ -30,7 +30,7 @@ interface Profile {
   
 
 const ParentMainPage = () => {
-    const {childid,childname,childaccount,setChildId,setChildName,setChildAccount}=useSelectChildStore();
+    const {childid,childname,childaccount,childimg,setChildId,setChildName,setChildAccount,setChildImg}=useSelectChildStore();
     const navigate = useNavigate();
     const [parentprofile, setParentProfile] = useState<Profile>();
 
@@ -66,6 +66,7 @@ const ParentMainPage = () => {
                         setChildId(child.id);
                         setChildAccount(child.account);
                         setChildName(child.nickname);
+                        setChildImg(child.imgPath);
                     }}>
                     <Avatar
                     variant="circular"
