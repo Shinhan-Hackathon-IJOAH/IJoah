@@ -12,43 +12,76 @@ interface State {
 const FileUpload: React.FC = () => {
   const { picture, setPicture } = useDiaryStore((state) => ({
     picture: state.picture,
-    setPicture: (picture: string[]) => state.setPicture(picture),
+    setPicture: (picture: any[]) => state.setPicture(picture),
   }));
+  // const { picture, setPicture } = useDiaryStore();
+  const [imageList, setImageList] = useState<Blob[]>([]);
+  // const [a, setA] = useState<any[]>([]);
+  // 원래 있던 건데 formData 시도해보려고.
+  // const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const files = event.target.files;
+  //   if (files) {
+  //     const imageUrls: string[] = [];
+  //     const reader = new FileReader();
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      const imageUrls: string[] = [];
-      const reader = new FileReader();
+  //     const processImage = (index: number) => {
+  //       if (index < files.length) {
+  //         reader.onload = () => {
+  //           const imageUrl = reader.result as string;
+  //           imageUrls.push(imageUrl);
 
-      const processImage = (index: number) => {
-        if (index < files.length) {
-          reader.onload = () => {
-            const imageUrl = reader.result as string;
-            imageUrls.push(imageUrl);
+  //           if (imageUrls.length === files.length) {
+  //             // 모든 이미지를 변환하고 나면 state를 업데이트합니다.
+  //             setPicture(imageUrls);
+  //           } else {
+  //             // 다음 이미지를 변환합니다.
+  //             processImage(index + 1);
+  //           }
+  //         };
 
-            if (imageUrls.length === files.length) {
-              // 모든 이미지를 변환하고 나면 state를 업데이트합니다.
-              setPicture(imageUrls);
-            } else {
-              // 다음 이미지를 변환합니다.
-              processImage(index + 1);
-            }
-          };
+  //         // 이미지 변환을 시작합니다.
+  //         reader.readAsDataURL(files[index]);
+  //       }
+  //     };
 
-          // 이미지 변환을 시작합니다.
-          reader.readAsDataURL(files[index]);
-        }
-      };
+  //     // 첫 번째 이미지 변환을 시작합니다.
+  //     processImage(0);
+  //   }
+  // };
+  /////////////////////BLOB////////////////////////
 
-      // 첫 번째 이미지 변환을 시작합니다.
-      processImage(0);
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = event.target.files;
+
+    if (selectedFiles) {
+      const selectedImages: Blob[] = [];
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const file = selectedFiles[i];
+        const reader = new FileReader();
+
+        reader.onload = (e: ProgressEvent<FileReader>) => {
+          const result = e.target?.result as string;
+          const blob = new Blob([result], { type: file.type });
+          selectedImages.push(blob);
+
+          // if (selectedImages.length === selectedFiles.length) {
+          //   setImageList([...imageList, ...selectedImages]);
+          // }
+          if (selectedImages.length === selectedFiles.length) {
+            setImageList([...imageList, ...selectedImages]);
+            setPicture([...imageList, ...selectedImages]);
+            // setA([...a, ...selectedImages]);
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      }
     }
   };
 
-  useEffect(() => {
-    console.log(picture);
-  }, [picture]); // state가 업데이트될 때마다 로그를 출력합니다.
+  ///////////////////////////File///////////////////////////////
+
+  console.log(imageList);
+  console.log(picture);
 
   return (
     <div className="w-[100vw]">
@@ -76,7 +109,8 @@ const FileUpload: React.FC = () => {
           <img
             className="h-96 w-96 w-full rounded-lg object-contain object-center shadow-xl shadow-blue-gray-900/50"
             key={index}
-            src={imageUrl}
+            // URL을 blob으로 바꾸자.
+            src={URL.createObjectURL(imageUrl)}
             alt={`Selected ${index}`}
           />
         ))}
