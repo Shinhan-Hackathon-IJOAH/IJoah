@@ -1,7 +1,6 @@
 package com.shinhan.shbhack.ijoa.api.service.diary.dto.request;
 
-import com.shinhan.shbhack.ijoa.api.controller.diary.requestdto.DiaryCreateRequest;
-import lombok.AccessLevel;
+import com.shinhan.shbhack.ijoa.api.controller.diary.dto.request.DiaryCreateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +21,7 @@ public class DiaryCreateServiceRequest {
     private String content;
     private LocalDate date;
     private List<MultipartFile> photo;
+    private MultipartFile record;
 
     public DiaryCreateServiceRequest(DiaryCreateRequest diaryCreateRequest) {
         this.memberId = diaryCreateRequest.getMemberId();
@@ -30,5 +30,6 @@ public class DiaryCreateServiceRequest {
         this.content = diaryCreateRequest.getContent();
         this.date = diaryCreateRequest.getDate();
         this.photo = diaryCreateRequest.getPhoto();
+        this.record = diaryCreateRequest.getRecord();
     }
 }

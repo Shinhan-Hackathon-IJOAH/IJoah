@@ -1,17 +1,16 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import {PatternButtonContainer} from "./PatternButtonStyles"
 
 const PatternButton = () => {
     const navigate = useNavigate();
     return (
-        <div>
-            <button
-            onClick={() => {
-                navigate("/parent/pattern");
-              }}>
-                내아이소비패턴
-            </button>
-        </div>
+        <PatternButtonContainer
+        onClick={() => {
+            navigate("/parent/pattern");
+          }}>
+            내아이소비패턴
+        </PatternButtonContainer>
     );
 };
 

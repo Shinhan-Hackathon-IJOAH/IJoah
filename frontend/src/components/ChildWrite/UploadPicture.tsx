@@ -10,8 +10,6 @@ interface State {
 }
 
 const FileUpload: React.FC = () => {
-  // const { picture, setPicture } = useDiaryStore();
-  // 커스텀 훅을 사용하여 강화된 타입을 설정
   const { picture, setPicture } = useDiaryStore((state) => ({
     picture: state.picture,
     setPicture: (picture: string[]) => state.setPicture(picture),
@@ -21,13 +19,36 @@ const FileUpload: React.FC = () => {
     const files = event.target.files;
     if (files) {
       const imageUrls: string[] = [];
-      for (let i = 0; i < files.length; i++) {
-        const imageUrl = URL.createObjectURL(files[i]);
-        imageUrls.push(imageUrl);
-      }
-      setPicture(imageUrls);
+      const reader = new FileReader();
+
+      const processImage = (index: number) => {
+        if (index < files.length) {
+          reader.onload = () => {
+            const imageUrl = reader.result as string;
+            imageUrls.push(imageUrl);
+
+            if (imageUrls.length === files.length) {
+              // 모든 이미지를 변환하고 나면 state를 업데이트합니다.
+              setPicture(imageUrls);
+            } else {
+              // 다음 이미지를 변환합니다.
+              processImage(index + 1);
+            }
+          };
+
+          // 이미지 변환을 시작합니다.
+          reader.readAsDataURL(files[index]);
+        }
+      };
+
+      // 첫 번째 이미지 변환을 시작합니다.
+      processImage(0);
     }
   };
+
+  useEffect(() => {
+    console.log(picture);
+  }, [picture]); // state가 업데이트될 때마다 로그를 출력합니다.
 
   return (
     <div className="w-[100vw]">
@@ -85,29 +106,6 @@ const FileUpload: React.FC = () => {
           </div>
         </label>
       </div>
-
-      {/*  */}
-      {/* <Container maxWidth="md" sx={{ mt: 2 }}>
-        <div className="flex">
-          {picture.map((imageUrl, index) => (
-            <img
-              className="h-[100%] w-[100%] w-full rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50"
-              key={index}
-              src={imageUrl}
-              alt={`Selected ${index}`}
-            />
-          ))}
-        </div>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          flexWrap={"nowrap"}
-          spacing={2}
-        >
-         
-        </Stack>
-      </Container> */}
     </div>
   );
 };

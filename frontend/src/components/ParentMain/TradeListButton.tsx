@@ -1,17 +1,16 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import { TradeListContainer } from "./TradeListButtonStyles" 
 
 const TradeListButton = () => {
     const navigate = useNavigate();
     return (
-        <div>
-            <button
-            onClick={() => {
-                navigate("/parent/trade");
-              }}>
-                거래내역
-            </button>
-        </div>
+        <TradeListContainer
+        onClick={() => {
+            navigate("/parent/trade");
+          }}>
+            거래내역
+        </TradeListContainer>
     );
 };
 

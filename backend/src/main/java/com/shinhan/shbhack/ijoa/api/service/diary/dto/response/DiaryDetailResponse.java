@@ -1,6 +1,7 @@
 package com.shinhan.shbhack.ijoa.api.service.diary.dto.response;
 
 import com.shinhan.shbhack.ijoa.domain.diary.entity.DiaryImage;
+import com.shinhan.shbhack.ijoa.domain.diary.entity.DiaryRecord;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.DiaryShare;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
 import lombok.Getter;
@@ -27,6 +28,8 @@ public class DiaryDetailResponse {
     private Long diaryId;
     private String title;
     private String content;
+    private String emotion;
     private LocalDate diary_date;
     private List<DiaryImageResponse> images;
+    private DiaryRecordResponse record;
 }
