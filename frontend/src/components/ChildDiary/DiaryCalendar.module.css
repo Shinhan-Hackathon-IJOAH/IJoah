@@ -1,0 +1,16 @@
+.calendar-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.calendar-hidden .calendar-content {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.content-visible {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 3s ease, opacity 0.3s ease;
+}
