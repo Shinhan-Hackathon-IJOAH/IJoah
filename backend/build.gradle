@@ -8,7 +8,7 @@ group = 'com.shinhan.shbhack'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = "16"
+	sourceCompatibility = "11"
 }
 
 configurations {
@@ -67,4 +67,4 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-targetCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_11
