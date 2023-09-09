@@ -37,6 +37,8 @@ public class TransactionQueryRepository {
                 .where(account.accountNumber.eq(accountNumber)).fetchOne();
     }
 
-
+    public void updateBalanceByAccount(String accountNumber, Long balance){
+        queryFactory.update(account).set(account.balance, balance).where(account.accountNumber.eq(accountNumber)).execute();
+    }
 
 }

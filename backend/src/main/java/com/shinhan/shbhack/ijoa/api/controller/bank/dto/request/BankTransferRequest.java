@@ -11,7 +11,7 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class BankTransferRequest {
     String withdrawAccount;
-    String DepositAccount;
+    String depositAccount;
     String amount;
     String withdrawContent;
     String depositContent;

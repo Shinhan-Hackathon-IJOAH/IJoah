@@ -2,10 +2,12 @@ package com.shinhan.shbhack.ijoa.api.controller.bank;
 
 import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankBalanceRequest;
 import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankTransactionRequest;
+import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankTransferRequest;
 import com.shinhan.shbhack.ijoa.api.controller.diary.dto.request.DiaryCreateRequest;
 import com.shinhan.shbhack.ijoa.api.service.bank.command.BankService;
 import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.BankAccountResponse;
 import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.BankBalanceResponse;
+import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.BankTransferResponse;
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.request.DiaryCreateServiceRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,5 +34,11 @@ public class BankController {
     public ResponseEntity<?> checkBalance(@RequestBody BankBalanceRequest bankBalanceRequest){
         BankBalanceResponse bankBalanceResponse = bankService.checkBalance(bankBalanceRequest);
         return new ResponseEntity<>(bankBalanceResponse,HttpStatus.OK);
+    }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<?> transferMoney(@RequestBody BankTransferRequest bankTransferRequest){
+        BankTransferResponse bankTransferResponse = bankService.transfer(bankTransferRequest);
+        return new ResponseEntity<>(bankTransferResponse, HttpStatus.OK);
     }
 }
