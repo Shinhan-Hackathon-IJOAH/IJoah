@@ -1,8 +1,11 @@
 package com.shinhan.shbhack.ijoa.api.controller.member;
 
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberCreateRequest;
+import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberLoginRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.command.MemberService;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberDetailResponse;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
+import com.shinhan.shbhack.ijoa.api.service.member.query.MemberQueryService;
 import com.shinhan.shbhack.ijoa.common.dto.response.ApiPage;
 import com.shinhan.shbhack.ijoa.common.dto.response.ApiData;
 import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
@@ -13,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +27,20 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final MemberQueryService memberQueryService;
 
     @PostMapping("/join")
     @ApiOperation(value = "회원 가입")
-    public ApiData<String> join(@RequestBody MemberCreateRequest request){
+    public ApiData<String> joinMember(@RequestBody @Valid MemberCreateRequest request){
         memberService.createMember(request.toServiceRequest());
 
         return ApiData.of("회원가입에 성공하였습니다!");
+    }
+
+    @PostMapping("/login")
+    @ApiOperation(value = "로그인")
+    public ApiData<MemberTokenResponse> loginMember(@RequestBody @Valid MemberLoginRequest request){
+        return ApiData.of(memberQueryService.loginMember(request.toServiceRequest()));
     }
 
 

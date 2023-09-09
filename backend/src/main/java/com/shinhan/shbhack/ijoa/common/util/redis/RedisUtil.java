@@ -1,6 +1,5 @@
 package com.shinhan.shbhack.ijoa.common.util.redis;
 
-import com.shinhan.shbhack.ijoa.common.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,7 +15,8 @@ public class RedisUtil {
 
     private final RedisTemplate<String, Object> redisTemplate;
 
-    private final static Duration EMAIL_CACHE_TTL = Duration.ofMinutes(30);
+    private final static String EMAIL_AUTH_PRIFIX = "EMAIL";
+    private final static Duration EMAIL_CACHE_TTL = Duration.ofMinutes(5);
 
     public void setEmail(String email, String code){
         log.debug("Set Email: {} and Code: {}", email, code);

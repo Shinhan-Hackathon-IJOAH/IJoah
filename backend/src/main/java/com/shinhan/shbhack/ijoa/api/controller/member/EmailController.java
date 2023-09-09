@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 
 @Slf4j
@@ -22,7 +23,7 @@ public class EmailController {
     private final EmailQueryService emailQueryService;
 
     @PostMapping("/send")
-    public ApiData<String> sendEmail(@RequestParam("email") String email) throws MessagingException, UnsupportedEncodingException {
+    public ApiData<String> sendJoinEmail(@RequestParam("email") String email) throws MessagingException, UnsupportedEncodingException {
         memberQueryService.searchExistMemberByEmail(email);
 
         emailQueryService.sendEmail(email);
@@ -31,7 +32,7 @@ public class EmailController {
     }
 
     @PostMapping("/check")
-    public ApiData<String> checkEmail(@RequestBody EmailCheckRequest request){
+    public ApiData<String> checkEmail(@RequestBody @Valid EmailCheckRequest request){
         emailQueryService.checkEmail(request.toServiceRequest());
 
         return ApiData.of("인증이 성공하엿습니다!");

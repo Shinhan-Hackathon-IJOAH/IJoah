@@ -5,20 +5,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import static lombok.AccessLevel.PROTECTED;
 
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 public class EmailCheckRequest {
 
+    @Email
+    @Size(max = 40)
+    @NotNull
     String email;
-    String code;
 
-    @Builder
-    public EmailCheckRequest(String email, String code) {
-        this.email = email;
-        this.code = code;
-    }
+    String code;
 
     public EmailCheckServiceRequest toServiceRequest(){
         return EmailCheckServiceRequest.builder()

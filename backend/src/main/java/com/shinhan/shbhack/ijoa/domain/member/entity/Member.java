@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.domain.member.entity;
 
+import com.shinhan.shbhack.ijoa.common.model.JwtCreateModel;
 import com.shinhan.shbhack.ijoa.domain.BaseEntity;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.DiaryShare;
@@ -40,6 +41,8 @@ public class Member extends BaseEntity {
     @Email
     @Size(max = 40)
     @NotNull
+    @Column(unique = true)
+    // Todo: 2023-09-10: unique 속성 안먹는 이유 찾아야함
     private String email;
 
     @NotNull
@@ -128,5 +131,13 @@ public class Member extends BaseEntity {
         this.profileImage = profileImage;
         this.diaries = diaries;
         this.diaryShares = diaryShares;
+    }
+
+    public JwtCreateModel toJwtCreateModel(){
+        return JwtCreateModel.builder()
+                .id(id)
+                .email(email)
+                .memberRole(memberRole)
+                .build();
     }
 }
