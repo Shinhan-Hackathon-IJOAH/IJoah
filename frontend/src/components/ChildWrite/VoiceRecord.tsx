@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { useDiaryStore } from "../../store/DiaryStore";
 const AudioRecord = () => {
-  const { voice,setVoice } = useDiaryStore();
+  const { voice, setVoice } = useDiaryStore();
 
   const [stream, setStream] = useState<MediaStream | undefined>(undefined);
   const [media, setMedia] = useState<MediaRecorder | null>(null);
@@ -14,6 +14,9 @@ const AudioRecord = () => {
   );
   const [audioUrl, setAudioUrl] = useState<Blob | null>(null);
   const [disabled, setDisabled] = useState<boolean>(true); // 😀😀😀
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(
+    null
+  );
 
   const onRecAudio = () => {
     const audioCtx = new (window.AudioContext ||
@@ -87,7 +90,7 @@ const AudioRecord = () => {
   //     console.log(voice)
   //     console.log(sound)
   //     setVoice({payload:sound})
-      
+
   //   }
   // }, [audioUrl]);
   const onSubmitAudioFile = useCallback(() => {
@@ -98,7 +101,7 @@ const AudioRecord = () => {
     }
   }, [audioUrl]);
 
-  const play = () => { 
+  const play = () => {
     if (audioUrl) {
       console.log(URL.createObjectURL(audioUrl));
     }
@@ -110,15 +113,21 @@ const AudioRecord = () => {
     }
   };
 
+  const stop = () => {
+    if (audioElement) {
+      audioElement.pause();
+      audioElement.currentTime = 0;
+    }
+  };
+
   return (
     <>
-{voice}
+      {voice}
       <button onClick={onRec ? onRecAudio : offRecAudio}>
         {onRec ? "녹음 시작" : "녹음 중지"}
       </button>
 
-    <button onClick={play}>녹음한거 듣기</button>
-
+      <button onClick={play}>녹음한거 듣기</button>
 
       <button onClick={onSubmitAudioFile}>녹음 파일 등록하기</button>
     </>

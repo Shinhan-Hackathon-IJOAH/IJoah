@@ -8,21 +8,32 @@ const BottomButton = () => {
   const navigate = useNavigate();
 
   const writeDiary = () => {
+    // console.log(typeof picture[0]);
+    const formData = new FormData();
+    const info = {
+      memberId: "1",
+      title: title,
+      emotion: weatherMood,
+      content: content,
+      date: date,
+    };
+    formData.append(
+      "info",
+      new Blob([JSON.stringify(info)], { type: "application/json" })
+    );
+    // formData.append("images", picture[0]);
+    picture.forEach((image, index) => {
+      formData.append("images", picture[index]);
+    });
+    // const voiceBlob = new Blob([voice], { type: 'audio/wav' });
+    const voiceBlob = new Blob([voice]);
+    formData.append("record", voiceBlob);
+    console.log(formData);
     axios
-      .post("https://ijoah01.duckdns.org/api/diaries/", {
-        memberId: "1",
-        title: title,
-        emotion: weatherMood,
-        content: content,
-        date: date,
-        record: null,
-        // 사진빼고 post 됨.
-        // photo: picture,
-        photo: [],
-      })
+      .post("https://ijoah01.duckdns.org/api/diaries/", formData)
       .then((response: any) => {
         console.log("성공");
-        console.log(response.data);
+        console.log(response.blob);
       })
       .catch((error: any) => {
         console.log("제목", title, typeof title);
