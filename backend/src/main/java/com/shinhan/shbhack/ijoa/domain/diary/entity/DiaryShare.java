@@ -35,6 +35,11 @@ public class DiaryShare extends BaseEntity {
     @NotNull
     private LocalDateTime expireTime;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name="member_id")
+    private Member member;
+
     public static DiaryShare of(Diary toShareDiary, LocalDateTime expireTime){
         DiaryShare diaryShare = new DiaryShare();
         diaryShare.setDiary(toShareDiary);
