@@ -45,11 +45,11 @@ public class Diary extends BaseEntity {
     @NotNull
     private LocalDate diary_date;
 
-    @OneToMany(mappedBy = "diary")
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     private List<DiaryImage> images;
 
 
-    @OneToOne(mappedBy = "diary")
+    @OneToOne(mappedBy = "diary", cascade = CascadeType.ALL)
     private DiaryRecord record;
 
     public static Diary of(DiaryCreateServiceRequest diaryCreateServiceRequest, Member member){
