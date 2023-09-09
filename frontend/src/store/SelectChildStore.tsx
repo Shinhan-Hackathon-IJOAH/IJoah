@@ -10,6 +10,8 @@ interface SelectChildStore {
   setChildName: (childname: string)=> void;
   childaccount: any;
   setChildAccount: (childaccount: any) => void;
+  childimg: any;
+  setChildImg: (childimg: any) => void;
 }
 
 export const useSelectChildStore = create<SelectChildStore>()(
@@ -19,9 +21,11 @@ export const useSelectChildStore = create<SelectChildStore>()(
         childid: "",
         childname:"아이",
         childaccount:"",
+        childimg:"",
         setChildId: (payload) => set({ childid: payload }),
         setChildName: (payload) => set({ childname: payload}),
-        setChildAccount: (payload) => set({ childaccount: payload })
+        setChildAccount: (payload) => set({ childaccount: payload }),
+        setChildImg:(payload) => set({ childimg: payload })
       }),
       {
         name: "SelectChild-storage", // persist key

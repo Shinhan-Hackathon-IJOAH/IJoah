@@ -1,13 +1,16 @@
 import React from 'react';
-import ParentInfo from '../../../components/ParentMission/ParentInfo';
 import MissionList from '../../../components/ParentMission/MissionList';
 import { Content } from './ParentMissionPageStyles';
+import BottomNav from '../../../components/Common/BottomNav';
+import BackPageButton from '../../../components/Common/BackPageButton';
 
 const ParentMissionPage = () => {
     return (
         <Content>
-            <ParentInfo/>
+            <BackPageButton/>
+            
             <MissionList/>
+            <BottomNav/>
         </Content>
     );
 };

@@ -10,8 +10,8 @@ interface DiaryStore {
   setContent: (content: any) => void;
   date: any;
   setDate: (date: any) => void;
-  picture: string[]; // picture를 문자열 배열로 정의
-  setPicture: (picture: string[]) => void; // setPicture 함수도 문자열 배열을 받도록 정의
+  picture: any[]; // picture를 문자열 배열로 정의
+  setPicture: (picture: any[]) => void; // setPicture 함수도 문자열 배열을 받도록 정의
   voice: any;
   setVoice: (voice: any) => void;
   weatherMood: any;
