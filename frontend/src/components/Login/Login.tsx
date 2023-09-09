@@ -53,20 +53,10 @@ const Login = () => {
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);
 
-      // accessToken을 통해 사용자 정보 가져오기
-      const accessToken = localStorage.getItem("accessToken");
-
-      const response2 = await axios.get("/api/users", {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log(response2.data);
-      //   await setUser(response2.data);
-      if (response2.data.memberRole === "parent") {
+      // memberRole을 확인해 부모인지 아이인지 구분해서 페이지 분리하기.
+      if (response.data.memberRole === "parent") {
         navigate("/parent");
-      } else if (response2.data.memberRole === "child") {
+      } else if (response.data.memberRole === "child") {
         navigate("/child");
       }
     } catch (error) {

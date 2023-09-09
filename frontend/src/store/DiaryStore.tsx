@@ -25,7 +25,7 @@ export const useDiaryStore = create<DiaryStore>()(
       content: "",
       date: "",
       picture: [],
-      voice: "",
+      voice: null,
       weatherMood: "",
       setWeatherMood: (payload) => set({ weatherMood: payload }),
       // setPicture: (payload) => set({ picture: payload }),
