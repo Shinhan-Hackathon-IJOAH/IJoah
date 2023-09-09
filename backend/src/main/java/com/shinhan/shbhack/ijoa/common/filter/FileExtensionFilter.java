@@ -1,4 +1,4 @@
-package com.shinhan.shbhack.ijoa.common.util.file;
+package com.shinhan.shbhack.ijoa.common.filter;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

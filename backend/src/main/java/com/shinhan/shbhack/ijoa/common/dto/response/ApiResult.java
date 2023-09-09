@@ -1,6 +1,5 @@
 package com.shinhan.shbhack.ijoa.common.dto.response;
 
-import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

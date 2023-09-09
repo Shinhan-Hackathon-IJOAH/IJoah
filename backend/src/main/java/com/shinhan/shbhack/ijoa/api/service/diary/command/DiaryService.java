@@ -5,12 +5,11 @@ import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryCalenderResp
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryDetailResponse;
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryImageResponse;
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryRecordResponse;
-import com.shinhan.shbhack.ijoa.common.util.file.FileStore;
-import com.shinhan.shbhack.ijoa.common.util.file.UploadFile;
+import com.shinhan.shbhack.ijoa.common.util.FileUtil;
+import com.shinhan.shbhack.ijoa.domain.UploadFile;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.DiaryImage;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.DiaryRecord;
-import com.shinhan.shbhack.ijoa.domain.diary.entity.DiaryShare;
 import com.shinhan.shbhack.ijoa.domain.diary.repository.datajpa.DiaryRepository;
 import com.shinhan.shbhack.ijoa.domain.diary.repository.datajpa.DiaryShareRepository;
 import com.shinhan.shbhack.ijoa.domain.diary.repository.query.DiaryQueryRepository;
@@ -27,7 +26,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -39,7 +37,7 @@ public class DiaryService {
     private final DiaryShareRepository diaryShareRepository;
     private final DiaryQueryRepository diaryQueryRepository;
     private final MemberRepository memberRepository;
-    private final FileStore fileStore;
+    private final FileUtil fileStore;
     private Map<Long, LocalDateTime> checkExpire = new ConcurrentHashMap<>();
     public void writeDiary(DiaryCreateServiceRequest diaryCreateServiceRequest){
         try{

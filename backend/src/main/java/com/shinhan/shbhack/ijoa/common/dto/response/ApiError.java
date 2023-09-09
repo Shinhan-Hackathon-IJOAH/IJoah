@@ -1,9 +1,11 @@
 package com.shinhan.shbhack.ijoa.common.dto.response;
 
-import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class ApiError extends ApiResult {
 
     private String message;
@@ -16,4 +18,9 @@ public class ApiError extends ApiResult {
     public static ApiError of(ErrorCode errorCode){
         return new ApiError(errorCode.getStatus(), errorCode.getCode(), errorCode.getMessage());
     }
+
+//    public String toStream(){
+//        return "{" +
+//                "\"status\":" + "\"" + this.getStatus()
+//    }
 }

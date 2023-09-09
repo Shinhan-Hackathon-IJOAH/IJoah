@@ -1,9 +1,6 @@
 package com.shinhan.shbhack.ijoa.domain.diary.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.shinhan.shbhack.ijoa.api.service.diary.dto.request.DiaryCreateServiceRequest;
-import com.shinhan.shbhack.ijoa.common.util.file.UploadFile;
-import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
+import com.shinhan.shbhack.ijoa.domain.UploadFile;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

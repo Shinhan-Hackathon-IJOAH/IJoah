@@ -2,12 +2,10 @@ package com.shinhan.shbhack.ijoa.api.service.member.query;
 
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberLoginServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
-import com.shinhan.shbhack.ijoa.common.model.JwtCreateModel;
-import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
-import com.shinhan.shbhack.ijoa.common.util.error.exception.EntityNotFoundException;
-import com.shinhan.shbhack.ijoa.common.util.error.exception.InvalidValueException;
-import com.shinhan.shbhack.ijoa.common.util.error.exception.ServiceRuntimeException;
-import com.shinhan.shbhack.ijoa.common.util.jwt.JwtUtil;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.exception.EntityNotFoundException;
+import com.shinhan.shbhack.ijoa.common.error.exception.InvalidValueException;
+import com.shinhan.shbhack.ijoa.common.util.JwtUtil;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
 import com.shinhan.shbhack.ijoa.domain.member.repository.datajpa.MemberRepository;
 import com.shinhan.shbhack.ijoa.domain.member.repository.query.MemberQueryRepository;

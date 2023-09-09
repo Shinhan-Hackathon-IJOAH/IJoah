@@ -1,28 +1,18 @@
-package com.shinhan.shbhack.ijoa.common.util.jwt;
+package com.shinhan.shbhack.ijoa.common.util;
 
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
 import com.shinhan.shbhack.ijoa.common.model.JwtCreateModel;
-import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
-import com.shinhan.shbhack.ijoa.common.util.error.exception.InvalidValueException;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.exception.InvalidValueException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component

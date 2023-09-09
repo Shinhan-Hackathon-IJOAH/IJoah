@@ -8,9 +8,8 @@ import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenRespo
 import com.shinhan.shbhack.ijoa.api.service.member.query.MemberQueryService;
 import com.shinhan.shbhack.ijoa.common.dto.response.ApiPage;
 import com.shinhan.shbhack.ijoa.common.dto.response.ApiData;
-import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
-import com.shinhan.shbhack.ijoa.common.util.error.exception.ServiceRuntimeException;
-import io.swagger.annotations.Api;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.exception.ServiceRuntimeException;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +41,7 @@ public class MemberController {
     public ApiData<MemberTokenResponse> loginMember(@RequestBody @Valid MemberLoginRequest request){
         return ApiData.of(memberQueryService.loginMember(request.toServiceRequest()));
     }
+
 
 
     @GetMapping("/single")

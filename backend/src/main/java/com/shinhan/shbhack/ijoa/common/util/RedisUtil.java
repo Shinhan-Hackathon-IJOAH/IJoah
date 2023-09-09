@@ -1,4 +1,4 @@
-package com.shinhan.shbhack.ijoa.common.util.redis;
+package com.shinhan.shbhack.ijoa.common.util;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +29,10 @@ public class RedisUtil {
         return Optional.ofNullable(data);
     }
 
-    private String getKey(String userName) {
-        return "UserCache:" + userName;
+    public void deleteEmail(String email){
+        log.debug("Get Email code: {}", email);
+        redisTemplate.delete(email);
     }
+
 
 }

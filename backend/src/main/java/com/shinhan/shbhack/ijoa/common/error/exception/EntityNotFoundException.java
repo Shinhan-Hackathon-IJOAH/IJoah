@@ -1,6 +1,6 @@
-package com.shinhan.shbhack.ijoa.common.util.error.exception;
+package com.shinhan.shbhack.ijoa.common.error.exception;
 
-import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
 
 public class EntityNotFoundException extends ServiceRuntimeException {
 
