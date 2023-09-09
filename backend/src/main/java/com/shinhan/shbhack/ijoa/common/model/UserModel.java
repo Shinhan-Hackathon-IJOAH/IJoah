@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User implements UserDetails {
+public class UserModel implements UserDetails {
 
     private Integer id;
     private String name;

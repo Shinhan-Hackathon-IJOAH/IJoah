@@ -1,36 +1,22 @@
 package com.shinhan.shbhack.ijoa.common.config;
 
-import com.shinhan.shbhack.ijoa.common.util.jwt.JwtAuthenticationFilter;
-import com.shinhan.shbhack.ijoa.common.util.jwt.JwtTokenProvider;
+import com.shinhan.shbhack.ijoa.common.util.jwt.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
-@EnableWebSecurity
+@RequiredArgsConstructor
+//@EnableWebSecurity // 없어도 되는지 확인 필요
 public class SecurityConfig {
 
-    private final JwtTokenProvider jwtTokenProvider;
-
-    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
-
-
-    @Bean
-    public BCryptPasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
+    private final JwtUtil jwtTokenProvider;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -38,7 +24,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .cors()
-//                .cors().configurationSource(corsConfigurationSource())
+//                .cors().configurationSource(corsConfigurationSource()) // 없어도 되는지 확인 필욘
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

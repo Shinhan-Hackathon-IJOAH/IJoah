@@ -18,12 +18,13 @@ import java.time.LocalDate;
 public class DataInitializer implements CommandLineRunner {
 
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
 
         Member member = Member.builder()
                 .email("byuri1356@gmail1.com")

@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.common.util.jwt;
 
+import com.shinhan.shbhack.ijoa.common.model.JwtCreateModel;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -13,31 +14,57 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-@Component
 @Slf4j
-public class JwtTokenProvider {
+@Component
+public class JwtUtil {
 
     private final Key key;
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 60;            // 1시간
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
+    //토근 생성할때 레디스에 리프레쉬 토큰 이메일의 유효시간 넣기
 
-    public JwtTokenProvider(@Value("${JWT_SECRET}") String secretKey) {
+    private JwtUtil(@Value("${JWT_SECRET}") String secretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // TODO: 2023-05-22 claim 권한 분리 필요
-    public String generate(String subject, Date expiredAt) {
+    public String generateToken(JwtCreateModel model, Long expireTime) {
+        Claims claims = setClaim(model);
+
+        Date now = new Date();
+        Date expireDate = new Date(now.getTime() + expireTime);
+
         return Jwts.builder()
-                .setSubject(subject)
-                .claim("auth", "user")
-                .setExpiration(expiredAt)
-                .signWith(key, SignatureAlgorithm.HS512)
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(expireDate)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    private Claims setClaim(JwtCreateModel model){
+        Claims claims = Jwts.claims();
+        claims.put("id", model.getId());
+        claims.put("email", model.getEmail());
+        claims.put("role", model.getMemberRole());
+
+        return claims;
+    }
+
+    private String generateAccessToken(JwtCreateModel model){
+        Claims claim = setClaim(model);
+
+    }
+
+    private String generateRefreshToken(JwtCreateModel model){
+        Claims claim = setClaim(model);
     }
 
     public String extractSubject(String accessToken) {

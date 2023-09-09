@@ -14,12 +14,6 @@ public class EmailCheckRequest {
     String email;
     String code;
 
-    @Builder
-    public EmailCheckRequest(String email, String code) {
-        this.email = email;
-        this.code = code;
-    }
-
     public EmailCheckServiceRequest toServiceRequest(){
         return EmailCheckServiceRequest.builder()
                 .email(email)

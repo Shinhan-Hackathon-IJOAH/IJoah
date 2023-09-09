@@ -22,7 +22,7 @@ public class EmailController {
     private final EmailQueryService emailQueryService;
 
     @PostMapping("/send")
-    public ApiData<String> sendEmail(@RequestParam("email") String email) throws MessagingException, UnsupportedEncodingException {
+    public ApiData<String> sendJoinEmail(@RequestParam("email") String email) throws MessagingException, UnsupportedEncodingException {
         memberQueryService.searchExistMemberByEmail(email);
 
         emailQueryService.sendEmail(email);

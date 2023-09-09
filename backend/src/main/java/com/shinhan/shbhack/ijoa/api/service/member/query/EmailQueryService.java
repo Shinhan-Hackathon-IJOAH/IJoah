@@ -24,7 +24,7 @@ import java.util.Random;
 
 @Slf4j
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class EmailQueryService {
 
@@ -34,44 +34,11 @@ public class EmailQueryService {
     public void sendEmail(String email) throws MessagingException, UnsupportedEncodingException {
         String code = createCode();
         MimeMessage emailForm = createEmailForm(email, code);
-        //실제 메일 전송
+
         emailSender.send(emailForm);
 
         redisUtil.setEmail(email, code);
     }
-
-    // 발신할 이메일 데이터 세팅
-    private MimeMessage createEmailForm(String email, String code) throws MessagingException, UnsupportedEncodingException {
-        String senderEmail = "noreply@mereview.com"; // Replace with your email address (sender)
-        String senderName = "Mereview"; // Replace with your name (sender)
-
-        MimeMessage message = emailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");
-        helper.setTo(email); // Set recipient email address
-        helper.setFrom(new InternetAddress(senderEmail, senderName)); // Set sender email and name
-        helper.setSubject("Verification Code for Your Account"); // Set email subject
-
-        // Email content with the generated verification code
-        String emailContent = "<html><body style=\"font-family: Arial, sans-serif;\">"
-                + "<h2>안녕하세요!!</h2>"
-                + "<p>ijoa 사이트에 회원가입을 해주셔서 감사합니다!</p>"
-                + "<p>인증코드입니다.:</p>"
-                + "<h3 style=\"background-color: #f0f0f0; padding: 10px;\">" + code + "</h3>"
-                + "<p>Please use this code to verify your account.</p>"
-                + "<p>Best regards,<br/>Your Website Team</p>"
-                + "</body></html>";
-
-        helper.setText(emailContent, true); // Set email content as HTML
-
-        return message;
-    }
-
-    public void sendCodeToEmail(String toEmail) {
-        // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
-//        redisService.setValues(AUTH_CODE_PREFIX + toEmail,
-//                authCode, Duration.ofMillis(this.authCodeExpirationMillis));
-    }
-
 
     private String createCode() {
         int lenth = 6;
@@ -88,6 +55,47 @@ public class EmailQueryService {
         }
     }
 
+    // 발신할 이메일 데이터 세팅
+    private MimeMessage createEmailForm(String email, String code) throws MessagingException, UnsupportedEncodingException {
+        String senderEmail = "noreply@moailgi.com"; // Replace with your email address (sender)
+        String senderName = "모아일기"; // Replace with your name (sender)
+
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");
+        helper.setTo(email); // Set recipient email address
+        helper.setFrom(new InternetAddress(senderEmail, senderName)); // Set sender email and name
+        helper.setSubject("Verification Code for Your Account"); // Set email subject
+
+        // Email content with the generated verification code
+        String emailContent = "<html><body style=\"font-family: Arial, sans-serif;\">"
+                + "<h2>안녕하세요!!</h2>"
+                + "<p>모아일기 사이트에 회원가입을 해주셔서 감사합니다!</p>"
+                + "<p>인증코드입니다.:</p>"
+                + "<h3 style=\"background-color: #f0f0f0; padding: 10px;\">" + code + "</h3>"
+                + "<p>Please use this code to verify your account.</p>"
+                + "<p>Best regards,<br/>Your Website Team</p>"
+                + "</body></html>";
+
+        helper.setText(emailContent, true); // Set email content as HTML
+
+        return message;
+    }
+
+    public void checkEmail(EmailCheckServiceRequest request){
+        Optional<String> code = redisUtil.getEmail(request.getEmail());
+        if(!code.isPresent()) throw new InvalidValueException(ErrorCode.INVALID_TYPE_VALUE);
+        if(!code.get().equals(request.getCode())) throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
+    }
+
+    public void sendCodeToEmail(String toEmail) {
+        // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
+//        redisService.setValues(AUTH_CODE_PREFIX + toEmail,
+//                authCode, Duration.ofMillis(this.authCodeExpirationMillis));
+    }
+
+
+
+
 //    public EmailVerificationResult verifiedCode(String email, String authCode) {
 //        this.checkDuplicatedEmail(email);
 //        String redisAuthCode = redisService.getValues(AUTH_CODE_PREFIX + email);
@@ -96,9 +104,5 @@ public class EmailQueryService {
 //        return EmailVerificationResult.of(authResult);
 //    }
 
-    public void checkEmail(EmailCheckServiceRequest request){
-        Optional<String> code = redisUtil.getEmail(request.getEmail());
-        if(!code.isPresent()) throw new InvalidValueException(ErrorCode.INVALID_TYPE_VALUE);
-        if(!code.get().equals(request.getCode())) throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
-    }
+
 }
