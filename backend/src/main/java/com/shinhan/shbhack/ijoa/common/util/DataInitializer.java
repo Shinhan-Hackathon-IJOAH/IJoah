@@ -30,6 +30,8 @@ public class DataInitializer implements CommandLineRunner {
                 .name("유승민")
                 .password(bCryptPasswordEncoder.encode("1234"))
                 .account("944500-00-000000")
+                .address("address")
+                .phoneNumber("010-9814-1356")
                 .gender(Gender.MALE)
                 .memberRole(MemberRole.PARENT)
                 .activateStatus(ActivateStatus.ACTIVATE)

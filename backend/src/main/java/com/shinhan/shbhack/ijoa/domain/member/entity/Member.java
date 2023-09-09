@@ -46,8 +46,15 @@ public class Member extends BaseEntity {
     private String password;
 
     @Size(max = 30)
-    @NotNull
     private String account;
+
+    @Size(max = 20)
+    @NotNull
+    private String phoneNumber;
+
+    @Size(max = 50)
+    @NotNull
+    private String address;
 
     @NotNull
     private LocalDate birthDate;
@@ -98,13 +105,14 @@ public class Member extends BaseEntity {
     private List<DiaryShare> diaryShares = new ArrayList<>();
 
     @Builder
-
-    public Member(Long id, String name, String email, String password, String account, LocalDate birthDate, Gender gender, MemberRole memberRole, ActivateStatus activateStatus, List<Family> children, List<Family> parents, List<Friend> firstFriends, List<Friend> secondFriends, List<Mission> writers, List<Mission> challengers, List<Notification> receivers, List<Notification> senders, ProfileImage profileImage, List<Diary> diaries, List<DiaryShare> diaryShares) {
+    public Member(Long id, String name, String email, String password, String account, String phoneNumber, String address, LocalDate birthDate, Gender gender, MemberRole memberRole, ActivateStatus activateStatus, List<Family> children, List<Family> parents, List<Friend> firstFriends, List<Friend> secondFriends, List<Mission> writers, List<Mission> challengers, List<Notification> receivers, List<Notification> senders, ProfileImage profileImage, List<Diary> diaries, List<DiaryShare> diaryShares) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.account = account;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
         this.birthDate = birthDate;
         this.gender = gender;
         this.memberRole = memberRole;
