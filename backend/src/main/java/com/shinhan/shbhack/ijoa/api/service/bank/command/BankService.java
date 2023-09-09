@@ -58,6 +58,14 @@ public class BankService {
         Long reciverMoney = receiver.getBalance();
         String receiverMSG = bankTransferRequest.getDepositContent();
         // 돈 계산
+        if(senderMoney < Long.parseLong(bankTransferRequest.getAmount())){
+            log.info(senderMoney.toString());
+            log.info(bankTransferRequest.getAmount());
+            throw new RuntimeException("잔액 초과");
+        }else{
+            log.info(senderMoney.toString());
+            log.info(bankTransferRequest.getAmount());
+        }
         senderMoney -= Long.parseLong(bankTransferRequest.getAmount());
         reciverMoney += Long.parseLong(bankTransferRequest.getAmount());
         // 이체하는 사람 내역 추가
