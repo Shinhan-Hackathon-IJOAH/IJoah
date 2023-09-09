@@ -37,19 +37,16 @@ public class SecurityConfig {
 
         http
                 .csrf().disable()
-                .cors().configurationSource(corsConfigurationSource())// 타 도메인에서 API 호출 가능
+                .cors()
+//                .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers("/**", "/api/member", "/api/diaries", "/api/auth/kakao", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .oauth2Login()
-                .loginPage("/loginForm");
-
+                .antMatchers( "/api/member", "/api/diaries", "/swagger-ui/**", "/swagger-ui.html", "/**").permitAll()
+                .anyRequest().authenticated();
 //                .and()
 //                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();

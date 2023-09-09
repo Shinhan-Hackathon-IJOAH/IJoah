@@ -2,7 +2,7 @@ package com.shinhan.shbhack.ijoa.api.controller.member;
 
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberDetailResponse;
 import com.shinhan.shbhack.ijoa.common.dto.response.ApiPage;
-import com.shinhan.shbhack.ijoa.common.dto.response.ApiSingleData;
+import com.shinhan.shbhack.ijoa.common.dto.response.ApiData;
 import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
 import com.shinhan.shbhack.ijoa.common.util.error.exception.ServiceRuntimeException;
 import io.swagger.annotations.ApiOperation;
@@ -17,18 +17,18 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/member")
+@RequestMapping("/api/members")
 @RequiredArgsConstructor
 public class MemberController {
 
     @GetMapping("/single")
     @ApiOperation(value = "ApiSingleData test")
-    public ApiSingleData<MemberDetailResponse> testSingle(){
+    public ApiData<MemberDetailResponse> testSingle(){
         MemberDetailResponse res = MemberDetailResponse.builder()
                                         .email("test")
                                         .build();
 
-        return ApiSingleData.of(res);
+        return ApiData.of(res);
     }
 
     @GetMapping("/page")
@@ -47,7 +47,7 @@ public class MemberController {
 
     @GetMapping("/error")
     @ApiOperation(value = "ApiError test")
-    public ApiSingleData<MemberDetailResponse> testError(){
+    public ApiData<MemberDetailResponse> testError(){
         throw new ServiceRuntimeException(ErrorCode.INVALID_INPUT_VALUE);
 
     }

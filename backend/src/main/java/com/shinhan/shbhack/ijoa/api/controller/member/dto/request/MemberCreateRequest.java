@@ -1,4 +1,4 @@
-package com.shinhan.shbhack.ijoa.api.controller.member.requestdto;
+package com.shinhan.shbhack.ijoa.api.controller.member.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
