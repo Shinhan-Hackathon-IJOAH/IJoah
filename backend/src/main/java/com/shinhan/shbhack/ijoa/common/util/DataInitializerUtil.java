@@ -91,7 +91,7 @@ public class DataInitializerUtil implements CommandLineRunner {
                 .build();
         TransactionCategory category_08 = TransactionCategory.builder()
                 .id(8)
-                .name("출금")
+                .name("ATM 입출금")
                 .build();
 
 
