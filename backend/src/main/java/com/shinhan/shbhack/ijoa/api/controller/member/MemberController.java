@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class MemberController {
 
     @PostMapping("/join")
     @ApiOperation(value = "회원 가입")
-    public ApiData<String> joinMember(@RequestBody MemberCreateRequest request){
+    public ApiData<String> joinMember(@RequestBody @Valid MemberCreateRequest request){
         memberService.createMember(request.toServiceRequest());
 
         return ApiData.of("회원가입에 성공하였습니다!");
@@ -38,8 +39,8 @@ public class MemberController {
 
     @PostMapping("/login")
     @ApiOperation(value = "로그인")
-    public ApiData<MemberTokenResponse> loginMember(@RequestBody MemberLoginRequest request){
-        memberQueryService.loginMember(request.toServiceRequest());
+    public ApiData<MemberTokenResponse> loginMember(@RequestBody @Valid MemberLoginRequest request){
+        return ApiData.of(memberQueryService.loginMember(request.toServiceRequest()));
     }
 
 

@@ -1,6 +1,9 @@
 package com.shinhan.shbhack.ijoa.common.util.jwt;
 
+import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
 import com.shinhan.shbhack.ijoa.common.model.JwtCreateModel;
+import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.util.error.exception.InvalidValueException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -35,6 +38,13 @@ public class JwtUtil {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
+    public MemberTokenResponse generateAllToken(JwtCreateModel model){
+        String accessToken = generateToken(model, ACCESS_TOKEN_EXPIRE_TIME);
+        String refreshToken = generateToken(model, REFRESH_TOKEN_EXPIRE_TIME);
+
+        return toMemberTokenResponse(accessToken, refreshToken);
+    }
+
     public String generateToken(JwtCreateModel model, Long expireTime) {
         Claims claims = setClaim(model);
 
@@ -58,41 +68,16 @@ public class JwtUtil {
         return claims;
     }
 
-    private String generateAccessToken(JwtCreateModel model){
-        Claims claim = setClaim(model);
-
+    private MemberTokenResponse toMemberTokenResponse(String accessToken, String refreshToken){
+        return MemberTokenResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
-    private String generateRefreshToken(JwtCreateModel model){
-        Claims claim = setClaim(model);
-    }
-
-    public String extractSubject(String accessToken) {
-        Claims claims = parseClaims(accessToken);
-        return claims.getSubject();
-    }
-
-    public Authentication getAuthentication(String accessToken) {
-        //토큰 복호화
-        Claims claims = parseClaims(accessToken);
-
-        if (claims.get("auth") == null) {
-            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
-        }
-
-        Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get("auth").toString().split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
-
-        UserDetails principal = new User(claims.getSubject(), "", authorities);
-        return new UsernamePasswordAuthenticationToken(principal, "", authorities);
-    }
-
-    public boolean validateToken(String token) {
+    public Claims extractAllClaims(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
         }catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("Invalid JWT Token", e);
         } catch (ExpiredJwtException e) {
@@ -102,18 +87,17 @@ public class JwtUtil {
         } catch (IllegalArgumentException e) {
             log.info("JWT claims string is empty.", e);
         }
-        return false;
+
+        throw new InvalidValueException(ErrorCode.INVALID_TOKEN);
     }
 
-    private Claims parseClaims(String accessToken) {
-        try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(accessToken)
-                    .getBody();
-        } catch (ExpiredJwtException e) {
-            return e.getClaims();
-        }
+    public String getUsername(String token, String key) {
+        return extractAllClaims(token).get("username", String.class);
     }
+
+    public Boolean isTokenExpired(String token, String key) {
+        Date expiration = extractAllClaims(token).getExpiration();
+        return expiration.before(new Date());
+    }
+
 }

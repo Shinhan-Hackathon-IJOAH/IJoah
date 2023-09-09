@@ -35,10 +35,12 @@ public class DataInitializer implements CommandLineRunner {
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+        String pwd = "1Q2w3e4r!";
+
         Member member = Member.builder()
                 .email("byuri1356@gmail1.com")
                 .name("유승민")
-                .password(bCryptPasswordEncoder.encode("1234"))
+                .password(bCryptPasswordEncoder.encode(pwd))
                 .account("944500-00-000000")
                 .address("address")
                 .phoneNumber("010-9814-1356")

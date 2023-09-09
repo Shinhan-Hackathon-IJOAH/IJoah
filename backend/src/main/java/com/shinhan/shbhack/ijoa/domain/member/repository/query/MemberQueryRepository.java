@@ -17,17 +17,4 @@ public class MemberQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public Optional<JwtCreateModel> searchByEmailAndPassword(String email, String password){
-        return Optional.ofNullable(queryFactory
-                .select(Projections.constructor(JwtCreateModel.class,
-                        member.id,
-                        member.email,
-                        member.memberRole
-                        ))
-                .from(member)
-                .where(
-                        member.email.eq(email).and(member.password.eq(password))
-                )
-                .fetchOne());
-    }
 }
