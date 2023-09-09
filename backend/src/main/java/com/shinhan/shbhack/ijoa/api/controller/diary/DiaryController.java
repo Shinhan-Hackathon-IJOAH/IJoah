@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -21,9 +22,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DiaryController {
     private final DiaryService diaryService;
-    @PostMapping("")
-    public ResponseEntity<?> writeDiary(@RequestBody DiaryCreateRequest diaryCreateRequest){
+//    @PostMapping("")
+//    public ResponseEntity<?> writeDiary(@RequestBody DiaryCreateRequest diaryCreateRequest){
+//
+//        diaryService.writeDiary(new DiaryCreateServiceRequest(diaryCreateRequest));
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
+    @PostMapping("")
+    public ResponseEntity<?> writeDiary(@RequestPart(value = "info") DiaryCreateRequest diaryCreateRequest,
+                                        @RequestPart(value="images")List<MultipartFile> images,
+                                        @RequestPart(value="record")MultipartFile record){
+        diaryCreateRequest.setPhoto(images);
+        diaryCreateRequest.setRecord(record);
         diaryService.writeDiary(new DiaryCreateServiceRequest(diaryCreateRequest));
         return new ResponseEntity<>(HttpStatus.OK);
     }
