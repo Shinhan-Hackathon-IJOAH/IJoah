@@ -58,10 +58,12 @@ public class DiaryService {
             MultipartFile recordInfo = diaryCreateServiceRequest.getRecord();
             UploadFile diaryRecord = null;
             if(recordInfo != null && !recordInfo.isEmpty()){
+                log.info("여기까지는 도달");
                 diaryRecord = fileStore.storeFile(recordInfo);
                 newDiary.setRecord(DiaryRecord.of(diaryRecord, newDiary));
 
             }
+            log.info("도달도달");
             diaryRepository.save(newDiary);
 
         } catch (IOException e) {
