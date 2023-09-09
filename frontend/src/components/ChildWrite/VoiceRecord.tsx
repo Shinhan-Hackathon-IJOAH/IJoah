@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { useDiaryStore } from "../../store/DiaryStore";
 const AudioRecord = () => {
-  const { title, content } = useDiaryStore();
+  const { voice,setVoice } = useDiaryStore();
 
   const [stream, setStream] = useState<MediaStream | undefined>(undefined);
   const [media, setMedia] = useState<MediaRecorder | null>(null);
@@ -71,27 +71,56 @@ const AudioRecord = () => {
     }
   };
 
+  // const onSubmitAudioFile = useCallback(() => {
+  //   if (audioUrl) {
+  //     console.log(URL.createObjectURL(audioUrl));
+  //   }
+  //   if (audioUrl instanceof Blob) {
+  //     const sound = new File([audioUrl], "녹음파일", {
+  //       lastModified: new Date().getTime(),
+  //       type: "audio/mpeg",
+  //     });
+  //     // 폼데이터 객체 생성 -> append로 file 객체 추가
+  //     // const formData = new FormData();
+  //     // formData.append("file", sound);
+
+  //     console.log(voice)
+  //     console.log(sound)
+  //     setVoice({payload:sound})
+      
+  //   }
+  // }, [audioUrl]);
   const onSubmitAudioFile = useCallback(() => {
+    if (audioUrl) {
+      console.log(URL.createObjectURL(audioUrl));
+      // 파일 URL을 스토어에 저장
+      setVoice(URL.createObjectURL(audioUrl));
+    }
+  }, [audioUrl]);
+
+  const play = () => { 
     if (audioUrl) {
       console.log(URL.createObjectURL(audioUrl));
     }
     if (audioUrl instanceof Blob) {
-      const sound = new File([audioUrl], "soundBlob", {
-        lastModified: new Date().getTime(),
-        type: "audio/wav",
-      });
-      console.log(sound);
+      const playRecord = new Audio(URL.createObjectURL(audioUrl)); // Audio 객체를 사용하여 오디오를 재생
+      playRecord.volume = 1;
+      playRecord.play();
+      console.log(playRecord);
     }
-  }, [audioUrl]);
+  };
 
   return (
     <>
-      {title}
-      {content}
+{voice}
       <button onClick={onRec ? onRecAudio : offRecAudio}>
         {onRec ? "녹음 시작" : "녹음 중지"}
       </button>
-      <button onClick={onSubmitAudioFile}>결과 확인</button>
+
+    <button onClick={play}>녹음한거 듣기</button>
+
+
+      <button onClick={onSubmitAudioFile}>녹음 파일 등록하기</button>
     </>
   );
 };

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+
+import {useNavigate} from "react-router-dom";
 import {
   BottomNavContent,
   HomeImg,
@@ -9,11 +11,20 @@ import {
 import { Icon, Menu, Sidebar, Segment, Header, Image } from "semantic-ui-react";
 
 const BottomNav = () => {
+  const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
 
   const handleMenuClick = () => {
     setVisible(!visible);
   };
+  const handleAlarmClick = () => {
+    navigate("/alarm");
+  };
+  const handleHomeClick = () => {
+    // 이거 스토어에서 불러와서 분기점 나눠서 memberRole에 따라 바꾸면 될듯?
+    navigate("/child");
+  };
+
   return (
     <div>
       {/* 사이드바 */}
@@ -31,7 +42,9 @@ const BottomNav = () => {
       >
         <div className="flex flex-col justify-between h-full">
           <div>
-            <Menu.Item as="a">
+            <Menu.Item 
+            onClick={()=>navigate("/mypage")}
+            as="a">
               <Icon name="home" />
               프로필 수정
             </Menu.Item>
@@ -54,7 +67,7 @@ const BottomNav = () => {
       </Sidebar>
       <Sidebar.Pusher dimmed={visible}>
         <BottomNavContent>
-          <AlarmImg />
+          <AlarmImg onClick={handleAlarmClick}/>
           <HomeImg />
           <MenuImg onClick={handleMenuClick} />
         </BottomNavContent>

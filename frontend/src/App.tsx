@@ -23,6 +23,7 @@ import ParentTradePage from "./pages/ParentPage/ParentTradePage/ParentTradePage"
 import ParentTradeDetailPage from "./pages/ParentPage/ParentTradePage/ParentTradeDetailPage";
 import AlarmPage from "./pages/CommonPage/AlarmPage";
 import MenuPage from "./pages/CommonPage/MenuPage";
+import MyPage from "./pages/CommonPage/MyPage";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
         />
         <Route path="/alarm" element={<AlarmPage />} />
         <Route path="/menu" element={<MenuPage />} />
+      <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </div>
   );
