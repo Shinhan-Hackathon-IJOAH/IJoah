@@ -1,8 +1,6 @@
 package com.shinhan.shbhack.ijoa.api.controller.diary;
 
-import com.shinhan.shbhack.ijoa.api.controller.diary.requestdto.DiaryCreateRequest;
 import com.shinhan.shbhack.ijoa.api.service.diary.command.DiaryService;
-import com.shinhan.shbhack.ijoa.api.service.diary.dto.request.DiaryCreateServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryDetailResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

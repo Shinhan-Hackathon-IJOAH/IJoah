@@ -1,4 +1,4 @@
-package com.shinhan.shbhack.ijoa.api.controller.diary.requestdto;
+package com.shinhan.shbhack.ijoa.api.controller.diary.dto.request;
 
 
 import lombok.*;

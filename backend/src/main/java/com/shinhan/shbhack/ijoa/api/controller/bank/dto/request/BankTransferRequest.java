@@ -1,4 +1,4 @@
-package com.shinhan.shbhack.ijoa.api.controller.bank.requestdto;
+package com.shinhan.shbhack.ijoa.api.controller.bank.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

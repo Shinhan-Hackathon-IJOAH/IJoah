@@ -18,8 +18,7 @@ public class ApiResult {
     private String code; // OK, BAD_REQUEST...
 
     public static ApiResult of(){
-        ApiResult res = new ApiResult(HttpStatus.OK.value(), HttpStatus.OK.name());
-        return res;
+        return new ApiResult(HttpStatus.OK.value(), HttpStatus.OK.name());
     }
 
     public static ApiResult of(int status, String code){

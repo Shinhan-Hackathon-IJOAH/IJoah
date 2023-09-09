@@ -1,8 +1,7 @@
 package com.shinhan.shbhack.ijoa.api.service.bank.command;
 
-import com.shinhan.shbhack.ijoa.api.controller.bank.requestdto.BankBalanceRequest;
-import com.shinhan.shbhack.ijoa.api.controller.bank.requestdto.BankDepositRequest;
-import com.shinhan.shbhack.ijoa.domain.bank.entity.TransactionCategory;
+import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankBalanceRequest;
+import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankDepositRequest;
 import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.AccountRepository;
 import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.TransactionCategoryRepository;
 import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.TransactionRepository;

@@ -1,11 +1,10 @@
 package com.shinhan.shbhack.ijoa.api.controller.diary;
 
-import com.shinhan.shbhack.ijoa.api.controller.diary.requestdto.DiaryCreateRequest;
+import com.shinhan.shbhack.ijoa.api.controller.diary.dto.request.DiaryCreateRequest;
 import com.shinhan.shbhack.ijoa.api.service.diary.command.DiaryService;
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.request.DiaryCreateServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryCalenderResponse;
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryDetailResponse;
-import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Path;
 import java.util.List;
 
 @Slf4j

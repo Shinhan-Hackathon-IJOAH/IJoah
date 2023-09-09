@@ -1,7 +1,6 @@
 package com.shinhan.shbhack.ijoa.api.service.diary.dto.request;
 
-import com.shinhan.shbhack.ijoa.api.controller.diary.requestdto.DiaryCreateRequest;
-import lombok.AccessLevel;
+import com.shinhan.shbhack.ijoa.api.controller.diary.dto.request.DiaryCreateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
