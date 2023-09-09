@@ -1,13 +1,11 @@
 package com.shinhan.shbhack.ijoa.api.service.bank.command;
 
+import com.querydsl.core.Tuple;
 import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankBalanceRequest;
 import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankDepositRequest;
 import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankTransactionRequest;
 import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankTransferRequest;
-import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.BankAccountResponse;
-import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.BankBalanceResponse;
-import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.BankTransactionResponse;
-import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.BankTransferResponse;
+import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.*;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Account;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Transaction;
 import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.AccountRepository;
@@ -21,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -33,8 +32,25 @@ public class BankService {
     private final TransactionRepository transactionRepository;
     private final TransactionQueryRepository transactionQueryRepository;
 
-    public void deposit(BankDepositRequest bankDepositRequest){
+    public BankDepositResponse deposit(BankDepositRequest bankDepositRequest){
+        Account account =  accountRepository.findAccountByAccountNumber(bankDepositRequest.getDepositAccountNumber());
+        Long balance = account.getBalance();
+        balance += Long.parseLong(bankDepositRequest.getAmount());
+        account.setBalance(balance);
+        transactionRepository.save(Transaction.builder()
+                .accountNumber(account.getAccountNumber())
+                .transactionDay(LocalDate.now())
+                .transactionTime(LocalTime.now())
+                .balance(balance)
+                .withdrawAmount(Long.parseLong("0"))
+                .depositAmount(Long.parseLong(bankDepositRequest.getAmount()))
+                .category(8)
+                .transactionType(1)
+                .content("ATM 입금")
+                .build()
 
+        );
+        return BankDepositResponse.of(account.getAccountNumber(), balance);
     }
 
     synchronized public BankTransferResponse transfer(BankTransferRequest bankTransferRequest){
@@ -121,5 +137,16 @@ public class BankService {
 
     public void checkOneWonAuth(){
 
+    }
+    public BankAnalyzeResponse analyzeTransaction(String accountNumber){
+//        List<Tuple> result = transactionQueryRepository.findListByAccount(accountNumber, LocalDate.now().minusDays(30));
+//        List<BankAnalyzeListResponse> list = new ArrayList<>();
+//        for (Tuple a : result){
+//            list.add(BankAnalyzeListResponse.of(a));
+//        }
+        List<BankAnalyzeListResponse> bankAnalyzeListResponses = transactionQueryRepository.findListByAccount(accountNumber, LocalDate.now().minusDays(30));
+        BankAnalyzeResponse bankAnalyzeResponse = transactionQueryRepository.calcSumByAccount(accountNumber, LocalDate.now().minusDays(30));
+        bankAnalyzeResponse.setList(bankAnalyzeListResponses);
+        return bankAnalyzeResponse;
     }
 }
