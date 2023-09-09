@@ -10,4 +10,10 @@ import static lombok.AccessLevel.PUBLIC;
 public class BankDepositResponse {
     String depositAccountNumber;
     Long balance;
+    public static BankDepositResponse of(String accountNumber,Long newBalance){
+        BankDepositResponse bankDepositResponse = new BankDepositResponse();
+        bankDepositResponse.depositAccountNumber = accountNumber;
+        bankDepositResponse.balance = newBalance;
+        return bankDepositResponse;
+    }
 }

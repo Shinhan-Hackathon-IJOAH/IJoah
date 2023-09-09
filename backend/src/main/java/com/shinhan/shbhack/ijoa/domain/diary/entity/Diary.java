@@ -43,6 +43,7 @@ public class Diary extends BaseEntity {
     private String emotion;
 
     @NotNull
+    @Column(unique = true)
     private LocalDate diary_date;
 
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
