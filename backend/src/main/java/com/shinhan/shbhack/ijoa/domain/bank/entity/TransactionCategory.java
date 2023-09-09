@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.domain.bank.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,4 +18,10 @@ public class TransactionCategory {
     @Column(name="transaction_category_id")
     Integer id;
     String name;
+
+    @Builder
+    public TransactionCategory(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

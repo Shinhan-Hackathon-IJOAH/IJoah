@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.domain.bank.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,4 +50,18 @@ public class Transaction {
 
     @NotNull
     String content;
+
+    @Builder
+    public Transaction(Long transactionId, Integer transactionType, String accountNumber, LocalDate transactionDay, LocalTime transactionTime, Long withdrawAmount, Long depositAmount, Long balance, Integer category, String content) {
+        this.transactionId = transactionId;
+        this.transactionType = transactionType;
+        this.accountNumber = accountNumber;
+        this.transactionDay = transactionDay;
+        this.transactionTime = transactionTime;
+        this.withdrawAmount = withdrawAmount;
+        this.depositAmount = depositAmount;
+        this.balance = balance;
+        this.category = category;
+        this.content = content;
+    }
 }

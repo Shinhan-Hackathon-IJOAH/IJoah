@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.domain.bank.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,4 +29,12 @@ public class Account {
     @NotNull
     @Column(unique = true)
     String accountNumber;
+
+    @Builder
+    public Account(Long accountId, String name, Long balance, String accountNumber) {
+        this.accountId = accountId;
+        this.name = name;
+        this.balance = balance;
+        this.accountNumber = accountNumber;
+    }
 }
