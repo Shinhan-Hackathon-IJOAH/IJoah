@@ -104,7 +104,7 @@ const Login = () => {
         <SignupContainer>
           <SignupAnchor
             onClick={() => {
-              navigate("/signUp");
+              navigate("/emailauth");
             }}
           >
             아직 회원이 아니신가요?

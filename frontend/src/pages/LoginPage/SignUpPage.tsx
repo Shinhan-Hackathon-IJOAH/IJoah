@@ -22,165 +22,90 @@ import {
   CreditCardIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/solid";
+import { useSignUpStore } from "../../store/SignUpStore";
 
-// 아이 회원가입 Axios함수
-function childSignUp(
-  childId: string,
-  childPw: string,
-  childName: string,
-  childEmail: string,
-  childPhone: string,
-  childAddress: string,
-  childBirthDate: string,
-  navigate: any
-) {
-  axios
-    .post("https://jsonplaceholder.typicode.com/posts", {
-      id: childId,
-      pw: childPw,
-      email: childEmail,
-      phonenumber: childPhone,
-      address: childAddress,
-      MemberRole: "child",
-      NickName: childName,
-      birth_date: childBirthDate,
-    })
-    .then((response: any) => {
-      console.log("성공");
 
-      console.log(response.data);
-      navigate("/child");
-    })
-    .catch((error: any) => {
-      console.log("되겠냐");
-      console.log(error);
-    });
-}
 
-// 부모 회원가입 Axios함수
-function parentSignUp(
-  parentId: string,
-  parentPw: string,
-  parentName: string,
-  parentEmail: string,
-  parentPhone: string,
-  parentAddress: string,
-  parentBirthDate: string,
-  navigate: any
-) {
-  axios
-    .post("https://jsonplaceholder.typicode.com/posts", {
-      id: parentId,
-      pw: parentPw,
-      email: parentEmail,
-      phonenumber: parentPhone,
-      address: parentAddress,
-      MemberRole: "parent",
-      NickName: parentName,
-      birth_date: parentBirthDate,
-    })
-    .then((response: any) => {
-      console.log("성공");
-      console.log(response.data);
-      navigate("/parent");
-    })
-    .catch((error: any) => {
-      console.log("되겠냐");
-      console.log(error);
-    });
-}
 
-export default function SingUp() {
+export default function SignUp() {
   const navigate = useNavigate();
+  const { signUpEmail,setSignUpEmail } = useSignUpStore();
+  console.log(signUpEmail)
+  const [memberRole, setMemberRole] = useState("PARENT");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [gender,setGender] = useState("");
 
-  const [memberRole, setMemberRole] = useState("parent");
-  // 부모 회원가입
-  const [parentId, setParentId] = useState("");
-  const [parentPw, setParentPw] = useState("");
-  const [parentName, setParentName] = useState("");
-  const [parentEmail, setParentEmail] = useState("");
-  const [parentPhone, setParentPhone] = useState("");
-  const [parentAddress, setParentAddress] = useState("1");
-  const [parentBirthDate, setParentBirthDate] = useState("1");
-
-  // 부모 onChange 함수
-  const handleParentId = (event: any) => {
-    setParentId(event.target.value);
+  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
   };
-
-  const handleParentPw = (event: any) => {
-    setParentPw(event.target.value);
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
   };
-
-  const handleParentName = (event: any) => {
-    setParentName(event.target.value);
+  const handlePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhoneNumber(e.target.value);
   };
-  const handleParentEmail = (event: any) => {
-    setParentEmail(event.target.value);
+  const handleAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAddress(e.target.value);
   };
-  const handleParentPhone = (event: any) => {
-    setParentPhone(event.target.value);
+  const handleBirthDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBirthDate(e.target.value);
   };
-  const handleParentAddress = (event: any) => {
-    setParentAddress(event.target.value);
-  };
-  const handleParentBirthDate = (event: any) => {
-    setParentBirthDate(event.target.value);
+  const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGender(e.target.value);
   };
 
-  // 아이 회원가입
-  const [childId, setChildId] = useState("");
-  const [childPw, setChildPw] = useState("");
-  const [childName, setChildName] = useState("");
-  const [childEmail, setChildEmail] = useState("");
-  const [childPhone, setChildPhone] = useState("");
-  const [childAddress, setChildAddress] = useState("1");
-  const [childBirthDate, setChildBirthDate] = useState("1");
+  // axios
 
-  // 아이 onChange 함수
-  const handleChildId = (event: any) => {
-    setChildId(event.target.value);
-  };
-  const handleChildPw = (event: any) => {
-    setChildPw(event.target.value);
-  };
-  const handleChildName = (event: any) => {
-    setChildName(event.target.value);
-  };
-  const handleChildEmail = (event: any) => {
-    setChildEmail(event.target.value);
-  };
-  const handleChildPhone = (event: any) => {
-    setChildPhone(event.target.value);
-  };
-  const handleChildAddress = (event: any) => {
-    setChildAddress(event.target.value);
-  };
-  const handleChildBirthDate = (event: any) => {
-    setChildBirthDate(event.target.value);
-  };
+  function SignUp()
+  {
+    axios.post("https://ijoah01.duckdns.org/api/members/join", {
+      "name": name,
+      "email": signUpEmail ,
+      "password": password,
+      "phoneNumber": phoneNumber,
+      "address": address,
+      "birthDate": birthDate,
+      "gender":"MALE",
+      "memberRole": memberRole
+  })
+  .then((response: any) => {
+    console.log("성공");
+    console.log(response.data);
+    navigate("/parent");
+    alert("회원가입이 완료되었습니다.")
+  })
+  .catch((error: any) => {
+    console.log("되겠냐");
+    console.log(error);
+    console.log("name",name);
+    console.log("email",signUpEmail);
+    console.log("password",password);
+    console.log("phoneNumber",typeof phoneNumber);
+    console.log("address",address);
+    console.log("birthDate",typeof birthDate);
+    console.log("memberRole",memberRole)
+    alert("회원가입에 실패했습니다.")
+  });
+  
+  }
+
 
   // 탭을 옮겼을 때 모두 비우는 함수-> useEffect 써야하나
-  const clearChild = () => {
-    setChildId("");
-    setChildPw("");
-    setChildName("");
-    setChildEmail("");
-    setChildPhone("");
-    setChildAddress("");
-    setChildBirthDate("");
-  };
 
-  const clearParent = () => {
-    setParentId("");
-    setParentPw("");
-    setParentName("");
-    setParentEmail("");
-    setParentPhone("");
-    setParentAddress("");
-    setParentBirthDate("");
-  };
-
+const clearAll = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setPhoneNumber("");
+    setAddress("");
+    setBirthDate("");
+    setGender("");
+}
   return (
     <div className="flex justify-center ">
       <Card className="w-full max-w-[24rem] ">
@@ -201,19 +126,19 @@ export default function SingUp() {
           <Tabs value={memberRole} className="overflow-visible">
             <TabsHeader className="relative z-0 ">
               <Tab
-                value="parent"
+                value="PARENT"
                 onClick={() => {
-                  setMemberRole("parent");
-                  clearParent();
+                  setMemberRole("PARENT");
+                  clearAll();
                 }}
               >
                 부모
               </Tab>
               <Tab
-                value="child"
+                value="CHILD"
                 onClick={() => {
-                  setMemberRole("child");
-                  clearChild();
+                  setMemberRole("CHILD");
+                  clearAll();
                 }}
               >
                 아이
@@ -223,17 +148,17 @@ export default function SingUp() {
               className="!overflow-x-hidden !overflow-y-hidden"
               animate={{
                 initial: {
-                  x: memberRole === "parent" ? 400 : -400,
+                  x: memberRole === "PARENT" ? 400 : -400,
                 },
                 mount: {
                   x: 0,
                 },
                 unmount: {
-                  x: memberRole === "par" ? 400 : -400,
+                  x: memberRole === "PARENT" ? 400 : -400,
                 },
               }}
             >
-              <TabPanel value="parent" className="p-0">
+              <TabPanel value="PARENT" className="p-0">
                 <form className="mt-6 flex flex-col gap-4">
                   {/* 인풋창 하나 */}
                   <div>
@@ -242,14 +167,14 @@ export default function SingUp() {
                       color="blue-gray"
                       className="mb-4 font-medium"
                     >
-                      아이디를 입력해주세요.
+                      이메일을 입력해주세요.
                     </Typography>
                     <Input
-                      onChange={handleParentId}
+            disabled
                       crossOrigin={undefined}
-                      type="text"
+                      
                       color="orange"
-                      label="ID"
+                      label={signUpEmail}
                     />
                   </div>
 
@@ -262,7 +187,7 @@ export default function SingUp() {
                       비밀번호를 입력해주세요.
                     </Typography>
                     <Input
-                      onChange={handleParentPw}
+                      onChange={handlePassword}
                       crossOrigin={undefined}
                       type="text"
                       color="orange"
@@ -279,7 +204,7 @@ export default function SingUp() {
                       이름을 입력해주세요.
                     </Typography>
                     <Input
-                      onChange={handleParentName}
+                      onChange={handleName}
                       crossOrigin={undefined}
                       type="text"
                       color="orange"
@@ -295,29 +220,14 @@ export default function SingUp() {
                       생년월일을 입력해주세요.
                     </Typography>
                     <Input
-                      onChange={handleParentBirthDate}
+                      onChange={handleBirthDate}
                       crossOrigin={undefined}
                       type="text"
                       color="orange"
                       label="BirthDate"
                     />
                   </div>
-                  <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
-                      이메일을 입력해주세요.
-                    </Typography>
-                    <Input
-                      onChange={handleParentEmail}
-                      crossOrigin={undefined}
-                      type="text"
-                      color="orange"
-                      label="E-mail"
-                    />
-                  </div>
+           
                   <div>
                     <Typography
                       variant="small"
@@ -327,7 +237,7 @@ export default function SingUp() {
                       핸드폰 번호를 입력해주세요.
                     </Typography>
                     <Input
-                      onChange={handleParentPhone}
+                      onChange={handlePhoneNumber}
                       crossOrigin={undefined}
                       type="text"
                       color="orange"
@@ -343,7 +253,7 @@ export default function SingUp() {
                       주소를 입력해주세요.
                     </Typography>
                     <Input
-                      onChange={handleParentAddress}
+                      onChange={handleAddress}
                       crossOrigin={undefined}
                       type="text"
                       color="orange"
@@ -355,15 +265,7 @@ export default function SingUp() {
 
                   <Button
                     onClick={() => {
-                      parentSignUp(
-                        childId,
-                        childPw,
-                        childName,
-                        childEmail,
-                        childPhone,
-                        childAddress,
-                        childBirthDate,
-                        navigate
+                      SignUp(
                       );
                     }}
                     size="lg"
@@ -381,7 +283,7 @@ export default function SingUp() {
                   </Typography>
                 </form>
               </TabPanel>
-              <TabPanel value="child" className="p-0">
+              <TabPanel value="CHILD" className="p-0">
                 <form className="mt-6 flex flex-col gap-4">
                   <div>
                     <Typography
@@ -389,14 +291,14 @@ export default function SingUp() {
                       color="blue-gray"
                       className="mb-4 font-medium"
                     >
-                      아이디를 입력해주세요.
+                      이메일을 입력해주세요.
                     </Typography>
                     <Input
                       color="orange"
-                      onChange={handleChildId}
+                      disabled
                       crossOrigin={undefined}
                       type="text"
-                      label="ID"
+                      label={signUpEmail}
                     />
                   </div>
 
@@ -410,7 +312,7 @@ export default function SingUp() {
                     </Typography>
                     <Input
                       color="orange"
-                      onChange={handleChildPw}
+                      onChange={handlePassword}
                       crossOrigin={undefined}
                       type="text"
                       label="Password"
@@ -427,7 +329,7 @@ export default function SingUp() {
                     </Typography>
                     <Input
                       color="orange"
-                      onChange={handleChildName}
+                      onChange={handleName}
                       crossOrigin={undefined}
                       type="text"
                       label="Name"
@@ -442,29 +344,14 @@ export default function SingUp() {
                       생년월일을 입력해주세요.
                     </Typography>
                     <Input
-                      onChange={handleChildBirthDate}
+                      onChange={handleBirthDate}
                       crossOrigin={undefined}
                       color="orange"
                       type="text"
                       label="BirthDate"
                     />
                   </div>
-                  <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
-                      이메일을 입력해주세요.
-                    </Typography>
-                    <Input
-                      color="orange"
-                      onChange={handleChildEmail}
-                      crossOrigin={undefined}
-                      type="text"
-                      label="E-mail"
-                    />
-                  </div>
+          
                   <div>
                     <Typography
                       variant="small"
@@ -475,7 +362,7 @@ export default function SingUp() {
                     </Typography>
                     <Input
                       color="orange"
-                      onChange={handleChildPhone}
+                      onChange={handlePhoneNumber}
                       crossOrigin={undefined}
                       type="text"
                       label="PhoneNumber"
@@ -490,7 +377,7 @@ export default function SingUp() {
                       주소를 입력해주세요.
                     </Typography>
                     <Input
-                      onChange={handleChildAddress}
+                      onChange={handleAddress}
                       crossOrigin={undefined}
                       type="text"
                       color="orange"
@@ -499,15 +386,7 @@ export default function SingUp() {
                   </div>
                   <Button
                     onClick={() => {
-                      childSignUp(
-                        parentId,
-                        parentPw,
-                        parentName,
-                        parentEmail,
-                        parentPhone,
-                        parentAddress,
-                        parentBirthDate,
-                        navigate
+                      SignUp(
                       );
                     }}
                     size="lg"

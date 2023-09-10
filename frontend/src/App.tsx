@@ -24,6 +24,9 @@ import ParentTradeDetailPage from "./pages/ParentPage/ParentTradePage/ParentTrad
 import AlarmPage from "./pages/CommonPage/AlarmPage";
 import MenuPage from "./pages/CommonPage/MenuPage";
 import MyPage from "./pages/CommonPage/MyPage";
+import EmailAuthPage from "./pages/LoginPage/EmailAuthPage";
+import Picture from "./components/ChildWrite/Picture";
+
 
 function App() {
   return (
@@ -62,6 +65,9 @@ function App() {
         <Route path="/alarm" element={<AlarmPage />} />
         <Route path="/menu" element={<MenuPage />} />
       <Route path="/mypage" element={<MyPage />} />
+      <Route path="/emailauth" element={<EmailAuthPage />} />
+      {/* 테스트용 라우터 추후에 삭제 필수 */}
+      <Route path="/picture" element={<Picture />} />
       </Routes>
     </div>
   );
