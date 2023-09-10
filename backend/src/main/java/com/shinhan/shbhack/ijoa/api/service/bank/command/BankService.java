@@ -1,10 +1,7 @@
 package com.shinhan.shbhack.ijoa.api.service.bank.command;
 
 import com.querydsl.core.Tuple;
-import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankBalanceRequest;
-import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankDepositRequest;
-import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankTransactionRequest;
-import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankTransferRequest;
+import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.*;
 import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.*;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Account;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Transaction;
@@ -17,10 +14,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Service
@@ -32,7 +34,23 @@ public class BankService {
     private final TransactionRepository transactionRepository;
     private final TransactionQueryRepository transactionQueryRepository;
 
-    public BankDepositResponse deposit(BankDepositRequest bankDepositRequest){
+    private Map<String, String> checkOne = new ConcurrentHashMap<>();
+    private List<String> list = new ArrayList<>();
+
+    @PostConstruct
+    public void init(){
+
+        list.add("미하남영");
+        list.add("미성남준");
+        list.add("미승남민");
+        list.add("미하남영");
+        list.add("팀장하영");
+        list.add("디장성준");
+        list.add("프장지헌");
+        list.add("백장승민");
+    }
+
+    public BankDepositResponse deposit(BankDepositRequest bankDepositRequest, String message){
         Account account =  accountRepository.findAccountByAccountNumber(bankDepositRequest.getDepositAccountNumber());
         Long balance = account.getBalance();
         balance += Long.parseLong(bankDepositRequest.getAmount());
@@ -46,7 +64,7 @@ public class BankService {
                 .depositAmount(Long.parseLong(bankDepositRequest.getAmount()))
                 .category(8)
                 .transactionType(1)
-                .content("ATM 입금")
+                .content(message)
                 .build()
 
         );
@@ -131,12 +149,28 @@ public class BankService {
         return bankAccountResponse;
     }
 
-    public void startOneWonAuth(){
-
+    public void startOneWonAuth(BankBalanceRequest bankBalanceRequest){
+        Random random = new Random();
+        int randomNumber = random.nextInt(8);
+        if(checkOne.get(bankBalanceRequest.getAccountNumber()) !=null){
+            checkOne.remove(bankBalanceRequest.getAccountNumber());
+        }
+        checkOne.put(bankBalanceRequest.getAccountNumber(), list.get(randomNumber));
+        BankDepositRequest authRequest = new BankDepositRequest(bankBalanceRequest.getAccountNumber(),"1");
+        this.deposit(authRequest, list.get(randomNumber));
     }
 
-    public void checkOneWonAuth(){
-
+    public boolean checkOneWonAuth(BankAuthRequest bankAuthRequest){
+        String secretMSG =checkOne.get(bankAuthRequest.getAccountNumber());
+        if(secretMSG != null){
+            if(secretMSG.equals(bankAuthRequest.getMessage())){
+                checkOne.remove(bankAuthRequest.getAccountNumber());
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
     }
     public BankAnalyzeResponse analyzeTransaction(String accountNumber){
 //        List<Tuple> result = transactionQueryRepository.findListByAccount(accountNumber, LocalDate.now().minusDays(30));
