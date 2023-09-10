@@ -12,6 +12,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,7 +38,12 @@ public class DiaryController {
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
 
-    @PostMapping("")
+
+
+
+
+
+    @PostMapping(value="", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<?> writeDiary(@RequestPart(value = "info") DiaryCreateRequest diaryCreateRequest,
                                         @RequestPart(value="images")List<MultipartFile> images,
                                         @RequestPart(value="record")MultipartFile record){

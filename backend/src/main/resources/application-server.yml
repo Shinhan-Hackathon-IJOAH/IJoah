@@ -56,4 +56,4 @@ logging:
 
 ## image file 설정
 file:
-  dir: /dev/
+  dir: C:/dev/
