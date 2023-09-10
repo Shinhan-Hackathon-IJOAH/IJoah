@@ -33,7 +33,8 @@ public class JwtUtil {
         String accessToken = generateToken(model, ACCESS_TOKEN_EXPIRE_TIME);
         String refreshToken = generateToken(model, REFRESH_TOKEN_EXPIRE_TIME);
 
-        return toMemberTokenResponse(accessToken, refreshToken, model);
+        return MemberTokenResponse.of(accessToken, refreshToken, model);
+//        return toMemberTokenResponse(accessToken, refreshToken, model);
     }
 
     public String generateToken(Claims claims, Long expireTime){
@@ -64,6 +65,7 @@ public class JwtUtil {
 
     private Claims setClaim(JwtCreateModel model){
         Claims claims = Jwts.claims();
+        claims.put("id", model.getId());
         claims.put("name", model.getName());
         claims.put("email", model.getEmail());
         claims.put("role", model.getMemberRole());
@@ -71,15 +73,15 @@ public class JwtUtil {
         return claims;
     }
 
-    private MemberTokenResponse toMemberTokenResponse(String accessToken, String refreshToken, JwtCreateModel model){
-        return MemberTokenResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .name(model.getName())
-                .email(model.getEmail())
-                .memberRole(model.getMemberRole())
-                .build();
-    }
+//    private MemberTokenResponse toMemberTokenResponse(String accessToken, String refreshToken, JwtCreateModel model){
+//        return MemberTokenResponse.builder()
+//                .accessToken(accessToken)
+//                .refreshToken(refreshToken)
+//                .name(model.getName())
+//                .email(model.getEmail())
+//                .memberRole(model.getMemberRole())
+//                .build();
+//    }
 
     public Claims extractAllClaims(String token) {
         try {
@@ -100,6 +102,8 @@ public class JwtUtil {
     public String getEmail(String token) {
         return extractAllClaims(token).get("email", String.class);
     }
+
+    public Long getId(String token) {return extractAllClaims(token).get("id", Long.class);}
 
     public Boolean isTokenExpired(String token) {
         Date expiration = extractAllClaims(token).getExpiration();

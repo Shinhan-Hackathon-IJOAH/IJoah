@@ -2,6 +2,7 @@ package com.shinhan.shbhack.ijoa.common.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.MemberRole;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDetailsModel implements UserDetails {
 
     private Long id;
