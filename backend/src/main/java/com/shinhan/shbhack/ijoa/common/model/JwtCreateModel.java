@@ -12,15 +12,12 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor
 public class JwtCreateModel {
 
-    Long id;
 
     String email;
-
     MemberRole memberRole;
 
     @Builder
-    public JwtCreateModel(Long id, String email, MemberRole memberRole) {
-        this.id = id;
+    public JwtCreateModel(String email, MemberRole memberRole) {
         this.email = email;
         this.memberRole = memberRole;
     }

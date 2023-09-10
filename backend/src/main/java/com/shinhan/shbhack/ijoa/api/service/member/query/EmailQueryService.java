@@ -84,6 +84,8 @@ public class EmailQueryService {
         Optional<String> code = redisUtil.getEmail(request.getEmail());
         if(!code.isPresent()) throw new InvalidValueException(ErrorCode.NOTMATCH_EMAIL);
         if(!code.get().equals(request.getCode())) throw new InvalidValueException(ErrorCode.NOTMATCH_EMAIL_CODE);
+
+        redisUtil.deleteEmail(request.getEmail());
     }
 
 //    public void sendCodeToEmail(String toEmail) {

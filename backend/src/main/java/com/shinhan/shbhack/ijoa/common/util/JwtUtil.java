@@ -32,7 +32,7 @@ public class JwtUtil {
         String accessToken = generateToken(model, ACCESS_TOKEN_EXPIRE_TIME);
         String refreshToken = generateToken(model, REFRESH_TOKEN_EXPIRE_TIME);
 
-        return toMemberTokenResponse(accessToken, refreshToken);
+        return toMemberTokenResponse(accessToken, refreshToken, model);
     }
 
     public String generateToken(JwtCreateModel model, Long expireTime) {
@@ -51,17 +51,18 @@ public class JwtUtil {
 
     private Claims setClaim(JwtCreateModel model){
         Claims claims = Jwts.claims();
-        claims.put("id", model.getId());
         claims.put("email", model.getEmail());
         claims.put("role", model.getMemberRole());
 
         return claims;
     }
 
-    private MemberTokenResponse toMemberTokenResponse(String accessToken, String refreshToken){
+    private MemberTokenResponse toMemberTokenResponse(String accessToken, String refreshToken, JwtCreateModel model){
         return MemberTokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .email(model.getEmail())
+                .memberRole(model.getMemberRole())
                 .build();
     }
 

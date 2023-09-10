@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.common.filter;
 
+import com.shinhan.shbhack.ijoa.api.service.member.query.MemberQueryService;
 import com.shinhan.shbhack.ijoa.common.model.UserInfoModel;
 import com.shinhan.shbhack.ijoa.common.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
+    private final MemberQueryService memberQueryService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -42,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             String loginId = jwtUtil.getEmail(token);
 
-//            UserInfoModel
+            UserInfoModel userInfoModel = memberQueryService.
 
         }
 

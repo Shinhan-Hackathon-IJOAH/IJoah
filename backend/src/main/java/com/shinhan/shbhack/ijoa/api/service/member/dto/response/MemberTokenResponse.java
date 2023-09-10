@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.api.service.member.dto.response;
 
+import com.shinhan.shbhack.ijoa.domain.member.entity.enums.MemberRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,11 +15,15 @@ public class MemberTokenResponse {
 
     String refreshToken;
 
+    String email;
+
+    MemberRole memberRole;
+
     @Builder
-    public MemberTokenResponse(String accessToken, String refreshToken) {
+    public MemberTokenResponse(String accessToken, String refreshToken, String email, MemberRole memberRole) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+        this.email = email;
+        this.memberRole = memberRole;
     }
-
-
 }

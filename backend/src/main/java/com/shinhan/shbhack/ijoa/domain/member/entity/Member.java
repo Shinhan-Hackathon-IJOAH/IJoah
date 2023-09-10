@@ -135,7 +135,6 @@ public class Member extends BaseEntity {
 
     public JwtCreateModel toJwtCreateModel(){
         return JwtCreateModel.builder()
-                .id(id)
                 .email(email)
                 .memberRole(memberRole)
                 .build();
