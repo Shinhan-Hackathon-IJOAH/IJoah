@@ -9,12 +9,13 @@ import static lombok.AccessLevel.PUBLIC;
 @Getter
 @NoArgsConstructor(access = PUBLIC)
 public class BankAnalyzeListResponse {
-    Integer categoryId;
-    Long amount;
-    public static BankAnalyzeListResponse of(Tuple tuple){
-        BankAnalyzeListResponse bankAnalyzeListResponse = new BankAnalyzeListResponse();
-        bankAnalyzeListResponse.categoryId = tuple.get(0, Integer.class);
-        bankAnalyzeListResponse.amount = tuple.get(1, Long.class);
-        return bankAnalyzeListResponse;
-    }
+    String id;
+    String label;
+    Long value;
+//    public static BankAnalyzeListResponse of(Tuple tuple){
+//        BankAnalyzeListResponse bankAnalyzeListResponse = new BankAnalyzeListResponse();
+//        bankAnalyzeListResponse.categoryId = tuple.get(0, Integer.class);
+//        bankAnalyzeListResponse.amount = tuple.get(1, Long.class);
+//        return bankAnalyzeListResponse;
+//    }
 }
