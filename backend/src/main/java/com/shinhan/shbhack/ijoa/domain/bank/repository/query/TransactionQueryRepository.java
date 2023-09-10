@@ -50,7 +50,7 @@ public class TransactionQueryRepository {
         return queryFactory.select(Projections.fields(BankAnalyzeListResponse.class,transactionCategory.name.as("id"),transactionCategory.name.as("label"),transaction.withdrawAmount.sum().as("value")))
                 .from(transaction).where(transaction.accountNumber.eq(accountNumber)
                         .and(transaction.transactionDay.gt(startDate))).leftJoin(transactionCategory).on(transaction.category.eq(transactionCategory.id))
-                .groupBy(transaction.category).orderBy(transaction.category.asc()).fetch();
+                .groupBy(transaction.category).orderBy(transaction.category.asc()).having(transaction.withdrawAmount.sum().gt(0)).fetch();
     }
 
     public BankAnalyzeResponse calcSumByAccount(String accountNumber, LocalDate startDate){
