@@ -12,18 +12,30 @@ import {
 } from "./LoginStyles";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { set } from "date-fns";
 
 const Login = () => {
-  const { user, setUser } = useUserStore();
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    accessToken,
+    setAccessToken,
+    refreshToken,
+    setRefreshToken,
+    memberRole,
+    setMemberRole,
+  } = useUserStore();
   const navigate = useNavigate();
 
   // 아이디,비밀번호 상태관리
-  const [id, setId] = useState("");
+  const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
 
   // 아이디 세팅
   const handleIdChange = (event: any) => {
-    setId(event.target.value);
+    setEmailId(event.target.value);
   };
   // 패스워드 세팅
   const handlePasswordChange = (event: any) => {
@@ -32,36 +44,68 @@ const Login = () => {
 
   // 로그인 axios 함수
   async function login() {
-    try {
-      const response = await axios.post(
-        "/api/auth/login",
-        {
-          id: id,
-          password: password,
-        },
-        // 헤더는 백엔드랑 이야기 해야 함.
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-      console.log(response.data);
-      Swal.fire("Any fool can use a computer");
-      // localStorage에 JWT 토큰 저장
-      localStorage.setItem("accessToken", response.data.accessToken);
-      localStorage.setItem("refreshToken", response.data.refreshToken);
-
-      // memberRole을 확인해 부모인지 아이인지 구분해서 페이지 분리하기.
-      if (response.data.memberRole === "parent") {
-        navigate("/parent");
-      } else if (response.data.memberRole === "child") {
-        navigate("/child");
-      }
-    } catch (error) {
-      console.log(error);
+    if (emailId === "") {
+      Swal.fire({
+        icon: "error",
+        title: "아이디를 입력해주세요.",
+      });
+      return;
     }
+    if (password === "") {
+      Swal.fire({
+        icon: "error",
+        title: "비밀번호를 입력해주세요.",
+      });
+      return;
+    }
+
+    const response = await axios
+      .post(
+        "https://ijoah01.duckdns.org/api/members/login",
+        {
+          email: emailId,
+          password: password,
+        }
+        // 헤더는 백엔드랑 이야기 해야 함.
+        // {
+        //   headers: {
+        //     Accept: "application/json",
+        //     "Content-Type": "application/x-www-form-urlencoded",
+        //   },
+        // }
+      )
+      .then((response: any) => {
+        console.log(response.data.data);
+        console.log(response.data.accessToken);
+
+        // localStorage에 JWT 토큰 저장
+        localStorage.setItem("accessToken", response.data.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.data.refreshToken);
+        setAccessToken(response.data.data.accessToken);
+        setRefreshToken(response.data.data.refreshToken);
+        setName(response.data.data.name);
+        setEmail(response.data.data.email);
+        setMemberRole(response.data.data.memberRole);
+        console.log(response.data.data.memberRole);
+        console.log(memberRole);
+        Swal.fire({
+          icon: "success",
+          title: "로그인에 성공했습니다.",
+        });
+        if (response.data.data.memberRole === "PARENT") {
+          navigate("/parent");
+        } else if (response.data.data.memberRole === "CHILD") {
+          navigate("/child");
+        }
+      })
+      .catch((error: any) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "로그인에 실패했습니다.",
+          text: "다시 시도해주세요.",
+        });
+      });
   }
 
   return (
@@ -79,26 +123,15 @@ const Login = () => {
           <Input
             color="orange"
             label="비밀번호"
+            type="password"
             onChange={handlePasswordChange}
             crossOrigin={undefined}
             style={{ backgroundColor: "#ffffff" }}
           />
         </div>
         <LoginButton>
-          <Button
-            onClick={() => {
-              navigate("/parent");
-            }}
-          >
-            {" "}
-            아이 화면으로
-          </Button>
-          <Button
-            onClick={() => {
-              navigate("/child");
-            }}
-          >
-            부모 화면으로
+          <Button color="orange" onClick={login}>
+            로그인
           </Button>
         </LoginButton>
         <SignupContainer>
