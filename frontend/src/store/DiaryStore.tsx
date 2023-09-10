@@ -16,6 +16,8 @@ interface DiaryStore {
   setVoice: (voice: any) => void;
   weatherMood: any;
   setWeatherMood: (weatherMood: any) => void;
+  file: any;
+  setFile: (file: any) => void;
 }
 
 export const useDiaryStore = create<DiaryStore>()(
@@ -27,6 +29,7 @@ export const useDiaryStore = create<DiaryStore>()(
       picture: [],
       voice: null,
       weatherMood: "",
+      file: null,
       setWeatherMood: (payload) => set({ weatherMood: payload }),
       // setPicture: (payload) => set({ picture: payload }),
       // 배열을 받기 위한 store
@@ -35,6 +38,7 @@ export const useDiaryStore = create<DiaryStore>()(
       setContent: (payload) => set({ content: payload }),
       setTitle: (payload) => set({ title: payload }),
       setDate: (payload) => set({ date: payload }),
+      setFile: (payload) => set({ file: payload }),
     }),
     {
       name: "Diary-storage", // persist key
