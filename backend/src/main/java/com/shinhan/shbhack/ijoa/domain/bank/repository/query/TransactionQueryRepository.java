@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import static com.shinhan.shbhack.ijoa.domain.bank.entity.QAccount.account;
 import static com.shinhan.shbhack.ijoa.domain.bank.entity.QTransaction.transaction;
+import static com.shinhan.shbhack.ijoa.domain.bank.entity.QTransactionCategory.transactionCategory;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,8 +47,9 @@ public class TransactionQueryRepository {
 //                .groupBy(transaction.category).orderBy(transaction.category.asc()).fetch();
 //    }
     public List<BankAnalyzeListResponse> findListByAccount(String accountNumber, LocalDate startDate){
-        return queryFactory.select(Projections.fields(BankAnalyzeListResponse.class,transaction.category.as("categoryId"),transaction.withdrawAmount.sum().as("amount"))).from(transaction).where(transaction.accountNumber.eq(accountNumber)
-                        .and(transaction.transactionDay.gt(startDate)))
+        return queryFactory.select(Projections.fields(BankAnalyzeListResponse.class,transactionCategory.name.as("id"),transactionCategory.name.as("label"),transaction.withdrawAmount.sum().as("value")))
+                .from(transaction).where(transaction.accountNumber.eq(accountNumber)
+                        .and(transaction.transactionDay.gt(startDate))).leftJoin(transactionCategory).on(transaction.category.eq(transactionCategory.id))
                 .groupBy(transaction.category).orderBy(transaction.category.asc()).fetch();
     }
 
