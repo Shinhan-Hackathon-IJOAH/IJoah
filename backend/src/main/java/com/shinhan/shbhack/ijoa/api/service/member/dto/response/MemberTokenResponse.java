@@ -15,14 +15,17 @@ public class MemberTokenResponse {
 
     String refreshToken;
 
+    String name;
+
     String email;
 
     MemberRole memberRole;
 
     @Builder
-    public MemberTokenResponse(String accessToken, String refreshToken, String email, MemberRole memberRole) {
+    public MemberTokenResponse(String accessToken, String refreshToken, String name, String email, MemberRole memberRole) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+        this.name = name;
         this.email = email;
         this.memberRole = memberRole;
     }

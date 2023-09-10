@@ -1,13 +1,11 @@
 package com.shinhan.shbhack.ijoa.api.service.member.query;
 
-import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberLoginServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
-import com.shinhan.shbhack.ijoa.common.config.RedisConfig;
 import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
 import com.shinhan.shbhack.ijoa.common.error.exception.EntityNotFoundException;
 import com.shinhan.shbhack.ijoa.common.error.exception.InvalidValueException;
-import com.shinhan.shbhack.ijoa.common.model.UserInfoModel;
+import com.shinhan.shbhack.ijoa.common.model.UserDetailsModel;
 import com.shinhan.shbhack.ijoa.common.util.JwtUtil;
 import com.shinhan.shbhack.ijoa.common.util.RedisUtil;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
@@ -48,11 +46,10 @@ public class MemberQueryService {
         return jwtUtil.generateAllToken(member.toJwtCreateModel());
     }
 
-    public UserInfoModel loadUserByEmail(String email){
-        return redisUtil.getToken(email).orElseGet(
+    public UserDetailsModel loadUserByEmail(String email){
+        return redisUtil.getUser(email).orElseGet(
                 () -> memberQueryRepository.findUserInfoModelByEmail(email).orElseThrow(
-                        () -> new EntityNotFoundException(ErrorCode.NOTMATCH_MEMBER_EMAIL);
-                )
-        )
+                        () -> new EntityNotFoundException(ErrorCode.NOTMATCH_MEMBER_EMAIL))
+                );
     }
 }

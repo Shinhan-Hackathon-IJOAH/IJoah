@@ -35,6 +35,18 @@ public class JwtUtil {
         return toMemberTokenResponse(accessToken, refreshToken, model);
     }
 
+    public String generateToken(Claims claims, Long expireTime){
+        Date now = new Date();
+        Date expireDate = new Date(now.getTime() + expireTime);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(expireDate)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
     public String generateToken(JwtCreateModel model, Long expireTime) {
         Claims claims = setClaim(model);
 
@@ -51,6 +63,7 @@ public class JwtUtil {
 
     private Claims setClaim(JwtCreateModel model){
         Claims claims = Jwts.claims();
+        claims.put("name", model.getName());
         claims.put("email", model.getEmail());
         claims.put("role", model.getMemberRole());
 
@@ -61,6 +74,7 @@ public class JwtUtil {
         return MemberTokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .name(model.getName())
                 .email(model.getEmail())
                 .memberRole(model.getMemberRole())
                 .build();

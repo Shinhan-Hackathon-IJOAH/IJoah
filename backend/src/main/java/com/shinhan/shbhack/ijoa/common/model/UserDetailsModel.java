@@ -1,10 +1,7 @@
 package com.shinhan.shbhack.ijoa.common.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.MemberRole;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,10 +13,10 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public abstract class UserInfoModel implements UserDetails {
+public class UserDetailsModel implements UserDetails {
 
-    private Integer id;
-    private String username;
+    private Long id;
+    private String name;
     private String email;
     private MemberRole role;
 
@@ -27,6 +24,18 @@ public abstract class UserInfoModel implements UserDetails {
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.toString()));
+    }
+
+    @Override
+    @JsonIgnore
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    @JsonIgnore
+    public String getUsername() {
+        return name;
     }
 
     @Override
