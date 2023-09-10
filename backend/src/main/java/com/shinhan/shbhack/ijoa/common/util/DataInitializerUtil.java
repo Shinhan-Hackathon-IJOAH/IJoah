@@ -48,8 +48,35 @@ public class DataInitializerUtil implements CommandLineRunner {
                 .activateStatus(ActivateStatus.ACTIVATE)
                 .birthDate(LocalDate.of(1997, 7, 29))
                 .build();
+        Member member_01 = Member.builder()
+                .email("kimshinhan@gmail1.com")
+                .name("김신한")
+                .password(bCryptPasswordEncoder.encode(pwd))
+                .account("110111222222")
+                .address("address")
+                .phoneNumber("010-9814-1356")
+                .gender(Gender.MALE)
+                .memberRole(MemberRole.PARENT)
+                .activateStatus(ActivateStatus.ACTIVATE)
+                .birthDate(LocalDate.of(1997, 7, 29))
+                .build();
+        Member member_02 = Member.builder()
+                .email("kimssol@gmail1.com")
+                .name("김쏠쏠")
+                .password(bCryptPasswordEncoder.encode(pwd))
+                .account("110222333333")
+                .address("address")
+                .phoneNumber("010-9814-1356")
+                .gender(Gender.MALE)
+                .memberRole(MemberRole.PARENT)
+                .activateStatus(ActivateStatus.ACTIVATE)
+                .birthDate(LocalDate.of(1997, 7, 29))
+                .build();
 
         memberRepository.save(member);
+        memberRepository.save(member_01);
+        memberRepository.save(member_02);
+
         bank();
     }
     public void bank() throws Exception{

@@ -26,6 +26,13 @@ public class BankController {
         return new ResponseEntity<>(bankAccountResponse,HttpStatus.OK);
     }
 
+    @PostMapping("/oneday-transactions")
+    public ResponseEntity<?> checkOneDayTransactions(@RequestBody BankOneDayTransactionRequest dayTransactionRequest){
+        BankAccountResponse accountResponse = bankService.oneDayTransactions(dayTransactionRequest);
+        return new ResponseEntity<>(accountResponse,HttpStatus.OK);
+
+    }
+
     @PostMapping("/balance")
     public ResponseEntity<?> checkBalance(@RequestBody BankBalanceRequest bankBalanceRequest){
         BankBalanceResponse bankBalanceResponse = bankService.checkBalance(bankBalanceRequest);

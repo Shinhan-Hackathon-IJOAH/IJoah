@@ -2,6 +2,8 @@ package com.shinhan.shbhack.ijoa.api.service.bank.command;
 
 import com.querydsl.core.Tuple;
 import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.*;
+import com.shinhan.shbhack.ijoa.api.service.alarm.command.AlarmService;
+import com.shinhan.shbhack.ijoa.api.service.alarm.dto.request.AlarmNotifyRequest;
 import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.*;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Account;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Transaction;
@@ -9,6 +11,10 @@ import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.AccountRepository
 import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.TransactionCategoryRepository;
 import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.TransactionRepository;
 import com.shinhan.shbhack.ijoa.domain.bank.repository.query.TransactionQueryRepository;
+import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
+import com.shinhan.shbhack.ijoa.domain.member.entity.enums.ConfirmStatus;
+import com.shinhan.shbhack.ijoa.domain.member.entity.enums.NotificationType;
+import com.shinhan.shbhack.ijoa.domain.member.repository.datajpa.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,9 +39,11 @@ public class BankService {
     private final TransactionCategoryRepository categoryRepository;
     private final TransactionRepository transactionRepository;
     private final TransactionQueryRepository transactionQueryRepository;
-
+    private final MemberRepository memberRepository;
+    private final AlarmService alarmService;
     private Map<String, String> checkOne = new ConcurrentHashMap<>();
     private List<String> list = new ArrayList<>();
+
 
     @PostConstruct
     public void init(){
@@ -134,6 +142,19 @@ public class BankService {
         //변경된 값 갱신
         sender.setBalance(senderMoney);
         receiver.setBalance(reciverMoney);
+
+        /* 알람 서비스 이용 */
+        Member receiveMember = memberRepository.findByAccount(bankTransferRequest.getDepositAccount()).get();
+        Member sendMember =  memberRepository.findByAccount(bankTransferRequest.getWithdrawAccount()).get();
+        String content = sendMember.getName()+"님이 "+bankTransferRequest.getAmount().toString()+"원을 이체했습니다. ";
+        alarmService.sendAlarm(AlarmNotifyRequest.builder()
+                .sender(sendMember)
+                .receiver(receiveMember)
+                .notificationType(NotificationType.WITHDRAWL)
+                        .confirmStatus(ConfirmStatus.UNCONFIRMED)
+                .content(content)
+                .build());
+
         return BankTransferResponse.of(bankTransferRequest, senderMoney);
     }
 
@@ -149,9 +170,16 @@ public class BankService {
         return bankAccountResponse;
     }
 
+    public BankAccountResponse oneDayTransactions(BankOneDayTransactionRequest transactionRequest){
+        BankAccountResponse bankAccountResponse = transactionQueryRepository.findInfoByAccount(transactionRequest.getAccountNumber());
+        List<BankTransactionResponse> bankTransactionResponseList = transactionQueryRepository.findDayDetailByAccount(transactionRequest.getAccountNumber(), transactionRequest.getDate());
+        bankAccountResponse.setBankTransactionResponses(bankTransactionResponseList);
+        return bankAccountResponse;
+    }
+
     public void startOneWonAuth(BankBalanceRequest bankBalanceRequest){
         Random random = new Random();
-        int randomNumber = random.nextInt(8);
+        int randomNumber = random.nextInt(list.size());
         if(checkOne.get(bankBalanceRequest.getAccountNumber()) !=null){
             checkOne.remove(bankBalanceRequest.getAccountNumber());
         }

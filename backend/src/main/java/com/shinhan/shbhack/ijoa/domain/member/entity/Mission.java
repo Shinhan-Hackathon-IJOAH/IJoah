@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +39,10 @@ public class Mission extends BaseEntity {
     private Long reward;
 
     @NotNull
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @NotNull
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @NotNull
     @Enumerated(STRING)
@@ -61,7 +62,7 @@ public class Mission extends BaseEntity {
     private List<Notification> notifications = new ArrayList<>();
 
     @Builder
-    public Mission(Long id, String content, Long reward, LocalDateTime startDate, LocalDateTime endDate, Accomplishment accomplishment, Member writer, Member challenger, List<Notification> notifications) {
+    public Mission(Long id, String content, Long reward, LocalDate startDate, LocalDate endDate, Accomplishment accomplishment, Member writer, Member challenger, List<Notification> notifications) {
         this.id = id;
         this.content = content;
         this.reward = reward;
