@@ -40,7 +40,7 @@ public class BankController {
 
     @PostMapping("/deposit")
     public ResponseEntity<?> depositMoney(@RequestBody BankDepositRequest bankDepositRequest){
-        BankDepositResponse bankDepositResponse = bankService.deposit(bankDepositRequest);
+        BankDepositResponse bankDepositResponse = bankService.deposit(bankDepositRequest, "ATM 입금");
         return new ResponseEntity<>(bankDepositResponse, HttpStatus.OK);
     }
 
@@ -48,5 +48,20 @@ public class BankController {
     public ResponseEntity<?> anlayzeMoney(@RequestBody BankAnalyzeRequest bankAnalyzeRequest){
         BankAnalyzeResponse bankAnalyzeResponse = bankService.analyzeTransaction(bankAnalyzeRequest.getAccountNumber());
         return new ResponseEntity<>(bankAnalyzeResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/startoneauth")
+    public ResponseEntity<?> startOneAuth(@RequestBody BankBalanceRequest balanceRequest){
+        bankService.startOneWonAuth(balanceRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/checkoneauth")
+    public ResponseEntity<?> checkOneAuth(@RequestBody BankAuthRequest bankAuthRequest){
+        if(bankService.checkOneWonAuth((bankAuthRequest))){
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }
