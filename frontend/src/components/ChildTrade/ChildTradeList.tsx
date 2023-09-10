@@ -19,8 +19,9 @@ import {
 } from "@heroicons/react/24/solid";
 import BackPageButton from "../Common/BackPageButton";
 import axios from "axios";
-
+import { useUserStore } from "../../store/UserStore";
 const TradeList = () => {
+  const { accessToken } = useUserStore();
   // 더미데이터
   const dummyData = {
     accountNumber: "110111111111",
@@ -39,19 +40,29 @@ const TradeList = () => {
       },
     ],
   };
-
+  console.log(accessToken);
   const [res, setRes] = useState<any>(dummyData);
   useEffect(() => {
     axios
-      .post("https://ijoah01.duckdns.org/api/bank/transactions", {
-        accountNumber: "110111222222",
-      })
+      .post(
+        "https://ijoah01.duckdns.org/api/bank/transactions",
+        {
+          accountNumber: "110111222222",
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res.data);
         setRes(res.data);
       })
       .catch((err) => {
         console.log(err);
+        console.log(accessToken);
       });
   }, []);
 

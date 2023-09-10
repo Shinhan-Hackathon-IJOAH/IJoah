@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Timeline,
   TimelineItem,
@@ -13,6 +13,9 @@ import {
   CurrencyDollarIcon,
 } from "@heroicons/react/24/solid";
 
+import axios from "axios";
+import { useDiaryStore } from "../../store/DiaryStore";
+import { useUserStore } from "../../store/UserStore";
 interface TradeList {
   id: number;
   bgColor: string;
@@ -21,89 +24,143 @@ interface TradeList {
   amount: string;
 }
 
-const TradeList = () => (
-  <div className="mt-10">
-    <div className="flex justify-center w-[100vw] font-['HSYuji-Regular']  text-2xl mb-5">
-      오늘은 무엇을 샀나요?
-    </div>
-    <div className="container mx-auto w-[80vw] h-full  xl::w-[50vw]">
-      <div className="relative wrap overflow-hidden p-h-full">
-        <div className="border-2-2 absolute border-opacity-20 border-gray-700 h-full border left-1/2"></div>
-        {/* 거래내역1 */}
+const TradeList = () => {
+  const { date } = useDiaryStore();
+  const { accessToken } = useUserStore();
+  const [oneDayTransaction, setOneDayTransaction] = useState<any[]>([]);
+  const dummyData = {
+    accountNumber: "110111222222",
+    balance: 100000,
+    name: "김신한",
+    bankTransactionResponses: [
+      {
+        date: "2023-09-02",
+        time: "14:25:00",
+        withdrawAmount: 10000,
+        depositAmount: 0,
+        content: "다이소",
+        transactionBalance: 1200000,
+        type: 2,
+        category: 2,
+      },
+      {
+        date: "2023-09-02",
+        time: "14:25:00",
+        withdrawAmount: 10000,
+        depositAmount: 0,
+        content: "다이소",
+        transactionBalance: 1200000,
+        type: 2,
+        category: 2,
+      },
+      {
+        date: "2023-09-02",
+        time: "14:25:00",
+        withdrawAmount: 10000,
+        depositAmount: 0,
+        content: "다이소",
+        transactionBalance: 1200000,
+        type: 2,
+        category: 2,
+      },
+      {
+        date: "2023-09-02",
+        time: "14:25:00",
+        withdrawAmount: 10000,
+        depositAmount: 0,
+        content: "다이소",
+        transactionBalance: 1200000,
+        type: 2,
+        category: 2,
+      },
+      {
+        date: "2023-09-02",
+        time: "14:25:00",
+        withdrawAmount: 10000,
+        depositAmount: 0,
+        content: "다이소",
+        transactionBalance: 1200000,
+        type: 2,
+        category: 2,
+      },
+    ],
+  };
+  // 이 부분 때문에 무한 루프 에러 뜸.
+  useEffect(() => {
+    setOneDayTransaction(dummyData.bankTransactionResponses);
+  }, []);
 
-        <div className="mb-8 flex justify-between items-center w-full right-timeline">
-          <div className="order-1 w-5/12"></div>
-          <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
-            <h1 className="mx-auto font-semibold text-lg text-white">1</h1>
-          </div>
-          <div className="order-1 bg-[#F8A70C] rounded-lg shadow-xl w-5/12 px-6 py-4">
-            <h3 className="mb-2 font-bold text-white text-center text-md lg:text-xl font-['HSYuji-Regular']">
-              거래내역 1
-            </h3>
-            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
-              08시 40분
-            </p>
-            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
-              5,000원
-            </p>
-          </div>
-        </div>
-        {/* 거래내역2 */}
-        <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
-          <div className="order-1 w-5/12"></div>
-          <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
-            <h1 className="mx-auto text-white font-semibold text-lg">2</h1>
-          </div>
-          <div className="order-1 bg-[#FF8A3D] rounded-lg shadow-xl w-5/12 px-6 py-4">
-            <h3 className="mb-2 font-bold text-white text-center text-md lg:text-xl font-['HSYuji-Regular']">
-              거래내역 1
-            </h3>
-            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
-              08시 40분
-            </p>
-            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
-              5,000원
-            </p>
-          </div>
-        </div>
-        {/* 거래내역3 flex-row-reverse가 있고 없고 차이 => 즉, 홀수일때는 없고 짝수일때는 있게 설정하면 될듯. 컬러도 다르게! */}
-        <div className="mb-8 flex justify-between  items-center w-full right-timeline">
-          <div className="order-1 w-5/12"></div>
-          <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
-            <h1 className="mx-auto text-white font-semibold text-lg">3</h1>
-          </div>
-          <div className="order-1 bg-[#F8A70C] rounded-lg shadow-xl w-5/12 px-6 py-4">
-            <h3 className="mb-2 font-bold text-white text-center text-md lg:text-xl font-['HSYuji-Regular']">
-              거래내역 1
-            </h3>
-            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
-              08시 40분
-            </p>
-            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
-              5,000원
-            </p>
-          </div>
-        </div>
-        {/* 거래내역4 */}
-        <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
-          <div className="order-1 w-5/12"></div>
-          <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
-            <h1 className="mx-auto text-white font-semibold text-lg">4</h1>
-          </div>
-          <div className="order-1 bg-[#FF8A3D] rounded-lg shadow-xl w-5/12 px-6 py-4">
-            <h3 className="mb-2 font-bold text-white text-center text-md lg:text-xl font-['HSYuji-Regular']">
-              거래내역 1
-            </h3>
-            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
-              08시 40분
-            </p>
-            <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
-              5,000원
-            </p>
-          </div>
+  // 날짜 바뀔때마다 useEffect 쏘는 곳.
+  // useEffect(() => {
+  //   axios
+  //     .post(
+  //       "https://ijoah01.duckdns.org/api/bank/oneday-transactions",
+  //       {
+  //         date: date,
+  //         accountNumber: "110111222222",
+  //       },
+  //       {
+  //         headers: {
+  //           // Accept: "application/json",
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setOneDayTransaction(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [date]);
+
+  return (
+    <div className="mt-10">
+      <div className="flex justify-center w-[100vw] font-['HSYuji-Regular']  text-2xl mb-5">
+        오늘은 무엇을 샀나요?
+      </div>
+      <div className="container mx-auto w-[80vw] h-full xl::w-[50vw]">
+        <div className="relative wrap overflow-hidden p-h-full">
+          <div className="border-2-2 absolute border-opacity-20 border-gray-700 h-full border left-1/2"></div>
+
+          {oneDayTransaction.map((transaction, index) => (
+            <div
+              key={index}
+              className={`mb-8 flex justify-between items-center w-full ${
+                index % 2 === 0
+                  ? "right-timeline flex-row-reverse"
+                  : "left-timeline"
+              }`}
+            >
+              <div className="order-1 w-5/12"></div>
+              <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
+                <h1 className="mx-auto font-semibold text-lg text-white">
+                  {index + 1}
+                </h1>
+              </div>
+              <div
+                className={`order-1 rounded-lg shadow-xl w-5/12 px-6 py-4
+                ${index % 2 === 0 ? "bg-[#FF8A3D]" : "bg-[#F8A70C]"}
+                `}
+              >
+                <h3 className="mb-2 font-bold text-white text-center text-md lg:text-xl font-['HSYuji-Regular']">
+                  {transaction.content}
+                </h3>
+                <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
+                  {transaction.time}
+                </p>
+                <p className="text-sm leading-snug tracking-wide text-center text-white text-opacity-100 font-['HSYuji-Regular']">
+                  {transaction.type === 1
+                    ? `+${transaction.depositAmount}원`
+                    : `-${transaction.withdrawAmount}원`}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 export default TradeList;

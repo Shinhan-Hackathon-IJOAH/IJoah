@@ -24,6 +24,8 @@ interface UserStore {
   setAccessToken: (accessToken: any) => void;
   refreshToken: any;
   setRefreshToken: (refreshToken: any) => void;
+  account: any;
+  setAccount: (account: any) => void;
 }
 
 export const useUserStore = create<UserStore>()(
@@ -38,7 +40,7 @@ export const useUserStore = create<UserStore>()(
         address: "",
         memberRole: "",
         profileImage: "",
-
+        account: "",
         accessToken: "",
         refreshToken: "",
         setId: (payload) => set({ id: payload }),
@@ -51,6 +53,7 @@ export const useUserStore = create<UserStore>()(
         setProfileImage: (payload) => set({ profileImage: payload }),
         setAccessToken: (payload) => set({ accessToken: payload }),
         setRefreshToken: (payload) => set({ refreshToken: payload }),
+        setAccount: (payload) => set({ account: payload }),
       }),
       {
         name: "User-storage", // persist key
