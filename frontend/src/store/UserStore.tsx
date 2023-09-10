@@ -4,8 +4,6 @@ import { devtools, persist } from "zustand/middleware";
 
 // 일단 User에 대한 정보 담을 Store 생성해놓음. -> 에러떠서 내일 찾아봐야함.
 interface UserStore {
-  user: any;
-  setUser: (user: any) => void;
   id: any;
   setId: (id: any) => void;
   name: any;
@@ -32,7 +30,6 @@ export const useUserStore = create<UserStore>()(
   devtools(
     persist(
       (set) => ({
-        user: {},
         id: "",
         name: "",
         birthDate: "",
@@ -44,7 +41,6 @@ export const useUserStore = create<UserStore>()(
 
         accessToken: "",
         refreshToken: "",
-        setUser: (payload) => set({ user: payload }),
         setId: (payload) => set({ id: payload }),
         setName: (payload) => set({ name: payload }),
         setBirthDate: (payload) => set({ birthDate: payload }),

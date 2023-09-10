@@ -23,6 +23,7 @@ import {
   LockClosedIcon,
 } from "@heroicons/react/24/solid";
 import { useSignUpStore } from "../../store/SignUpStore";
+import Swal from "sweetalert2";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -55,10 +57,23 @@ export default function SignUp() {
   const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGender(e.target.value);
   };
+  const handlePasswordCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordCheck(e.target.value);
+  };
 
   // axios
 
   function SignUp() {
+    // 패스워드랑 패스워드 체크랑 같은지 확인해서 일치하지 않으면 return
+    if (password !== passwordCheck) {
+      Swal.fire({
+        icon: "error",
+        title: "비밀번호가 일치하지 않습니다.",
+        text: "다시 확인해주세요.",
+      });
+      return;
+    }
+    // 패스워드랑 패스워드 확인이랑 일치하면 회원가입 진행
     axios
       .post("https://ijoah01.duckdns.org/api/members/join", {
         name: name,
@@ -67,7 +82,7 @@ export default function SignUp() {
         phoneNumber: phoneNumber,
         birthDate: birthDate,
         gender: gender,
-        address: "얘 날릴 거임.",
+        // address: "얘 날릴 거임.",
         memberRole: memberRole,
       })
       .then((response: any) => {
@@ -75,7 +90,11 @@ export default function SignUp() {
         console.log(response.data);
         console.log(response);
         navigate("/parent");
-        alert("회원가입이 완료되었습니다.");
+        Swal.fire({
+          icon: "success",
+          title: "회원가입에 성공했습니다",
+          text: "모아일기에 오신 것을 진심으로 환영합니다!",
+        });
       })
       .catch((error: any) => {
         console.log("되겠냐");
@@ -88,7 +107,11 @@ export default function SignUp() {
         console.log("memberRole", memberRole);
         console.log("address", address);
         console.log("gender", gender);
-        alert("회원가입에 실패했습니다.");
+        Swal.fire({
+          icon: "error",
+          title: "회원가입에 실패했습니다.",
+          text: "다시 시도해주세요.",
+        });
       });
   }
 
@@ -98,6 +121,7 @@ export default function SignUp() {
     setName("");
     setEmail("");
     setPassword("");
+    setPasswordCheck("");
     setPhoneNumber("");
     setAddress("");
     setBirthDate("");
@@ -185,7 +209,23 @@ export default function SignUp() {
                     <Input
                       onChange={handlePassword}
                       crossOrigin={undefined}
-                      type="text"
+                      type="password"
+                      color="orange"
+                      label="Password"
+                    />
+                  </div>
+                  <div>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="mb-4 font-medium"
+                    >
+                      비밀번호를 다시 입력해주세요.
+                    </Typography>
+                    <Input
+                      onChange={handlePasswordCheck}
+                      crossOrigin={undefined}
+                      type="password"
                       color="orange"
                       label="Password"
                     />
@@ -322,7 +362,23 @@ export default function SignUp() {
                       color="orange"
                       onChange={handlePassword}
                       crossOrigin={undefined}
-                      type="text"
+                      type="password"
+                      label="Password"
+                    />
+                  </div>
+                  <div>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="mb-4 font-medium"
+                    >
+                      비밀번호를 다시 입력해주세요.
+                    </Typography>
+                    <Input
+                      onChange={handlePasswordCheck}
+                      crossOrigin={undefined}
+                      type="password"
+                      color="orange"
                       label="Password"
                     />
                   </div>
