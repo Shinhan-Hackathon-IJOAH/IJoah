@@ -11,6 +11,7 @@ import com.shinhan.shbhack.ijoa.common.dto.response.ApiData;
 import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
 import com.shinhan.shbhack.ijoa.common.error.exception.ServiceRuntimeException;
 import com.shinhan.shbhack.ijoa.common.model.UserDetailsModel;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,9 @@ public class MemberController {
         return ApiData.of(memberQueryService.loginMember(request.toServiceRequest()));
     }
 
-
+//    @GetMapping("/profile")
+//    @ApiOperation(value = "프로필 페이지")
+//    public ApiData<>
 
     @GetMapping("/single")
     @ApiOperation(value = "ApiSingleData test")

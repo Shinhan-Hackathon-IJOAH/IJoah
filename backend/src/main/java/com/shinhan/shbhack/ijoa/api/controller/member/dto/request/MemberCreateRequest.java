@@ -40,10 +40,6 @@ public class MemberCreateRequest {
     @NotNull
     private String phoneNumber;
 
-    @Size(max = 50)
-    @NotNull
-    private String address;
-
     @NotNull
     private LocalDate birthDate;
 
@@ -59,7 +55,6 @@ public class MemberCreateRequest {
                 .email(email)
                 .password(password)
                 .phoneNumber(phoneNumber)
-                .address(address)
                 .birthDate(birthDate)
                 .gender(gender)
                 .memberRole(memberRole)

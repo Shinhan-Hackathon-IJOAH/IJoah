@@ -8,9 +8,7 @@ import java.util.List;
 @Component
 public class FileExtensionFilter {
 
-    /**
-     * need refactoring
-     */
+    // TODO: 2023-09-10 리팩토링 필요 
     private final String[] NOT_ALLOWED_IMG_EXTENSIONS = {"png", "jpg", "jpeg", "gif"};
     private final String[] NOT_ALLOWED_FILE_EXTENSIONS = {"jsp", "php", "asp", "html", "perl"};
 
