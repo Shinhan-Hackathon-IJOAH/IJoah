@@ -25,10 +25,13 @@ public class SecurityConfig {
 
         http
                 .csrf().disable()
+                .cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
 //                .antMatchers( "/api/members", "/api/diaries", "/swagger-ui/**", "/swagger-ui.html", "/**").permitAll()
-                .antMatchers("/api/members/join", "/api/members/login", "/api/emails/**", "/api/shareddiaries/**").permitAll()
+//                .antMatchers("/api/members/join", "/api/members/login", "/api/emails/**", "/api/shareddiaries/**").permitAll()
+                .antMatchers("/api/diaries/write", "/api/members/join", "/api/members/login", "/api/emails/**", "/api/shareddiaries/**").permitAll()
+
                 .anyRequest().authenticated().and()
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
