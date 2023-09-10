@@ -1,5 +1,6 @@
-package com.shinhan.shbhack.ijoa.common.util.file;
+package com.shinhan.shbhack.ijoa.common.util;
 
+import com.shinhan.shbhack.ijoa.domain.UploadFile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class FileStore {
+public class FileUtil {
 
     @Value("${file.dir}")
     public String fileDir;

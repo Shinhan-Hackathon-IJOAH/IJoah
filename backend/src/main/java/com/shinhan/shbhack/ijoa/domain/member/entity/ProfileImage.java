@@ -1,8 +1,7 @@
 package com.shinhan.shbhack.ijoa.domain.member.entity;
 
-import com.shinhan.shbhack.ijoa.common.util.file.UploadFile;
+import com.shinhan.shbhack.ijoa.domain.UploadFile;
 import com.shinhan.shbhack.ijoa.domain.BaseEntity;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

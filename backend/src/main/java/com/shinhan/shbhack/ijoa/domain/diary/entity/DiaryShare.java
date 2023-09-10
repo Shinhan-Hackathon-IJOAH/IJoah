@@ -1,6 +1,5 @@
 package com.shinhan.shbhack.ijoa.domain.diary.entity;
 
-import com.shinhan.shbhack.ijoa.common.util.file.UploadFile;
 import com.shinhan.shbhack.ijoa.domain.BaseEntity;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
 import lombok.AccessLevel;

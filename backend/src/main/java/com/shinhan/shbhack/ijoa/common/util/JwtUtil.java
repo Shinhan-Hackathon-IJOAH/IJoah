@@ -1,28 +1,18 @@
-package com.shinhan.shbhack.ijoa.common.util.jwt;
+package com.shinhan.shbhack.ijoa.common.util;
 
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
 import com.shinhan.shbhack.ijoa.common.model.JwtCreateModel;
-import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
-import com.shinhan.shbhack.ijoa.common.util.error.exception.InvalidValueException;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.exception.InvalidValueException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -42,7 +32,19 @@ public class JwtUtil {
         String accessToken = generateToken(model, ACCESS_TOKEN_EXPIRE_TIME);
         String refreshToken = generateToken(model, REFRESH_TOKEN_EXPIRE_TIME);
 
-        return toMemberTokenResponse(accessToken, refreshToken);
+        return toMemberTokenResponse(accessToken, refreshToken, model);
+    }
+
+    public String generateToken(Claims claims, Long expireTime){
+        Date now = new Date();
+        Date expireDate = new Date(now.getTime() + expireTime);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(expireDate)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
     }
 
     public String generateToken(JwtCreateModel model, Long expireTime) {
@@ -61,17 +63,20 @@ public class JwtUtil {
 
     private Claims setClaim(JwtCreateModel model){
         Claims claims = Jwts.claims();
-        claims.put("id", model.getId());
+        claims.put("name", model.getName());
         claims.put("email", model.getEmail());
         claims.put("role", model.getMemberRole());
 
         return claims;
     }
 
-    private MemberTokenResponse toMemberTokenResponse(String accessToken, String refreshToken){
+    private MemberTokenResponse toMemberTokenResponse(String accessToken, String refreshToken, JwtCreateModel model){
         return MemberTokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .name(model.getName())
+                .email(model.getEmail())
+                .memberRole(model.getMemberRole())
                 .build();
     }
 
@@ -91,11 +96,11 @@ public class JwtUtil {
         throw new InvalidValueException(ErrorCode.INVALID_TOKEN);
     }
 
-    public String getUsername(String token, String key) {
-        return extractAllClaims(token).get("username", String.class);
+    public String getEmail(String token) {
+        return extractAllClaims(token).get("email", String.class);
     }
 
-    public Boolean isTokenExpired(String token, String key) {
+    public Boolean isTokenExpired(String token) {
         Date expiration = extractAllClaims(token).getExpiration();
         return expiration.before(new Date());
     }

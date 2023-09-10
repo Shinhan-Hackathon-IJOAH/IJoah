@@ -8,12 +8,13 @@ import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenRespo
 import com.shinhan.shbhack.ijoa.api.service.member.query.MemberQueryService;
 import com.shinhan.shbhack.ijoa.common.dto.response.ApiPage;
 import com.shinhan.shbhack.ijoa.common.dto.response.ApiData;
-import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
-import com.shinhan.shbhack.ijoa.common.util.error.exception.ServiceRuntimeException;
-import io.swagger.annotations.Api;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.exception.ServiceRuntimeException;
+import com.shinhan.shbhack.ijoa.common.model.UserDetailsModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -44,9 +45,10 @@ public class MemberController {
     }
 
 
+
     @GetMapping("/single")
     @ApiOperation(value = "ApiSingleData test")
-    public ApiData<MemberDetailResponse> testSingle(){
+    public ApiData<MemberDetailResponse> testSingle(@AuthenticationPrincipal UserDetailsModel userDetailsModel){
         MemberDetailResponse res = MemberDetailResponse.builder()
                                         .email("test")
                                         .build();

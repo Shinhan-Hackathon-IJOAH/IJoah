@@ -1,4 +1,4 @@
-package com.shinhan.shbhack.ijoa.common.util.file;
+package com.shinhan.shbhack.ijoa.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;

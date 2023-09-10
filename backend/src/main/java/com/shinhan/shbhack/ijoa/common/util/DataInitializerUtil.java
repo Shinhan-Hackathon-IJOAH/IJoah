@@ -22,7 +22,7 @@ import java.time.LocalTime;
 
 @Component
 @RequiredArgsConstructor
-public class DataInitializer implements CommandLineRunner {
+public class DataInitializerUtil implements CommandLineRunner {
 
     private final MemberRepository memberRepository;
     private final AccountRepository accountRepository;

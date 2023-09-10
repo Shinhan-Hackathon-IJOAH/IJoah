@@ -1,6 +1,6 @@
 package com.shinhan.shbhack.ijoa.common.config;
 
-import com.shinhan.shbhack.ijoa.common.util.jwt.JwtUtil;
+import com.shinhan.shbhack.ijoa.common.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,8 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers( "/api/member", "/api/diaries", "/swagger-ui/**", "/swagger-ui.html", "/**").permitAll()
+//                .antMatchers( "/api/members", "/api/diaries", "/swagger-ui/**", "/swagger-ui.html", "/**").permitAll()
+                .antMatchers("/api/members/join", "/api/members/login", "api/emails/**").permitAll()
                 .anyRequest().authenticated();
 //                .and()
 //                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

@@ -1,12 +1,11 @@
 package com.shinhan.shbhack.ijoa.api.service.member.query;
 
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.EmailCheckServiceRequest;
-import com.shinhan.shbhack.ijoa.common.util.error.ErrorCode;
-import com.shinhan.shbhack.ijoa.common.util.error.exception.InvalidValueException;
-import com.shinhan.shbhack.ijoa.common.util.redis.RedisUtil;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.exception.InvalidValueException;
+import com.shinhan.shbhack.ijoa.common.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -83,26 +82,22 @@ public class EmailQueryService {
 
     public void checkEmail(EmailCheckServiceRequest request){
         Optional<String> code = redisUtil.getEmail(request.getEmail());
-        if(!code.isPresent()) throw new InvalidValueException(ErrorCode.INVALID_TYPE_VALUE);
-        if(!code.get().equals(request.getCode())) throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
+        if(!code.isPresent()) throw new InvalidValueException(ErrorCode.NOTMATCH_EMAIL);
+        if(!code.get().equals(request.getCode())) throw new InvalidValueException(ErrorCode.NOTMATCH_EMAIL_CODE);
+
+        redisUtil.deleteEmail(request.getEmail());
     }
 
-    public void sendCodeToEmail(String toEmail) {
-        // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
+//    public void sendCodeToEmail(String toEmail) {
+//         이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
 //        redisService.setValues(AUTH_CODE_PREFIX + toEmail,
 //                authCode, Duration.ofMillis(this.authCodeExpirationMillis));
-    }
-
-
-
-
-//    public EmailVerificationResult verifiedCode(String email, String authCode) {
-//        this.checkDuplicatedEmail(email);
-//        String redisAuthCode = redisService.getValues(AUTH_CODE_PREFIX + email);
-//        boolean authResult = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
-//
-//        return EmailVerificationResult.of(authResult);
 //    }
+
+
+
+
+
 
 
 }
