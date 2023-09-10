@@ -32,6 +32,14 @@ public class TransactionQueryRepository {
                 .from(transaction).where(transaction.accountNumber.eq(accountNumber)).orderBy(transaction.transactionDay.desc(), transaction.transactionTime.desc()).fetch();
     }
 
+    public List<BankTransactionResponse> findDayDetailByAccount(String accountNumber, LocalDate oneDay){
+        return queryFactory.select(Projections.fields(BankTransactionResponse.class,
+                        transaction.transactionDay.as("date"), transaction.transactionTime.as("time"),
+                        transaction.withdrawAmount, transaction.depositAmount, transaction.content, transaction.balance.as("transactionBalance"), transaction.category,
+                        transaction.transactionType.as("type")))
+                .from(transaction).where(transaction.accountNumber.eq(accountNumber).and(transaction.transactionDay.eq(oneDay))).orderBy(transaction.transactionTime.asc()).fetch();
+    }
+
     public BankBalanceResponse findBalanceByAccount(String accountNumber){
         return queryFactory.select(Projections.fields(BankBalanceResponse.class, account.accountNumber,account.balance)).from(account)
                 .where(account.accountNumber.eq(accountNumber)).fetchOne();

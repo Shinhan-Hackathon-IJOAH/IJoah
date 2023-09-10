@@ -1,13 +1,11 @@
 package com.shinhan.shbhack.ijoa.domain.member.entity;
 
+import com.shinhan.shbhack.ijoa.api.service.alarm.dto.request.AlarmNotifyRequest;
 import com.shinhan.shbhack.ijoa.domain.BaseEntity;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.ConfirmStatus;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.NotificationType;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,6 +17,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = PROTECTED)
 public class Notification extends BaseEntity {
 
@@ -49,18 +48,27 @@ public class Notification extends BaseEntity {
     @JoinColumn(name = "mission_id")
     private Mission mission;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "diary_id")
-    private Diary diary;
+    private String content;
 
     @Builder
-    public Notification(Long id, NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, Diary diary) {
+    public Notification(Long id, NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, String content) {
         this.id = id;
         this.notificationType = notificationType;
         this.confirmStatus = confirmStatus;
         this.receiver = receiver;
         this.sender = sender;
         this.mission = mission;
-        this.diary = diary;
+        this.content = content;
+    }
+
+    public static Notification of(AlarmNotifyRequest alarmNotifyRequest){
+        Notification notification = new Notification();
+        notification.confirmStatus = alarmNotifyRequest.getConfirmStatus();
+        notification.notificationType = alarmNotifyRequest.getNotificationType();
+        notification.mission = alarmNotifyRequest.getMission();
+        notification.content = alarmNotifyRequest.getContent();
+        notification.receiver = alarmNotifyRequest.getReceiver();
+        notification.sender = alarmNotifyRequest.getSender();
+        return notification;
     }
 }
