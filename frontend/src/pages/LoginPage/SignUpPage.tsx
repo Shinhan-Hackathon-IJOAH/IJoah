@@ -24,13 +24,10 @@ import {
 } from "@heroicons/react/24/solid";
 import { useSignUpStore } from "../../store/SignUpStore";
 
-
-
-
 export default function SignUp() {
   const navigate = useNavigate();
-  const { signUpEmail,setSignUpEmail } = useSignUpStore();
-  console.log(signUpEmail)
+  const { signUpEmail, setSignUpEmail } = useSignUpStore();
+  console.log(signUpEmail);
   const [memberRole, setMemberRole] = useState("PARENT");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,7 +35,7 @@ export default function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [birthDate, setBirthDate] = useState("");
-  const [gender,setGender] = useState("");
+  const [gender, setGender] = useState("");
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -61,43 +58,43 @@ export default function SignUp() {
 
   // axios
 
-  function SignUp()
-  {
-    axios.post("https://ijoah01.duckdns.org/api/members/join", {
-      "name": name,
-      "email": signUpEmail ,
-      "password": password,
-      "phoneNumber": phoneNumber,
-      "address": address,
-      "birthDate": birthDate,
-      "gender":"MALE",
-      "memberRole": memberRole
-  })
-  .then((response: any) => {
-    console.log("성공");
-    console.log(response.data);
-    navigate("/parent");
-    alert("회원가입이 완료되었습니다.")
-  })
-  .catch((error: any) => {
-    console.log("되겠냐");
-    console.log(error);
-    console.log("name",name);
-    console.log("email",signUpEmail);
-    console.log("password",password);
-    console.log("phoneNumber",typeof phoneNumber);
-    console.log("address",address);
-    console.log("birthDate",typeof birthDate);
-    console.log("memberRole",memberRole)
-    alert("회원가입에 실패했습니다.")
-  });
-  
+  function SignUp() {
+    axios
+      .post("https://ijoah01.duckdns.org/api/members/join", {
+        name: name,
+        email: signUpEmail,
+        password: password,
+        phoneNumber: phoneNumber,
+        birthDate: birthDate,
+        gender: gender,
+        address: "얘 날릴 거임.",
+        memberRole: memberRole,
+      })
+      .then((response: any) => {
+        console.log("성공");
+        console.log(response.data);
+        console.log(response);
+        navigate("/parent");
+        alert("회원가입이 완료되었습니다.");
+      })
+      .catch((error: any) => {
+        console.log("되겠냐");
+        console.log(error);
+        console.log("name", name);
+        console.log("email", email);
+        console.log("password", password);
+        console.log("phoneNumber", phoneNumber);
+        console.log("birthDate", birthDate);
+        console.log("memberRole", memberRole);
+        console.log("address", address);
+        console.log("gender", gender);
+        alert("회원가입에 실패했습니다.");
+      });
   }
-
 
   // 탭을 옮겼을 때 모두 비우는 함수-> useEffect 써야하나
 
-const clearAll = () => {
+  const clearAll = () => {
     setName("");
     setEmail("");
     setPassword("");
@@ -105,10 +102,10 @@ const clearAll = () => {
     setAddress("");
     setBirthDate("");
     setGender("");
-}
+  };
   return (
     <div className="flex justify-center ">
-      <Card className="w-full max-w-[24rem] ">
+      <Card className="w-full max-w-[32rem] ">
         <CardHeader
           color="orange"
           floated={false}
@@ -170,9 +167,8 @@ const clearAll = () => {
                       이메일을 입력해주세요.
                     </Typography>
                     <Input
-            disabled
+                      disabled
                       crossOrigin={undefined}
-                      
                       color="orange"
                       label={signUpEmail}
                     />
@@ -217,6 +213,35 @@ const clearAll = () => {
                       color="blue-gray"
                       className="mb-4 font-medium"
                     >
+                      성별을 클릭해주세요.
+                    </Typography>
+                    <Tabs>
+                      <TabsHeader className="relative z-0 ">
+                        <Tab
+                          value="MALE"
+                          onClick={() => {
+                            setGender("MALE");
+                          }}
+                        >
+                          남자
+                        </Tab>
+                        <Tab
+                          value="FEMALE"
+                          onClick={() => {
+                            setGender("FEMALE");
+                          }}
+                        >
+                          여자
+                        </Tab>
+                      </TabsHeader>
+                    </Tabs>
+                  </div>
+                  <div>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="mb-4 font-medium"
+                    >
                       생년월일을 입력해주세요.
                     </Typography>
                     <Input
@@ -227,7 +252,7 @@ const clearAll = () => {
                       label="BirthDate"
                     />
                   </div>
-           
+
                   <div>
                     <Typography
                       variant="small"
@@ -244,29 +269,12 @@ const clearAll = () => {
                       label="PhoneNumber"
                     />
                   </div>
-                  <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
-                      주소를 입력해주세요.
-                    </Typography>
-                    <Input
-                      onChange={handleAddress}
-                      crossOrigin={undefined}
-                      type="text"
-                      color="orange"
-                      label="Address"
-                    />
-                  </div>
 
                   {/*  */}
 
                   <Button
                     onClick={() => {
-                      SignUp(
-                      );
+                      SignUp();
                     }}
                     size="lg"
                     color="orange"
@@ -341,6 +349,35 @@ const clearAll = () => {
                       color="blue-gray"
                       className="mb-4 font-medium"
                     >
+                      성별을 클릭해주세요.
+                    </Typography>
+                    <Tabs>
+                      <TabsHeader className="relative z-0 ">
+                        <Tab
+                          value="MALE"
+                          onClick={() => {
+                            setGender("MALE");
+                          }}
+                        >
+                          남자
+                        </Tab>
+                        <Tab
+                          value="FEMALE"
+                          onClick={() => {
+                            setGender("FEMALE");
+                          }}
+                        >
+                          여자
+                        </Tab>
+                      </TabsHeader>
+                    </Tabs>
+                  </div>
+                  <div>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="mb-4 font-medium"
+                    >
                       생년월일을 입력해주세요.
                     </Typography>
                     <Input
@@ -351,7 +388,7 @@ const clearAll = () => {
                       label="BirthDate"
                     />
                   </div>
-          
+
                   <div>
                     <Typography
                       variant="small"
@@ -368,26 +405,10 @@ const clearAll = () => {
                       label="PhoneNumber"
                     />
                   </div>
-                  <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
-                      주소를 입력해주세요.
-                    </Typography>
-                    <Input
-                      onChange={handleAddress}
-                      crossOrigin={undefined}
-                      type="text"
-                      color="orange"
-                      label="Address"
-                    />
-                  </div>
+
                   <Button
                     onClick={() => {
-                      SignUp(
-                      );
+                      SignUp();
                     }}
                     size="lg"
                     color="orange"
