@@ -48,7 +48,9 @@ const BottomNav = () => {
               <Icon name="home" />
               프로필 수정
             </Menu.Item>
-            <Menu.Item as="a">
+            <Menu.Item 
+            onClick={()=>navigate("/register/account")}
+            as="a">
               <Icon name="gamepad" />
               계좌 등록하기
             </Menu.Item>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Content = styled.div`
+export const RegisterContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

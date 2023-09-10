@@ -1,45 +1,50 @@
-import React,{useState} from 'react';
+import React, { useState } from "react";
 import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Typography,
-    Button,
-    Input
-  } from "@material-tailwind/react";
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+  Input,
+} from "@material-tailwind/react";
+import axios from "axios";
 const MyPage = () => {
+  // input창 입력값에 따라 state 변경하는 함수들
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChangePassWord(e.target.value);
+  };
+  const handleChangePasswordCheck = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setChangePasswordCheck(e.target.value);
+  };
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChangeEmail(e.target.value);
+  };
+  const handleChangePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChangePhoneNumber(e.target.value);
+  };
+  const handleChangeProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChangeProfileImage(e.target.value);
+  };
 
-    // input창 입력값에 따라 state 변경하는 함수들
-    const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setChangePassWord(e.target.value);
-    };
-    const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setChangeEmail(e.target.value);
-    };
-    const handleChangePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setChangePhoneNumber(e.target.value);
-    };
-    const handleChangeProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setChangeProfileImage(e.target.value);
-    };
+  // 내 정보 변경을 위한 state들
+  const [changePassWord, setChangePassWord] = useState<string>("");
+  const [changeEmail, setChangeEmail] = useState<string>("");
+  const [changePhoneNumber, setChangePhoneNumber] = useState<string>("");
+  const [changeProfileImage, setChangeProfileImage] = useState<any>([]);
+  const [changePasswordCheck, setChangePasswordCheck] = useState<string>("");
 
-    // 내 정보 변경을 위한 state들
-    const [changePassWord, setChangePassWord] = useState<string>("");
-    const [changeEmail, setChangeEmail] = useState<string>("");
-    const [changePhoneNumber, setChangePhoneNumber] = useState<string>("");
-    const [changeProfileImage, setChangeProfileImage] = useState<any>([]);
-
-    // 변경 요청 axios 함수들 (비밀번호, 이메일, 휴대폰 번호, 프로필 사진)
-    return (
-        
-        
-        <div className="flex flex-col items-center w-[100vw] h-[100vh]">
-            <div>
-            <Typography variant="h2" color="blue-gray" className="">프로필 변경 페이지</Typography>
-
-            </div>
-            <div>
+  // 변경 요청 axios 함수들 (비밀번호, 이메일, 휴대폰 번호, 프로필 사진)
+  return (
+    <div className="flex flex-col items-center w-[100vw] h-[100vh]">
+      <div>
+        <Typography variant="h2" color="blue-gray" className="">
+          프로필 변경 페이지
+        </Typography>
+      </div>
+      <div>
         <Card className="mt-10">
           <CardHeader color="blue-gray" className="relative h-50">
             <img
@@ -55,46 +60,55 @@ const MyPage = () => {
               변경할 정보를 입력하세요.
             </Typography>
             <Typography>
-아이디
-      <Input 
-      label="asdf" disabled crossOrigin={false} />
+              이메일ID
+              <Input label="asdf" disabled crossOrigin={false} />
             </Typography>
             <Typography>
-비밀번호
-      <Input 
-      onChange={handleChangePassword}
-      
-      placeholder="변경할 비밀번호를 입력해주세요."  crossOrigin={false} />
+              비밀번호
+              <Input
+                onChange={handleChangePassword}
+                placeholder="변경할 비밀번호를 입력해주세요."
+                type="password"
+                crossOrigin={false}
+              />
             </Typography>
             <Typography>
-이름
-      <Input label="김하영" disabled crossOrigin={false} />
+              비밀번호 확인
+              <Input
+                type="password"
+                onChange={handleChangePasswordCheck}
+                placeholder="비밀번호를 다시 입력해주세요."
+                crossOrigin={false}
+              />
             </Typography>
             <Typography>
-이메일
-      <Input 
-      onChange={handleChangeEmail}
-      
-      placeholder="변경할 이메일을 입력해주세요." crossOrigin={false} />
+              이름
+              <Input label="김하영" disabled crossOrigin={false} />
             </Typography>
             <Typography>
-휴대폰 번호
-      <Input
-      onChange={handleChangePhoneNumber}
-      placeholder="변경할 휴대폰 번호를 입력해주세요." crossOrigin={false} />
+              휴대폰 번호
+              <Input
+                onChange={handleChangePhoneNumber}
+                label={"ㅇㅇ"}
+                disabled
+                crossOrigin={false}
+              />
             </Typography>
           </CardBody>
-          <Button color="orange" className="mb-5 w-2/3 flex justify-center ">내 정보 변경하기</Button>
+          <Button color="orange" className="mb-5 w-2/3 flex justify-center ">
+            내 정보 변경하기
+          </Button>
         </Card>
-        </div>
-        </div>
-      );}
+      </div>
+    </div>
+  );
+};
 
 export default MyPage;
 
-
 // 유효성 검증을 위해 잠시 빼둔 코드
-{/* <Typography
+{
+  /* <Typography
         variant="small"
         color="gray"
         className="mt-2 flex items-center gap-1 font-normal"
@@ -112,4 +126,5 @@ export default MyPage;
           />
         </svg>
         Use at least 8 characters, one uppercase, one lowercase and one number.
-      </Typography> */}
+      </Typography> */
+}

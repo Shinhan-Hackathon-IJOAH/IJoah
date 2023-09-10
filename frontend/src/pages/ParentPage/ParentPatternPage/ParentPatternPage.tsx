@@ -1,10 +1,16 @@
 import React from 'react';
+import {PatternContainer} from './ParentPatternPageStyles'
+import PatternGraph from '../../../components/ParentPattern/PatternGraph';
+import BackPageButton from '../../../components/Common/BackPageButton';
+import BottomNav from '../../../components/Common/BottomNav';
 
 const ParentPatternPage = () => {
     return (
-        <div>
-            
-        </div>
+        <PatternContainer>
+            <BackPageButton/>
+            <PatternGraph/>
+            <BottomNav/>
+        </PatternContainer>
     );
 };
 

@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useDiaryStore } from "../../store/DiaryStore";
 import axios from "axios";
 const BottomButton = () => {
-  const { title, content, date, weatherMood, picture, voice } = useDiaryStore();
+  const { title, content, date, weatherMood, picture, voice, file } =
+    useDiaryStore();
   const navigate = useNavigate();
 
   const writeDiary = () => {
-    // console.log(typeof picture[0]);
     const formData = new FormData();
     const info = {
       memberId: "1",
@@ -21,14 +21,16 @@ const BottomButton = () => {
       "info",
       new Blob([JSON.stringify(info)], { type: "application/json" })
     );
-    // formData.append("images", picture[0]);
-    picture.forEach((image, index) => {
-      formData.append("images", picture[index]);
-    });
-    // const voiceBlob = new Blob([voice], { type: 'audio/wav' });
+
+    for (let i = 0; i < file.length; i++) {
+      const a = file[i]; // 각 파일은 file 객체입니다.
+      console.log(a);
+      formData.append("images", a);
+    }
     const voiceBlob = new Blob([voice]);
     formData.append("record", voiceBlob);
     console.log(formData);
+
     axios
       .post("https://ijoah01.duckdns.org/api/diaries/", formData)
       .then((response: any) => {
@@ -40,13 +42,14 @@ const BottomButton = () => {
         console.log("내용", content, typeof content);
         console.log("날짜", date, typeof date);
         console.log("기분", weatherMood, typeof weatherMood);
-        console.log("사진", picture, typeof picture);
+        console.log("사진", file, typeof picture);
         console.log("음성", voice, typeof voice);
 
         console.log("되겠냐");
         console.log(error);
       });
   };
+
   return (
     <div className="mt-10 flex justify-center gap-4">
       <Button

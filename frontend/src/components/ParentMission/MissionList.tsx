@@ -76,7 +76,7 @@ const MissionList = () => {
                         className="border-2 border-white hover:z-10 focus:z-10"
                         src={childimg}
                         />
-                <NameTag className="text-2xl text-center font-['HSYuji-Regular']">{childname}에게 미션 주기</NameTag>
+                <NameTag className="text-2xl text-center font-['HSYuji-Regular']">{childname}의 미션</NameTag>
             </MissionInfoContainer>
             <Tab panes={panes} className="mt-8"/>
         </MissionContainer>

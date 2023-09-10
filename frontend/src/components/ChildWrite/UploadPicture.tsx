@@ -10,50 +10,14 @@ interface State {
 }
 
 const FileUpload: React.FC = () => {
-  const { picture, setPicture } = useDiaryStore((state) => ({
-    picture: state.picture,
-    setPicture: (picture: any[]) => state.setPicture(picture),
-  }));
-  // const { picture, setPicture } = useDiaryStore();
-  const [imageList, setImageList] = useState<Blob[]>([]);
-  // const [a, setA] = useState<any[]>([]);
-  // 원래 있던 건데 formData 시도해보려고.
-  // const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const files = event.target.files;
-  //   if (files) {
-  //     const imageUrls: string[] = [];
-  //     const reader = new FileReader();
-
-  //     const processImage = (index: number) => {
-  //       if (index < files.length) {
-  //         reader.onload = () => {
-  //           const imageUrl = reader.result as string;
-  //           imageUrls.push(imageUrl);
-
-  //           if (imageUrls.length === files.length) {
-  //             // 모든 이미지를 변환하고 나면 state를 업데이트합니다.
-  //             setPicture(imageUrls);
-  //           } else {
-  //             // 다음 이미지를 변환합니다.
-  //             processImage(index + 1);
-  //           }
-  //         };
-
-  //         // 이미지 변환을 시작합니다.
-  //         reader.readAsDataURL(files[index]);
-  //       }
-  //     };
-
-  //     // 첫 번째 이미지 변환을 시작합니다.
-  //     processImage(0);
-  //   }
-  // };
-  /////////////////////BLOB////////////////////////
+  // store에서 picture, setPicture, file, setFile 가져오기
+  const { picture, setPicture, file, setFile } = useDiaryStore();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files;
-
     if (selectedFiles) {
+      setFile(selectedFiles);
+      console.log(file);
       const selectedImages: Blob[] = [];
       for (let i = 0; i < selectedFiles.length; i++) {
         const file = selectedFiles[i];
@@ -64,13 +28,8 @@ const FileUpload: React.FC = () => {
           const blob = new Blob([result], { type: file.type });
           selectedImages.push(blob);
 
-          // if (selectedImages.length === selectedFiles.length) {
-          //   setImageList([...imageList, ...selectedImages]);
-          // }
           if (selectedImages.length === selectedFiles.length) {
-            setImageList([...imageList, ...selectedImages]);
-            setPicture([...imageList, ...selectedImages]);
-            // setA([...a, ...selectedImages]);
+            setPicture(selectedImages);
           }
         };
         reader.readAsArrayBuffer(file);
@@ -80,7 +39,6 @@ const FileUpload: React.FC = () => {
 
   ///////////////////////////File///////////////////////////////
 
-  console.log(imageList);
   console.log(picture);
 
   return (
@@ -116,7 +74,7 @@ const FileUpload: React.FC = () => {
         ))}
       </Carousel>
 
-      {/*  */}
+      {/* 사진 등록하기 */}
       <div className="flex justify-center">
         <label htmlFor="file-input">
           <div className="font-['HSYuji-Regular']">

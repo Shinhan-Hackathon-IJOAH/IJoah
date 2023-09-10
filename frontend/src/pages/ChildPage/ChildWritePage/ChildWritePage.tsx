@@ -39,7 +39,7 @@ const ChildWritePage = () => {
       <MoodWeather></MoodWeather>
       <WriteDiary></WriteDiary>
       <UploadPicture></UploadPicture>
-      <VoiceRecord></VoiceRecord>
+      {/* <VoiceRecord></VoiceRecord> */}
       <BottomButton></BottomButton>
     </div>
   );
