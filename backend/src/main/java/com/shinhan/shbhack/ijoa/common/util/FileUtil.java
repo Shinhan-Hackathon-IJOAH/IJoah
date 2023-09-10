@@ -17,6 +17,8 @@ public class FileUtil {
     @Value("${file.dir}")
     public String fileDir;
 
+    // TODO: 2023-09-10 리팩토링 필요 
+
     public String getFullPath(String filename) {
         return fileDir + filename;
     }

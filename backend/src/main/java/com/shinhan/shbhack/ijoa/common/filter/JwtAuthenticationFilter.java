@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -50,6 +52,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
+            
+            // TODO: 2023-09-10 리팩토링 필요
             String loginEmail = jwtUtil.getEmail(token);
 
             UserDetailsModel userDetailsModel = memberQueryService.loadUserByEmail(loginEmail);
@@ -71,6 +75,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             String accessToken = jwtUtil.generateToken(jwtUtil.extractAllClaims(refreshToken), (long) (1000 * 60 * 60));
             response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+
+            // TODO: 2023-09-10 리팩토링 필요
+            String loginEmail = jwtUtil.getEmail(token);
+
+            UserDetailsModel userDetailsModel = memberQueryService.loadUserByEmail(loginEmail);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    userDetailsModel, null, userDetailsModel.getAuthorities()
+            );
+
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
         filterChain.doFilter(request, response);

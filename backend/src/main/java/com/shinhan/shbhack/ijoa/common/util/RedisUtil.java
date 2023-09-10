@@ -25,6 +25,7 @@ public class RedisUtil {
     private final static Duration USER_CACHE_TTL = Duration.ofHours(1);
     private final static Duration TOKEN_CACHE_TTL = Duration.ofDays(7);
 
+    // TODO: 2023-09-10 인터페이스 구성이 좀 더 좋아보임
     public void setEmail(String email, String code){
         String key = EMAIL_AUTH_PREFIX + email;
         log.debug("Set Email: {} and Code: {}", key, code);

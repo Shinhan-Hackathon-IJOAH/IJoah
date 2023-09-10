@@ -30,8 +30,6 @@ public class MemberCreateServiceRequest {
 
     private String phoneNumber;
 
-    private String address;
-
     private LocalDate birthDate;
 
     private Gender gender;
@@ -39,12 +37,11 @@ public class MemberCreateServiceRequest {
     private MemberRole memberRole;
 
     @Builder
-    public MemberCreateServiceRequest(String name, String email, String password, String phoneNumber, String address, LocalDate birthDate, Gender gender, MemberRole memberRole) {
+    public MemberCreateServiceRequest(String name, String email, String password, String phoneNumber, LocalDate birthDate, Gender gender, MemberRole memberRole) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.address = address;
         this.birthDate = birthDate;
         this.gender = gender;
         this.memberRole = memberRole;
@@ -56,7 +53,6 @@ public class MemberCreateServiceRequest {
                 .email(email)
                 .password(encodedPassword)
                 .phoneNumber(phoneNumber)
-                .address(address)
                 .birthDate(birthDate)
                 .gender(gender)
                 .memberRole(memberRole)

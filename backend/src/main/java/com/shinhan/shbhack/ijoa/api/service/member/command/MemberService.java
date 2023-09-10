@@ -2,6 +2,8 @@ package com.shinhan.shbhack.ijoa.api.service.member.command;
 
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberCreateServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberLoginServiceRequest;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.exception.InvalidValueException;
 import com.shinhan.shbhack.ijoa.domain.member.repository.datajpa.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,12 @@ public class MemberService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void createMember(MemberCreateServiceRequest request){
-        memberRepository.save(request.toEntity(encodePassword(request.getPassword())));
+        try{
+            memberRepository.save(request.toEntity(encodePassword(request.getPassword())));
+        } catch (Exception e){
+            throw new InvalidValueException(ErrorCode.EMAIL_DUPLICATION);
+        }
+
     }
 
     private String encodePassword(String password){
