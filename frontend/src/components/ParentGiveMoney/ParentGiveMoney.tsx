@@ -8,8 +8,15 @@ import Button from '@mui/material/Button';
 
 
 const ParentGiveMoney = () => {
-    const [givemoney, setGivemoney] = useState('');
+    const [givemoney, setGivemoney] = useState(0);
     const {childid,childname,childaccount,childimg}=useSelectChildStore();
+
+    const formattedMoney = givemoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    const handleMoneyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const onlyNumbers = e.target.value.replace(/[^0-9]/g, ''); // Remove non-digit characters
+        setGivemoney(Number(onlyNumbers));
+      };
 
     const giveMoney = () =>{
         axios
@@ -41,11 +48,9 @@ const ParentGiveMoney = () => {
             <InputTag>
                     <Input 
                     variant="static" label="전송할 용돈" placeholder="금액"  crossOrigin={undefined}
-                    type="number" pattern="\d*"
-                    value={givemoney}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    setGivemoney(event.target.value)
-                    }
+                    type="text" pattern="\d*"
+                    value={formattedMoney}
+                    onChange={handleMoneyChange}
                     min={0}
                     style={{ fontSize: '25px',textAlign: 'right',
                     direction: 'rtl',paddingRight: '15px'   }} 
@@ -53,10 +58,10 @@ const ParentGiveMoney = () => {
                      <span>원</span>
             </InputTag>
                 <ButtonContainer>
-                    <Button variant="outlined" onClick={()=>{setGivemoney('1000')}}>1000원</Button>
-                    <Button variant="outlined" onClick={()=>{setGivemoney('5000')}}>5000원</Button>
-                    <Button variant="outlined" onClick={()=>{setGivemoney('10000')}}>10000원</Button>
-                    <Button variant="outlined" onClick={()=>{setGivemoney('20000')}}>200000원</Button>
+                    <Button variant="outlined" onClick={()=>{setGivemoney(givemoney+1000)}}>1000원</Button>
+                    <Button variant="outlined" onClick={()=>{setGivemoney(givemoney+5000)}}>5000원</Button>
+                    <Button variant="outlined" onClick={()=>{setGivemoney(givemoney+10000)}}>10000원</Button>
+                    <Button variant="outlined" onClick={()=>{setGivemoney(givemoney+20000)}}>200000원</Button>
                 </ButtonContainer>
             <SendButoon onClick={giveMoney}>용돈 보내기</SendButoon>
         </GiveMoneyContainer>

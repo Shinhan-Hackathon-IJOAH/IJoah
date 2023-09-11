@@ -27,7 +27,6 @@ export const MissionInfoContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 10%;
     background-color: #FFECC8;
     border-radius: 25px;
     height: 15vh;

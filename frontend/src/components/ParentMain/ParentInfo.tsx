@@ -1,8 +1,11 @@
 import React from 'react';
 import {ParentInfoContainer} from './ParentInfoStyles'
 import {Avatar,Typography} from "@material-tailwind/react";
+import {useUserStore} from "../../store/UserStore"
+
 
 const ParentInfo = () => {
+    const {accessToken,name,account} =useUserStore()
     return (
         <ParentInfoContainer>
             <div className="flex items-center gap-4">
@@ -13,9 +16,9 @@ const ParentInfo = () => {
                 className="border border-[#F8A70C] shadow-xl shadow-[#F8A70C] ring-4 ring-[#F8A70C]"
                 />
                 <div>
-                <Typography variant="h6">부모님</Typography>
+                <Typography variant="h6">{name}부모님</Typography>
                 <Typography variant="small" color="gray" className="font-normal">
-                    134-2312-1256-12
+                    134-2312-1256-12{account}
                 </Typography>
                 {/* [지헌] 계좌번호 중간을 ***로 가리면 좋을듯 ( 일단 후순위 )  */}
                 <Typography variant="small" color="gray" className="font-normal">

@@ -57,9 +57,11 @@ const BottomNav = () => {
               <Icon name="gamepad" />
               계좌 등록하기
             </Menu.Item>
-            <Menu.Item as="a">
+            <Menu.Item 
+            onClick={()=>navigate("/parent/register")}
+            as="a">
               <Icon name="camera" />
-              엄빠/아이 등록하기
+              아이 등록하기
             </Menu.Item>
           </div>
           <div>

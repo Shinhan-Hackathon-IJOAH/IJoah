@@ -13,7 +13,7 @@ const ChildMainPage = () => {
     <ChildMainPageContent>
       <Logo />
       <ChildInfo />
-      <ButtonContainer>
+      <ButtonContainer >
         <SideButtonContainer>
           <WriteDiaryButton />
           <ReadDirayButton />
