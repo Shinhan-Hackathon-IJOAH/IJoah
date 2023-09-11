@@ -40,14 +40,14 @@ interface Balance{
 
 const ParentMainPage = () => {
     const {setChildName,setChildAccount,setChildImg}=useSelectChildStore();
-    const {accessToken,account,setBalance,setName,setBirthDate,setEmail,setPhoneNumber,setProfileImage} =useUserStore()
+    const {accessToken,account,setBalance,setName,setBirthDate,setEmail,setPhoneNumber,setProfileImage,setAccount} =useUserStore()
     const navigate = useNavigate();
     const [parentprofile, setParentProfile] = useState<Profile>();
     const [parentbalance, setParentBalance] = useState<Balance>();
 
     const getParentInfo = () =>{
         axios
-        .get(`....`, {
+        .get(`https://ijoah01.duckdns.org/api/members/login`, {
             headers: {
             Authorization: `Bearer ${accessToken}`,
             },
@@ -57,7 +57,7 @@ const ParentMainPage = () => {
             console.log(response.data.data);
             setName(parentprofile?.name)
             setBirthDate(parentprofile?.birthDate)
-            setChildAccount(parentprofile?.account)
+            setAccount(parentprofile?.account)
             setEmail(parentprofile?.email)
             setPhoneNumber(parentprofile?.phoneNumber)
             setProfileImage(parentprofile?.profileImage)
@@ -69,7 +69,7 @@ const ParentMainPage = () => {
     }
     const getParentAccount = () =>{
         axios
-        .post('.../api/bank/balance',
+        .post('https://ijoah01.duckdns.org/api/bank/balance',
         {accountNumber:account},
             {headers: {
             Authorization: `Bearer ${accessToken}`,

@@ -5,7 +5,7 @@ import {useUserStore} from "../../store/UserStore"
 
 
 const ParentInfo = () => {
-    const {accessToken,name,account} =useUserStore()
+    const {balance,name,account} =useUserStore()
     return (
         <ParentInfoContainer>
             <div className="flex items-center gap-4">
@@ -18,11 +18,10 @@ const ParentInfo = () => {
                 <div>
                 <Typography variant="h6">{name}부모님</Typography>
                 <Typography variant="small" color="gray" className="font-normal">
-                    134-2312-1256-12{account}
+                    {account}
                 </Typography>
-                {/* [지헌] 계좌번호 중간을 ***로 가리면 좋을듯 ( 일단 후순위 )  */}
                 <Typography variant="small" color="gray" className="font-normal">
-                    40000000원
+                    {balance}
                 </Typography>
                 </div>
             </div>

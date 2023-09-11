@@ -2,16 +2,17 @@ import React,{useState} from 'react';
 import axios from 'axios';
 import {RegisterContainer,ButtonContainer,TitleTag} from './ParentRegisterStyles'
 import { Input } from "@material-tailwind/react";
+import {useUserStore} from "../../store/UserStore"
 
 const ParentRegister = () => {
     const [childaccount, setChildAccount] = useState('');
     const [childid, setChildId] = useState('');
-
+    const {accessToken} =useUserStore()
     const registerChild=()=>{
         axios
-            .post('',{childaccount,childid},{
+            .post('https://ijoah01.duckdns.org/api/member/child-regist',{childaccount,childid},{
                 headers: {
-                    Authorization: `Bearer`,
+                    Authorization: `Bearer ${accessToken}`,
                     },
             })
             .then((response) =>{

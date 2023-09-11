@@ -27,7 +27,7 @@ const PatternGraph = () => {
     const GetPattern = ()=>{
         axios
             .post('https://ijoah01.duckdns.org/api/bank/analyze',{
-                accountNumber: "110111222222"
+                accountNumber: account
             },{
                 headers: {
                 Authorization: `Bearer ${accessToken}`,

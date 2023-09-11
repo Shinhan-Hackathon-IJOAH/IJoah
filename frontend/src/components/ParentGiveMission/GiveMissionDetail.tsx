@@ -47,7 +47,7 @@ const GiveMissionDetail = () => {
     const handleButton = () =>{
         axios
             .post(
-                'httpsdlkf',{missionTitle,missionDetail,missionReward}
+                'https://ijoah01.duckdns.org/api/mission',{missionTitle,missionDetail,missionReward}
             )
             .then((response)=>{
                 console.log(response)

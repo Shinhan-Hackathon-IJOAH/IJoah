@@ -5,12 +5,13 @@ import axios from 'axios';
 import {useSelectChildStore} from '../../store/SelectChildStore'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import { useUserStore } from './../../store/UserStore';
 
 
 const ParentGiveMoney = () => {
     const [givemoney, setGivemoney] = useState(0);
     const {childid,childname,childaccount,childimg}=useSelectChildStore();
-
+    const {balance,name} = useUserStore();
     const formattedMoney = givemoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
     const handleMoneyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,16 +22,15 @@ const ParentGiveMoney = () => {
     const giveMoney = () =>{
         axios
             .post("https://ijoah01.duckdns.org/api/bank/transfer",{
-                withdrawAccount: "110111222222", // 출금할 계좌
-                depositAccount: "110222333333", // 입금할 계좌 
+                withdrawAccount: balance, // 출금할 계좌
+                depositAccount: childaccount, // 입금할 계좌 
                 amount: givemoney, 
-                withdrawContent: "하위~", //출금자에게 표시될 문자 
-                depositContent: "하위~~~~"
-                // givemoney: givemoney,
-                // account:childaccount
+                withdrawContent: `${childname}에게 용돈`, //출금자에게 표시될 문자 
+                depositContent: `${name}이 주신 용돈`,
             })
             .then((response)=>{
                 console.log(response)
+                setGivemoney(0)
             })
             .catch((error)=>
             console.log(error))
@@ -64,6 +64,8 @@ const ParentGiveMoney = () => {
                     <Button variant="outlined" onClick={()=>{setGivemoney(givemoney+20000)}}>200000원</Button>
                 </ButtonContainer>
             <SendButoon onClick={giveMoney}>용돈 보내기</SendButoon>
+
+            {/* 용돈 보냈을시 알림창 띄워야함 */}
         </GiveMoneyContainer>
     );
 };
