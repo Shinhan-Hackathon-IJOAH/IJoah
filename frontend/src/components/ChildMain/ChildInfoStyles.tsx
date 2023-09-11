@@ -11,4 +11,5 @@ export const ChildInfoContainer = styled.div`
     height: 15vh;
     width: 80vw;
     border-radius: 30px;
+    font-family: 'HSYuji-Regular';
 `;
