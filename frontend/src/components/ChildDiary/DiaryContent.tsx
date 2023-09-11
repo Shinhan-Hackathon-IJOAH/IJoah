@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Avatar, Typography, Carousel } from "@material-tailwind/react";
+import React, { useEffect, useState } from 'react';
+import { Avatar, Typography, Carousel } from '@material-tailwind/react';
+import { useUserStore } from '../../store/UserStore';
 // import {Diary} from './DiaryContentStyles'
-import axios from "axios";
+import axios from 'axios';
 interface DiaryContentProps {
   selectdate: string;
   diaryId: string;
@@ -22,19 +23,25 @@ interface Diary {
 }
 
 const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
+  const { accessToken } = useUserStore();
   const [diary, setDiary] = useState<Diary>();
 
   // diaryId 값이 바뀔 때마다 axios get 요청하는 함수
   useEffect(() => {
     axios
-      .get(`https://ijoah01.duckdns.org/api/diaries/${diaryId}`)
+      .get(`https://ijoah01.duckdns.org/api/diaries/${diaryId}`, {
+        headers: {
+          // Accept: "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
       .then((res) => {
-        console.log("일기 내용 불러오는 거 성공함");
+        console.log('일기 내용 불러오는 거 성공함');
         console.log(res.data);
         setDiary(res.data);
       })
       .catch((err) => {
-        console.log("에러..");
+        console.log('에러..');
         console.log(err);
       });
   }, [diaryId]);
@@ -66,9 +73,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
               alt="avatar"
               src="/weather/sunny.png"
               className={`border p-1 opacity-30 border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
-                diary?.emotion === "sunny"
-                  ? "ring-[red] ring-2 !opacity-100 border-[red]"
-                  : ""
+                diary?.emotion === 'sunny' ? 'ring-[red] ring-2 !opacity-100 border-[red]' : ''
               }`}
             />
           </div>
@@ -78,9 +83,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
               alt="avatar"
               src="/weather/sunrise.png"
               className={`border p-1 opacity-30 border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
-                diary?.emotion === "sunrise"
-                  ? "ring-[red] ring-2 !opacity-100 border-[red]"
-                  : ""
+                diary?.emotion === 'sunrise' ? 'ring-[red] ring-2 !opacity-100 border-[red]' : ''
               }`}
             />
           </div>
@@ -90,9 +93,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
               alt="avatar"
               src="/weather/drop.png"
               className={`border p-1 border-[#F8A70C] opacity-30 shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
-                diary?.emotion === "drop"
-                  ? "ring-[red]  !opacity-100 ring-2 border-[red]"
-                  : ""
+                diary?.emotion === 'drop' ? 'ring-[red]  !opacity-100 ring-2 border-[red]' : ''
               }`}
             />
           </div>
@@ -102,9 +103,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
               alt="avatar"
               src="/weather/wind.png"
               className={`border p-1 border-[#F8A70C] shadow-md opacity-30 shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
-                diary?.emotion === "wind"
-                  ? "ring-[red] ring-2 !opacity-100 border-[red]"
-                  : ""
+                diary?.emotion === 'wind' ? 'ring-[red] ring-2 !opacity-100 border-[red]' : ''
               }`}
             />
           </div>
@@ -114,9 +113,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
               alt="avatar"
               src="/weather/thunder.png"
               className={`border p-1 border-[#F8A70C] shadow-md opacity-30 shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
-                diary?.emotion === "thunder"
-                  ? "ring-[red] ring-2 !opacity-100 border-[red]"
-                  : ""
+                diary?.emotion === 'thunder' ? 'ring-[red] ring-2 !opacity-100 border-[red]' : ''
               }`}
             />
           </div>
@@ -128,11 +125,11 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
         className="rounded-xl"
         navigation={({ setActiveIndex, activeIndex, length }) => (
           <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
-            {new Array(length).fill("").map((_, i) => (
+            {new Array(length).fill('').map((_, i) => (
               <span
                 key={i}
                 className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-                  activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
+                  activeIndex === i ? 'w-8 bg-white' : 'w-4 bg-white/50'
                 }`}
                 onClick={() => setActiveIndex(i)}
               />
