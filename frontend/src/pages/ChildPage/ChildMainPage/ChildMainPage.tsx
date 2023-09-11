@@ -1,17 +1,17 @@
-import React from "react";
-import ChildInfo from "../../../components/ChildMain/ChildInfo";
-import ChildMissionButton from "../../../components/ChildMain/ChildMissionButton";
-import ReadDirayButton from "../../../components/ChildMain/ReadDirayButton";
-import WriteDiaryButton from "../../../components/ChildMain/WriteDiaryButton";
-import TradeListButton from "../../../components/ChildMain/TradeListButton";
-import BottomNav from "../../../components/Common/BottomNav";
-import { Button } from "@material-tailwind/react";
-import {ChildMainPageContent,Logo,ButtonContainer,SideButtonContainer} from "./ChildMainPageStyles"
+import React from 'react';
+import ChildInfo from '../../../components/ChildMain/ChildInfo';
+import ChildMissionButton from '../../../components/ChildMain/ChildMissionButton';
+import ReadDirayButton from '../../../components/ChildMain/ReadDirayButton';
+import WriteDiaryButton from '../../../components/ChildMain/WriteDiaryButton';
+import TradeListButton from '../../../components/ChildMain/TradeListButton';
+import BottomNav from '../../../components/Common/BottomNav';
+import { Button } from '@material-tailwind/react';
+import { ChildMainPageContent, Logo, ButtonContainer, SideButtonContainer } from './ChildMainPageStyles';
 
 const ChildMainPage = () => {
   return (
     <ChildMainPageContent>
-      <Logo/>
+      <Logo />
       <ChildInfo />
       <ButtonContainer>
         <SideButtonContainer>
@@ -23,7 +23,7 @@ const ChildMainPage = () => {
           <ChildMissionButton />
         </SideButtonContainer>
       </ButtonContainer>
-      <BottomNav/>
+      <BottomNav />
     </ChildMainPageContent>
   );
 };

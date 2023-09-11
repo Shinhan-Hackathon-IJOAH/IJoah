@@ -33,7 +33,7 @@ const EmailAuthPage = () => {
 
   return (
     <div className="flex justify-center items-center h-[100vh]">
-      <Card className="w-[100vw] lg:w-[35vw]">
+      <Card className="w-[100vw] lg:w-[32vw]">
         <CardHeader shadow={false} floated={false} className="h-[22rem] shadow-md">
           {/* <img
             src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80"
