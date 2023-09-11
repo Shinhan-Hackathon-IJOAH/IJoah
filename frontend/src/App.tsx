@@ -1,32 +1,32 @@
-import React from "react";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import SignUpPage from "./pages/LoginPage/SignUpPage";
-import ChildDiaryPage from "./pages/ChildPage/ChildDiaryPage/ChildDiaryPage";
-import ChildMainPage from "./pages/ChildPage/ChildMainPage/ChildMainPage";
-import ChildMenuPage from "./pages/ChildPage/ChildMenuPage/ChildMenuPage";
-import ChildMissionPage from "./pages/ChildPage/ChildMissionPage/ChildMissionPage";
-import ChildMissionDetailPage from "./pages/ChildPage/ChildMissionPage/ChildMissionDetailPage";
-import ChildRegisterPage from "./pages/ChildPage/ChildRegisterPage/ChildRegisterPage";
-import ChildTradePage from "./pages/ChildPage/ChildTradePage/ChildTradePage";
-import ChildTradeDetailPage from "./pages/ChildPage/ChildTradePage/ChildTradeDetailPage";
-import ChildWritePage from "./pages/ChildPage/ChildWritePage/ChildWritePage";
-import ParentGiveMissionPage from "./pages/ParentPage/ParentGiveMissionPage/ParentGiveMissionPage";
-import ParentGiveMoneyPage from "./pages/ParentPage/ParentGiveMoneyPage/ParentGiveMoneyPage";
-import ParentMainPage from "./pages/ParentPage/ParentMainPage/ParentMainPage";
-import ParentMenuPage from "./pages/ParentPage/ParentMenuPage/ParentMenuPage";
-import ParentMissionPage from "./pages/ParentPage/ParentMissionPage/ParentMissionPage";
-import ParentMissionDetailPage from "./pages/ParentPage/ParentMissionPage/ParentMissionDetailPage";
-import ParentPatternPage from "./pages/ParentPage/ParentPatternPage/ParentPatternPage";
-import ParentRegisterPage from "./pages/ParentPage/ParentRegisterPage/ParentRegisterPage";
-import ParentTradePage from "./pages/ParentPage/ParentTradePage/ParentTradePage";
-import ParentTradeDetailPage from "./pages/ParentPage/ParentTradePage/ParentTradeDetailPage";
-import AlarmPage from "./pages/CommonPage/AlarmPage";
-import MenuPage from "./pages/CommonPage/MenuPage";
-import MyPage from "./pages/CommonPage/MyPage";
-import EmailAuthPage from "./pages/LoginPage/EmailAuthPage";
-import Picture from "./components/ChildWrite/Picture";
-import AccountRegisterPage from "./pages/CommonPage/AccountRegisterPage";
+import React from 'react';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage/LoginPage';
+import SignUpPage from './pages/LoginPage/SignUpPage';
+import ChildDiaryPage from './pages/ChildPage/ChildDiaryPage/ChildDiaryPage';
+import ChildMainPage from './pages/ChildPage/ChildMainPage/ChildMainPage';
+import ChildMenuPage from './pages/ChildPage/ChildMenuPage/ChildMenuPage';
+import ChildMissionPage from './pages/ChildPage/ChildMissionPage/ChildMissionPage';
+import ChildMissionDetailPage from './pages/ChildPage/ChildMissionPage/ChildMissionDetailPage';
+import ChildRegisterPage from './pages/ChildPage/ChildRegisterPage/ChildRegisterPage';
+import ChildTradePage from './pages/ChildPage/ChildTradePage/ChildTradePage';
+import ChildTradeDetailPage from './pages/ChildPage/ChildTradePage/ChildTradeDetailPage';
+import ChildWritePage from './pages/ChildPage/ChildWritePage/ChildWritePage';
+import ParentGiveMissionPage from './pages/ParentPage/ParentGiveMissionPage/ParentGiveMissionPage';
+import ParentGiveMoneyPage from './pages/ParentPage/ParentGiveMoneyPage/ParentGiveMoneyPage';
+import ParentMainPage from './pages/ParentPage/ParentMainPage/ParentMainPage';
+import ParentMenuPage from './pages/ParentPage/ParentMenuPage/ParentMenuPage';
+import ParentMissionPage from './pages/ParentPage/ParentMissionPage/ParentMissionPage';
+import ParentMissionDetailPage from './pages/ParentPage/ParentMissionPage/ParentMissionDetailPage';
+import ParentPatternPage from './pages/ParentPage/ParentPatternPage/ParentPatternPage';
+import ParentRegisterPage from './pages/ParentPage/ParentRegisterPage/ParentRegisterPage';
+import ParentTradePage from './pages/ParentPage/ParentTradePage/ParentTradePage';
+import ParentTradeDetailPage from './pages/ParentPage/ParentTradePage/ParentTradeDetailPage';
+import AlarmPage from './pages/CommonPage/AlarmPage';
+import MenuPage from './pages/CommonPage/MenuPage';
+import MyPage from './pages/CommonPage/MyPage';
+import EmailAuthPage from './pages/LoginPage/EmailAuthPage';
+import Picture from './components/ChildWrite/Picture';
+import AccountRegisterPage from './pages/CommonPage/AccountRegisterPage';
 
 function App() {
   return (
@@ -38,10 +38,7 @@ function App() {
         <Route path="/child/menu" element={<ChildMenuPage />} />
         <Route path="/child/diary" element={<ChildDiaryPage />} />
         <Route path="/child/mission" element={<ChildMissionPage />} />
-        <Route
-          path="/child/mission/detail/:missionid"
-          element={<ChildMissionDetailPage />}
-        />
+        <Route path="/child/mission/detail/:missionid" element={<ChildMissionDetailPage />} />
         <Route path="/child/register" element={<ChildRegisterPage />} />
         <Route path="/child/trade" element={<ChildTradePage />} />
         <Route path="/child/trade/detail" element={<ChildTradeDetailPage />} />
@@ -51,24 +48,18 @@ function App() {
         <Route path="/parent/givemission" element={<ParentGiveMissionPage />} />
         <Route path="/parent/givemoney" element={<ParentGiveMoneyPage />} />
         <Route path="/parent/mission" element={<ParentMissionPage />} />
-        <Route 
-          path="/parent/mission/detail/:missionid" 
-          element={<ParentMissionDetailPage/>} 
-        />
+        <Route path="/parent/mission/detail/:missionid" element={<ParentMissionDetailPage />} />
         <Route path="/parent/pattern" element={<ParentPatternPage />} />
         <Route path="/parent/register" element={<ParentRegisterPage />} />
         <Route path="/parent/trade" element={<ParentTradePage />} />
-        <Route
-          path="/parent/trade/detail"
-          element={<ParentTradeDetailPage />}
-        />
+        <Route path="/parent/trade/detail" element={<ParentTradeDetailPage />} />
         <Route path="/alarm" element={<AlarmPage />} />
         <Route path="/menu" element={<MenuPage />} />
-      <Route path="/mypage" element={<MyPage />} />
-      <Route path="/emailauth" element={<EmailAuthPage />} />
-      {/* 테스트용 라우터 추후에 삭제 필수 */}
-      <Route path="/picture" element={<Picture />} />
-      <Route path="/register/account" element={<AccountRegisterPage />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/emailauth" element={<EmailAuthPage />} />
+        {/* 테스트용 라우터 추후에 삭제 필수 */}
+        <Route path="/picture" element={<Picture />} />
+        <Route path="/register/account" element={<AccountRegisterPage />} />
       </Routes>
     </div>
   );

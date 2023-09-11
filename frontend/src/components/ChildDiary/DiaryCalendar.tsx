@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import Badge from "@mui/material/Badge";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { PickersDay, PickersDayProps } from "@mui/x-date-pickers/PickersDay";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
-import DiaryContent from "./DiaryContent";
-import axios from "axios";
-import { Button, select } from "@material-tailwind/react";
+import React, { useState, useEffect } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
+import Badge from '@mui/material/Badge';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
+import DiaryContent from './DiaryContent';
+import axios from 'axios';
+import { Button, select } from '@material-tailwind/react';
+import { useUserStore } from '../../store/UserStore';
 function getRandomNumber(min: number, max: number) {
   return Math.round(Math.random() * (max - min) + min);
 }
@@ -16,16 +17,14 @@ function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
   return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
     const timeout = setTimeout(() => {
       const daysInMonth = date.daysInMonth();
-      const daysToHighlight = [1, 2, 3].map(() =>
-        getRandomNumber(1, daysInMonth)
-      );
+      const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
 
       resolve({ daysToHighlight });
     }, 500);
 
     signal.onabort = () => {
       clearTimeout(timeout);
-      reject(new DOMException("aborted", "AbortError"));
+      reject(new DOMException('aborted', 'AbortError'));
     };
   });
 }
@@ -40,25 +39,15 @@ const initialValue = dayjs();
 //   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 //    // 해당 날짜가 highlightedDates 배열에 포함되어 있는지 확인
 //    const isSelected = highlightedDays.includes(props.day.format('YYYY-MM-DD'));
-function ServerDay(
-  props: PickersDayProps<Dayjs> & { highlightedDates?: string[] }
-) {
+function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDates?: string[] }) {
   const { highlightedDates = [], day, outsideCurrentMonth, ...other } = props;
 
   // 해당 날짜가 highlightedDates 배열에 포함되어 있는지 확인
-  const isSelected = highlightedDates.includes(props.day.format("YYYY-MM-DD"));
+  const isSelected = highlightedDates.includes(props.day.format('YYYY-MM-DD'));
 
   return (
-    <Badge
-      key={props.day.toString()}
-      overlap="circular"
-      badgeContent={isSelected ? "🌚" : undefined}
-    >
-      <PickersDay
-        {...other}
-        outsideCurrentMonth={outsideCurrentMonth}
-        day={day}
-      />
+    <Badge key={props.day.toString()} overlap="circular" badgeContent={isSelected ? '🌚' : undefined}>
+      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
     </Badge>
   );
 }
@@ -66,7 +55,8 @@ function ServerDay(
 ///
 
 export default function DateCalendarServerRequest() {
-  const [selectdate, setSelectDate] = useState("");
+  const { accessToken } = useUserStore();
+  const [selectdate, setSelectDate] = useState('');
   const requestAbortController = React.useRef<AbortController | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [highlightedDays, setHighlightedDays] = React.useState<number[]>([]);
@@ -90,14 +80,20 @@ export default function DateCalendarServerRequest() {
   // 일기 리스트 get 요청
   const readDiaryList = () => {
     axios
-      .get("https://ijoah01.duckdns.org/api/diaries/list/1")
+      .get('https://ijoah01.duckdns.org/api/diaries/list/1', {
+        headers: {
+          // Accept: "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+
       .then((res) => {
-        console.log("일기 리스트 불러오는 거 성공함");
+        console.log('일기 리스트 불러오는 거 성공함');
         console.log(res.data);
         setDiaryList(res.data);
       })
       .catch((err) => {
-        console.log("에러..");
+        console.log('에러..');
         console.log(err);
       });
   };
@@ -128,7 +124,7 @@ export default function DateCalendarServerRequest() {
       })
       .catch((error) => {
         // ignore the error if it's caused by `controller.abort`
-        if (error.name !== "AbortError") {
+        if (error.name !== 'AbortError') {
           throw error;
         }
       });
@@ -172,7 +168,7 @@ export default function DateCalendarServerRequest() {
                 }}
                 onChange={(newDate: dayjs.Dayjs | null) => {
                   if (newDate) {
-                    setSelectDate(newDate.format("YYYY-MM-DD"));
+                    setSelectDate(newDate.format('YYYY-MM-DD'));
                     // 선택한 날짜와 일치하는 id 추출하는 함수
                     findIdByDate(diaryList, selectdate);
                     // id값 불러오기
