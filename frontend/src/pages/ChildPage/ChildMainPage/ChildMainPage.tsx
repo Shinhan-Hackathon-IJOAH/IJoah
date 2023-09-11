@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React,{useState, useEffect} from "react";
 import ChildInfo from "../../../components/ChildMain/ChildInfo";
 import ChildMissionButton from "../../../components/ChildMain/ChildMissionButton";
@@ -30,6 +31,17 @@ interface Balance{
   accountNumber:string;
   balance:string;
 }
+=======
+import React from 'react';
+import ChildInfo from '../../../components/ChildMain/ChildInfo';
+import ChildMissionButton from '../../../components/ChildMain/ChildMissionButton';
+import ReadDirayButton from '../../../components/ChildMain/ReadDirayButton';
+import WriteDiaryButton from '../../../components/ChildMain/WriteDiaryButton';
+import TradeListButton from '../../../components/ChildMain/TradeListButton';
+import BottomNav from '../../../components/Common/BottomNav';
+import { Button } from '@material-tailwind/react';
+import { ChildMainPageContent, Logo, ButtonContainer, SideButtonContainer } from './ChildMainPageStyles';
+>>>>>>> a37a26162a416696ba20b7a687c717f6768708b8
 
 const ChildMainPage = () => {
   const {accessToken,account,setBalance,setName,setBirthDate,setEmail,setPhoneNumber,setProfileImage,setAccount} =useUserStore()
@@ -83,7 +95,7 @@ const ChildMainPage = () => {
 
   return (
     <ChildMainPageContent>
-      <Logo/>
+      <Logo />
       <ChildInfo />
       <ButtonContainer >
         <SideButtonContainer>
@@ -95,7 +107,7 @@ const ChildMainPage = () => {
           <ChildMissionButton />
         </SideButtonContainer>
       </ButtonContainer>
-      <BottomNav/>
+      <BottomNav />
     </ChildMainPageContent>
   );
 };
