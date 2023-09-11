@@ -2,26 +2,20 @@ package com.shinhan.shbhack.ijoa.api.controller.member;
 
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberCreateRequest;
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberLoginRequest;
+import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberUpdateRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.command.MemberService;
-import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberDetailResponse;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberUpdateServiceRequest;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberChildHomeResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberParentHomeResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.query.MemberQueryService;
-import com.shinhan.shbhack.ijoa.common.dto.response.ApiPage;
 import com.shinhan.shbhack.ijoa.common.dto.response.ApiData;
-import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
-import com.shinhan.shbhack.ijoa.common.error.exception.ServiceRuntimeException;
-import com.shinhan.shbhack.ijoa.common.model.UserDetailsModel;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -46,27 +40,27 @@ public class MemberController {
         return ApiData.of(memberQueryService.loginMember(request.toServiceRequest()));
     }
 
-    @GetMapping("/parent/home/{memberId}")
-    @ApiOperation(value = "부모 홈 페이지")
+    @GetMapping("/parent/{memberId}")
+    @ApiOperation(value = "부모 종합 정보")
     public ApiData<MemberParentHomeResponse> parentHome(@PathVariable Long memberId){
         return ApiData.of(memberService.parentHome(memberId));
     }
 
-//    @GetMapping("/child")
-
-
-
-    @GetMapping("/page")
-    @ApiOperation(value = "ApiPage test")
-    public ApiPage<List<MemberDetailResponse>> testPage(){
-        MemberDetailResponse res = MemberDetailResponse.builder()
-                .email("test")
-                .build();
-
-        List<MemberDetailResponse> memberDetailResponses = new ArrayList<>();
-        memberDetailResponses.add(res);
-
-        return ApiPage.of(memberDetailResponses, 1, 1, 1);
+    @GetMapping("/child/{memberId}")
+    @ApiOperation(value = "아이 종합 정보")
+    public ApiData<MemberChildHomeResponse> childHome(@PathVariable Long memberId){
+        return ApiData.of(memberService.childHome(memberId));
     }
+
+    @PutMapping("/modify")
+    @ApiOperation(value = "회원 정보 수정")
+    public ApiData<String> updateMember(@RequestBody MemberUpdateRequest request){
+        memberService.updateMember(request.toServiceRequest());
+        return ApiData.of("회원 정보 수정이 완료되었습니다!");
+    }
+
+
+
+
 
 }

@@ -28,7 +28,10 @@ public enum ErrorCode {
 
     // Token
     INVALID_TOKEN(401, "T001", "올바르지 않은 토큰입니다!"),
-    NOT_FOUND_TOKEN(400, "T002", "일치하는 토큰을 찾지 못했습니다!");
+    NOT_FOUND_TOKEN(400, "T002", "일치하는 토큰을 찾지 못했습니다!"),
+
+    // Mission
+    NOTMATCH_MISSION_ID(400, "MI001", "존재하지 않는 미션입니다!");
 
     private final int status;
     private final String code;

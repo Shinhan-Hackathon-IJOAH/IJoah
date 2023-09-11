@@ -1,8 +1,5 @@
 package com.shinhan.shbhack.ijoa.api.service.member.dto.response;
 
-
-import com.shinhan.shbhack.ijoa.domain.bank.entity.Account;
-import com.shinhan.shbhack.ijoa.domain.member.entity.Family;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,12 +10,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static lombok.AccessLevel.*;
-
 @Slf4j
 @Getter
 @NoArgsConstructor
-public class MemberParentHomeResponse {
+public class MemberChildHomeResponse {
 
     private Long memberId;
 
@@ -34,10 +29,10 @@ public class MemberParentHomeResponse {
 
     private ProfileImageResponse profileImage;
 
-    private List<MemberResponse> children;
+    private List<MemberResponse> parent;
 
     @Builder
-    public MemberParentHomeResponse(Long memberId, String name, String email, String phoneNumber, LocalDate birthDate, AccountResponse account, ProfileImageResponse profileImage, List<MemberResponse> children) {
+    public MemberChildHomeResponse(Long memberId, String name, String email, String phoneNumber, LocalDate birthDate, AccountResponse account, ProfileImageResponse profileImage, List<MemberResponse> parent) {
         this.memberId = memberId;
         this.name = name;
         this.email = email;
@@ -45,10 +40,11 @@ public class MemberParentHomeResponse {
         this.birthDate = birthDate;
         this.account = account;
         this.profileImage = profileImage;
-        this.children = children;
+        this.parent = parent;
     }
-    public static MemberParentHomeResponse of(Member member){
-        return MemberParentHomeResponse.builder()
+
+    public static MemberChildHomeResponse of(Member member){
+        return MemberChildHomeResponse.builder()
                 .memberId(member.getId())
                 .name(member.getName())
                 .email(member.getEmail())
@@ -56,10 +52,11 @@ public class MemberParentHomeResponse {
                 .birthDate(member.getBirthDate())
                 .account(AccountResponse.of(member.getAccount()))
                 .profileImage(ProfileImageResponse.of(member.getProfileImage()))
-                .children(member.getParents()
+                .parent(member.getChildren()
                         .stream()
-                        .map(family -> MemberResponse.of(family.getChild()))
+                        .map(family -> MemberResponse.of(family.getParent()))
                         .collect(Collectors.toList()))
                 .build();
     }
+
 }

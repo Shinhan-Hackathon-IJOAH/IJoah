@@ -2,6 +2,8 @@ package com.shinhan.shbhack.ijoa.api.service.member.command;
 
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberCreateServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberLoginServiceRequest;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberUpdateServiceRequest;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberChildHomeResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberParentHomeResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.ProfileImageResponse;
@@ -49,6 +51,19 @@ public class MemberService {
                 );
 
         return MemberParentHomeResponse.of(member);
+    }
+
+    public MemberChildHomeResponse childHome(Long memberId){
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(
+                        () -> new EntityNotFoundException(ErrorCode.NOTMATCH_MEMBER_ID)
+                );
+
+        return MemberChildHomeResponse.of(member);
+    }
+
+    public void updateMember(MemberUpdateServiceRequest request){
+
     }
 
     private String encodePassword(String password){
