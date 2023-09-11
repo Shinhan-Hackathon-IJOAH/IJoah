@@ -1,8 +1,9 @@
 import React,{useState} from 'react';
 import axios from 'axios';
 import { Input } from '@material-tailwind/react';
+import { RegisterButton,RegisterContainer } from './AccountRegisterStyles'
 
-const AccountRegiter = () => {
+const AccountRegister = () => {
     const [account,SetAccount] = useState<string>('');
     const [showConfirm, setShowConfirm] = useState(false);
     const [confirmTag,setConfifmTag] = useState<string>('')
@@ -49,7 +50,7 @@ const AccountRegiter = () => {
     }
 
     return (
-        <div>
+        <RegisterContainer>
             <div>계좌 등록하기</div>
             <Input
                 style={{ backgroundColor: "#ffffff" }}
@@ -62,33 +63,29 @@ const AccountRegiter = () => {
                     }
                 crossOrigin={undefined}
                 />
-            <button onClick={AccountSend}>1원전송하기</button>
-            <div>
-                    <div>자신의 계좌에 적힌 messege를 입력해 주세요</div>
-                        <Input
-                        style={{ backgroundColor: "#ffffff" }}
-                        color="orange"
-                        type="string"
-                        label="계좌 확인"
-                        value={confirmTag}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                            setConfifmTag(event.target.value)
-                            }
-                        crossOrigin={undefined}
-                        />
-                    <button onClick={AccountCofirm}>확인하기</button>
-                </div>
+            <RegisterButton onClick={AccountSend}>내 계좌에 1원 전송</RegisterButton>
+            
 
-            {/* {showConfirm && (
-                
-            )}
-            <div>
+            {showConfirm && (
+                <div>
                 <div>자신의 계좌에 적힌 messege를 입력해 주세요</div>
-                <input type="text" />
-                <button>확인하기</button>
-            </div> */}
-        </div>
+                    <Input
+                    style={{ backgroundColor: "#ffffff" }}
+                    color="orange"
+                    type="string"
+                    label="계좌 확인"
+                    value={confirmTag}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        setConfifmTag(event.target.value)
+                        }
+                    crossOrigin={undefined}
+                    />
+                <RegisterButton onClick={AccountCofirm}>확인하기</RegisterButton>
+            </div>
+            )}
+            
+        </RegisterContainer>
     );
 };
 
-export default AccountRegiter;
+export default AccountRegister;

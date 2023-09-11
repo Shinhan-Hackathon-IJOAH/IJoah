@@ -6,6 +6,8 @@ export const TradeContainer = styled.div`
     width: 38vw;
     background-color: #E86A52;
     border-radius: 30px;
+    font-family: 'HSYuji-Regular';
+    display:flex;
 `
 export const TradeImg = styled.div`
     background-image: url(${trade});
