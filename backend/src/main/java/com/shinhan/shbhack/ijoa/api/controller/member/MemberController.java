@@ -4,6 +4,7 @@ import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberCreateRe
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberLoginRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.command.MemberService;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberDetailResponse;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberParentHomeResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.query.MemberQueryService;
 import com.shinhan.shbhack.ijoa.common.dto.response.ApiPage;
@@ -45,19 +46,15 @@ public class MemberController {
         return ApiData.of(memberQueryService.loginMember(request.toServiceRequest()));
     }
 
-//    @GetMapping("/profile")
-//    @ApiOperation(value = "프로필 페이지")
-//    public ApiData<>
-
-    @GetMapping("/single")
-    @ApiOperation(value = "ApiSingleData test")
-    public ApiData<MemberDetailResponse> testSingle(@AuthenticationPrincipal UserDetailsModel userDetailsModel){
-        MemberDetailResponse res = MemberDetailResponse.builder()
-                                        .email("test")
-                                        .build();
-
-        return ApiData.of(res);
+    @GetMapping("/parent/home/{memberId}")
+    @ApiOperation(value = "부모 홈 페이지")
+    public ApiData<MemberParentHomeResponse> parentHome(@PathVariable Long memberId){
+        return ApiData.of(memberService.parentHome(memberId));
     }
+
+//    @GetMapping("/child")
+
+
 
     @GetMapping("/page")
     @ApiOperation(value = "ApiPage test")
@@ -70,14 +67,6 @@ public class MemberController {
         memberDetailResponses.add(res);
 
         return ApiPage.of(memberDetailResponses, 1, 1, 1);
-    }
-
-
-    @GetMapping("/error")
-    @ApiOperation(value = "ApiError test")
-    public ApiData<MemberDetailResponse> testError(){
-        throw new ServiceRuntimeException(ErrorCode.INVALID_INPUT_VALUE);
-
     }
 
 }

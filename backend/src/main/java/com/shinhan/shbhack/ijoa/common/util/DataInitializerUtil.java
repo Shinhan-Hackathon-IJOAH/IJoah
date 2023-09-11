@@ -1,12 +1,15 @@
 package com.shinhan.shbhack.ijoa.common.util;
 
+import com.shinhan.shbhack.ijoa.domain.UploadFile;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Account;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Transaction;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.TransactionCategory;
 import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.AccountRepository;
 import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.TransactionCategoryRepository;
 import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.TransactionRepository;
+import com.shinhan.shbhack.ijoa.domain.member.entity.Friend;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
+import com.shinhan.shbhack.ijoa.domain.member.entity.ProfileImage;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.ActivateStatus;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.Gender;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.MemberRole;
@@ -37,46 +40,106 @@ public class DataInitializerUtil implements CommandLineRunner {
 
         String pwd = "1Q2w3e4r!";
 
-        Member member = Member.builder()
-                .email("byuri1356@gmail1.com")
-                .name("유승민")
-                .password(bCryptPasswordEncoder.encode(pwd))
-                .account("944500-00-000000")
-                .phoneNumber("010-9814-1356")
-                .gender(Gender.MALE)
-                .memberRole(MemberRole.PARENT)
-                .activateStatus(ActivateStatus.ACTIVATE)
-                .birthDate(LocalDate.of(1997, 7, 29))
-                .build();
-        Member member_01 = Member.builder()
-                .email("kimshinhan@gmail1.com")
-                .name("김신한")
-                .password(bCryptPasswordEncoder.encode(pwd))
-                .account("110111222222")
-                .phoneNumber("010-9814-1356")
-                .gender(Gender.MALE)
-                .memberRole(MemberRole.PARENT)
-                .activateStatus(ActivateStatus.ACTIVATE)
-                .birthDate(LocalDate.of(1997, 7, 29))
-                .build();
-        Member member_02 = Member.builder()
-                .email("kimssol@gmail1.com")
-                .name("김쏠쏠")
-                .password(bCryptPasswordEncoder.encode(pwd))
-                .account("110222333333")
-                .phoneNumber("010-9814-1356")
-                .gender(Gender.MALE)
-                .memberRole(MemberRole.PARENT)
-                .activateStatus(ActivateStatus.ACTIVATE)
-                .birthDate(LocalDate.of(1997, 7, 29))
-                .build();
+        for(int i=1; i<51; ++i){
 
-        memberRepository.save(member);
-        memberRepository.save(member_01);
-        memberRepository.save(member_02);
+            //member entity
+            //부모1
+            Member member1 = Member.builder()
+                    .email("byuri1356" + Integer.toString(i) + "@gmail.com")
+                    .name("유승민" + Integer.toString(i))
+                    .password(bCryptPasswordEncoder.encode(pwd))
+                    .phoneNumber("010-9814-1356")
+                    .gender(Gender.MALE)
+                    .memberRole(MemberRole.PARENT)
+                    .activateStatus(ActivateStatus.ACTIVATE)
+                    .birthDate(LocalDate.of(1997, 7, 29))
+                    .build();
 
-        bank();
+            //부모2
+            Member member2 = Member.builder()
+                    .email("byuri1356" + Integer.toString(i + 100) + "@gmail.com")
+                    .name("유승민" + Integer.toString(i + 100))
+                    .password(bCryptPasswordEncoder.encode(pwd))
+                    .phoneNumber("010-9814-1356")
+                    .gender(Gender.MALE)
+                    .memberRole(MemberRole.PARENT)
+                    .activateStatus(ActivateStatus.ACTIVATE)
+                    .birthDate(LocalDate.of(1997, 7, 29))
+                    .build();
+
+            //자식1
+            Member member3 = Member.builder()
+                    .email("byuri1356" + Integer.toString(i+200) + "@gmail.com")
+                    .name("유승민" + Integer.toString(i+200))
+                    .password(bCryptPasswordEncoder.encode(pwd))
+                    .phoneNumber("010-9814-1356")
+                    .gender(Gender.MALE)
+                    .memberRole(MemberRole.CHILD)
+                    .activateStatus(ActivateStatus.ACTIVATE)
+                    .birthDate(LocalDate.of(1997, 7, 29))
+                    .build();
+
+            //자식2
+            Member member4 = Member.builder()
+                    .email("byuri1356" + Integer.toString(i+300) + "@gmail.com")
+                    .name("유승민" + Integer.toString(i+300))
+                    .password(bCryptPasswordEncoder.encode(pwd))
+                    .phoneNumber("010-9814-1356")
+                    .gender(Gender.MALE)
+                    .memberRole(MemberRole.CHILD)
+                    .activateStatus(ActivateStatus.ACTIVATE)
+                    .birthDate(LocalDate.of(1997, 7, 29))
+                    .build();
+
+            memberRepository.save(member1);
+            memberRepository.save(member2);
+            memberRepository.save(member3);
+            memberRepository.save(member4);
+
+            //profile image entity
+            //1, 5, 9 ... 번째 회원만 프로필 사진 가지고있는걸 가정
+            UploadFile uploadFile = UploadFile.builder()
+                    .uploadFileName("TestUploadFileName" + Integer.toString(i))
+                    .storeFileName(("TestStoreFileName") + Integer.toString(i))
+                    .build();
+
+            ProfileImage profileImage1 = ProfileImage.builder()
+                    .uploadFile(uploadFile)
+                    .member(member1)
+                    .build();
+            
+
+            // friend entity
+            // 1 -> 2, 3, 4  || 5 -> 6, 7, 8
+            Friend friend1 = Friend.builder()
+                    .firstFriend(member1)
+                    .secondFriend(member2)
+                    .build();
+
+            Friend friend2 = Friend.builder()
+                    .firstFriend(member1)
+                    .secondFriend(member3)
+                    .build();
+
+            Friend friend3 = Friend.builder()
+                    .firstFriend(member1)
+                    .secondFriend(member4)
+                    .build();
+
+            // mission entity
+            // 부모 1이 자식 1,2한테 부모 2이 자식 1,2 한테 미션 부여
+
+
+        }
+
+//        setFamily();
+
     }
+
+    public MemberRole setMemberRole(int i){
+        return i % 2 == 1 ? MemberRole.PARENT : MemberRole.CHILD;
+    }
+
     public void bank() throws Exception{
 
         category();
@@ -218,6 +281,10 @@ public class DataInitializerUtil implements CommandLineRunner {
         transactionRepository.save(transaction_01);
         transactionRepository.save(transaction_02);
         transactionRepository.save(transaction_03);
+
+    }
+
+    public void family(){
 
     }
 }

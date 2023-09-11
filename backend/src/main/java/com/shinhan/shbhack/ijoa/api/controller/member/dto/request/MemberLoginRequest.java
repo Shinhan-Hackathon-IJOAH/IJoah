@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 import static lombok.AccessLevel.PROTECTED;
 
 @Getter
-@NoArgsConstructor(access = PROTECTED)
+@NoArgsConstructor
 public class MemberLoginRequest {
 
     @Email
@@ -23,7 +23,6 @@ public class MemberLoginRequest {
     private String email;
 
     @NotNull
-    @Size(min = 6)
     private String password;
 
     public MemberLoginServiceRequest toServiceRequest(){
