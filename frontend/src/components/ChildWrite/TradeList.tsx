@@ -23,68 +23,77 @@ interface TradeList {
 const TradeList = () => {
   const { date } = useDiaryStore();
   const { accessToken } = useUserStore();
-  const [oneDayTransaction, setOneDayTransaction] = useState<any[]>([]);
-  const dummyData = {
-    accountNumber: '110111222222',
-    balance: 100000,
-    name: '김신한',
-    bankTransactionResponses: [
-      {
-        date: '2023-09-02',
-        time: '14:25:00',
-        withdrawAmount: 10000,
-        depositAmount: 0,
-        content: '다이소',
-        transactionBalance: 1200000,
-        type: 2,
-        category: 2,
-      },
-      {
-        date: '2023-09-02',
-        time: '14:25:00',
-        withdrawAmount: 10000,
-        depositAmount: 0,
-        content: '다이소',
-        transactionBalance: 1200000,
-        type: 2,
-        category: 2,
-      },
-      {
-        date: '2023-09-02',
-        time: '14:25:00',
-        withdrawAmount: 10000,
-        depositAmount: 0,
-        content: '다이소',
-        transactionBalance: 1200000,
-        type: 2,
-        category: 2,
-      },
-      {
-        date: '2023-09-02',
-        time: '14:25:00',
-        withdrawAmount: 10000,
-        depositAmount: 0,
-        content: '다이소',
-        transactionBalance: 1200000,
-        type: 2,
-        category: 2,
-      },
-      {
-        date: '2023-09-02',
-        time: '14:25:00',
-        withdrawAmount: 10000,
-        depositAmount: 0,
-        content: '다이소',
-        transactionBalance: 1200000,
-        type: 2,
-        category: 2,
-      },
-    ],
+  // const dummyData = {
+  //   accountNumber: '110111222222',
+  //   balance: 100000,
+  //   name: '김신한',
+  //   bankTransactionResponses: [
+  //     {
+  //       date: '2023-09-02',
+  //       time: '14:25:00',
+  //       withdrawAmount: 10000,
+  //       depositAmount: 0,
+  //       content: '다이소',
+  //       transactionBalance: 1200000,
+  //       type: 2,
+  //       category: 2,
+  //     },
+  //     {
+  //       date: '2023-09-02',
+  //       time: '14:25:00',
+  //       withdrawAmount: 10000,
+  //       depositAmount: 0,
+  //       content: '다이소',
+  //       transactionBalance: 1200000,
+  //       type: 2,
+  //       category: 2,
+  //     },
+  //     {
+  //       date: '2023-09-02',
+  //       time: '14:25:00',
+  //       withdrawAmount: 10000,
+  //       depositAmount: 0,
+  //       content: '다이소',
+  //       transactionBalance: 1200000,
+  //       type: 2,
+  //       category: 2,
+  //     },
+  //     {
+  //       date: '2023-09-02',
+  //       time: '14:25:00',
+  //       withdrawAmount: 10000,
+  //       depositAmount: 0,
+  //       content: '다이소',
+  //       transactionBalance: 1200000,
+  //       type: 2,
+  //       category: 2,
+  //     },
+  //     {
+  //       date: '2023-09-02',
+  //       time: '14:25:00',
+  //       withdrawAmount: 10000,
+  //       depositAmount: 0,
+  //       content: '다이소',
+  //       transactionBalance: 1200000,
+  //       type: 2,
+  //       category: 2,
+  //     },
+  //   ],
+  // };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const month = date.toLocaleString('default', { month: 'long' });
+    const day = date.getDate();
+    return `${month} ${day}일`;
   };
+
+  const [oneDayTransaction, setOneDayTransaction] = useState<any[]>([]);
+
   // 이 부분 때문에 무한 루프 에러 뜸.
-  useEffect(() => {
-    setOneDayTransaction(dummyData.bankTransactionResponses);
-  }, []);
+  // useEffect(() => {
+  //   setOneDayTransaction(dummyData.bankTransactionResponses);
+  // }, []);
 
   // 날짜 바뀔때마다 useEffect 쏘는 곳.
   useEffect(() => {
@@ -104,7 +113,7 @@ const TradeList = () => {
       )
       .then((res) => {
         console.log(res.data);
-        setOneDayTransaction(res.data);
+        setOneDayTransaction(res.data.bankTransactionResponses);
       })
       .catch((err) => {
         console.log(err);
@@ -113,12 +122,15 @@ const TradeList = () => {
 
   return (
     <div className="mt-10">
-      <div className="flex justify-center w-[100vw] font-['HSYuji-Regular']  text-2xl mb-5">오늘은 무엇을 샀나요?</div>
+      <div className="flex justify-center w-[100vw] font-['HSYuji-Regular']  text-2xl mb-5">{formatDate(date)}에는 무엇을 샀나요?</div>
       <div className="container mx-auto w-[80vw] h-full xl::w-[50vw]">
         <div className="relative wrap overflow-hidden p-h-full">
           <div className="border-2-2 absolute border-opacity-20 border-gray-700 h-full border left-1/2"></div>
 
-          {oneDayTransaction.map((transaction, index) => (
+          { oneDayTransaction.length === 0 ? (
+          <Typography className="text-center" variant='h6'>아직 거래 내역이 없어요 !</Typography>) : 
+          
+          (oneDayTransaction.map((transaction, index) => (
             <div
               key={index}
               className={`mb-8 flex justify-between items-center w-full ${
@@ -145,7 +157,7 @@ const TradeList = () => {
                 </p>
               </div>
             </div>
-          ))}
+          )))}
         </div>
       </div>
     </div>
