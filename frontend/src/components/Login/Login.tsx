@@ -54,14 +54,10 @@ const Login = () => {
     }
 
     const response = await axios
-      .post(
-        'https://ijoah01.duckdns.org/api/members/login',
-        {
-          email: emailId,
-          password: password,
-        },
-    
-      )
+      .post('https://ijoah01.duckdns.org/api/members/login', {
+        email: emailId,
+        password: password,
+      })
       .then((response: any) => {
         console.log(response.data.data);
         console.log(response.data.accessToken);
@@ -139,23 +135,23 @@ const Login = () => {
     <LoginContent>
       <Logo />
       <InputTag>
-          <Input
-            color="orange"
-            label="아이디"
-            crossOrigin={undefined}
-            onChange={handleIdChange}
-            style={{ backgroundColor: '#ffffff' }}
-          />
-          <Input
-            color="orange"
-            label="비밀번호"
-            type="password"
-            onChange={handlePasswordChange}
-            crossOrigin={undefined}
-            style={{ backgroundColor: '#ffffff' }}
-          />
+        <Input
+          color="orange"
+          label="아이디"
+          crossOrigin={undefined}
+          onChange={handleIdChange}
+          style={{ backgroundColor: '#ffffff' }}
+        />
+        <Input
+          color="orange"
+          label="비밀번호"
+          type="password"
+          onChange={handlePasswordChange}
+          crossOrigin={undefined}
+          style={{ backgroundColor: '#ffffff' }}
+        />
         <LoginButton>
-          <Button color="orange" onClick={login} className="lg:w-[20vw] w-[65vw] ">
+          <Button color="orange" onClick={login} className="lg:w-[20vw] w-[65vw] font-['HSYuji-Regular'] text-[16px] ">
             로그인
           </Button>
         </LoginButton>
