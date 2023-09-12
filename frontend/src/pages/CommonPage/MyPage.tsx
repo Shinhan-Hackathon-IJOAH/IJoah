@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button, Input } from '@material-tailwind/react';
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
+import  { Icon } from 'semantic-ui-react';
 const MyPage = () => {
   const { accessToken, email, phoneNumber, name } = useUserStore();
 
@@ -20,6 +21,8 @@ const MyPage = () => {
   const [changePasswordCheck, setChangePasswordCheck] = useState<string>('');
 
   // 변경 요청 axios 함수들 (비밀번호, 이메일, 휴대폰 번호, 프로필 사진)
+  const formData = new FormData();
+
   return (
     <div className="flex flex-col items-center w-[100vw] h-[100vh]">
       <Typography variant="h2" color="blue-gray" className="font-['HSYuji-Regular']">
@@ -55,7 +58,9 @@ const MyPage = () => {
               <div className="font-['HSYuji-Regular'] text-center text-2xl font-semibold">
                 <label htmlFor="file-input">
                   {/* 희창이가 이상하다 함. */}
-                  <div className="font-['HSYuji-Regular']">프로필 사진 변경</div>
+                  <div className="font-['HSYuji-Regular']">프로필 사진 변경&nbsp;
+                  <Icon name="picture" size="large"  className="ml-2" />
+                  </div>
                   <Input
                     type="file"
                     id="file-input"
@@ -110,7 +115,7 @@ const MyPage = () => {
             </Typography>
           </CardBody>
           <div className="p-6">
-            <Button color="orange" className="mb-5 w-full text-lg font-['HSYuji-Regular']">
+            <Button color="orange" className="mb-5 w-full text-2xl font-['HSYuji-Regular'] font-medium">
               내 정보 변경하기
             </Button>
           </div>

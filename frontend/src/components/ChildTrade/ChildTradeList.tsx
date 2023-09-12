@@ -9,6 +9,8 @@ import {
   CreditCardIcon,
   LockClosedIcon,
 } from '@heroicons/react/24/solid';
+import { Icon } from "semantic-ui-react"
+
 import BackPageButton from '../Common/BackPageButton';
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';

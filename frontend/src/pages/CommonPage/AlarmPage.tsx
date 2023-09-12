@@ -10,6 +10,7 @@ import {
 } from "@material-tailwind/react";
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
+import BottomNav from '../../components/Common/BottomNav';
 const AlarmPage = () => {
   const dummyData = [
     {
@@ -122,36 +123,39 @@ const AlarmPage = () => {
       return `${month}월 ${day}일 ${hour}:${minute}`;
     }
     return (
-      <div className="flex flex-col justify-center items-center">
-        <div className="mt-10">
-          <Typography variant="h2">알람 페이지</Typography>
+      <div className="flex flex-col justify-center items-center ">
+        <div className="mt-10 ">
+          <Typography 
+          className="font-['HSYuji-Regular']"
+          variant="h2">알람 페이지</Typography>
         </div>
+        <div className="text-gray-500 font-['HSYuji-Regular'] mt-5">'읽음' 버튼을 누르면 알람이 페이지에서 사라져요.</div>
         <div className="mt-10">
-          <List className="w-100 lg:w-[40vw]">
+          <List className="w-screen lg:w-[40vw]">
             {dummyData.map((data: any, index: any) => {
               const imageUrl = imageUrls[data.notificationType as AlarmType];
               const formattedTime = formatDateTime(data.time);
 
               return (
                 <ListItem key={index}>
-                  <div className="flex justify-between w-full">
-                    <div className="flex justify-start">
+                  <div className="flex justify-between w-full mx-1">
+                    <div className="flex justify-end">
                       <div>
                         <ListItemPrefix>
                           <Avatar variant="circular" alt="candice" src={imageUrl} />
                         </ListItemPrefix>
                       </div>
                       <div>
-                        <Typography variant="h6" color="blue-gray">
+                        <Typography variant="h6" color="blue-gray" className="font-['HSYuji-Regular']">
                           {data.content}
                         </Typography>
-                        <Typography variant="small" color="gray" className="font-normal">
+                        <Typography variant="small" color="gray" className="font-['HSYuji-Regular']">
                           {formattedTime}
                         </Typography>
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <Button onClick={() => { deleteAlarm(data.id); 
+                      <Button className="font-['HSYuji-Regular']" color="orange" onClick={() => { deleteAlarm(data.id); 
                         setDeleteAlarmCount(deleteAlarmCount + 1);
                       }}>읽음</Button>
                     </div>
@@ -161,6 +165,7 @@ const AlarmPage = () => {
             })}
           </List>
         </div>
+        <BottomNav/>
       </div>
     );
   }
