@@ -31,6 +31,15 @@ const BottomNav = () => {
       navigate("/child");
     }
   };
+  const handleRegisterClick = () => {
+    // 이거 스토어에서 불러와서 분기점 나눠서 memberRole에 따라 바꾸면 될듯?
+    if (memberRole === "PARENT") {
+      navigate("/parent/register");
+    }
+    if (memberRole === "CHILD") {
+      navigate("/child/register");
+    }
+  };
 
   return (
     <div>
@@ -58,7 +67,7 @@ const BottomNav = () => {
               계좌 등록하기
             </Menu.Item>
             <Menu.Item 
-            onClick={()=>navigate("/parent/register")}
+            onClick={handleRegisterClick}
             as="a">
               <Icon name="child" />
               아이 등록하기

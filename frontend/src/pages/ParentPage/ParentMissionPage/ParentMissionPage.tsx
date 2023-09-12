@@ -8,7 +8,6 @@ const ParentMissionPage = () => {
     return (
         <Content>
             <BackPageButton/>
-            
             <MissionList/>
             <BottomNav/>
         </Content>
