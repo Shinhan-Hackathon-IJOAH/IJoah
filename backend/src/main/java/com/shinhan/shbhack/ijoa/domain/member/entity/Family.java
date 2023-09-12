@@ -40,6 +40,12 @@ public class Family extends BaseEntity {
         this.parent = parent;
     }
 
+    public static Family of(Member parent, Member child){
+        return Family.builder()
+                .parent(parent)
+                .child(child)
+                .build();
+    }
 
 
 }

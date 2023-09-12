@@ -1,6 +1,5 @@
 package com.shinhan.shbhack.ijoa.common.config;
 
-import com.shinhan.shbhack.ijoa.common.filter.JwtAuthenticationFilter;
 import com.shinhan.shbhack.ijoa.common.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +17,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 //@EnableWebSecurity // 없어도 되는지 확인 필요
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+//    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -28,12 +27,11 @@ public class SecurityConfig {
                 .cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-//                .antMatchers( "/api/members", "/api/diaries", "/swagger-ui/**", "/swagger-ui.html", "/**").permitAll()
-//                .antMatchers("/api/members/join", "/api/members/login", "/api/emails/**", "/api/shareddiaries/**").permitAll()
-                .antMatchers("/api/diaries/write", "/api/members/join", "/api/members/login", "/api/emails/**", "/api/shareddiaries/**").permitAll()
+                .antMatchers( "/api/members", "/api/diaries", "/swagger-ui/**", "/swagger-ui.html", "/**").permitAll();
+//                .antMatchers("/api/diaries/write", "/api/members/join", "/api/members/login", "/api/emails/**", "/api/shareddiaries/**").permitAll()
 
-                .anyRequest().authenticated().and()
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//                .anyRequest().authenticated().and()
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

@@ -46,7 +46,7 @@ const ParentTradeList = () => {
   useEffect(() => {
     axios
       .post("https://ijoah01.duckdns.org/api/bank/transactions", {
-        accountNumber: account,
+        accountNumber: "110111222222",
       },{headers: {
         Authorization: `Bearer ${accessToken}`,
         },

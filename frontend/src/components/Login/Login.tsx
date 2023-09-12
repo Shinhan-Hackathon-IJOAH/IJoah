@@ -54,20 +54,10 @@ const Login = () => {
     }
 
     const response = await axios
-      .post(
-        'https://ijoah01.duckdns.org/api/members/login',
-        {
-          email: emailId,
-          password: password,
-        },
-        // 헤더는 백엔드랑 이야기 해야 함.
-        // {
-        //   headers: {
-        //     Accept: "application/json",
-        //     "Content-Type": "application/x-www-form-urlencoded",
-        //   },
-        // }
-      )
+      .post('https://ijoah01.duckdns.org/api/members/login', {
+        email: emailId,
+        password: password,
+      })
       .then((response: any) => {
         console.log(response.data.data);
         console.log(response.data.accessToken);
@@ -145,25 +135,23 @@ const Login = () => {
     <LoginContent>
       <Logo />
       <InputTag>
-        <div className="flex w-64 flex-col gap-6">
-          <Input
-            color="orange"
-            label="아이디"
-            crossOrigin={undefined}
-            onChange={handleIdChange}
-            style={{ backgroundColor: '#ffffff' }}
-          />
-          <Input
-            color="orange"
-            label="비밀번호"
-            type="password"
-            onChange={handlePasswordChange}
-            crossOrigin={undefined}
-            style={{ backgroundColor: '#ffffff' }}
-          />
-        </div>
+        <Input
+          color="orange"
+          label="아이디"
+          crossOrigin={undefined}
+          onChange={handleIdChange}
+          style={{ backgroundColor: '#ffffff' }}
+        />
+        <Input
+          color="orange"
+          label="비밀번호"
+          type="password"
+          onChange={handlePasswordChange}
+          crossOrigin={undefined}
+          style={{ backgroundColor: '#ffffff' }}
+        />
         <LoginButton>
-          <Button color="orange" onClick={login}>
+          <Button color="orange" onClick={login} className="lg:w-[20vw] w-[65vw] font-['HSYuji-Regular'] text-[16px] ">
             로그인
           </Button>
         </LoginButton>
@@ -180,41 +168,5 @@ const Login = () => {
     </LoginContent>
   );
 };
-//  <LoginContent>
-//    <Logo />
-//    <InputTag>
-//      <div className="flex w-64 flex-col gap-6">
-//        <Inputs
-//          color="orange"
-//          label="아이디"
-//          crossOrigin={undefined}
-//          onChange={handleIdChange}
-//          style={{ backgroundColor: "#ffffff" }}
-//        />
-//        <Input
-//         color="orange"
-//         label="비밀번호"
-//         type="password"
-//         onChange={handlePasswordChange}
-//         crossOrigin={undefined}
-//         style={{ backgroundColor: "#ffffff" }}
-//       />
-//     </div>
-//     <LoginButton>
-//       <Button color="orange" onClick={login}>
-//         로그인
-//       </Button>
-//     </LoginButton>
-//     <SignupContainer>
-//       <SignupAnchor
-//         onClick={() => {
-//           navigate("/emailauth");
-//         }}
-//       >
-//         아직 회원이 아니신가요?
-//       </SignupAnchor>
-//     </SignupContainer>
-//   </InputTag>
-// </LoginContent>
 
 export default Login;

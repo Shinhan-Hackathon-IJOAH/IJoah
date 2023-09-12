@@ -65,7 +65,7 @@ const EmailAuthCheck = () => {
         </CardHeader>
         <CardBody className="justify-center items-center flex flex-col">
           <div>
-            <Typography variant="h3" color="blue-gray" className="font-semibold">
+            <Typography variant="h3" color="blue-gray" className="font-semibold font-['HSYuji-Regular']">
               <>
                 모아일기에 오신 것을
                 <br /> 진심으로 환영합니다 !
@@ -73,7 +73,7 @@ const EmailAuthCheck = () => {
             </Typography>
           </div>
           <div className="mt-5">
-            <Typography variant="h5" color="gray" className="font-normal opacity-75">
+            <Typography variant="h5" color="gray" className="font-normal opacity-75 font-['HSYuji-Regular']">
               입력하신 이메일로 전송된 인증번호를 입력해주세요.
             </Typography>
           </div>
@@ -91,7 +91,7 @@ const EmailAuthCheck = () => {
             <Button
               ripple={false}
               fullWidth={true}
-              className="bg-orange-500 mt-5 text-white text-md shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+              className="font-['HSYuji-Regular'] bg-orange-500 mt-5 text-white text-md shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
               onClick={checkAuthCode}
             >
               인증 번호 확인하기

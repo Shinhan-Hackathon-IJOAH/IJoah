@@ -135,7 +135,7 @@ export default function SignUp() {
           <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
             <BanknotesIcon className="h-10 w-10" />
           </div>
-          <Typography variant="h4" color="white">
+          <Typography variant="h4" color="white" className="font-['HSYuji-Regular']">
             모아일기 회원가입
           </Typography>
         </CardHeader>
@@ -148,6 +148,7 @@ export default function SignUp() {
                   setMemberRole('PARENT');
                   clearAll();
                 }}
+                className="font-['HSYuji-Regular']"
               >
                 부모
               </Tab>
@@ -157,6 +158,7 @@ export default function SignUp() {
                   setMemberRole('CHILD');
                   clearAll();
                 }}
+                className="font-['HSYuji-Regular']"
               >
                 아이
               </Tab>
@@ -179,14 +181,14 @@ export default function SignUp() {
                 <form className="mt-6 flex flex-col gap-4">
                   {/* 인풋창 하나 */}
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       이메일을 입력해주세요.
                     </Typography>
                     <Input disabled crossOrigin={undefined} color="orange" label={signUpEmail} />
                   </div>
 
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       비밀번호를 입력해주세요.
                     </Typography>
                     <Input
@@ -198,7 +200,7 @@ export default function SignUp() {
                     />
                   </div>
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       비밀번호를 다시 입력해주세요.
                     </Typography>
                     <Input
@@ -211,13 +213,13 @@ export default function SignUp() {
                   </div>
 
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       이름을 입력해주세요.
                     </Typography>
                     <Input onChange={handleName} crossOrigin={undefined} type="text" color="orange" label="Name" />
                   </div>
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       성별을 클릭해주세요.
                     </Typography>
                     <Tabs>
@@ -227,6 +229,7 @@ export default function SignUp() {
                           onClick={() => {
                             setGender('MALE');
                           }}
+                          className="font-['HSYuji-Regular']"
                         >
                           남자
                         </Tab>
@@ -235,6 +238,7 @@ export default function SignUp() {
                           onClick={() => {
                             setGender('FEMALE');
                           }}
+                          className="font-['HSYuji-Regular']"
                         >
                           여자
                         </Tab>
@@ -242,7 +246,7 @@ export default function SignUp() {
                     </Tabs>
                   </div>
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       생년월일을 입력해주세요.
                     </Typography>
                     <Input
@@ -255,7 +259,7 @@ export default function SignUp() {
                   </div>
 
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       핸드폰 번호를 입력해주세요.
                     </Typography>
                     <Input
@@ -275,6 +279,7 @@ export default function SignUp() {
                     }}
                     size="lg"
                     color="orange"
+                    className="font-['HSYuji-Regular']"
                   >
                     회원가입하기
                   </Button>
@@ -290,14 +295,14 @@ export default function SignUp() {
               <TabPanel value="CHILD" className="p-0">
                 <form className="mt-6 flex flex-col gap-4">
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       이메일을 입력해주세요.
                     </Typography>
                     <Input color="orange" disabled crossOrigin={undefined} type="text" label={signUpEmail} />
                   </div>
 
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       비밀번호를 입력해주세요.
                     </Typography>
                     <Input
@@ -309,7 +314,7 @@ export default function SignUp() {
                     />
                   </div>
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       비밀번호를 다시 입력해주세요.
                     </Typography>
                     <Input
@@ -322,13 +327,13 @@ export default function SignUp() {
                   </div>
 
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       이름을 입력해주세요.
                     </Typography>
                     <Input color="orange" onChange={handleName} crossOrigin={undefined} type="text" label="Name" />
                   </div>
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       성별을 클릭해주세요.
                     </Typography>
                     <Tabs>
@@ -338,6 +343,7 @@ export default function SignUp() {
                           onClick={() => {
                             setGender('MALE');
                           }}
+                          className="font-['HSYuji-Regular']"
                         >
                           남자
                         </Tab>
@@ -346,6 +352,7 @@ export default function SignUp() {
                           onClick={() => {
                             setGender('FEMALE');
                           }}
+                          className="font-['HSYuji-Regular']"
                         >
                           여자
                         </Tab>
@@ -353,7 +360,7 @@ export default function SignUp() {
                     </Tabs>
                   </div>
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       생년월일을 입력해주세요.
                     </Typography>
                     <Input
@@ -366,7 +373,7 @@ export default function SignUp() {
                   </div>
 
                   <div>
-                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium">
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       핸드폰 번호를 입력해주세요.
                     </Typography>
                     <Input
@@ -384,7 +391,7 @@ export default function SignUp() {
                     }}
                     size="lg"
                     color="orange"
-                    className="relative h-12"
+                    className="relative h-12 font-['HSYuji-Regular']"
                   >
                     회원가입하기
                   </Button>

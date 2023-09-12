@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import static lombok.AccessLevel.PROTECTED;
 
 @Getter
-@NoArgsConstructor(access = PROTECTED)
+@NoArgsConstructor
 public class EmailCheckRequest {
 
     @Email

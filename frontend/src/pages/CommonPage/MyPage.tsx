@@ -22,11 +22,10 @@ const MyPage = () => {
   // 변경 요청 axios 함수들 (비밀번호, 이메일, 휴대폰 번호, 프로필 사진)
   return (
     <div className="flex flex-col items-center w-[100vw] h-[100vh]">
-      <div>
-        <Typography variant="h2" color="blue-gray" className="font-['HSYuji-Regular']">
-          프로필 변경 페이지
-        </Typography>
-      </div>
+      <Typography variant="h2" color="blue-gray" className="font-['HSYuji-Regular']">
+        프로필 변경 페이지
+      </Typography>
+
       <div>
         <Card className="mt-10 w-full flex justify-center">
           <CardHeader color="white" className="">
@@ -56,7 +55,7 @@ const MyPage = () => {
               <div className="font-['HSYuji-Regular'] text-center text-2xl font-semibold">
                 <label htmlFor="file-input">
                   {/* 희창이가 이상하다 함. */}
-                  <div>프로필 사진 변경</div>
+                  <div className="font-['HSYuji-Regular']">프로필 사진 변경</div>
                   <Input
                     type="file"
                     id="file-input"
@@ -75,15 +74,16 @@ const MyPage = () => {
             </div>
           </CardFooter>
           <CardBody>
-            <Typography variant="h5" color="blue-gray" className="mb-2">
+            <Typography variant="h5" color="blue-gray" className="mb-2 font-['HSYuji-Regular']">
               변경할 정보를 입력하세요.
             </Typography>
-            <Typography>
+            <Typography className="font-['HSYuji-Regular']">
               이메일ID
               <Input label={email} disabled crossOrigin={false} />
             </Typography>
-            <Typography>
+            <Typography className="font-['HSYuji-Regular']">
               비밀번호
+              <div></div>
               <Input
                 onChange={handleChangePassword}
                 placeholder="변경할 비밀번호를 입력해주세요."
@@ -91,7 +91,7 @@ const MyPage = () => {
                 crossOrigin={false}
               />
             </Typography>
-            <Typography>
+            <Typography className="font-['HSYuji-Regular']">
               비밀번호 확인
               <Input
                 type="password"
@@ -100,17 +100,17 @@ const MyPage = () => {
                 crossOrigin={false}
               />
             </Typography>
-            <Typography>
+            <Typography className="font-['HSYuji-Regular']">
               이름
               <Input label={name} disabled crossOrigin={false} />
             </Typography>
-            <Typography>
+            <Typography className="font-['HSYuji-Regular']">
               휴대폰 번호
               <Input label={phoneNumber} disabled crossOrigin={false} />
             </Typography>
           </CardBody>
           <div className="p-6">
-            <Button color="orange" className="mb-5 w-full text-lg">
+            <Button color="orange" className="mb-5 w-full text-lg font-['HSYuji-Regular']">
               내 정보 변경하기
             </Button>
           </div>

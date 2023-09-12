@@ -27,6 +27,7 @@ import MyPage from './pages/CommonPage/MyPage';
 import EmailAuthPage from './pages/LoginPage/EmailAuthPage';
 import Picture from './components/ChildWrite/Picture';
 import AccountRegisterPage from './pages/CommonPage/AccountRegisterPage';
+import {Page404} from './pages/CommonPage/Page404';
 
 function App() {
   return (
@@ -60,6 +61,8 @@ function App() {
         {/* 테스트용 라우터 추후에 삭제 필수 */}
         <Route path="/picture" element={<Picture />} />
         <Route path="/register/account" element={<AccountRegisterPage />} />
+        {/* 404 Not Found 예외 처리를 위한 페이지 추가 */}
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </div>
   );

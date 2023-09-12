@@ -24,8 +24,8 @@ public class EmailController {
 
     @PostMapping("/send")
     public ApiData<String> sendJoinEmail(@RequestParam("email") String email) throws MessagingException, UnsupportedEncodingException {
+        // TODO: 2023-09-11 need refactoring
         memberQueryService.searchExistMemberByEmail(email);
-
         emailQueryService.sendEmail(email);
 
         return ApiData.of("이메일이 발송되었습니다.");

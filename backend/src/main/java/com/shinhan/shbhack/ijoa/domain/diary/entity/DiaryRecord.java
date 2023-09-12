@@ -1,10 +1,7 @@
 package com.shinhan.shbhack.ijoa.domain.diary.entity;
 
 import com.shinhan.shbhack.ijoa.domain.UploadFile;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -32,6 +29,14 @@ public class DiaryRecord {
 
     @NotNull
     private String storeFileName;
+
+    @Builder
+    public DiaryRecord(Long diaryRecordId, Diary diary, String uploadFileName, String storeFileName) {
+        this.diaryRecordId = diaryRecordId;
+        this.diary = diary;
+        this.uploadFileName = uploadFileName;
+        this.storeFileName = storeFileName;
+    }
 
     public static DiaryRecord of(UploadFile fileInfos, Diary diary){
         DiaryRecord diaryRecord = new DiaryRecord();

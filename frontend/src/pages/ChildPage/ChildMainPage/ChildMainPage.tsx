@@ -31,6 +31,8 @@ interface Balance{
   balance:string;
 }
 
+
+
 const ChildMainPage = () => {
   const {accessToken,account,setBalance,setName,setBirthDate,setEmail,setPhoneNumber,setProfileImage,setAccount} =useUserStore()
 
