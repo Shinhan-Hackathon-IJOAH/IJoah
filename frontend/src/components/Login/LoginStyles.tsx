@@ -46,12 +46,11 @@ export const Logo = styled.div`
   width: 60vh;
   position: absolute;
   top: 15%;
-  
+
   //960px 이하일 때는 로고 크기 가로 100%
   @media (max-width: 960px) {
     width: 100%;
   }
-
 `;
 
 export const InputTag = styled.div`
@@ -62,8 +61,7 @@ export const InputTag = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap:20px
-  
+  gap: 20px;
 `;
 export const SignupContainer = styled.div`
   font-size: 17px;
@@ -96,8 +94,5 @@ export const SignupAnchor = styled.button`
 `;
 
 export const LoginButton = styled.div`
-  margin-top: 40px;  
-
-  
-
+  margin-top: 40px;
 `;

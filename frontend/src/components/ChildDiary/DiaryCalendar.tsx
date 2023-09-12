@@ -8,7 +8,7 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import DiaryContent from './DiaryContent';
 import axios from 'axios';
-import { Button, select } from '@material-tailwind/react';
+import { Button, select, Typography } from '@material-tailwind/react';
 import { useUserStore } from '../../store/UserStore';
 function getRandomNumber(min: number, max: number) {
   return Math.round(Math.random() * (max - min) + min);
@@ -149,9 +149,15 @@ export default function DateCalendarServerRequest() {
 
   return (
     <div className="h-[100vh]">
-      <div>
-        {calendarVisible && (
-          <div className="flex justify-center items-center h-full">
+      {calendarVisible && (
+        <div>
+          <div className="flex flex-col justify-center items-center h-screen">
+            <div>
+              <Typography variant="h3" className="text-center mt-10">
+                읽고 싶은 용돈 일기를 <br></br>
+                아래에서 골라주세요.{' '}
+              </Typography>
+            </div>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateCalendar
                 defaultValue={initialValue}
@@ -180,8 +186,8 @@ export default function DateCalendarServerRequest() {
               />
             </LocalizationProvider>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {contentVisible && (
         <div className="flex justify-center flex-col items-center">
@@ -189,7 +195,7 @@ export default function DateCalendarServerRequest() {
             <DiaryContent selectdate={selectdate} diaryId={diaryId} />
           </div>
           <div>
-            <Button color="teal" onClick={handleShowCalendar} className="mb-4">
+            <Button color="orange" onClick={handleShowCalendar} className="mb-4">
               달력보기
             </Button>
           </div>

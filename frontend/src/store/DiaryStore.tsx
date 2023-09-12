@@ -1,6 +1,6 @@
 // /src/zustand/store.ts
-import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
 
 // store 업데이트 했으면 쿠키 날려야함.
 interface DiaryStore {
@@ -23,12 +23,12 @@ interface DiaryStore {
 export const useDiaryStore = create<DiaryStore>()(
   devtools(
     (set) => ({
-      title: "",
-      content: "",
-      date: "",
+      title: '',
+      content: '',
+      date: '',
       picture: [],
       voice: null,
-      weatherMood: "",
+      weatherMood: '',
       file: null,
       setWeatherMood: (payload) => set({ weatherMood: payload }),
       // setPicture: (payload) => set({ picture: payload }),
@@ -41,7 +41,7 @@ export const useDiaryStore = create<DiaryStore>()(
       setFile: (payload) => set({ file: payload }),
     }),
     {
-      name: "Diary-storage", // persist key
-    }
-  )
+      name: 'Diary-storage', // persist key
+    },
+  ),
 );
