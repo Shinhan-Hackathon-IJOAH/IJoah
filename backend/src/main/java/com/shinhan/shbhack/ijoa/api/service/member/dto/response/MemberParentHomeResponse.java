@@ -4,6 +4,8 @@ package com.shinhan.shbhack.ijoa.api.service.member.dto.response;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Account;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Family;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
+import com.shinhan.shbhack.ijoa.domain.member.entity.enums.Gender;
+import com.shinhan.shbhack.ijoa.domain.member.entity.enums.MemberRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,10 @@ public class MemberParentHomeResponse {
 
     private LocalDate birthDate;
 
+    private Gender gender;
+
+    private MemberRole memberRole;
+
     private AccountResponse account;
 
     private ProfileImageResponse profileImage;
@@ -37,16 +43,19 @@ public class MemberParentHomeResponse {
     private List<MemberResponse> children;
 
     @Builder
-    public MemberParentHomeResponse(Long memberId, String name, String email, String phoneNumber, LocalDate birthDate, AccountResponse account, ProfileImageResponse profileImage, List<MemberResponse> children) {
+    public MemberParentHomeResponse(Long memberId, String name, String email, String phoneNumber, LocalDate birthDate, Gender gender, MemberRole memberRole, AccountResponse account, ProfileImageResponse profileImage, List<MemberResponse> children) {
         this.memberId = memberId;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
+        this.gender = gender;
+        this.memberRole = memberRole;
         this.account = account;
         this.profileImage = profileImage;
         this.children = children;
     }
+
     public static MemberParentHomeResponse of(Member member){
         return MemberParentHomeResponse.builder()
                 .memberId(member.getId())
@@ -54,6 +63,8 @@ public class MemberParentHomeResponse {
                 .email(member.getEmail())
                 .phoneNumber(member.getPhoneNumber())
                 .birthDate(member.getBirthDate())
+                .gender(member.getGender())
+                .memberRole(member.getMemberRole())
                 .account(AccountResponse.of(member.getAccount()))
                 .profileImage(ProfileImageResponse.of(member.getProfileImage()))
                 .children(member.getParents()

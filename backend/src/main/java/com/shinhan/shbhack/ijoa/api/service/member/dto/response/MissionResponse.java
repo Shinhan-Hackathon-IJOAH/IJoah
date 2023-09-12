@@ -22,6 +22,8 @@ public class MissionResponse {
 
     private Long id;
 
+    private String title;
+
     private String content;
 
     private Long reward;
@@ -37,8 +39,9 @@ public class MissionResponse {
     private MemberResponse challenger;
 
     @Builder
-    public MissionResponse(Long id, String content, Long reward, LocalDate startDate, LocalDate endDate, Accomplishment accomplishment, MemberResponse writer, MemberResponse challenger) {
+    public MissionResponse(Long id, String title, String content, Long reward, LocalDate startDate, LocalDate endDate, Accomplishment accomplishment, MemberResponse writer, MemberResponse challenger) {
         this.id = id;
+        this.title = title;
         this.content = content;
         this.reward = reward;
         this.startDate = startDate;
@@ -51,6 +54,7 @@ public class MissionResponse {
     public static MissionResponse of(Mission mission){
         return MissionResponse.builder()
                 .id(mission.getId())
+                .title(mission.getTitle())
                 .content(mission.getContent())
                 .reward(mission.getReward())
                 .startDate(mission.getStartDate())

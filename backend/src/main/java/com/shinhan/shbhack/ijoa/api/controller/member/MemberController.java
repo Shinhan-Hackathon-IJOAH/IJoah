@@ -2,18 +2,22 @@ package com.shinhan.shbhack.ijoa.api.controller.member;
 
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberCreateRequest;
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberLoginRequest;
-import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberUpdateRequest;
+import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberModifyRequest;
+import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberRegistFamilyRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.command.MemberService;
-import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberUpdateServiceRequest;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberRegistFamilyServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberChildHomeResponse;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberModifyServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberParentHomeResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.query.MemberQueryService;
 import com.shinhan.shbhack.ijoa.common.dto.response.ApiData;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -54,11 +58,19 @@ public class MemberController {
 
     @PutMapping("/modify")
     @ApiOperation(value = "회원 정보 수정")
-    public ApiData<String> updateMember(@RequestBody MemberUpdateRequest request){
-        memberService.updateMember(request.toServiceRequest());
+    public ApiData<String> updateMember(@RequestPart(name = "file")MultipartFile file,
+                                        @RequestPart(name = "request") MemberModifyRequest request){
+        memberService.updateMember(MemberModifyServiceRequest.of(request), file);
         return ApiData.of("회원 정보 수정이 완료되었습니다!");
     }
 
+    @PostMapping("/family/regist")
+    @ApiOperation(value = "아이 등록")
+    public ApiData<String> registFamily(@RequestBody MemberRegistFamilyRequest request){
+
+        memberService.registFamily(MemberRegistFamilyServiceRequest.of(request));
+        return ApiData.of("아이 등록이 성공하였습니다!");
+    }
 
 
 
