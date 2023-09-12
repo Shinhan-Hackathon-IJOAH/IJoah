@@ -26,6 +26,8 @@ interface UserStore {
   setRefreshToken: (refreshToken: any) => void;
   account: any;
   setAccount: (account: any) => void;
+  balance: any;
+  setBalance: (balance: any) => void;
 }
 
 export const useUserStore = create<UserStore>()(
@@ -43,6 +45,7 @@ export const useUserStore = create<UserStore>()(
         account: "",
         accessToken: "",
         refreshToken: "",
+        balance:"",
         setId: (payload) => set({ id: payload }),
         setName: (payload) => set({ name: payload }),
         setBirthDate: (payload) => set({ birthDate: payload }),
@@ -54,6 +57,7 @@ export const useUserStore = create<UserStore>()(
         setAccessToken: (payload) => set({ accessToken: payload }),
         setRefreshToken: (payload) => set({ refreshToken: payload }),
         setAccount: (payload) => set({ account: payload }),
+        setBalance: (payload) => set({ balance: payload }),
       }),
       {
         name: "User-storage", // persist key

@@ -5,25 +5,32 @@ import axios from 'axios';
 import {useSelectChildStore} from '../../store/SelectChildStore'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import { useUserStore } from './../../store/UserStore';
 
 
 const ParentGiveMoney = () => {
-    const [givemoney, setGivemoney] = useState('');
+    const [givemoney, setGivemoney] = useState(0);
     const {childid,childname,childaccount,childimg}=useSelectChildStore();
+    const {balance,name} = useUserStore();
+    const formattedMoney = givemoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    const handleMoneyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const onlyNumbers = e.target.value.replace(/[^0-9]/g, ''); // Remove non-digit characters
+        setGivemoney(Number(onlyNumbers));
+      };
 
     const giveMoney = () =>{
         axios
             .post("https://ijoah01.duckdns.org/api/bank/transfer",{
-                withdrawAccount: "110111222222", // 출금할 계좌
-                depositAccount: "110222333333", // 입금할 계좌 
+                withdrawAccount: balance, // 출금할 계좌
+                depositAccount: childaccount, // 입금할 계좌 
                 amount: givemoney, 
-                withdrawContent: "하위~", //출금자에게 표시될 문자 
-                depositContent: "하위~~~~"
-                // givemoney: givemoney,
-                // account:childaccount
+                withdrawContent: `${childname}에게 용돈`, //출금자에게 표시될 문자 
+                depositContent: `${name}이 주신 용돈`,
             })
             .then((response)=>{
                 console.log(response)
+                setGivemoney(0)
             })
             .catch((error)=>
             console.log(error))
@@ -41,11 +48,9 @@ const ParentGiveMoney = () => {
             <InputTag>
                     <Input 
                     variant="static" label="전송할 용돈" placeholder="금액"  crossOrigin={undefined}
-                    type="number" pattern="\d*"
-                    value={givemoney}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    setGivemoney(event.target.value)
-                    }
+                    type="text" pattern="\d*"
+                    value={formattedMoney}
+                    onChange={handleMoneyChange}
                     min={0}
                     style={{ fontSize: '25px',textAlign: 'right',
                     direction: 'rtl',paddingRight: '15px'   }} 
@@ -53,12 +58,14 @@ const ParentGiveMoney = () => {
                      <span>원</span>
             </InputTag>
                 <ButtonContainer>
-                    <Button variant="outlined" onClick={()=>{setGivemoney('1000')}}>1000원</Button>
-                    <Button variant="outlined" onClick={()=>{setGivemoney('5000')}}>5000원</Button>
-                    <Button variant="outlined" onClick={()=>{setGivemoney('10000')}}>10000원</Button>
-                    <Button variant="outlined" onClick={()=>{setGivemoney('20000')}}>200000원</Button>
+                    <Button variant="outlined" onClick={()=>{setGivemoney(givemoney+1000)}}>1000원</Button>
+                    <Button variant="outlined" onClick={()=>{setGivemoney(givemoney+5000)}}>5000원</Button>
+                    <Button variant="outlined" onClick={()=>{setGivemoney(givemoney+10000)}}>10000원</Button>
+                    <Button variant="outlined" onClick={()=>{setGivemoney(givemoney+20000)}}>200000원</Button>
                 </ButtonContainer>
             <SendButoon onClick={giveMoney}>용돈 보내기</SendButoon>
+
+            {/* 용돈 보냈을시 알림창 띄워야함 */}
         </GiveMoneyContainer>
     );
 };

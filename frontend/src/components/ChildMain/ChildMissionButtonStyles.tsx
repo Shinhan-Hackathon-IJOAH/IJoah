@@ -6,6 +6,8 @@ export const MissionContainer = styled.div`
     width: 38vw;
     background-color: #FF8A3D;
     border-radius: 30px;
+    font-family: 'HSYuji-Regular';
+    display:flex;
 `;
 
 export const MissionImg = styled.div`

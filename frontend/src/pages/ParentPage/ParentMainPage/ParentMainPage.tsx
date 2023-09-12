@@ -11,39 +11,74 @@ import createprofile from '../../../asset/createprofile.png'
 import { useNavigate } from 'react-router-dom';
 import { ParentMainPageContent,Logo,ButtonContainer,SideButtonContainer,ButtonColum} from "./ParentMainPageStyles"
 import axios from 'axios';
-import { register } from './../../../serviceWorkerRegistration';
+import {useUserStore} from "../../../store/UserStore"
 import {useSelectChildStore} from "../../../store/SelectChildStore"
+import { set } from 'date-fns';
 
 interface Profile {
-    id: number;
     name: string;
+    email: string;
+    phoneNumber: string;
+    birthDate: string;
     account: number;
-    imgPath: string;
-    childlist:
+    profileImage: string;
+    children:
         {
-        id: '';
-        nickname:'';
-        account: '';
-        imgPath : '';
+            name: string;
+            email: string;
+            phoneNumber: string;
+            birthDate: string;
+            account: number;
+            profileImage: string;
         }[];
   }
   
+interface Balance{
+    accountNumber:string;
+    balance:string;
+}
 
 const ParentMainPage = () => {
-    const {childid,childname,childaccount,childimg,setChildId,setChildName,setChildAccount,setChildImg}=useSelectChildStore();
+    const {setChildName,setChildAccount,setChildImg}=useSelectChildStore();
+    const {accessToken,account,setBalance,setName,setBirthDate,setEmail,setPhoneNumber,setProfileImage,setAccount} =useUserStore()
     const navigate = useNavigate();
     const [parentprofile, setParentProfile] = useState<Profile>();
+    const [parentbalance, setParentBalance] = useState<Balance>();
 
     const getParentInfo = () =>{
         axios
-        .get(`....`, {
+        .get(`https://ijoah01.duckdns.org/api/members/login`, {
             headers: {
-            Authorization: `Bearer`,
+            Authorization: `Bearer ${accessToken}`,
             },
         })
         .then((response) => {
-            setParentProfile(response.data.result); 
-            console.log(response.data.result);
+            setParentProfile(response.data.data); 
+            console.log(response.data.data);
+            setName(parentprofile?.name)
+            setBirthDate(parentprofile?.birthDate)
+            setAccount(parentprofile?.account)
+            setEmail(parentprofile?.email)
+            setPhoneNumber(parentprofile?.phoneNumber)
+            setProfileImage(parentprofile?.profileImage)
+            getParentAccount();
+        })
+        .catch((error) => {
+            console.error('데이터 가져오기 오류:', error);
+        });
+    }
+    const getParentAccount = () =>{
+        axios
+        .post('https://ijoah01.duckdns.org/api/bank/balance',
+        {accountNumber:account},
+            {headers: {
+            Authorization: `Bearer ${accessToken}`,
+            },
+        })
+        .then((response) => {
+            setParentBalance(response.data.data); 
+            console.log(response.data.data);
+            setBalance(parentbalance?.balance)
         })
         .catch((error) => {
             console.error('데이터 가져오기 오류:', error);
@@ -60,18 +95,17 @@ const ParentMainPage = () => {
             <ParentInfo/>
             <ButtonColum>
             <div className="flex items-center -space-x-4">
-                {parentprofile?.childlist.map((child) => (
+                {parentprofile?.children.map((child) => (
                     <button 
                         onClick={() => {
-                        setChildId(child.id);
                         setChildAccount(child.account);
-                        setChildName(child.nickname);
-                        setChildImg(child.imgPath);
+                        setChildName(child.name);
+                        setChildImg(child.profileImage);
                     }}>
                     <Avatar
                     variant="circular"
                     className="border-2 border-white hover:z-10 focus:z-10"
-                    src={child.imgPath}
+                    src={child.profileImage}
                     />
                     </button>
                 ))}

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { CategoryTag,PatternContainer,ChildInfoContainer,NameTag } from './PatternGraphStyles';
 import {useSelectChildStore} from '../../store/SelectChildStore'
 import Avatar from '@mui/material/Avatar';
+import {useUserStore} from "../../store/UserStore"
 
 interface CategoryData{
     sum:number;
@@ -21,11 +22,16 @@ const PatternGraph = () => {
     const colortag = [' #7fc97f','#beaed4','#fdc086','#ffff99','#386cb0','#f0027f','#bf5b17','#666666']
     const [category, setCategory] = useState<CategoryData>();
     const {childname,childimg}=useSelectChildStore();
+    const {accessToken,name,account} =useUserStore()
 
     const GetPattern = ()=>{
         axios
             .post('https://ijoah01.duckdns.org/api/bank/analyze',{
-                accountNumber: "110111222222"
+                accountNumber: account
+            },{
+                headers: {
+                Authorization: `Bearer ${accessToken}`,
+                },
             })
             .then((response)=>{
                 console.log(response)
