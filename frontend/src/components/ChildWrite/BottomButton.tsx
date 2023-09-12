@@ -3,6 +3,7 @@ import { Button } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import { useDiaryStore } from '../../store/DiaryStore';
 import axios from 'axios';
+import {Icon} from 'semantic-ui-react';
 const BottomButton = () => {
   const { title, content, date, weatherMood, picture, voice, file } = useDiaryStore();
   const navigate = useNavigate();

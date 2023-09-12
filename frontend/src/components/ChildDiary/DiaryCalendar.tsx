@@ -10,6 +10,7 @@ import DiaryContent from './DiaryContent';
 import axios from 'axios';
 import { Button, select, Typography } from '@material-tailwind/react';
 import { useUserStore } from '../../store/UserStore';
+import { Icon } from 'semantic-ui-react';
 function getRandomNumber(min: number, max: number) {
   return Math.round(Math.random() * (max - min) + min);
 }
@@ -93,7 +94,6 @@ export default function DateCalendarServerRequest() {
         setDiaryList(res.data);
       })
       .catch((err) => {
-        console.log('에러..');
         console.log(err);
       });
   };
@@ -194,10 +194,14 @@ export default function DateCalendarServerRequest() {
           <div>
             <DiaryContent selectdate={selectdate} diaryId={diaryId} />
           </div>
-          <div>
-            <Button color="orange" onClick={handleShowCalendar} className="mb-4">
+          <div className="mb-10">
+            {/* <Button color="orange" onClick={handleShowCalendar} className="mb-4">
               달력보기
-            </Button>
+      </Button>*/}
+            <Button  color="orange" onClick={handleShowCalendar} className="mb-4 w-56 h-14 text-xl">
+              달력보기&nbsp;
+            <Icon name="calendar check"  className="h-24" onClick={handleShowCalendar} ></Icon>
+            </Button> 
           </div>
         </div>
       )}
