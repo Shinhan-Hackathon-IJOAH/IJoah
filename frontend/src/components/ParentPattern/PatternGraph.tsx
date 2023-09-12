@@ -16,7 +16,38 @@ interface CategoryData{
         }[];
 
 }
-
+const dumydata=[
+    {
+      "id": "hack",
+      "label": "hack",
+      "value": 431,
+      "color": "hsl(159, 70%, 50%)"
+    },
+    {
+      "id": "erlang",
+      "label": "erlang",
+      "value": 241,
+      "color": "hsl(1, 70%, 50%)"
+    },
+    {
+      "id": "lisp",
+      "label": "lisp",
+      "value": 148,
+      "color": "hsl(272, 70%, 50%)"
+    },
+    {
+      "id": "scala",
+      "label": "scala",
+      "value": 215,
+      "color": "hsl(98, 70%, 50%)"
+    },
+    {
+      "id": "haskell",
+      "label": "haskell",
+      "value": 500,
+      "color": "hsl(28, 70%, 50%)"
+    }
+  ]
 
 const PatternGraph = () => {
     const colortag = [' #7fc97f','#beaed4','#fdc086','#ffff99','#386cb0','#f0027f','#bf5b17','#666666']
@@ -60,7 +91,7 @@ const PatternGraph = () => {
             </ChildInfoContainer>
         <div style={{ display:'center', width: '90vw', height: '40vh', justifyContent:'center' }}>
                   <ResponsivePie
-        data={data}
+        data={dumydata}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
         innerRadius={0.5}
         padAngle={0.7}

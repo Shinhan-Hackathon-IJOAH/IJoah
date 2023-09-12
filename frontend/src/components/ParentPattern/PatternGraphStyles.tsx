@@ -15,6 +15,7 @@ export const PatternContainer = styled.div`
     justify-content: center;
     align-items: center;
     font-family: 'HSYuji-Regular';
+    width:330px;
 `
 
 export const ChildInfoContainer = styled.div`
@@ -25,7 +26,7 @@ export const ChildInfoContainer = styled.div`
     background-color: #FFECC8;
     border-radius: 25px;
     height: 15vh;
-    width: 100%
+    width: 100%;
 `
 export const NameTag = styled.div`
     align-items: center;
