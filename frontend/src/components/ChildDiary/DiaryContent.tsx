@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, Typography, Carousel, Textarea } from '@material-tailwind/react';
 import { useUserStore } from '../../store/UserStore';
+import { Icon } from "semantic-ui-react"
 // import {Diary} from './DiaryContentStyles'
 import axios from 'axios';
 interface DiaryContentProps {

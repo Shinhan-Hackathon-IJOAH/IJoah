@@ -5,6 +5,7 @@ export const RegisterContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height:100vh;
 `
 
 export const ButtonContainer = styled.div`
@@ -12,8 +13,8 @@ export const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width:40%;
-    height: 15%;
+    width:85%;
+    height: 10%;
     background-color: #00C68E;
     font-family: 'HSYuji-Regular';
     font-size: 25px;
@@ -22,11 +23,12 @@ export const ButtonContainer = styled.div`
 `
 
 export const TitleTag = styled.div`
-    margin-top: 8%;
+    font-size: 3.2rem;
+    font-weight: 600;
 `
 
 export const InputTag = styled.div`
-    margin-top: 8%;
+    margin-top: 10%;
     padding-left: 5%;
     padding-right: 5%;
     height: 20vh;

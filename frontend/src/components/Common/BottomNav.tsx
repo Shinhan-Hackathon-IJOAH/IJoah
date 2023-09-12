@@ -50,17 +50,17 @@ const BottomNav = () => {
         <div className="flex flex-col justify-between h-full">
           <div>
             <Menu.Item onClick={() => navigate("/mypage")} as="a">
-              <Icon name="home" />
+              <Icon name="user circle" />
               프로필 수정
             </Menu.Item>
             <Menu.Item onClick={() => navigate("/register/account")} as="a">
-              <Icon name="gamepad" />
+              <Icon name="won sign" />
               계좌 등록하기
             </Menu.Item>
             <Menu.Item 
             onClick={()=>navigate("/parent/register")}
             as="a">
-              <Icon name="camera" />
+              <Icon name="child" />
               아이 등록하기
             </Menu.Item>
           </div>
