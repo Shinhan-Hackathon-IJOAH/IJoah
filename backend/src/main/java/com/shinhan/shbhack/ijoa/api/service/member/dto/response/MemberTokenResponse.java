@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import static lombok.AccessLevel.PROTECTED;
 
 @Getter
-@NoArgsConstructor(access = PROTECTED)
+@NoArgsConstructor
 public class MemberTokenResponse {
 
     String accessToken;

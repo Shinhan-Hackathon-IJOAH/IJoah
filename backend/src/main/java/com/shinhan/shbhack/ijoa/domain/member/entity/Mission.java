@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,6 +31,10 @@ public class Mission extends BaseEntity {
     @Column(name = "mission_id")
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+
+    @NotNull
+    @Size(max = 30)
+    private String title;
 
     @Lob
     @NotEmpty
@@ -62,8 +67,9 @@ public class Mission extends BaseEntity {
     private List<Notification> notifications = new ArrayList<>();
 
     @Builder
-    public Mission(Long id, String content, Long reward, LocalDate startDate, LocalDate endDate, Accomplishment accomplishment, Member writer, Member challenger, List<Notification> notifications) {
+    public Mission(Long id, String title, String content, Long reward, LocalDate startDate, LocalDate endDate, Accomplishment accomplishment, Member writer, Member challenger, List<Notification> notifications) {
         this.id = id;
+        this.title = title;
         this.content = content;
         this.reward = reward;
         this.startDate = startDate;
@@ -73,7 +79,4 @@ public class Mission extends BaseEntity {
         this.challenger = challenger;
         this.notifications = notifications;
     }
-
-
-
 }

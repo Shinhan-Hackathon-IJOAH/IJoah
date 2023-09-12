@@ -42,8 +42,10 @@ public class Diary extends BaseEntity {
     @NotNull
     private String emotion;
 
+
+    // TODO: 2023-09-12 이름 바꿔주세요
     @NotNull
-    @Column(unique = true)
+//    @Column(unique = true) // 여러사람이 같은 날짜 쓸때 에러
     private LocalDate diary_date;
 
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
@@ -52,6 +54,18 @@ public class Diary extends BaseEntity {
 
     @OneToOne(mappedBy = "diary", cascade = CascadeType.ALL)
     private DiaryRecord record;
+
+    @Builder
+    public Diary(Long diaryId, Member member, String title, String content, String emotion, LocalDate diary_date, List<DiaryImage> images, DiaryRecord record) {
+        this.diaryId = diaryId;
+        this.member = member;
+        this.title = title;
+        this.content = content;
+        this.emotion = emotion;
+        this.diary_date = diary_date;
+        this.images = images;
+        this.record = record;
+    }
 
     public static Diary of(DiaryCreateServiceRequest diaryCreateServiceRequest, Member member){
         Diary diary = new Diary();

@@ -1,7 +1,9 @@
 package com.shinhan.shbhack.ijoa.domain.member.entity;
 
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberModifyServiceRequest;
 import com.shinhan.shbhack.ijoa.common.model.JwtCreateModel;
 import com.shinhan.shbhack.ijoa.domain.BaseEntity;
+import com.shinhan.shbhack.ijoa.domain.bank.entity.Account;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.DiaryShare;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.ActivateStatus;
@@ -21,6 +23,7 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.FetchType.*;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -47,9 +50,6 @@ public class Member extends BaseEntity {
 
     @NotNull
     private String password;
-
-    @Size(max = 30)
-    private String account;
 
     @Size(max = 20)
     @NotNull
@@ -94,22 +94,24 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "sender", cascade = ALL, orphanRemoval = true)
     private List<Notification> senders = new ArrayList<>();
 
-    @OneToOne(mappedBy = "member", cascade = ALL, orphanRemoval = true)
-    private ProfileImage profileImage;
-
     @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
     private List<Diary> diaries = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
     private List<DiaryShare> diaryShares = new ArrayList<>();
 
+    @OneToOne(fetch = LAZY, mappedBy = "member", cascade = ALL, orphanRemoval = true)
+    private ProfileImage profileImage;
+
+    @OneToOne(fetch = LAZY, mappedBy = "member", cascade = ALL, orphanRemoval = true)
+    private Account account;
+
     @Builder
-    public Member(Long id, String name, String email, String password, String account, String phoneNumber, LocalDate birthDate, Gender gender, MemberRole memberRole, ActivateStatus activateStatus, List<Family> children, List<Family> parents, List<Friend> firstFriends, List<Friend> secondFriends, List<Mission> writers, List<Mission> challengers, List<Notification> receivers, List<Notification> senders, ProfileImage profileImage, List<Diary> diaries, List<DiaryShare> diaryShares) {
+    public Member(Long id, String name, String email, String password, String phoneNumber, LocalDate birthDate, Gender gender, MemberRole memberRole, ActivateStatus activateStatus, List<Family> children, List<Family> parents, List<Friend> firstFriends, List<Friend> secondFriends, List<Mission> writers, List<Mission> challengers, List<Notification> receivers, List<Notification> senders, List<Diary> diaries, List<DiaryShare> diaryShares, ProfileImage profileImage, Account account) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.account = account;
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
         this.gender = gender;
@@ -123,11 +125,14 @@ public class Member extends BaseEntity {
         this.challengers = challengers;
         this.receivers = receivers;
         this.senders = senders;
-        this.profileImage = profileImage;
         this.diaries = diaries;
         this.diaryShares = diaryShares;
+        this.profileImage = profileImage;
+        this.account = account;
     }
 
+
+    // TODO: 2023-09-11 jwt model 옮기기
     public JwtCreateModel toJwtCreateModel(){
         return JwtCreateModel.builder()
                 .id(id)
@@ -135,5 +140,9 @@ public class Member extends BaseEntity {
                 .email(email)
                 .memberRole(memberRole)
                 .build();
+    }
+
+    public void update(String password){
+            this.password = password;
     }
 }

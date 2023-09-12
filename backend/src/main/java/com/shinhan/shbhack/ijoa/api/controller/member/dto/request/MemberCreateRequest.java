@@ -18,7 +18,7 @@ import static javax.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 
 @Getter
-@NoArgsConstructor(access = PROTECTED)
+@NoArgsConstructor
 public class MemberCreateRequest {
 
     @Size(max = 20)
