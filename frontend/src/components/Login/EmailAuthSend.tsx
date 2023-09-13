@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button, Input } from '@material-tailwind/react';
 import axios from 'axios';
 import { useSignUpStore } from '../../store/SignUpStore';
+import Swal from 'sweetalert2';
 const EmailAuthPage = () => {
   const { isSendEmail, setIsSendEmail, signUpEmail, setSignUpEmail } = useSignUpStore();
   const [isloadingAxios, setIsLoadingText] = React.useState(false);
@@ -12,6 +13,14 @@ const EmailAuthPage = () => {
 
   // 이메일 인증하기 버튼 눌렀을 때 실행 될 2개의 함수.
   const handleClick = () => {
+    if (signUpEmail === '') {
+      Swal.fire({
+        icon: 'error',
+        title: '이메일을 입력해주세요.',
+        text: '다시 시도해주세요.',
+      });
+      return;
+    }
     setIsLoadingText(true);
     sendEmailAuth();
   };

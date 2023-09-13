@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, Typography, Carousel, Textarea } from '@material-tailwind/react';
 import { useUserStore } from '../../store/UserStore';
-import { Icon } from "semantic-ui-react"
+import { Icon } from 'semantic-ui-react';
+import TradeList from '../ChildWrite/TradeList';
 // import {Diary} from './DiaryContentStyles'
 import axios from 'axios';
 interface DiaryContentProps {
@@ -47,22 +48,29 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
       });
   }, [diaryId]);
   return (
-    <div className="gap-14 flex flex-col">
+    <div className="gap-14 flex flex-col lg:w-[35vw]">
       {/* 일기 쓴 날짜 */}
       <div className="text-center mt-10">
-        <Typography variant="h1">ㅇㅇ{diary?.diary_date}</Typography>
+        <Typography className="font-['HSYuji-Regular']" variant="h2">
+          날짜: 2023-09-16 {diary?.diary_date}
+        </Typography>
       </div>
 
       {/* 제목 */}
-      <div className="text-left mx-5 ">
-        <Typography variant="h3">제목 : {diary?.title}</Typography>
+      <div className="text-center mx-5 -mb-7">
+        <Typography className="font-['HSYuji-Regular']" variant="h3">
+          오늘은 잠을 못 잘 것 같습니다. {diary?.title}
+        </Typography>
       </div>
       {/* 내용 */}
-
+      {/* 거래내역 */}
+      <div className=" flex justify-center items-center">
+        <TradeList />
+      </div>
       {/* 일기 쓴 날짜의 기분 날씨 */}
       <div className="">
         <div className="text-2xl text-center font-['HSYuji-Regular']">
-          {diary?.diary_date} 의 기분 날씨는 어땠나요 ?
+          {diary?.diary_date} 9월 16일의 기분 날씨는 어땠나요 ?
         </div>
         <div className="flex mt-5 gap-4 justify-center">
           <div>
@@ -116,12 +124,12 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
             />
           </div>
         </div>
-        <div className="mx-5 mt-10">
-          <Typography variant="h4" className="mt-10">
+        <div className="mx-5 mt-10 flex flex-col items-center justify-center ">
+          <Typography variant="h4" className="mt-10 text-center font-['HSYuji-Regular'] ">
             일기 내용
           </Typography>
-          <div className="border rounded-lg border-[3px] border-orange-500 p-5">
-            <Typography className="text-lg">
+          <div className="border rounded-lg border-[3px] border-orange-500 p-5 md:w-[50vw] lg:w-[35vw] bg-white">
+            <Typography className="text-lg font-['HSYuji-Regular']">
               가나다라마바사 아자차카타파하 아자창ㄹ머ㅣ퍼ㅏㄴ아ㅓㄹㄴㅁ어ㅏ러ㅣㄴㅁㄹ머ㅏ이러아머ㅏㄴㅇ 동해물과
               백두산이 마르고 닳도록, 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이
               보전하세.
@@ -134,7 +142,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
       </div>
 
       <div>
-        <Typography variant="h4" className="mt-7 mx-5">
+        <Typography variant="h4" className="mt-7 mx-5 text-center font-['HSYuji-Regular']">
           사진
         </Typography>
 
@@ -145,7 +153,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
               src="/diary/noImage.png"
               alt="noImage"
             />
-            <Typography className="text-center text-md mt-10">
+            <Typography className="text-center text-md mt-10 font-['HSYuji-Regular']">
               해당일에 업로드한 사진이 없습니다<div className=""></div>
             </Typography>
           </div>

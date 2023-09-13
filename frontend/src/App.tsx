@@ -27,7 +27,8 @@ import MyPage from './pages/CommonPage/MyPage';
 import EmailAuthPage from './pages/LoginPage/EmailAuthPage';
 import Picture from './components/ChildWrite/Picture';
 import AccountRegisterPage from './pages/CommonPage/AccountRegisterPage';
-import {Page404} from './pages/CommonPage/Page404';
+import { Page404 } from './pages/CommonPage/Page404';
+import DiaryCalendar2 from './components/ChildDiary/DiaryCalendar2';
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/emailauth" element={<EmailAuthPage />} />
         {/* 테스트용 라우터 추후에 삭제 필수 */}
+        <Route path="/calendar" element={<DiaryCalendar2 />} />
         <Route path="/picture" element={<Picture />} />
         <Route path="/register/account" element={<AccountRegisterPage />} />
         {/* 404 Not Found 예외 처리를 위한 페이지 추가 */}

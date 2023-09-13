@@ -23,10 +23,14 @@
     "@types/react-date-range": "^1.4.4",
     "@types/react-dom": "^18.2.7",
     "axios": "^1.5.0",
+    "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
+    "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
-    "react-day-picker": "^8.8.1",
+    "react-calendar": "^4.6.0",
+    "react-datepicker": "^4.17.0",
+    "react-day-picker": "^8.8.2",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.15.0",
@@ -77,6 +81,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-datepicker": "^4.15.0",
     "@types/tailwindcss": "^3.1.0",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.29",
