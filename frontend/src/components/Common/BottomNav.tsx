@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../../store/UserStore";
 import {
   BottomNavContent,
   HomeImg,
@@ -11,6 +12,7 @@ import {
 import { Icon, Menu, Sidebar, Segment, Header, Image } from "semantic-ui-react";
 
 const BottomNav = () => {
+  const { memberRole } = useUserStore();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
 
@@ -22,7 +24,21 @@ const BottomNav = () => {
   };
   const handleHomeClick = () => {
     // 이거 스토어에서 불러와서 분기점 나눠서 memberRole에 따라 바꾸면 될듯?
-    navigate("/child");
+    if (memberRole === "PARENT") {
+      navigate("/parent");
+    }
+    if (memberRole === "CHILD") {
+      navigate("/child");
+    }
+  };
+  const handleRegisterClick = () => {
+    // 이거 스토어에서 불러와서 분기점 나눠서 memberRole에 따라 바꾸면 될듯?
+    if (memberRole === "PARENT") {
+      navigate("/parent/register");
+    }
+    if (memberRole === "CHILD") {
+      navigate("/child/register");
+    }
   };
 
   return (
@@ -42,21 +58,19 @@ const BottomNav = () => {
       >
         <div className="flex flex-col justify-between h-full">
           <div>
-            <Menu.Item 
-            onClick={()=>navigate("/mypage")}
-            as="a">
-              <Icon name="home" />
+            <Menu.Item onClick={() => navigate("/mypage")} as="a">
+              <Icon name="user circle" />
               프로필 수정
             </Menu.Item>
-            <Menu.Item 
-            onClick={()=>navigate("/register/account")}
-            as="a">
-              <Icon name="gamepad" />
+            <Menu.Item onClick={() => navigate("/register/account")} as="a">
+              <Icon name="won sign" />
               계좌 등록하기
             </Menu.Item>
-            <Menu.Item as="a">
-              <Icon name="camera" />
-              엄빠/아이 등록하기
+            <Menu.Item 
+            onClick={handleRegisterClick}
+            as="a">
+              <Icon name="child" />
+              아이 등록하기
             </Menu.Item>
           </div>
           <div>
@@ -69,8 +83,8 @@ const BottomNav = () => {
       </Sidebar>
       <Sidebar.Pusher dimmed={visible}>
         <BottomNavContent>
-          <AlarmImg onClick={handleAlarmClick}/>
-          <HomeImg />
+          <AlarmImg onClick={handleAlarmClick} />
+          <HomeImg onClick={handleHomeClick} />
           <MenuImg onClick={handleMenuClick} />
         </BottomNavContent>
       </Sidebar.Pusher>

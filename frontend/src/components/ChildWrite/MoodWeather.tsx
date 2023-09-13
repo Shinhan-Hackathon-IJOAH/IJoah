@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Avatar } from "@material-tailwind/react";
-import { useDiaryStore } from "../../store/DiaryStore";
+import React, { useState } from 'react';
+import { Avatar } from '@material-tailwind/react';
+import { useDiaryStore } from '../../store/DiaryStore';
 
 const MoodWeather = () => {
   const { weatherMood, setWeatherMood } = useDiaryStore();
@@ -22,9 +22,7 @@ const MoodWeather = () => {
 
   return (
     <div className="mt-10">
-      <div className="text-2xl text-center font-['HSYuji-Regular']">
-        오늘의 기분 날씨는 어떤가요 ?
-      </div>
+      <div className="text-2xl text-center font-['HSYuji-Regular']">오늘의 기분 날씨는 어떤가요 ?</div>
       <div className="flex mt-5 gap-4 justify-center">
         <div>
           <Avatar
@@ -32,10 +30,10 @@ const MoodWeather = () => {
             alt="avatar"
             src="/weather/sunny.png"
             className={`border p-1 border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
-              isMoodSelected("sunny") ? "ring-[red] border-[red]" : ""
+              isMoodSelected('sunny') ? 'ring-[red] border-[red]' : ''
             }`}
             onClick={() => {
-              handleMoodClick("sunny");
+              handleMoodClick('sunny');
             }}
           />
         </div>
@@ -45,10 +43,10 @@ const MoodWeather = () => {
             alt="avatar"
             src="/weather/sunrise.png"
             className={`border p-1 border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
-              isMoodSelected("sunrise") ? "ring-[red] border-[red]" : ""
+              isMoodSelected('sunrise') ? 'ring-[red] border-[red]' : ''
             }`}
             onClick={() => {
-              handleMoodClick("sunrise");
+              handleMoodClick('sunrise');
             }}
           />
         </div>
@@ -58,10 +56,10 @@ const MoodWeather = () => {
             alt="avatar"
             src="/weather/drop.png"
             className={`border p-1 border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
-              isMoodSelected("drop") ? "ring-[red] border-[red]" : ""
+              isMoodSelected('drop') ? 'ring-[red] border-[red]' : ''
             }`}
             onClick={() => {
-              handleMoodClick("drop");
+              handleMoodClick('drop');
             }}
           />
         </div>
@@ -71,10 +69,10 @@ const MoodWeather = () => {
             alt="avatar"
             src="/weather/wind.png"
             className={`border p-1  border-[#F8A70C] shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
-              isMoodSelected("wind") ? "ring-[red] border-[red]" : ""
+              isMoodSelected('wind') ? 'ring-[red] border-[red]' : ''
             }`}
             onClick={() => {
-              handleMoodClick("wind");
+              handleMoodClick('wind');
             }}
           />
         </div>
@@ -86,10 +84,10 @@ const MoodWeather = () => {
             src="/weather/thunder.png"
             //보더 넣을거면 참고하기 className="border border-green-500 shadow-xl shadow-green-900/20 ring-4 ring-green-500/30"
             className={`border border-[#F8A70C] p-1 shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
-              isMoodSelected("thunder") ? "ring-[red] border-[red]" : ""
+              isMoodSelected('thunder') ? 'ring-[red] border-[red]' : ''
             }`}
             onClick={() => {
-              handleMoodClick("thunder");
+              handleMoodClick('thunder');
             }}
           />
         </div>

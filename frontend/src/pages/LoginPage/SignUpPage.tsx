@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 // import { useCountries } from "use-react-countries";
 import {
   Card,
@@ -16,28 +16,24 @@ import {
   TabPanel,
   Select,
   Option,
-} from "@material-tailwind/react";
-import {
-  BanknotesIcon,
-  CreditCardIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/solid";
-import { useSignUpStore } from "../../store/SignUpStore";
-import Swal from "sweetalert2";
+} from '@material-tailwind/react';
+import { BanknotesIcon, CreditCardIcon, LockClosedIcon } from '@heroicons/react/24/solid';
+import { useSignUpStore } from '../../store/SignUpStore';
+import Swal from 'sweetalert2';
 
 export default function SignUp() {
   const navigate = useNavigate();
   const { signUpEmail, setSignUpEmail } = useSignUpStore();
   console.log(signUpEmail);
-  const [memberRole, setMemberRole] = useState("PARENT");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [gender, setGender] = useState("");
+  const [memberRole, setMemberRole] = useState('PARENT');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [address, setAddress] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [gender, setGender] = useState('');
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -67,15 +63,15 @@ export default function SignUp() {
     // 패스워드랑 패스워드 체크랑 같은지 확인해서 일치하지 않으면 return
     if (password !== passwordCheck) {
       Swal.fire({
-        icon: "error",
-        title: "비밀번호가 일치하지 않습니다.",
-        text: "다시 확인해주세요.",
+        icon: 'error',
+        title: '비밀번호가 일치하지 않습니다.',
+        text: '다시 확인해주세요.',
       });
       return;
     }
     // 패스워드랑 패스워드 확인이랑 일치하면 회원가입 진행
     axios
-      .post("https://ijoah01.duckdns.org/api/members/join", {
+      .post('https://ijoah01.duckdns.org/api/members/join', {
         name: name,
         email: signUpEmail,
         password: password,
@@ -86,31 +82,31 @@ export default function SignUp() {
         memberRole: memberRole,
       })
       .then((response: any) => {
-        console.log("성공");
+        console.log('성공');
         console.log(response.data);
         console.log(response);
-        navigate("/parent");
+        navigate('/parent');
         Swal.fire({
-          icon: "success",
-          title: "회원가입에 성공했습니다",
-          text: "모아일기에 오신 것을 진심으로 환영합니다!",
+          icon: 'success',
+          title: '회원가입에 성공했습니다',
+          text: '모아일기에 오신 것을 진심으로 환영합니다!',
         });
       })
       .catch((error: any) => {
-        console.log("되겠냐");
+        console.log('되겠냐');
         console.log(error);
-        console.log("name", name);
-        console.log("email", email);
-        console.log("password", password);
-        console.log("phoneNumber", phoneNumber);
-        console.log("birthDate", birthDate);
-        console.log("memberRole", memberRole);
-        console.log("address", address);
-        console.log("gender", gender);
+        console.log('name', name);
+        console.log('email', email);
+        console.log('password', password);
+        console.log('phoneNumber', phoneNumber);
+        console.log('birthDate', birthDate);
+        console.log('memberRole', memberRole);
+        console.log('address', address);
+        console.log('gender', gender);
         Swal.fire({
-          icon: "error",
-          title: "회원가입에 실패했습니다.",
-          text: "다시 시도해주세요.",
+          icon: 'error',
+          title: '회원가입에 실패했습니다.',
+          text: '다시 시도해주세요.',
         });
       });
   }
@@ -118,14 +114,14 @@ export default function SignUp() {
   // 탭을 옮겼을 때 모두 비우는 함수-> useEffect 써야하나
 
   const clearAll = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
-    setPasswordCheck("");
-    setPhoneNumber("");
-    setAddress("");
-    setBirthDate("");
-    setGender("");
+    setName('');
+    setEmail('');
+    setPassword('');
+    setPasswordCheck('');
+    setPhoneNumber('');
+    setAddress('');
+    setBirthDate('');
+    setGender('');
   };
   return (
     <div className="flex justify-center ">
@@ -139,7 +135,7 @@ export default function SignUp() {
           <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
             <BanknotesIcon className="h-10 w-10" />
           </div>
-          <Typography variant="h4" color="white">
+          <Typography variant="h4" color="white" className="font-['HSYuji-Regular']">
             모아일기 회원가입
           </Typography>
         </CardHeader>
@@ -149,18 +145,20 @@ export default function SignUp() {
               <Tab
                 value="PARENT"
                 onClick={() => {
-                  setMemberRole("PARENT");
+                  setMemberRole('PARENT');
                   clearAll();
                 }}
+                className="font-['HSYuji-Regular']"
               >
                 부모
               </Tab>
               <Tab
                 value="CHILD"
                 onClick={() => {
-                  setMemberRole("CHILD");
+                  setMemberRole('CHILD');
                   clearAll();
                 }}
+                className="font-['HSYuji-Regular']"
               >
                 아이
               </Tab>
@@ -169,13 +167,13 @@ export default function SignUp() {
               className="!overflow-x-hidden !overflow-y-hidden"
               animate={{
                 initial: {
-                  x: memberRole === "PARENT" ? 400 : -400,
+                  x: memberRole === 'PARENT' ? 400 : -400,
                 },
                 mount: {
                   x: 0,
                 },
                 unmount: {
-                  x: memberRole === "PARENT" ? 400 : -400,
+                  x: memberRole === 'PARENT' ? 400 : -400,
                 },
               }}
             >
@@ -183,27 +181,14 @@ export default function SignUp() {
                 <form className="mt-6 flex flex-col gap-4">
                   {/* 인풋창 하나 */}
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       이메일을 입력해주세요.
                     </Typography>
-                    <Input
-                      disabled
-                      crossOrigin={undefined}
-                      color="orange"
-                      label={signUpEmail}
-                    />
+                    <Input disabled crossOrigin={undefined} color="orange" label={signUpEmail} />
                   </div>
 
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       비밀번호를 입력해주세요.
                     </Typography>
                     <Input
@@ -215,11 +200,7 @@ export default function SignUp() {
                     />
                   </div>
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       비밀번호를 다시 입력해주세요.
                     </Typography>
                     <Input
@@ -232,27 +213,13 @@ export default function SignUp() {
                   </div>
 
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       이름을 입력해주세요.
                     </Typography>
-                    <Input
-                      onChange={handleName}
-                      crossOrigin={undefined}
-                      type="text"
-                      color="orange"
-                      label="Name"
-                    />
+                    <Input onChange={handleName} crossOrigin={undefined} type="text" color="orange" label="Name" />
                   </div>
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       성별을 클릭해주세요.
                     </Typography>
                     <Tabs>
@@ -260,16 +227,18 @@ export default function SignUp() {
                         <Tab
                           value="MALE"
                           onClick={() => {
-                            setGender("MALE");
+                            setGender('MALE');
                           }}
+                          className="font-['HSYuji-Regular']"
                         >
                           남자
                         </Tab>
                         <Tab
                           value="FEMALE"
                           onClick={() => {
-                            setGender("FEMALE");
+                            setGender('FEMALE');
                           }}
+                          className="font-['HSYuji-Regular']"
                         >
                           여자
                         </Tab>
@@ -277,11 +246,7 @@ export default function SignUp() {
                     </Tabs>
                   </div>
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       생년월일을 입력해주세요.
                     </Typography>
                     <Input
@@ -294,11 +259,7 @@ export default function SignUp() {
                   </div>
 
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       핸드폰 번호를 입력해주세요.
                     </Typography>
                     <Input
@@ -318,6 +279,7 @@ export default function SignUp() {
                     }}
                     size="lg"
                     color="orange"
+                    className="font-['HSYuji-Regular']"
                   >
                     회원가입하기
                   </Button>
@@ -326,36 +288,21 @@ export default function SignUp() {
                     color="gray"
                     className="mt-2 flex items-center justify-center gap-2 font-normal opacity-60"
                   >
-                    <LockClosedIcon className="-mt-0.5 h-4 w-4" /> 입력하신
-                    정보는 모두 암호화되어 저장됩니다.
+                    <LockClosedIcon className="-mt-0.5 h-4 w-4" /> 입력하신 정보는 모두 암호화되어 저장됩니다.
                   </Typography>
                 </form>
               </TabPanel>
               <TabPanel value="CHILD" className="p-0">
                 <form className="mt-6 flex flex-col gap-4">
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       이메일을 입력해주세요.
                     </Typography>
-                    <Input
-                      color="orange"
-                      disabled
-                      crossOrigin={undefined}
-                      type="text"
-                      label={signUpEmail}
-                    />
+                    <Input color="orange" disabled crossOrigin={undefined} type="text" label={signUpEmail} />
                   </div>
 
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       비밀번호를 입력해주세요.
                     </Typography>
                     <Input
@@ -367,11 +314,7 @@ export default function SignUp() {
                     />
                   </div>
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       비밀번호를 다시 입력해주세요.
                     </Typography>
                     <Input
@@ -384,27 +327,13 @@ export default function SignUp() {
                   </div>
 
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       이름을 입력해주세요.
                     </Typography>
-                    <Input
-                      color="orange"
-                      onChange={handleName}
-                      crossOrigin={undefined}
-                      type="text"
-                      label="Name"
-                    />
+                    <Input color="orange" onChange={handleName} crossOrigin={undefined} type="text" label="Name" />
                   </div>
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       성별을 클릭해주세요.
                     </Typography>
                     <Tabs>
@@ -412,16 +341,18 @@ export default function SignUp() {
                         <Tab
                           value="MALE"
                           onClick={() => {
-                            setGender("MALE");
+                            setGender('MALE');
                           }}
+                          className="font-['HSYuji-Regular']"
                         >
                           남자
                         </Tab>
                         <Tab
                           value="FEMALE"
                           onClick={() => {
-                            setGender("FEMALE");
+                            setGender('FEMALE');
                           }}
+                          className="font-['HSYuji-Regular']"
                         >
                           여자
                         </Tab>
@@ -429,11 +360,7 @@ export default function SignUp() {
                     </Tabs>
                   </div>
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       생년월일을 입력해주세요.
                     </Typography>
                     <Input
@@ -446,11 +373,7 @@ export default function SignUp() {
                   </div>
 
                   <div>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="mb-4 font-medium"
-                    >
+                    <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       핸드폰 번호를 입력해주세요.
                     </Typography>
                     <Input
@@ -468,7 +391,7 @@ export default function SignUp() {
                     }}
                     size="lg"
                     color="orange"
-                    className="relative h-12"
+                    className="relative h-12 font-['HSYuji-Regular']"
                   >
                     회원가입하기
                   </Button>
@@ -477,8 +400,7 @@ export default function SignUp() {
                     color="gray"
                     className="mt-2 flex items-center justify-center gap-2 font-normal opacity-60"
                   >
-                    <LockClosedIcon className="-mt-0.5 h-4 w-4" /> 입력하신
-                    정보는 모두 암호화되어 저장됩니다.
+                    <LockClosedIcon className="-mt-0.5 h-4 w-4" /> 입력하신 정보는 모두 암호화되어 저장됩니다.
                   </Typography>
                 </form>
               </TabPanel>

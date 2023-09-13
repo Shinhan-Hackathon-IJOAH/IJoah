@@ -19,8 +19,10 @@ import {
 } from "@heroicons/react/24/solid";
 import BackPageButton from "../Common/BackPageButton";
 import axios from "axios";
+import {useUserStore} from "../../store/UserStore"
 
 const ParentTradeList = () => {
+  const {accessToken,account} =useUserStore()
   // 더미데이터
   const dummyData = {
     accountNumber: "110111111111",
@@ -45,7 +47,10 @@ const ParentTradeList = () => {
     axios
       .post("https://ijoah01.duckdns.org/api/bank/transactions", {
         accountNumber: "110111222222",
-      })
+      },{headers: {
+        Authorization: `Bearer ${accessToken}`,
+        },
+    })
       .then((res) => {
         console.log(res.data);
         setRes(res.data);

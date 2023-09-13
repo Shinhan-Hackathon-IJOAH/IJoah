@@ -1,17 +1,19 @@
 import React from 'react';
 import BottomNav from '../../components/Common/BottomNav';
 import BackPageButton from '../../components/Common/BackPageButton';
-import AccountRegiter from '../../components/Common/AccountRegiter';
-import {RegisterContainer} from './AccountRegisterPageStyles'
+import AccountRegister from '../../components/Common/AccountRegsiter';
+import { RegisterContainer } from './AccountRegisterPageStyles';
 
 const AccountRegisterPage = () => {
-    return (
-        <RegisterContainer>
-            <BackPageButton/>
-            <AccountRegiter/>
-            <BottomNav/>
-        </RegisterContainer>
-    );
+  return (
+    // <RegisterContainer>
+    <div>
+      <BackPageButton />
+      <AccountRegister />
+      <BottomNav />
+    </div>
+    // </RegisterContainer>
+  );
 };
 
 export default AccountRegisterPage;

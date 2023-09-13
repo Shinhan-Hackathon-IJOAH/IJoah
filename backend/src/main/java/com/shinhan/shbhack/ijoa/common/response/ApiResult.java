@@ -1,4 +1,4 @@
-package com.shinhan.shbhack.ijoa.common.dto.response;
+package com.shinhan.shbhack.ijoa.common.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

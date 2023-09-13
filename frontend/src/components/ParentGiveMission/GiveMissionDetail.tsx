@@ -47,7 +47,7 @@ const GiveMissionDetail = () => {
     const handleButton = () =>{
         axios
             .post(
-                'httpsdlkf',{missionTitle,missionDetail,missionReward}
+                'https://ijoah01.duckdns.org/api/mission',{missionTitle,missionDetail,missionReward}
             )
             .then((response)=>{
                 console.log(response)
@@ -59,6 +59,7 @@ const GiveMissionDetail = () => {
     }
     return (
         <GiveMissionContainer>
+            <div className="mt-8 flex items-center justify-center flex-col text-center text-2xl font-['HSYuji-Regular']">
             <MissionInfoContainer>
                 <Avatar
                         variant="circular"
@@ -67,8 +68,6 @@ const GiveMissionDetail = () => {
                         />
                 <NameTag className="text-2xl text-center font-['HSYuji-Regular']">{childname}에게 미션 주기</NameTag>
             </MissionInfoContainer>
-            
-            <div className="mt-8 flex items-center justify-center flex-col text-center text-2xl font-['HSYuji-Regular']">
                 <TitleTag>미션 제목</TitleTag>
                 <Input
                 style={{ backgroundColor: "#ffffff" }}
@@ -92,7 +91,6 @@ const GiveMissionDetail = () => {
                     onSelect={setRange}
                     locale={ko}
                 />
-                
                 <TitleTag>미션 용돈</TitleTag>
                 <InputTag>
                     <Input 

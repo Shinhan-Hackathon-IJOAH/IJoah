@@ -6,6 +6,9 @@ export const WriteContainer = styled.div`
     width: 38vw;
     background-color: #F8A70C;
     border-radius: 30px;
+    font-family: 'HSYuji-Regular';
+    display:flex;
+    
 `;
 
 export const WriteImg = styled.div`
@@ -13,4 +16,6 @@ export const WriteImg = styled.div`
     background-size: 100% 100%;
     height: 20vh;
     width: 20vh;
+    position:absoulte;
+    top: 5%;
 `

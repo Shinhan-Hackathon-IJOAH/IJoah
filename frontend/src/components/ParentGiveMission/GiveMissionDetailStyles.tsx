@@ -16,22 +16,20 @@ export const InputTag = styled.div`
 `
 
 export const GiveMissionContainer = styled.div`
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width:330px;
 `
 
 export const MissionInfoContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 10%;
     background-color: #FFECC8;
     border-radius: 25px;
     height: 15vh;
-    width: 100%
+    width: 100%;
 `
 
 export const NameTag = styled.div`
@@ -48,7 +46,7 @@ export const MissionButton = styled.div`
     justify-content: center;
     align-items: center;
     width:40%;
-    height: 15%;
+    height:6vh;
     background-color: #00C68E;
     font-family: 'HSYuji-Regular';
     font-size: 25px;
