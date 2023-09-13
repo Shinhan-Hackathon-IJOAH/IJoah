@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/missions")
+@RequestMapping("/api1/missions")
 @RequiredArgsConstructor
 public class MissionController {
 

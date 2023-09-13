@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/alarm")
+@RequestMapping("/api1/alarm")
 @RequiredArgsConstructor
 public class AlarmController {
     private final AlarmService alarmService;
