@@ -39,8 +39,11 @@ public class MemberResponse {
 
     private AccountResponse account;
 
+    private ProfileImageResponse profileImage;
+
+
     @Builder
-    public MemberResponse(Long memberId, String name, String email, String phoneNumber, LocalDate birthDate, Gender gender, MemberRole memberRole, AccountResponse account) {
+    public MemberResponse(Long memberId, String name, String email, String phoneNumber, LocalDate birthDate, Gender gender, MemberRole memberRole, AccountResponse account, ProfileImageResponse profileImage) {
         this.memberId = memberId;
         this.name = name;
         this.email = email;
@@ -49,6 +52,7 @@ public class MemberResponse {
         this.gender = gender;
         this.memberRole = memberRole;
         this.account = account;
+        this.profileImage = profileImage;
     }
 
     public static MemberResponse of(Member member){
@@ -61,6 +65,7 @@ public class MemberResponse {
                 .gender(member.getGender())
                 .memberRole(member.getMemberRole())
                 .account(AccountResponse.of(member.getAccount()))
+                .profileImage(ProfileImageResponse.of(member.getProfileImage()))
                 .build();
     }
 }

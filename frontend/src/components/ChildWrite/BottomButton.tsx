@@ -3,6 +3,7 @@ import { Button } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import { useDiaryStore } from '../../store/DiaryStore';
 import axios from 'axios';
+import {Icon} from 'semantic-ui-react';
 const BottomButton = () => {
   const { title, content, date, weatherMood, picture, voice, file } = useDiaryStore();
   const navigate = useNavigate();
@@ -18,11 +19,17 @@ const BottomButton = () => {
     };
     formData.append('info', new Blob([JSON.stringify(info)], { type: 'application/json' }));
 
-    for (let i = 0; i < file.length; i++) {
-      const pic = file[i]; // 각 파일은 file 객체입니다.
-      console.log(pic);
-      formData.append('images', pic);
+    // 사진이 1개 이상인 경우에만 for문 돌려서 사진 formData에 담기
+    if (file.length !== 0) {
+      for (let i = 0; i < file.length; i++) {
+        const pic = file[i]; // 각 파일은 file 객체입니다.
+        console.log(pic);
+        formData.append('images', pic);
+      }
+    } else {
+      formData.append('images', '');
     }
+
     const voiceBlob = new Blob([voice]);
     formData.append('record', voiceBlob);
     console.log(formData);
@@ -31,7 +38,6 @@ const BottomButton = () => {
       .post('https://ijoah01.duckdns.org/api/diaries/', formData)
       .then((response: any) => {
         console.log('성공');
-        console.log(response.blob);
       })
       .catch((error: any) => {
         console.log('제목', title, typeof title);
@@ -47,7 +53,7 @@ const BottomButton = () => {
   };
 
   return (
-    <div className="mt-10 flex justify-center gap-4">
+    <div className="mt-3 flex justify-center gap-4">
       <Button
         onClick={() => {
           writeDiary();

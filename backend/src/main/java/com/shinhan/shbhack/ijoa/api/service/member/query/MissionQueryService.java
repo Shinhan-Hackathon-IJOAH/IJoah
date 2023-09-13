@@ -24,6 +24,8 @@ public class MissionQueryService {
                         () -> new EntityNotFoundException(ErrorCode.NOTMATCH_MISSION_ID)
                 );
 
+
+
         return MissionResponse.of(mission);
     }
 }

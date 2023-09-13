@@ -1,6 +1,6 @@
 package com.shinhan.shbhack.ijoa.domain.member.entity;
 
-import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberUpdateServiceRequest;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberModifyServiceRequest;
 import com.shinhan.shbhack.ijoa.common.model.JwtCreateModel;
 import com.shinhan.shbhack.ijoa.domain.BaseEntity;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Account;
@@ -142,7 +142,7 @@ public class Member extends BaseEntity {
                 .build();
     }
 
-    public void update(MemberUpdateServiceRequest request){
-
+    public void update(String password){
+            this.password = password;
     }
 }

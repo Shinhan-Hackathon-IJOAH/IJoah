@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {MissionItemContainer,CompleteButton,FontTag,MissionTagContainer} from './MissionListItemStyles'
-import axios from 'axios';
+import {MissionItemContainer,FontTag,MissionTagContainer,CompeleteFont} from './MissionListItemStyles'
+
 
 interface MissionListItemProps{
     missionid: string;
@@ -10,19 +10,9 @@ interface MissionListItemProps{
     missionamount:string;
 }
 
-const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionnickname,missionamount}) => {
+const MissionCompleteItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionnickname,missionamount}) => {
     const navigate = useNavigate();
-    const complete = () => {
-        axios
-            .post('.....',{}
-            )
-            .then((response)=>{
-                console.log(response)
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
-    }
+
     const detailClick = ()=>{
         navigate(`/parent/mission/detail/${missionid}`)
     } 
@@ -36,9 +26,9 @@ const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle
                 미션 보상:{missionamount}원
                 </FontTag>
             </MissionTagContainer>
-            <CompleteButton onClick={complete}>완료 요청</CompleteButton>
+            <CompeleteFont>완료</CompeleteFont>
         </MissionItemContainer>
     );
 };
 
-export default MissionListItem;
+export default MissionCompleteItem;

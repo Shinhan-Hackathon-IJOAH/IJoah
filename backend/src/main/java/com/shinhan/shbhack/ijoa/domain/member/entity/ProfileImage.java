@@ -38,6 +38,16 @@ public class ProfileImage extends BaseEntity {
         this.member = member;
     }
 
+    public void update(UploadFile uploadFile){
+        this.uploadFile = uploadFile;
+    }
+
+    public static ProfileImage of(UploadFile uploadFile, Member member){
+        return ProfileImage.builder()
+                .uploadFile(uploadFile)
+                .member(member)
+                .build();
+    }
 
 
 }

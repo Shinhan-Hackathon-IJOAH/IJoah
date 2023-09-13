@@ -44,7 +44,7 @@ const EmailAuthPage = () => {
         </CardHeader>
         <CardBody className="justify-center items-center flex flex-col">
           <div>
-            <Typography variant="h3" color="blue-gray" className="font-semibold">
+            <Typography variant="h3" color="blue-gray" className="font-semibold font-['HSYuji-Regular']">
               <>
                 모아일기에 오신 것을
                 <br /> 진심으로 환영합니다 !
@@ -52,7 +52,7 @@ const EmailAuthPage = () => {
             </Typography>
           </div>
           <div className="mt-5">
-            <Typography variant="h5" color="gray" className="font-normal opacity-75">
+            <Typography variant="h5" color="gray" className="font-normal opacity-75 font-['HSYuji-Regular']">
               가입하실 이메일을 하단에 입력해주세요.
             </Typography>
           </div>
@@ -70,13 +70,13 @@ const EmailAuthPage = () => {
             <Button
               ripple={false}
               fullWidth={true}
-              className="bg-orange-500 mt-5 text-white text-md shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+              className="bg-orange-500 mt-5 text-white text-md shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 font-['HSYuji-Regular']"
               onClick={handleClick}
             >
               이메일 인증하기
             </Button>
           </div>
-          <Typography variant="small" color="gray" className="text-center mt-3">
+          <Typography variant="small" color="gray" className="text-center mt-3 font-['HSYuji-Regular']">
             {isloadingAxios ? (
               <>
                 회원님의 이메일로 인증코드가 전송되었습니다. <br /> 잠시 후 인증 코드 입력 페이지로 이동합니다.

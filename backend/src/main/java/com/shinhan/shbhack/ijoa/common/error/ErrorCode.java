@@ -31,7 +31,10 @@ public enum ErrorCode {
     NOT_FOUND_TOKEN(400, "T002", "일치하는 토큰을 찾지 못했습니다!"),
 
     // Mission
-    NOTMATCH_MISSION_ID(400, "MI001", "존재하지 않는 미션입니다!");
+    NOTMATCH_MISSION_ID(400, "MI001", "존재하지 않는 미션입니다!"),
+
+    // File
+    INVALID_FILE(400, "F001", "업로드 할 수 없는 파일입니다!");
 
     private final int status;
     private final String code;
