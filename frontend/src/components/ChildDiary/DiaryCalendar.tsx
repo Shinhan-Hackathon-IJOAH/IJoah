@@ -11,6 +11,7 @@ import axios from 'axios';
 import { Button, select, Typography } from '@material-tailwind/react';
 import { useUserStore } from '../../store/UserStore';
 import { Icon } from 'semantic-ui-react';
+import { useDiaryStore } from '../../store/DiaryStore';
 function getRandomNumber(min: number, max: number) {
   return Math.round(Math.random() * (max - min) + min);
 }
@@ -56,13 +57,14 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDates?: string[]
 ///
 
 export default function DateCalendarServerRequest() {
+  const { date, setDate } = useDiaryStore();
   const { accessToken } = useUserStore();
   const [selectdate, setSelectDate] = useState('');
   const requestAbortController = React.useRef<AbortController | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [highlightedDays, setHighlightedDays] = React.useState<number[]>([]);
   const [diaryId, setDiaryId] = useState<any>(null);
-  const [diaryList, setDiaryList] = useState<any[]>([]); // 초기값을 null로 설정
+  const [diaryList, setDiaryList] = useState<any[]>(['2023-09-12', '2023-09-13']); // 초기값을 null로 설정
   // highlightedDates 배열에 일기가 있는 날짜를 설정
   const [contentVisible, setContentVisible] = useState(false); // 컨텐츠 보이기/숨기기 상태 추가
   const [calendarVisible, setCalendarVisible] = useState(true); // 달력 보이기/숨기기 상태 추가
@@ -74,33 +76,35 @@ export default function DateCalendarServerRequest() {
     if (diaryList !== null) {
       // diaryList가 null이 아닌 경우에만 highlightedDates 배열을 생성
       const highlightedDates = diaryList.map((diary) => diary.date);
-      setHighlightedDays(highlightedDates);
-    }
-  }, [diaryList]);
-  //
-  // 일기 리스트 get 요청
-  const readDiaryList = () => {
-    axios
-      .get('https://ijoah01.duckdns.org/api/diaries/list/1', {
-        headers: {
-          // Accept: "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
 
-      .then((res) => {
-        console.log('일기 리스트 불러오는 거 성공함');
-        console.log(res.data);
-        setDiaryList(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  // 들어올 때 일기 리스트 get 요청하기
-  useEffect(() => {
-    readDiaryList();
+      setHighlightedDays(highlightedDates);
+      console.log(highlightedDays);
+    }
   }, []);
+  //
+  // 일기 리스트 get 요청 ( 지우면 안 돼)
+  // const readDiaryList = () => {
+  //   axios
+  //     .get('https://ijoah01.duckdns.org/api/diaries/list/1', {
+  //       headers: {
+  //         // Accept: "application/json",
+  //         Authorization: `Bearer ${accessToken}`,
+  //       },
+  //     })
+
+  //     .then((res) => {
+  //       console.log('일기 리스트 불러오는 거 성공함');
+  //       console.log(res.data);
+  //       setDiaryList(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+  // // 들어올 때 일기 리스트 get 요청하기
+  // useEffect(() => {
+  //   readDiaryList();
+  // }, []);
 
   // 선택한 날짜 바뀔 때마다 id추출하는 함수 실행하기
   useEffect(() => {
@@ -153,7 +157,7 @@ export default function DateCalendarServerRequest() {
         <div>
           <div className="flex flex-col justify-center items-center h-screen">
             <div>
-              <Typography variant="h3" className="text-center mt-10">
+              <Typography variant="h3" className="text-center mt-10 font-['HSYuji-Regular']">
                 읽고 싶은 용돈 일기를 <br></br>
                 아래에서 골라주세요.{' '}
               </Typography>
@@ -174,6 +178,8 @@ export default function DateCalendarServerRequest() {
                 }}
                 onChange={(newDate: dayjs.Dayjs | null) => {
                   if (newDate) {
+                    // 스토어의 data 값도 바꿔주기
+                    setDate(newDate.format('YYYY-MM-DD'));
                     setSelectDate(newDate.format('YYYY-MM-DD'));
                     // 선택한 날짜와 일치하는 id 추출하는 함수
                     findIdByDate(diaryList, selectdate);
@@ -198,10 +204,10 @@ export default function DateCalendarServerRequest() {
             {/* <Button color="orange" onClick={handleShowCalendar} className="mb-4">
               달력보기
       </Button>*/}
-            <Button  color="orange" onClick={handleShowCalendar} className="mb-4 w-56 h-14 text-xl">
+            <Button color="orange" onClick={handleShowCalendar} className="mb-10 w-56 h-14 text-xl">
               달력보기&nbsp;
-            <Icon name="calendar check"  className="h-24" onClick={handleShowCalendar} ></Icon>
-            </Button> 
+              <Icon name="calendar check" className="h-24" onClick={handleShowCalendar}></Icon>
+            </Button>
           </div>
         </div>
       )}

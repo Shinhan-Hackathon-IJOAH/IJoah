@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../store/UserStore";
-import {
-  BottomNavContent,
-  HomeImg,
-  AlarmImg,
-  MenuImg,
-} from "./BottomNavStyles";
+import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../store/UserStore';
+import { BottomNavContent, HomeImg, AlarmImg, MenuImg } from './BottomNavStyles';
 
-import { Icon, Menu, Sidebar, Segment, Header, Image } from "semantic-ui-react";
+import { Icon, Menu, Sidebar, Segment, Header, Image } from 'semantic-ui-react';
 
 const BottomNav = () => {
   const { memberRole } = useUserStore();
@@ -20,24 +15,23 @@ const BottomNav = () => {
     setVisible(!visible);
   };
   const handleAlarmClick = () => {
-    navigate("/alarm");
+    navigate('/alarm');
   };
   const handleHomeClick = () => {
     // 이거 스토어에서 불러와서 분기점 나눠서 memberRole에 따라 바꾸면 될듯?
-    if (memberRole === "PARENT") {
-      navigate("/parent");
+    if (memberRole === 'PARENT') {
+      navigate('/parent');
     }
-    if (memberRole === "CHILD") {
-      navigate("/child");
+    if (memberRole === 'CHILD') {
+      navigate('/child');
     }
   };
   const handleRegisterClick = () => {
     // 이거 스토어에서 불러와서 분기점 나눠서 memberRole에 따라 바꾸면 될듯?
-    if (memberRole === "PARENT") {
-      navigate("/parent/register");
-    }
-    if (memberRole === "CHILD") {
-      navigate("/child/register");
+    if (memberRole === 'PARENT') {
+      navigate('/parent/register');
+    } else {
+      navigate('/child/register');
     }
   };
 
@@ -58,17 +52,15 @@ const BottomNav = () => {
       >
         <div className="flex flex-col justify-between h-full">
           <div>
-            <Menu.Item onClick={() => navigate("/mypage")} as="a">
+            <Menu.Item onClick={() => navigate('/mypage')} as="a">
               <Icon name="user circle" />
               프로필 수정
             </Menu.Item>
-            <Menu.Item onClick={() => navigate("/register/account")} as="a">
+            <Menu.Item onClick={() => navigate('/register/account')} as="a">
               <Icon name="won sign" />
               계좌 등록하기
             </Menu.Item>
-            <Menu.Item 
-            onClick={handleRegisterClick}
-            as="a">
+            <Menu.Item onClick={handleRegisterClick} as="a">
               <Icon name="child" />
               아이 등록하기
             </Menu.Item>
