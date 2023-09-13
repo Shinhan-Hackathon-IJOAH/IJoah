@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/shareddiaries")
+@RequestMapping("/api1/shareddiaries")
 @RequiredArgsConstructor
 public class DiaryShareController {
     private final DiaryService diaryService;

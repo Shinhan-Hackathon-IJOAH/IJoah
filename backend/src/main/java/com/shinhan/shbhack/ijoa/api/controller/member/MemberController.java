@@ -22,7 +22,7 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/members")
+@RequestMapping("/api1/members")
 @RequiredArgsConstructor
 public class MemberController {
 

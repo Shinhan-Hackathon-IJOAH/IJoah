@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/emails")
+@RequestMapping("/api1/emails")
 @RequiredArgsConstructor
 public class EmailController {
 
