@@ -1,6 +1,6 @@
 package com.shinhan.shbhack.ijoa.common.error;
 
-import com.shinhan.shbhack.ijoa.common.dto.response.ApiError;
+import com.shinhan.shbhack.ijoa.common.response.ApiError;
 import com.shinhan.shbhack.ijoa.common.error.exception.ServiceRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

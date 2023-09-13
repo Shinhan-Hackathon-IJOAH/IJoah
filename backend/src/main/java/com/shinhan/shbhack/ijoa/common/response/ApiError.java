@@ -1,4 +1,4 @@
-package com.shinhan.shbhack.ijoa.common.dto.response;
+package com.shinhan.shbhack.ijoa.common.response;
 
 import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
 import lombok.Getter;

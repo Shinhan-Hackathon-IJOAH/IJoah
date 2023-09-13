@@ -34,7 +34,6 @@ public class JwtUtil {
         String refreshToken = generateToken(model, REFRESH_TOKEN_EXPIRE_TIME);
 
         return MemberTokenResponse.of(accessToken, refreshToken, model);
-//        return toMemberTokenResponse(accessToken, refreshToken, model);
     }
 
     public String generateToken(Claims claims, Long expireTime){

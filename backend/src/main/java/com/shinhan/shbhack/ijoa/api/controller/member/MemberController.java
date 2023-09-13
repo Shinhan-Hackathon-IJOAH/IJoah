@@ -11,8 +11,7 @@ import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberModifyServi
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberParentHomeResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.query.MemberQueryService;
-import com.shinhan.shbhack.ijoa.common.dto.response.ApiData;
-import io.swagger.annotations.Api;
+import com.shinhan.shbhack.ijoa.common.response.ApiData;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

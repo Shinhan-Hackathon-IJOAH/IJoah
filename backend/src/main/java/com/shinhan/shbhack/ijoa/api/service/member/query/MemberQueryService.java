@@ -5,6 +5,7 @@ import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenRespo
 import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
 import com.shinhan.shbhack.ijoa.common.error.exception.EntityNotFoundException;
 import com.shinhan.shbhack.ijoa.common.error.exception.InvalidValueException;
+import com.shinhan.shbhack.ijoa.common.model.JwtCreateModel;
 import com.shinhan.shbhack.ijoa.common.model.UserDetailsModel;
 import com.shinhan.shbhack.ijoa.common.util.JwtUtil;
 import com.shinhan.shbhack.ijoa.common.util.RedisUtil;
@@ -43,7 +44,7 @@ public class MemberQueryService {
         if(!bCryptPasswordEncoder.matches(request.getPassword(), member.getPassword()))
             throw new InvalidValueException(ErrorCode.NOTMATCH_MEMBER_PASSWORD);
 
-        return jwtUtil.generateAllToken(member.toJwtCreateModel());
+        return jwtUtil.generateAllToken(JwtCreateModel.of(member));
     }
 
     public UserDetailsModel loadUserByEmail(String email){

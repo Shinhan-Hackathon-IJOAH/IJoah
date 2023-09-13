@@ -1,4 +1,4 @@
-package com.shinhan.shbhack.ijoa.common.dto.response;
+package com.shinhan.shbhack.ijoa.common.response;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
