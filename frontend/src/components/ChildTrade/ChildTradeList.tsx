@@ -9,7 +9,7 @@ import {
   CreditCardIcon,
   LockClosedIcon,
 } from '@heroicons/react/24/solid';
-import { Icon } from "semantic-ui-react"
+import { Icon } from 'semantic-ui-react';
 
 import BackPageButton from '../Common/BackPageButton';
 import axios from 'axios';
@@ -89,7 +89,7 @@ const TradeList = () => {
           {res.bankTransactionResponses.map((transaction: any, index: any) => (
             <ListItem key={index}>
               <ListItemPrefix>
-                <Avatar variant="circular" alt="candice" src="/img/face-1.jpg" />
+                <Avatar variant="circular" className="p-1" alt="candice" src={`/trade/${transaction.category}.png`} />
               </ListItemPrefix>
               <div className="w-full flex justify-between">
                 <div>
