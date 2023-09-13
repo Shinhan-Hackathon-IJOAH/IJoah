@@ -131,17 +131,6 @@ public class Member extends BaseEntity {
         this.account = account;
     }
 
-
-    // TODO: 2023-09-11 jwt model 옮기기
-    public JwtCreateModel toJwtCreateModel(){
-        return JwtCreateModel.builder()
-                .id(id)
-                .name(name)
-                .email(email)
-                .memberRole(memberRole)
-                .build();
-    }
-
     public void update(String password){
             this.password = password;
     }

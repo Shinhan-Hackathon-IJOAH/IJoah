@@ -44,3 +44,6 @@ out/
 
 ### Templates Files ###
 src/main/resources/templates/**
+
+### DataInitializerUtil ###
+src/main/java/com/shinhan/shbhack/ijoa/common/util/DataInitializerUtil.java

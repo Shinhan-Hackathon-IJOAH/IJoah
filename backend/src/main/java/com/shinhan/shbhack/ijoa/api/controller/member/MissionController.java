@@ -2,7 +2,7 @@ package com.shinhan.shbhack.ijoa.api.controller.member;
 
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MissionResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.query.MissionQueryService;
-import com.shinhan.shbhack.ijoa.common.dto.response.ApiData;
+import com.shinhan.shbhack.ijoa.common.response.ApiData;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
