@@ -16,6 +16,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {ko} from 'date-fns/esm/locale';
 
+
+
 const initialValue = dayjs();
 
 
@@ -28,25 +30,34 @@ export default function DateCalendarServerRequest() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [highlightedDays, setHighlightedDays] = useState<any[]>(['2023-09-12', '2023-09-13']);
   const [diaryId, setDiaryId] = useState<any>(null);
-  const [diaryList, setDiaryList] = useState<any[]>([]); // 초기값을 null로 설정
-  // highlightedDates 배열에 일기가 있는 날짜를 설정
-  const [contentVisible, setContentVisible] = useState(false); // 컨텐츠 보이기/숨기기 상태 추가
-  const [calendarVisible, setCalendarVisible] = useState(true); // 달력 보이기/숨기기 상태 추가
+  const [diaryList, setDiaryList] = useState<any[]>([
+    {
+        "id": 1,
+        "date": "2023-09-14"
+    },
+    {
+      "id": 2,
+      "date": "2023-09-10"
+  },
+  {
+    "id": 3,
+    "date": "2023-09-08"
+},
+{
+  "id": 4,
+  "date": "2023-09-01"
+},
+]); // 초기값을 null로 설정
+const includeDates = diaryList.map((diary) => new Date(diary.date)); //날짜들을 map함수를 사용해 Date 객체로 변환!
+// highlightedDates 배열에 일기가 있는 날짜를 설정
+const [contentVisible, setContentVisible] = useState(false); // 컨텐츠 보이기/숨기기 상태 추가
+const [calendarVisible, setCalendarVisible] = useState(true); // 달력 보이기/숨기기 상태 추가
   const handleShowCalendar = () => {
     setContentVisible(false);
     setCalendarVisible(true); // 달력 보이기
   };
 
-  console.log(highlightedDays)
-  useEffect(() => {
-    if (diaryList !== null) {
-      // diaryList가 null이 아닌 경우에만 highlightedDates 배열을 생성
-      const highlightedDates = diaryList.map((diary) => diary.date);
 
-      setHighlightedDays(highlightedDates);
-      console.log(highlightedDays);
-    }
-  }, []);
   //
   // 일기 리스트 get 요청 ( 지우면 안 돼)
   // const readDiaryList = () => {
@@ -84,8 +95,6 @@ export default function DateCalendarServerRequest() {
   };
 
   
-
-
   const handleMonthChange = (date: Dayjs) => {
     if (requestAbortController.current) {
       requestAbortController.current.abort();
@@ -97,9 +106,6 @@ export default function DateCalendarServerRequest() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   // includeDates 테스트 ( 여기 적힌 날들만 선택 가능하게 하는 것)
-  const includeDates = ['2023-09-12', '2023-09-13', '2023-09-14','2022-09-14'].map((dateStr) =>
-    new Date(dateStr)
-  );
   return (
     <div className="h-[100vh]">
       {calendarVisible && (
@@ -139,6 +145,7 @@ export default function DateCalendarServerRequest() {
             </LocalizationProvider> */}
             <div>
              <DatePicker
+      locale={ko} // 언어설정
       dateFormat='yyyy년 MM월 dd일' // 날짜 형태
       shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
 
@@ -157,7 +164,7 @@ export default function DateCalendarServerRequest() {
       maxDate={new Date()}
       includeDates={includeDates} // 여기에 변환한 Date 객체를 전달합니다. -> 이렇게하면 일기 쓴 날만 선택 가능하게 됨.
       inline
-      locale={ko}
+      
       
     />
 </div>
