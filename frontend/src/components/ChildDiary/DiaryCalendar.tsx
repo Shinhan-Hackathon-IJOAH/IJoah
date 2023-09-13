@@ -12,49 +12,13 @@ import { Button, select, Typography } from '@material-tailwind/react';
 import { useUserStore } from '../../store/UserStore';
 import { Icon } from 'semantic-ui-react';
 import { useDiaryStore } from '../../store/DiaryStore';
-function getRandomNumber(min: number, max: number) {
-  return Math.round(Math.random() * (max - min) + min);
-}
-function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
-  return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      const daysInMonth = date.daysInMonth();
-      const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
-
-      resolve({ daysToHighlight });
-    }, 500);
-
-    signal.onabort = () => {
-      clearTimeout(timeout);
-      reject(new DOMException('aborted', 'AbortError'));
-    };
-  });
-}
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import {ko} from 'date-fns/esm/locale';
 
 const initialValue = dayjs();
 
-// function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }) {
-//   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
-// const isSelected =
-//   !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
-// function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: string[] }) {
-//   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
-//    // 해당 날짜가 highlightedDates 배열에 포함되어 있는지 확인
-//    const isSelected = highlightedDays.includes(props.day.format('YYYY-MM-DD'));
-function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDates?: string[] }) {
-  const { highlightedDates = [], day, outsideCurrentMonth, ...other } = props;
 
-  // 해당 날짜가 highlightedDates 배열에 포함되어 있는지 확인
-  const isSelected = highlightedDates.includes(props.day.format('YYYY-MM-DD'));
-
-  return (
-    <Badge key={props.day.toString()} overlap="circular" badgeContent={isSelected ? '🌚' : undefined}>
-      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
-    </Badge>
-  );
-}
-
-///
 
 export default function DateCalendarServerRequest() {
   const { date, setDate } = useDiaryStore();
@@ -62,9 +26,9 @@ export default function DateCalendarServerRequest() {
   const [selectdate, setSelectDate] = useState('');
   const requestAbortController = React.useRef<AbortController | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState<number[]>([]);
+  const [highlightedDays, setHighlightedDays] = useState<any[]>(['2023-09-12', '2023-09-13']);
   const [diaryId, setDiaryId] = useState<any>(null);
-  const [diaryList, setDiaryList] = useState<any[]>(['2023-09-12', '2023-09-13']); // 초기값을 null로 설정
+  const [diaryList, setDiaryList] = useState<any[]>([]); // 초기값을 null로 설정
   // highlightedDates 배열에 일기가 있는 날짜를 설정
   const [contentVisible, setContentVisible] = useState(false); // 컨텐츠 보이기/숨기기 상태 추가
   const [calendarVisible, setCalendarVisible] = useState(true); // 달력 보이기/숨기기 상태 추가
@@ -72,6 +36,8 @@ export default function DateCalendarServerRequest() {
     setContentVisible(false);
     setCalendarVisible(true); // 달력 보이기
   };
+
+  console.log(highlightedDays)
   useEffect(() => {
     if (diaryList !== null) {
       // diaryList가 null이 아닌 경우에만 highlightedDates 배열을 생성
@@ -117,29 +83,8 @@ export default function DateCalendarServerRequest() {
     return selectDiary ? setDiaryId(selectDiary.id) : setDiaryId(null);
   };
 
-  const fetchHighlightedDays = (date: Dayjs) => {
-    const controller = new AbortController();
-    fakeFetch(date, {
-      signal: controller.signal,
-    })
-      .then(({ daysToHighlight }) => {
-        setHighlightedDays(daysToHighlight);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        // ignore the error if it's caused by `controller.abort`
-        if (error.name !== 'AbortError') {
-          throw error;
-        }
-      });
+  
 
-    requestAbortController.current = controller;
-  };
-
-  React.useEffect(() => {
-    fetchHighlightedDays(initialValue);
-    return () => requestAbortController.current?.abort();
-  }, []);
 
   const handleMonthChange = (date: Dayjs) => {
     if (requestAbortController.current) {
@@ -147,10 +92,14 @@ export default function DateCalendarServerRequest() {
     }
 
     setIsLoading(true);
-    setHighlightedDays([]);
-    fetchHighlightedDays(date);
+    // setHighlightedDays([]);
   };
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
+  // includeDates 테스트 ( 여기 적힌 날들만 선택 가능하게 하는 것)
+  const includeDates = ['2023-09-12', '2023-09-13', '2023-09-14','2022-09-14'].map((dateStr) =>
+    new Date(dateStr)
+  );
   return (
     <div className="h-[100vh]">
       {calendarVisible && (
@@ -162,20 +111,17 @@ export default function DateCalendarServerRequest() {
                 아래에서 골라주세요.{' '}
               </Typography>
             </div>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateCalendar
+              disableFuture
+              ={true}
                 defaultValue={initialValue}
                 loading={isLoading}
                 onMonthChange={handleMonthChange}
                 renderLoading={() => <DayCalendarSkeleton />}
-                slots={{
-                  day: ServerDay,
-                }}
-                slotProps={{
-                  day: {
-                    highlightedDays,
-                  } as any,
-                }}
+               
+
+                
                 onChange={(newDate: dayjs.Dayjs | null) => {
                   if (newDate) {
                     // 스토어의 data 값도 바꿔주기
@@ -190,7 +136,31 @@ export default function DateCalendarServerRequest() {
                   }
                 }}
               />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
+            <div>
+             <DatePicker
+      dateFormat='yyyy년 MM월 dd일' // 날짜 형태
+      shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
+
+      selected={selectedDate}
+      onChange={(e) => {
+        const formattedDate = dayjs(e).format('YYYY-MM-DD');
+        setSelectedDate(e); // 선택한 날짜를 상태에 업데이트합니다.
+        setSelectDate(formattedDate); // 선택한 날짜를 상태에 업데이트합니다.
+        setDate(formattedDate); // 스토어의 data 값도 업데이트합니다.
+        findIdByDate(diaryList, selectdate);
+        console.log(e); // 선택한 날짜를 콘솔에 출력합니다.
+        console.log(date)
+        setContentVisible(true); // 컨텐츠 보이기
+                    setCalendarVisible(false); // 달력 숨기기
+      }}
+      maxDate={new Date()}
+      includeDates={includeDates} // 여기에 변환한 Date 객체를 전달합니다. -> 이렇게하면 일기 쓴 날만 선택 가능하게 됨.
+      inline
+      locale={ko}
+      
+    />
+</div>
           </div>
         </div>
       )}
