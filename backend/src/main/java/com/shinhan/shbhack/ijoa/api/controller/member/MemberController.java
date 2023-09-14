@@ -65,15 +65,4 @@ public class MemberController {
         return ApiData.of("회원 정보 수정이 완료되었습니다!");
     }
 
-    @PostMapping("/family/regist")
-    @ApiOperation(value = "아이 등록")
-    public ApiData<String> registFamily(@RequestBody MemberRegistFamilyRequest request){
-
-        memberService.registFamily(MemberRegistFamilyServiceRequest.of(request));
-        return ApiData.of("아이 등록이 성공하였습니다!");
-    }
-
-
-
-
 }

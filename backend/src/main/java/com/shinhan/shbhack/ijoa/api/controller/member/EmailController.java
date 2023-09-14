@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import java.io.UnsupportedEncodingException;
 
 @Slf4j
@@ -23,7 +24,7 @@ public class EmailController {
     private final EmailQueryService emailQueryService;
 
     @PostMapping("/send")
-    public ApiData<String> sendJoinEmail(@RequestParam("email") String email) throws MessagingException, UnsupportedEncodingException {
+    public ApiData<String> sendJoinEmail(@RequestParam("email") @Email String email) throws MessagingException, UnsupportedEncodingException {
         // TODO: 2023-09-11 need refactoring
         emailQueryService.sendEmail(email);
 

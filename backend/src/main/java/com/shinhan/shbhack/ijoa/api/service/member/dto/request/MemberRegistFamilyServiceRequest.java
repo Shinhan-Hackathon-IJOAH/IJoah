@@ -11,18 +11,18 @@ public class MemberRegistFamilyServiceRequest {
 
     private Long parentId;
 
-    private Long childId;
+    private String childEmail;
 
     @Builder
-    public MemberRegistFamilyServiceRequest(Long parentId, Long childId) {
+    public MemberRegistFamilyServiceRequest(Long parentId, String childEmail) {
         this.parentId = parentId;
-        this.childId = childId;
+        this.childEmail = childEmail;
     }
 
     public static MemberRegistFamilyServiceRequest of(MemberRegistFamilyRequest request){
         return MemberRegistFamilyServiceRequest.builder()
                 .parentId(request.getParentId())
-                .childId(request.getChildId())
+                .childEmail(request.getChildEmail())
                 .build();
     }
 }
