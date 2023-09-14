@@ -8,13 +8,13 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
-public class MemberRegistFamilyRequest {
+public class MemberPermitFamilyRequest {
 
     @NotNull
     private String parentId;
 
     @Email
-    private String childEmail;
+    private String childId;
 
 
 }

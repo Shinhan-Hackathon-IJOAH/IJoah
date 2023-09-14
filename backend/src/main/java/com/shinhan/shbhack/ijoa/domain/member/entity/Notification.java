@@ -10,6 +10,9 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import java.util.List;
+import java.util.Map;
+
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -50,8 +53,11 @@ public class Notification extends BaseEntity {
 
     private String content;
 
+    private String parentInfo;
+
     @Builder
-    public Notification(Long id, NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, String content) {
+
+    public Notification(Long id, NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, String content, String parentInfo) {
         this.id = id;
         this.notificationType = notificationType;
         this.confirmStatus = confirmStatus;
@@ -59,7 +65,12 @@ public class Notification extends BaseEntity {
         this.sender = sender;
         this.mission = mission;
         this.content = content;
+        this.parentInfo = parentInfo;
     }
+
+
+
+
 
     public static Notification of(AlarmNotifyRequest alarmNotifyRequest){
         Notification notification = new Notification();
@@ -69,6 +80,7 @@ public class Notification extends BaseEntity {
         notification.content = alarmNotifyRequest.getContent();
         notification.receiver = alarmNotifyRequest.getReceiver();
         notification.sender = alarmNotifyRequest.getSender();
+        notification.parentInfo = alarmNotifyRequest.getParentInfo();
         return notification;
     }
 }

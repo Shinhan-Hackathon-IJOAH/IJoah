@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberRegistFamilyServiceRequest {
 
-    private Long parentId;
+    private String parentId;
 
     private String childEmail;
 
     @Builder
-    public MemberRegistFamilyServiceRequest(Long parentId, String childEmail) {
+    public MemberRegistFamilyServiceRequest(String parentId, String childEmail) {
         this.parentId = parentId;
         this.childEmail = childEmail;
     }

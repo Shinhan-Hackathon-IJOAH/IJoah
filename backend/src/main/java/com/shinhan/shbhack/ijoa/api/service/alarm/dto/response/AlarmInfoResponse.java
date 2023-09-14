@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 import static lombok.AccessLevel.PUBLIC;
 
@@ -22,8 +24,8 @@ public class AlarmInfoResponse {
     private ConfirmStatus confirmStatus;
     private String senderName;
     private String content;
+    private String parentInfo;
     private Long missionId;
     private LocalDateTime time;
-
 
 }
