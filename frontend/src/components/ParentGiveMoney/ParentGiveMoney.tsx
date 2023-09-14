@@ -6,12 +6,14 @@ import {useSelectChildStore} from '../../store/SelectChildStore'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import { useUserStore } from './../../store/UserStore';
-
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const ParentGiveMoney = () => {
+    const navigate = useNavigate();
     const [givemoney, setGivemoney] = useState(0);
     const {childid,childname,childaccount,childimg}=useSelectChildStore();
-    const {balance,name} = useUserStore();
+    const {balance,name,accessToken,account} = useUserStore();
     const formattedMoney = givemoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
     const handleMoneyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,20 +22,44 @@ const ParentGiveMoney = () => {
       };
 
     const giveMoney = () =>{
+        if (givemoney===0){
+            Swal.fire({
+                icon: 'warning',
+                title: '용돈 금액 입력',
+                text: `${childname}에게 보낼 금액을 입력해주세요`,
+              });
+        }
+        else{
         axios
-            .post("https://ijoah01.duckdns.org/api/bank/transfer",{
-                withdrawAccount: balance, // 출금할 계좌
-                depositAccount: childaccount, // 입금할 계좌 
+            .post("https://j9c210.p.ssafy.io/api1/bank/transfer",{
+                withdrawAccount: account, 
+                depositAccount: childaccount, 
                 amount: givemoney, 
-                withdrawContent: `${childname}에게 용돈`, //출금자에게 표시될 문자 
+                withdrawContent: `${childname}에게 용돈`,
                 depositContent: `${name}이 주신 용돈`,
+            },{
+                headers: {
+                Authorization: `Bearer ${accessToken}`,
+                },
             })
             .then((response)=>{
                 console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: '용돈보내기 완료',
+                    text: `${childname}에게 ${givemoney}원 송금 완료`,
+                  });
                 setGivemoney(0)
+                navigate('/parent');
             })
             .catch((error)=>
             console.log(error))
+            Swal.fire({
+                icon: 'error',
+                title: '용돈보내기 실패',
+                // text: '다시 시도해주세요.',
+              });
+            }
     }
     return (
         <GiveMoneyContainer>
@@ -52,6 +78,7 @@ const ParentGiveMoney = () => {
                     value={formattedMoney}
                     onChange={handleMoneyChange}
                     min={0}
+                    max={balance}
                     style={{ fontSize: '25px',textAlign: 'right',
                     direction: 'rtl',paddingRight: '15px'   }} 
                      />
@@ -64,8 +91,6 @@ const ParentGiveMoney = () => {
                     <Button variant="outlined" onClick={()=>{setGivemoney(givemoney+20000)}}>200000원</Button>
                 </ButtonContainer>
             <SendButoon onClick={giveMoney}>용돈 보내기</SendButoon>
-
-            {/* 용돈 보냈을시 알림창 띄워야함 */}
         </GiveMoneyContainer>
     );
 };

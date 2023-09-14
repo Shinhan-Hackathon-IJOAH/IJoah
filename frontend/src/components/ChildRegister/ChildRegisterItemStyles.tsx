@@ -8,10 +8,10 @@ export const ChildRegisterContainer = styled.div`
 `
 export const Titletag = styled.div`
     font-size: 14px;
-    border-top: 4px;
 `
 export const ButtonContainer = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    margin-bottom:5px;
 `

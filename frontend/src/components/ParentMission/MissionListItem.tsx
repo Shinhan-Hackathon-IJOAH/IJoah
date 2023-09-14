@@ -12,17 +12,6 @@ interface MissionListItemProps{
 
 const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionnickname,missionamount}) => {
     const navigate = useNavigate();
-    const complete = () => {
-        axios
-            .post('.....',{}
-            )
-            .then((response)=>{
-                console.log(response)
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
-    }
     const detailClick = ()=>{
         navigate(`/parent/mission/detail/${missionid}`)
     } 
@@ -36,7 +25,7 @@ const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle
                 미션 보상:{missionamount}원
                 </FontTag>
             </MissionTagContainer>
-            <CompleteButton onClick={complete}>진행중</CompleteButton>
+            <CompleteButton>진행중</CompleteButton>
         </MissionItemContainer>
     );
 };

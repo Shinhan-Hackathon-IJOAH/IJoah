@@ -25,7 +25,7 @@ const MissionRequestItem: React.FC<MissionListItemProps> = ({missionid,missionti
                 미션 보상:{missionamount}원
                 </FontTag>
             </MissionTagContainer>
-            <RequestButton >요청중</RequestButton>
+            <RequestButton >요청중..</RequestButton>
         </MissionItemContainer>
     );
 };

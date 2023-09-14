@@ -20,6 +20,7 @@ interface Profile {
     email: string;
     phoneNumber: string;
     birthDate: string;
+    memberRole: string;
     account: {
         accountId: number;
         name: string;
@@ -38,6 +39,7 @@ interface Profile {
         email: string;
         phoneNumber: string;
         birthDate: string;
+        memberRole: string;
         account: {
             accountId: number;
             name: string;
@@ -53,100 +55,102 @@ interface Profile {
   
 
   
-const dummyProfile: Profile = {
-    memberId: 3,
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phoneNumber: "123-456-7890",
-    birthDate: "1990-01-01",
-    account: {
-      accountId: 1,
-      name: "John Doe Account",
-      balance: 5000.00,
-      accountNumber: "123456789",
-    },
-    profileImage: {
-      profileImageId: 1,
-      fileName: "john-doe-profile.jpg",
-    },
-    children: [
-      {
-        memberId: 3,
-        name: "Child 1",
-        email: "child1@example.com",
-        phoneNumber: "111-222-3333",
-        birthDate: "2010-05-15",
-        account: {
-          accountId: 2,
-          name: "Child 1 Account",
-          balance: 1000.00,
-          accountNumber: "987654321",
-        },
-        profileImage: {
-          profileImageId: 2,
-          fileName: "child1-profile.jpg",
-        },
-      },
-      {
-        memberId: 4,
-        name: "Child 2",
-        email: "child2@example.com",
-        phoneNumber: "111-222-3333",
-        birthDate: "2010-05-15",
-        account: {
-          accountId: 4,
-          name: "Child 1 Account",
-          balance: 1000.00,
-          accountNumber: "987654321",
-        },
-        profileImage: {
-          profileImageId: 2,
-          fileName: "child1-profile.jpg",
-        },
-      },
-    ],
-  };
+// const dummyProfile: Profile = {
+//     memberId: 3,
+//     name: "John Doe",
+//     email: "john.doe@example.com",
+//     phoneNumber: "123-456-7890",
+//     birthDate: "1990-01-01",
+//     account: {
+//       accountId: 1,
+//       name: "John Doe Account",
+//       balance: 5000.00,
+//       accountNumber: "123456789",
+//     },
+//     profileImage: {
+//       profileImageId: 1,
+//       fileName: "john-doe-profile.jpg",
+//     },
+//     children: [
+//       {
+//         memberId: 3,
+//         name: "Child 1",
+//         email: "child1@example.com",
+//         phoneNumber: "111-222-3333",
+//         birthDate: "2010-05-15",
+//         account: {
+//           accountId: 2,
+//           name: "Child 1 Account",
+//           balance: 1000.00,
+//           accountNumber: "987654321",
+//         },
+//         profileImage: {
+//           profileImageId: 2,
+//           fileName: "child1-profile.jpg",
+//         },
+//       },
+//       {
+//         memberId: 4,
+//         name: "Child 2",
+//         email: "child2@example.com",
+//         phoneNumber: "111-222-3333",
+//         birthDate: "2010-05-15",
+//         account: {
+//           accountId: 4,
+//           name: "Child 1 Account",
+//           balance: 1000.00,
+//           accountNumber: "987654321",
+//         },
+//         profileImage: {
+//           profileImageId: 2,
+//           fileName: "child1-profile.jpg",
+//         },
+//       },
+//     ],
+//   };
 
 const ParentMainPage = () => {
     const {setChildName,setChildAccount,setChildImg}=useSelectChildStore();
-    const {name,accessToken,setBalance,setName,setBirthDate,setEmail,setPhoneNumber,setProfileImage,setAccount} =useUserStore()
+    const {id,accessToken,setBalance,setName,setBirthDate,setEmail,setPhoneNumber,setProfileImage,setAccount,setMemberRole} =useUserStore()
     const navigate = useNavigate();
     const [parentprofile, setParentProfile] = useState<Profile>();
     
-    // const getParentInfo = () =>{
-    //     axios
-    //     .get(`https://ijoah01.duckdns.org/api/members/login`, {
-    //         headers: {
-    //         Authorization: `Bearer ${accessToken}`,
-    //         },
-    //     })
-    //     .then((response) => {
-    //         // setParentProfile(response.data.data); 
-    //         // console.log(response.data.data);
-    //         setName(parentprofile?.name)
-    //         setBirthDate(parentprofile?.birthDate)
-    //         setAccount(parentprofile?.account.accountNumber)
-    //         setEmail(parentprofile?.email)
-    //         setPhoneNumber(parentprofile?.phoneNumber)
-    //         setProfileImage(parentprofile?.profileImage)
-    //     })
-    //     .catch((error) => {
-    //         console.error('데이터 가져오기 오류:', error);
-    //     });
-    // }
+    const getParentInfo = () =>{
+        axios
+        .get(`https://j9c210.p.ssafy.io/api1/members/parent/${id}`, {
+            headers: {
+            Authorization: `Bearer ${accessToken}`,
+            },
+        })
+        .then((response) => {
+            setParentProfile(response.data.data); 
+            console.log(response.data.data);
+            setName(response.data.data.name)
+            setBirthDate(response.data.data.birthDate)
+            setAccount(response.data.data.account.accountNumber)
+            setEmail(response.data.data.email)
+            setPhoneNumber(response.data.data.phoneNumber)
+            setProfileImage(response.data.data.profileImage)
+            setMemberRole(response.data.data.memberRole)
+            setBalance(response.data.data.account.balance)
+        })
+        .catch((error) => {
+            console.error('데이터 가져오기 오류:', error);
+        });
+    }
 
 
     
     useEffect(() => {
-        // getParentInfo();
+        getParentInfo();
         // setParentProfile(dummyProfile);
-        setName(dummyProfile?.name)
-        setBirthDate(dummyProfile?.birthDate)
-        setAccount(dummyProfile?.account.accountNumber)
-        setEmail(dummyProfile?.email)
-        setPhoneNumber(dummyProfile?.phoneNumber)
-        setProfileImage(dummyProfile?.profileImage)
-        setBalance(dummyProfile?.account.balance)
+        // setName(dummyProfile?.name)
+        // setBirthDate(dummyProfile?.birthDate)
+        // setAccount(dummyProfile?.account.accountNumber)
+        // setEmail(dummyProfile?.email)
+        // setPhoneNumber(dummyProfile?.phoneNumber)
+        // setProfileImage(dummyProfile?.profileImage)
+        // setBalance(dummyProfile?.account.balance)
 
       }, []);
 
@@ -156,21 +160,7 @@ const ParentMainPage = () => {
             <ButtonColum>
             <ParentInfo/>
             <div className="flex items-center w-full ">
-            {dummyProfile?.children.map((child) => (
-                    <button 
-                        onClick={() => {
-                        setChildAccount(child.account);
-                        setChildName(child.name);
-                        setChildImg(child.profileImage);
-                    }}>
-                    <Avatar
-                    variant="circular"
-                    className="border-2 border-white hover:z-10 focus:z-10"
-                    src={child.profileImage.fileName}
-                    />
-                    </button>
-                ))}
-                {/* {parentprofile?.children.map((child) => (
+            {/* {dummyProfile?.children.map((child) => (
                     <button 
                         onClick={() => {
                         setChildAccount(child.account);
@@ -184,6 +174,20 @@ const ParentMainPage = () => {
                     />
                     </button>
                 ))} */}
+                {parentprofile?.children.map((child) => (
+                    <button 
+                        onClick={() => {
+                        setChildAccount(child.account);
+                        setChildName(child.name);
+                        setChildImg(child.profileImage);
+                    }}>
+                    <Avatar
+                    variant="circular"
+                    className="border-2 border-white hover:z-10 focus:z-10"
+                    src={child.profileImage.fileName}
+                    />
+                    </button>
+                ))}
                 <button onClick={() => {
                 navigate("/parent/register");
                 }}>

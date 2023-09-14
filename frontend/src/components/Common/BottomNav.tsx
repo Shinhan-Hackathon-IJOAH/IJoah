@@ -1,15 +1,38 @@
-import React, { useState } from 'react';
-
+import React, { useState,useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../store/UserStore';
 import { BottomNavContent, HomeImg, AlarmImg, MenuImg } from './BottomNavStyles';
-
+import Badge, { BadgeProps } from '@mui/material/Badge';
 import { Icon, Menu, Sidebar, Segment, Header, Image } from 'semantic-ui-react';
+import axios from 'axios';
+
 
 const BottomNav = () => {
-  const { memberRole } = useUserStore();
+  const { memberRole,accessToken,email } = useUserStore();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
+  const [alarmData, setAlarmData] = useState<any[]>([]);
+  const count = Object.keys(alarmData).length;
+
+  useEffect(() => {
+    axios
+      .get(`https://ijoah01.duckdns.org/api/diaries/${email}`, {
+        headers: {
+          // Accept: "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        console.log('알람 내용 불러오는 거 성공함');
+        console.log(res.data);
+        setAlarmData(res.data);
+      })
+      .catch((err) => {
+        console.log('에러..');
+        console.log(err);
+      });
+  }, []);
 
   const handleMenuClick = () => {
     setVisible(!visible);
@@ -27,13 +50,16 @@ const BottomNav = () => {
     }
   };
   const handleRegisterClick = () => {
-    // 이거 스토어에서 불러와서 분기점 나눠서 memberRole에 따라 바꾸면 될듯?
-    if (memberRole === 'PARENT') {
-      navigate('/parent/register');
-    } else {
-      navigate('/child/register');
-    }
+     navigate('/parent/register');
+   
   };
+  const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: 7,
+      top: 13,
+      padding: '0 4px',
+    },
+  }));
 
   return (
     <div>
@@ -60,10 +86,12 @@ const BottomNav = () => {
               <Icon name="won sign" />
               계좌 등록하기
             </Menu.Item>
-            <Menu.Item onClick={handleRegisterClick} as="a">
-              <Icon name="child" />
-              아이 등록하기
-            </Menu.Item>
+            {memberRole === 'PARENT' && (
+              <Menu.Item onClick={handleRegisterClick} as="a">
+                <Icon name="child" />
+                아이 등록하기
+              </Menu.Item>
+            )}
           </div>
           <div>
             <Menu.Item onClick={() => setVisible(false)} as="a">
@@ -75,7 +103,13 @@ const BottomNav = () => {
       </Sidebar>
       <Sidebar.Pusher dimmed={visible}>
         <BottomNavContent>
-          <AlarmImg onClick={handleAlarmClick} />
+          {count === 0 ? (
+            <AlarmImg onClick={handleAlarmClick} />
+          ) : (
+            <StyledBadge badgeContent={count} color="secondary">
+              <AlarmImg onClick={handleAlarmClick} />
+            </StyledBadge>
+          )}
           <HomeImg onClick={handleHomeClick} />
           <MenuImg onClick={handleMenuClick} />
         </BottomNavContent>
