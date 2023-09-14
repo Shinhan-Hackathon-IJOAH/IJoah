@@ -6,6 +6,8 @@ import com.shinhan.shbhack.ijoa.domain.member.entity.enums.ConfirmStatus;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.NotificationType;
 import lombok.*;
 
+import java.util.Map;
+
 import static lombok.AccessLevel.PUBLIC;
 
 @Getter
@@ -18,15 +20,17 @@ public class AlarmNotifyRequest {
     private Member sender;
     private Mission mission;
     private String content;
+    private String parentInfo;
 
     @Builder
 
-    public AlarmNotifyRequest(NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, String content) {
+    public AlarmNotifyRequest(NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, String content, String parentInfo) {
         this.notificationType = notificationType;
         this.confirmStatus = confirmStatus;
         this.receiver = receiver;
         this.sender = sender;
         this.mission = mission;
         this.content = content;
+        this.parentInfo = parentInfo;
     }
 }

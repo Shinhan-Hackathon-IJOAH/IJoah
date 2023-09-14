@@ -23,7 +23,7 @@ public class AlarmQueryRepository {
 
     public List<AlarmInfoResponse> getAlarmListByMember(String memberEmail){
         return queryFactory.select(Projections.fields(AlarmInfoResponse.class, notification.id, notification.notificationType, notification.confirmStatus,
-                        notification.sender.name.as("senderName"), notification.content, notification.mission.id.as("missionId"), notification.createdTime.as("time"))).from(notification).join(notification.receiver, member)
+                        notification.sender.name.as("senderName"), notification.content, notification.mission.id.as("missionId"), notification.createdTime.as("time"), notification.parentInfo)).from(notification).join(notification.receiver, member)
                 .where(notification.receiver.email.eq(memberEmail).and(notification.confirmStatus.eq(ConfirmStatus.UNCONFIRMED)))
                 .orderBy(notification.createdTime.desc()).fetch();
     }
