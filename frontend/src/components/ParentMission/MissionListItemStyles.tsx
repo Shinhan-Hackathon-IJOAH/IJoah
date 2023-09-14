@@ -11,16 +11,9 @@ export const MissionItemContainer = styled.div`
     justify-content: space-evenly;
 `
 export const CompleteButton = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:25%;
-    height: 50%;
-    background-color: #00C68E;
     font-family: 'HSYuji-Regular';
     font-size: 14px;
-    border-radius: 25px;
-    color: white;
+    color: green;
 `
 export const RequestButton = styled.div`
     display: flex;
@@ -37,7 +30,7 @@ export const RequestButton = styled.div`
 export const CompeleteFont= styled.div`
     font-family: 'HSYuji-Regular';
     font-size: 14px;
-    color: green;
+    color: black;
 `
 export const FontTag = styled.div`
     font-family: 'HSYuji-Regular';

@@ -10,38 +10,55 @@ import {useUserStore} from "../../../store/UserStore"
 import axios from "axios";
 
 interface Profile {
+  memberId: number,
   name: string;
   email: string;
   phoneNumber: string;
   birthDate: string;
-  account: number;
-  profileImage: string;
-  parent:
-      {
+  memberRole: string;
+  account: {
+      accountId: number;
+      name: string;
+      balance: number;
+      accountNumber: string;
+
+  }
+  profileImage: {
+      profileImageId: number;
+      fileName: string;
+
+  };
+  parent:{
+      memberId: number
+      name: string;
+      email: string;
+      phoneNumber: string;
+      birthDate: string;
+      memberRole: string;
+      account: {
+          accountId: number;
           name: string;
-          email: string;
-          phoneNumber: string;
-          birthDate: string;
-          account: number;
-          profileImage: string;
-      }[];
-}
-interface Balance{
-  accountNumber:string;
-  balance:string;
+          balance: number;
+          accountNumber: string;
+      }
+      profileImage: {
+          profileImageId: number;
+          fileName: string;
+      };
+}[];
 }
 
 
 
 const ChildMainPage = () => {
-  const {accessToken,account,setBalance,setName,setBirthDate,setEmail,setPhoneNumber,setProfileImage,setAccount} =useUserStore()
+  const {id,accessToken,setBalance,setName,setBirthDate,setEmail,setPhoneNumber,setProfileImage,setAccount,setMemberRole} =useUserStore()
 
   const [childprofile, setChildProfile] = useState<Profile>();
-  const [childbalance, setChildBalance] = useState<Balance>();
+  
   
   const getChildInfo = () =>{
     axios
-    .get(`https://ijoah01.duckdns.org/api/members/login`, {
+    .get(`https://j9c210.p.ssafy.io/api1/members/child/${id}`, {
         headers: {
         Authorization: `Bearer ${accessToken}`,
         },
@@ -49,35 +66,20 @@ const ChildMainPage = () => {
     .then((response) => {
         setChildProfile(response.data.data); 
         console.log(response.data.data);
-        setName(childprofile?.name)
-        setBirthDate(childprofile?.birthDate)
-        setAccount(childprofile?.account)
-        setEmail(childprofile?.email)
-        setPhoneNumber(childprofile?.phoneNumber)
-        setProfileImage(childprofile?.profileImage)
-        getChildAccount();
+        setName(response.data.data.name)
+        setBirthDate(response.data.data.birthDate)
+        setAccount(response.data.data.account.accountNumber)
+        setEmail(response.data.data.email)
+        setPhoneNumber(response.data.data.phoneNumber)
+        setProfileImage(response.data.data.profileImage)
+        setMemberRole(response.data.data.memberRole)
+        setBalance(response.data.data.account.balance)
     })
     .catch((error) => {
         console.error('데이터 가져오기 오류:', error);
     });
-  }
-  const getChildAccount = () =>{
-    axios
-    .post('https://ijoah01.duckdns.org/api/bank/balance',
-    {accountNumber:account},
-        {headers: {
-        Authorization: `Bearer ${accessToken}`,
-        },
-    })
-    .then((response) => {
-        setChildBalance(response.data.data); 
-        console.log(response.data.data);
-        setBalance(childbalance?.balance)
-    })
-    .catch((error) => {
-        console.error('데이터 가져오기 오류:', error);
-    });
-  }
+}
+
 
   useEffect (()=>{
     getChildInfo()

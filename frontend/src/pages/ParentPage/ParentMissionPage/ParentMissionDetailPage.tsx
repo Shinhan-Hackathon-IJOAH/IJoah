@@ -4,6 +4,8 @@ import BottomNav from '../../../components/Common/BottomNav';
 import axios from 'axios';
 import {DetailContainer,FontTag,Title,BackGroundContainer} from './ParentMissionDetailPageStyles'
 import BackPageButton from '../../../components/Common/BackPageButton';
+import {useUserStore} from "../../../store/UserStore"
+
 interface MissionDetail{
         id: number,
         title:string,
@@ -49,12 +51,13 @@ const ParentMissionDetailPage = () => {
 
     const { missionid } = useParams<{ missionid: string }>();
     const [missioninfo,setMissionInfo] = useState<MissionDetail>();
+    const {accessToken} =useUserStore();
 
     const getMissionDetail = ()=>{
         axios
             .get(`/api/missions/${missionid}}`, {
                 headers: {
-                Authorization: `Bearer`,
+                Authorization: `Bearer ${accessToken}`,
                 },
             })
             .then((response)=>{

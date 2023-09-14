@@ -16,48 +16,48 @@ interface CategoryData{
         }[];
 
 }
-const dumydata=[
-    {
-      "id": "hack",
-      "label": "hack",
-      "value": 431,
-      "color": "hsl(159, 70%, 50%)"
-    },
-    {
-      "id": "erlang",
-      "label": "erlang",
-      "value": 241,
-      "color": "hsl(1, 70%, 50%)"
-    },
-    {
-      "id": "lisp",
-      "label": "lisp",
-      "value": 148,
-      "color": "hsl(272, 70%, 50%)"
-    },
-    {
-      "id": "scala",
-      "label": "scala",
-      "value": 215,
-      "color": "hsl(98, 70%, 50%)"
-    },
-    {
-      "id": "haskell",
-      "label": "haskell",
-      "value": 500,
-      "color": "hsl(28, 70%, 50%)"
-    }
-  ]
+// const dumydata=[
+//     {
+//       "id": "hack",
+//       "label": "hack",
+//       "value": 431,
+//       "color": "hsl(159, 70%, 50%)"
+//     },
+//     {
+//       "id": "erlang",
+//       "label": "erlang",
+//       "value": 241,
+//       "color": "hsl(1, 70%, 50%)"
+//     },
+//     {
+//       "id": "lisp",
+//       "label": "lisp",
+//       "value": 148,
+//       "color": "hsl(272, 70%, 50%)"
+//     },
+//     {
+//       "id": "scala",
+//       "label": "scala",
+//       "value": 215,
+//       "color": "hsl(98, 70%, 50%)"
+//     },
+//     {
+//       "id": "haskell",
+//       "label": "haskell",
+//       "value": 500,
+//       "color": "hsl(28, 70%, 50%)"
+//     }
+//   ]
 
 const PatternGraph = () => {
     const colortag = [' #7fc97f','#beaed4','#fdc086','#ffff99','#386cb0','#f0027f','#bf5b17','#666666']
     const [category, setCategory] = useState<CategoryData>();
     const {childname,childimg}=useSelectChildStore();
-    const {accessToken,name,account} =useUserStore()
+    const {accessToken,name,account} =useUserStore();
 
     const GetPattern = ()=>{
         axios
-            .post('https://ijoah01.duckdns.org/api/bank/analyze',{
+            .post('https://j9c210.p.ssafy.io/api1/bank/analyze',{
                 accountNumber: account
             },{
                 headers: {
@@ -91,7 +91,7 @@ const PatternGraph = () => {
             </ChildInfoContainer>
         <div style={{ display:'center', width: '90vw', height: '40vh', justifyContent:'center' }}>
                   <ResponsivePie
-        data={dumydata}
+        data={data}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
         innerRadius={0.5}
         padAngle={0.7}

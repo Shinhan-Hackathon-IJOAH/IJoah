@@ -9,10 +9,15 @@ import { ko } from 'date-fns/locale';
 import { format } from 'date-fns';
 import { DateRange, DayPicker } from 'react-day-picker';
 import './Calendar.css';
+import {useUserStore} from "../../store/UserStore"
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 // const pastMonth = new Date();
 
 const GiveMissionDetail = () => {
+    const navigate = useNavigate();
+    const {accessToken,balance} =useUserStore()
     const pastMonth = new Date();
     const [startDay, setStartDay] = useState<string>('');
     const [endDay, setEndDay] = useState<string>('');
@@ -36,6 +41,16 @@ const GiveMissionDetail = () => {
         setEndDay(format(range?.to || pastMonth, 'yyyy-MM-dd'));
     }, [range?.to]);
 
+    useEffect(()=>{
+        if(parseInt(missionReward, 10) > balance){
+            Swal.fire({
+                icon: 'warning',
+                title: '보유금액을 초과했습니다',
+              });
+            setMissionReward('0')
+        }
+    },[missionReward])
+
     const handleTitleChange = (event: any) => {
         setMissionTitle(event.target.value);
       };
@@ -45,17 +60,55 @@ const GiveMissionDetail = () => {
       };
 
     const handleButton = () =>{
+        if(missionTitle===''){
+            Swal.fire({
+                icon: 'warning',
+                title: '미션 제목을 입력해주세요',
+              });
+        }
+        else if(missionDetail===''){
+            Swal.fire({
+                icon: 'warning',
+                title: '세부 내용을 입력해주세요',
+              });
+        }
+        else if(startDay===''){
+            Swal.fire({
+                icon: 'warning',
+                title: '시작 날을 선택해주세요',
+              });
+        }
+        else if(endDay===''){
+            Swal.fire({
+                icon: 'warning',
+                title: '끝나는날을 선택해주세요',
+              });
+        }
+        else if(missionReward===''){
+            Swal.fire({
+                icon: 'warning',
+                title: '보상을 입력해주세요',
+              });
+        }
+        else{
         axios
             .post(
-                'https://ijoah01.duckdns.org/api/mission',{missionTitle,missionDetail,missionReward}
+                'https://j9c210.p.ssafy.io/api1/mission',{missionTitle,missionDetail,startDay,endDay,missionReward}
+                ,{
+                    headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    },
+                }
             )
             .then((response)=>{
                 console.log(response)
+                navigate('/parent');
+                 
             })
             .catch((error)=>{
                 console.log(error)
             })
-
+        }
     }
     return (
         <GiveMissionContainer>
