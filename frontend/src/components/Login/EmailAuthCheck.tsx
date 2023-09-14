@@ -28,7 +28,7 @@ const EmailAuthCheck = () => {
   const checkAuthCode = () => {
     const authCode: string = inputAuthCode.toString();
     axios
-      .post('https://ijoah01.duckdns.org/api/emails/check', {
+      .post('https://j9c210.p.ssafy.io/api1/emails/check', {
         email: signUpEmail,
         code: authCode,
       })

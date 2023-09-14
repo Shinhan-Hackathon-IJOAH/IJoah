@@ -71,7 +71,7 @@ export default function SignUp() {
     }
     // 패스워드랑 패스워드 확인이랑 일치하면 회원가입 진행
     axios
-      .post('https://ijoah01.duckdns.org/api/members/join', {
+      .post('https://j9c210.p.ssafy.io/api1/members/join', {
         name: name,
         email: signUpEmail,
         password: password,
@@ -96,7 +96,7 @@ export default function SignUp() {
         console.log('되겠냐');
         console.log(error);
         console.log('name', name);
-        console.log('email', email);
+        console.log('email', signUpEmail);
         console.log('password', password);
         console.log('phoneNumber', phoneNumber);
         console.log('birthDate', birthDate);

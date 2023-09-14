@@ -65,10 +65,11 @@ const AlarmPage = () => {
   // 알람 삭제하는 것을 카운트 하는 state를 만들고, 이 변수값이 올라갈 때마다 다시 알람 페이지 렌더링하기.
   const [deleteAlarmCount, setDeleteAlarmCount] = useState(0);
   // 알람 확인하기 Axios (페이지 렌더링 되자마자 쏴야함.)
-  const { accessToken, email } = useUserStore(); // 알람확인 GET 요청을 위한 accessToken, email 가져오기
+  const { accessToken, email, id } = useUserStore(); // 알람확인 GET 요청을 위한 accessToken, email 가져오기
+  const strid = String(id);
   useEffect(() => {
     axios
-      .get(`https://ijoah01.duckdns.org/api/diaries/${email}`, {
+      .get(`https://j9c210.p.ssafy.io/api1/alarm/${email}`, {
         headers: {
           // Accept: "application/json",
           Authorization: `Bearer ${accessToken}`,
@@ -85,11 +86,36 @@ const AlarmPage = () => {
       });
   }, [deleteAlarmCount]);
 
+  // 아이 등록 승인하기
+  const approveAlarm = (alarmId: number, parentId: number) => {
+    axios
+      .post(
+        'https://j9c210.p.ssafy.io/api1/families/permitchild',
+        {
+          childId: strid, // 이 부분은 필요에 따라 채워 넣으세요.
+          parentId: parentId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      .then((res) => {
+        console.log('부모 등록하는 거 성공함');
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(typeof strid);
+        console.log('부모 등록 실패');
+        console.log(err);
+      });
+  };
   // 알람 지우기 Axios (읽기 버튼 누를 때마다 Axios 전송)
 
   const deleteAlarm = (alarmId: number) => {
     axios
-      .post(`https://ijoah01.duckdns.org/api/alarm/${alarmId}`, {
+      .post(`https://j9c210.p.ssafy.io/api1/alarm/${alarmId}`, {
         headers: {
           // Accept: "application/json",
           Authorization: `Bearer ${accessToken}`,
@@ -152,16 +178,45 @@ const AlarmPage = () => {
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <Button
-                      className="font-['HSYuji-Regular']"
-                      color="orange"
-                      onClick={() => {
-                        deleteAlarm(data.id);
-                        setDeleteAlarmCount(deleteAlarmCount + 1);
-                      }}
-                    >
-                      읽음
-                    </Button>
+                    {data.notificationType === 'CHILD_ENROLL' ? (
+                      <div className="flex flex-row gap-1">
+                        <div>
+                          <Button
+                            className="font-['HSYuji-Regular']"
+                            color="green"
+                            onClick={() => {
+                              approveAlarm(data.id, data.parentInfo);
+                              setDeleteAlarmCount(deleteAlarmCount + 1);
+                            }}
+                          >
+                            ✔
+                          </Button>
+                        </div>
+                        <div>
+                          <Button
+                            className="font-['HSYuji-Regular']"
+                            color="red"
+                            onClick={() => {
+                              deleteAlarm(data.id);
+                              setDeleteAlarmCount(deleteAlarmCount + 1);
+                            }}
+                          >
+                            ✖
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <Button
+                        className="font-['HSYuji-Regular']"
+                        color="orange"
+                        onClick={() => {
+                          deleteAlarm(data.id);
+                          setDeleteAlarmCount(deleteAlarmCount + 1);
+                        }}
+                      >
+                        읽음
+                      </Button>
+                    )}
                   </div>
                 </div>
               </ListItem>
