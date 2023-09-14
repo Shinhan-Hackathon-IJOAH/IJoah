@@ -88,20 +88,6 @@ public class MemberService {
 
     }
 
-    public void registFamily(MemberRegistFamilyServiceRequest request){
-        Member parent = memberRepository.findById(request.getParentId())
-                        .orElseThrow(
-                                () -> new EntityNotFoundException(ErrorCode.NOTMATCH_MEMBER_ID)
-                        );
-
-        Member child =  memberRepository.findById(request.getChildId())
-                .orElseThrow(
-                        () -> new EntityNotFoundException(ErrorCode.NOTMATCH_MEMBER_ID)
-                );
-
-        familyRepository.save(Family.of(parent, child));
-    }
-
     private String encodePassword(String password){
         return bCryptPasswordEncoder.encode(password);
     }

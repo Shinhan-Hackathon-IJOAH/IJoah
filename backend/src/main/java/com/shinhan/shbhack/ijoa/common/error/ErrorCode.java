@@ -23,6 +23,9 @@ public enum ErrorCode {
     NOTMATCH_MEMBER_ID(400, "M005", "존재하지 않는 회원입니다!"),
     MEMBER_DUPLICATE(400, "M006", "중복된 회원입니다.@@"),
 
+    // Family
+    REGIST_MYSELF(400, "F001", "자신을 가족으로 등록 할 수 없습니다."),
+
     // Email
     NOTMATCH_EMAIL(400, "E001", "이메일이 일치하지 않습니다!"),
     NOTMATCH_EMAIL_CODE(400, "E002", "인증 코드가 다릅니다!"),
