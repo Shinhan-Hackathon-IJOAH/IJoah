@@ -9,6 +9,7 @@ import com.shinhan.shbhack.ijoa.domain.member.entity.enums.MemberRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.shinhan.shbhack.ijoa.domain.member.entity.QMission.mission;
@@ -23,7 +24,9 @@ public class MissionQueryRepository {
         return queryFactory
                 .selectFrom(mission)
                 .where(isParent(memberId, memberRole),
-                        isStatus(accomplishment)
+                        isStatus(accomplishment),
+                        mission.startDate.goe(LocalDate.now()),
+                        mission.endDate.loe(LocalDate.now())
                 )
                 .fetch();
     }

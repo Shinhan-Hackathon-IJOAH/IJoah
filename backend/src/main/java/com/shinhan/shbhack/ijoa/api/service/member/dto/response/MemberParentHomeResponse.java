@@ -73,4 +73,5 @@ public class MemberParentHomeResponse {
                         .collect(Collectors.toList()))
                 .build();
     }
+
 }

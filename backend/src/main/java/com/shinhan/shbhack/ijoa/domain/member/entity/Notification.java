@@ -30,6 +30,9 @@ public class Notification extends BaseEntity {
     private Long id;
 
     @NotNull
+    private String content;
+
+    @NotNull
     @Enumerated(STRING)
     private NotificationType notificationType;
 
@@ -47,11 +50,11 @@ public class Notification extends BaseEntity {
     @JoinColumn(name = "sender_id")
     private Member sender;
 
-    @ManyToOne
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "mission_id")
     private Mission mission;
 
-    private String content;
+
 
     private String parentInfo;
 
@@ -68,10 +71,6 @@ public class Notification extends BaseEntity {
         this.parentInfo = parentInfo;
     }
 
-
-
-
-
     public static Notification of(AlarmNotifyRequest alarmNotifyRequest){
         Notification notification = new Notification();
         notification.confirmStatus = alarmNotifyRequest.getConfirmStatus();
@@ -83,4 +82,21 @@ public class Notification extends BaseEntity {
         notification.parentInfo = alarmNotifyRequest.getParentInfo();
         return notification;
     }
+
+    // TODO: 2023-09-15 미션 알람 추가
+//    public static Notification ofMission(Member sender, Member receiver, NotificationType){
+//         return Notification.builder()
+//
+//
+//    }
+
+//      this.id = id;
+//        this.notificationType = notificationType;
+//        this.confirmStatus = confirmStatus;
+//        this.receiver = receiver;
+//        this.sender = sender;
+//        this.mission = mission;
+//        this.content = content;
+//        this.parentInfo = parentInfo;
+
 }
