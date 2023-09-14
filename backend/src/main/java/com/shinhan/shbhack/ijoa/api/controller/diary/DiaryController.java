@@ -43,10 +43,11 @@ public class DiaryController {
 
 
 
-    @PostMapping(value="", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<?> writeDiary(@RequestPart(value = "info") DiaryCreateRequest diaryCreateRequest,
-                                        @RequestPart(value="images")List<MultipartFile> images,
-                                        @RequestPart(value="record")MultipartFile record){
+//    @PostMapping(value="", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+@PostMapping("/")
+ public ResponseEntity<?> writeDiary(@RequestPart(value = "info") DiaryCreateRequest diaryCreateRequest,
+                                        @RequestPart(value="images", required = false)List<MultipartFile> images,
+                                        @RequestPart(value="record",required = false)MultipartFile record){
         diaryCreateRequest.setPhoto(images);
         diaryCreateRequest.setRecord(record);
         diaryService.writeDiary(new DiaryCreateServiceRequest(diaryCreateRequest));
