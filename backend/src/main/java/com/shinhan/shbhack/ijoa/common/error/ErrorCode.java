@@ -20,11 +20,16 @@ public enum ErrorCode {
     LOGIN_INPUT_INVALID(400, "M002", "아이디 비밀번호를 확인해 주세요!"),
     NOTMATCH_MEMBER_EMAIL(400, "M003", "존재하지 않는 회원입니다!"),
     NOTMATCH_MEMBER_PASSWORD(400, "M004", "비밀번호가 일치하지 않습니다!"),
-    NOTMATCH_MEMBER_ID(400, "M005", "존재하지 않는 회원입니다!"),
+    NOTMATCH_MEMBER_ID(400, "M005", "존재하지 않는 회원입니다@@"),
+    MEMBER_DUPLICATE(400, "M006", "중복된 회원입니다.@@"),
+
+    // Family
+    REGIST_MYSELF(400, "F001", "자신을 가족으로 등록 할 수 없습니다."),
 
     // Email
     NOTMATCH_EMAIL(400, "E001", "이메일이 일치하지 않습니다!"),
     NOTMATCH_EMAIL_CODE(400, "E002", "인증 코드가 다릅니다!"),
+    EMAIL_FORM_ERROR(400, "E003", "이메일 양식 만들기에 실패하였습니다.@@"),
 
     // Token
     INVALID_TOKEN(401, "T001", "올바르지 않은 토큰입니다!"),

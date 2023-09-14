@@ -22,6 +22,9 @@ const DiaryCalendar = () => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={['DatePicker']}>
           <DatePicker
+          // 미래는 선택 못하는 옵션.
+          disableFuture
+          ={true}
             label="날짜를 선택해주세요"
             onChange={(newDate: dayjs.Dayjs | null) => {
               if (newDate) {

@@ -66,6 +66,7 @@ public class MemberService {
         return MemberChildHomeResponse.of(member);
     }
 
+    // TODO: 2023-09-14 리팩토링 필요
     public void updateMember(MemberModifyServiceRequest request, MultipartFile file){
         Member member = memberRepository.findById(request.getId())
                 .orElseThrow(
@@ -77,6 +78,7 @@ public class MemberService {
 
         try {
             UploadFile uploadFile = createUploadFile(file);
+            if(uploadFile == null) return;
             ProfileImage profileImage = member.getProfileImage();
             if(profileImage == null){
                 profileImageRepository.save(ProfileImage.of(uploadFile, member));
@@ -86,20 +88,6 @@ public class MemberService {
             throw new InvalidValueException(ErrorCode.INVALID_FILE);
         }
 
-    }
-
-    public void registFamily(MemberRegistFamilyServiceRequest request){
-        Member parent = memberRepository.findById(request.getParentId())
-                        .orElseThrow(
-                                () -> new EntityNotFoundException(ErrorCode.NOTMATCH_MEMBER_ID)
-                        );
-
-        Member child =  memberRepository.findById(request.getChildId())
-                .orElseThrow(
-                        () -> new EntityNotFoundException(ErrorCode.NOTMATCH_MEMBER_ID)
-                );
-
-        familyRepository.save(Family.of(parent, child));
     }
 
     private String encodePassword(String password){

@@ -3,7 +3,8 @@ import { Button } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import { useDiaryStore } from '../../store/DiaryStore';
 import axios from 'axios';
-import {Icon} from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 const BottomButton = () => {
   const { title, content, date, weatherMood, picture, voice, file } = useDiaryStore();
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const BottomButton = () => {
     formData.append('info', new Blob([JSON.stringify(info)], { type: 'application/json' }));
 
     // 사진이 1개 이상인 경우에만 for문 돌려서 사진 formData에 담기
-    if (file.length !== 0) {
+    if (file !== null) {
       for (let i = 0; i < file.length; i++) {
         const pic = file[i]; // 각 파일은 file 객체입니다.
         console.log(pic);
@@ -32,12 +33,17 @@ const BottomButton = () => {
 
     const voiceBlob = new Blob([voice]);
     formData.append('record', voiceBlob);
+    console.log(voiceBlob);
     console.log(formData);
 
     axios
-      .post('https://ijoah01.duckdns.org/api/diaries/', formData)
+      .post('https://j9c210.p.ssafy.io/api1/diaries/', formData)
       .then((response: any) => {
-        console.log('성공');
+        Swal.fire({
+          icon: 'success',
+          title: '일기 작성 완료!',
+        });
+        navigate('/child');
       })
       .catch((error: any) => {
         console.log('제목', title, typeof title);

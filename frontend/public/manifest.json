@@ -1,16 +1,31 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "모아일기",
+  "name": "모아일기",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
+      "src": "MoaLogo.png",
       "type": "image/png",
       "sizes": "192x192"
+    },
+    {
+      "src": "Moa_64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "Moa_32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "Moa_16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "Moa_24.png",
+      "type": "image/png",
+      "sizes": "24x24"
     },
     {
       "src": "logo512.png",
@@ -20,6 +35,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#F8A70C",
+  "background_color": "#FFECC8"
 }

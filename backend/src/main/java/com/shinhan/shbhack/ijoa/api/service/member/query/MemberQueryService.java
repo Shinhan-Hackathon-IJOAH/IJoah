@@ -30,10 +30,6 @@ public class MemberQueryService {
     private final JwtUtil jwtUtil;
     private final RedisUtil redisUtil;
 
-    public void searchExistMemberByEmail(String email){
-        if(memberRepository.existsByEmail(email)) throw new EntityNotFoundException(ErrorCode.EMAIL_DUPLICATION);
-    }
-
     public MemberTokenResponse loginMember(MemberLoginServiceRequest request){
 
         Member member = memberRepository.findByEmail(request.getEmail())

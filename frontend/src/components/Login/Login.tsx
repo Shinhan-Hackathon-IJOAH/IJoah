@@ -20,6 +20,8 @@ const Login = () => {
     setRefreshToken,
     memberRole,
     setMemberRole,
+    id,
+    setId,
   } = useUserStore();
   const navigate = useNavigate();
 
@@ -39,58 +41,66 @@ const Login = () => {
   // 로그인 axios 함수
   async function login() {
     if (emailId === '') {
-      Swal.fire({
+      await Swal.fire({
         icon: 'error',
         title: '아이디를 입력해주세요.',
       });
       return;
-    }
-    if (password === '') {
-      Swal.fire({
+    } else if (password === '') {
+      await Swal.fire({
         icon: 'error',
         title: '비밀번호를 입력해주세요.',
       });
       return;
     }
 
-    const response = await axios
-      .post('https://ijoah01.duckdns.org/api/members/login', {
-        email: emailId,
-        password: password,
-      })
-      .then((response: any) => {
-        console.log(response.data.data);
-        console.log(response.data.accessToken);
+    try {
+      const response = await axios
+        .post('https://j9c210.p.ssafy.io/api1/members/login', {
+          email: emailId,
+          password: password,
+        })
+        .then((response: any) => {
+          console.log(response.data.data);
+          console.log(response.data.accessToken);
 
-        // localStorage에 JWT 토큰 저장
-        localStorage.setItem('accessToken', response.data.data.accessToken);
-        localStorage.setItem('refreshToken', response.data.data.refreshToken);
-        setAccessToken(response.data.data.accessToken);
-        setRefreshToken(response.data.data.refreshToken);
-        setName(response.data.data.name);
-        setEmail(response.data.data.email);
-        setMemberRole(response.data.data.memberRole);
-        console.log(response.data.data.memberRole);
-        console.log(memberRole);
-        Swal.fire({
-          icon: 'success',
-          title: '로그인에 성공했습니다.',
+          // localStorage에 JWT 토큰 저장
+          localStorage.setItem('accessToken', response.data.data.accessToken);
+          localStorage.setItem('refreshToken', response.data.data.refreshToken);
+          setAccessToken(response.data.data.accessToken);
+          setRefreshToken(response.data.data.refreshToken);
+          setName(response.data.data.name);
+          setEmail(response.data.data.email);
+          setMemberRole(response.data.data.memberRole);
+          console.log(response.data.data.memberRole);
+          console.log(memberRole);
+          setId(response.data.data.id);
+          console.log(id);
+          Swal.fire({
+            icon: 'success',
+            title: '로그인에 성공했습니다.',
+          });
+          if (response.data.data.memberRole === 'PARENT') {
+            navigate('/parent');
+          } else if (response.data.data.memberRole === 'CHILD') {
+            navigate('/child');
+          }
         });
-        if (response.data.data.memberRole === 'PARENT') {
-          navigate('/parent');
-        } else if (response.data.data.memberRole === 'CHILD') {
-          navigate('/child');
-        }
-      })
-      .catch((error: any) => {
-        console.log(error);
-        Swal.fire({
-          icon: 'error',
-          title: '로그인에 실패했습니다.',
-          text: '다시 시도해주세요.',
-        });
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: '로그인에 실패했습니다.',
+        text: '다시 시도해주세요.',
       });
+    }
   }
+  // 엔터키 감지해서 로그인하기
+  const activeEnter = (event: any) => {
+    if (event.key === 'Enter') {
+      login();
+    }
+  };
 
   return (
     // <div className="flex justify-center items-center h-screen bg-[#F8A70C;]">
@@ -140,6 +150,7 @@ const Login = () => {
           label="아이디"
           crossOrigin={undefined}
           onChange={handleIdChange}
+          onKeyDown={(event) => activeEnter(event)}
           style={{ backgroundColor: '#ffffff' }}
         />
         <Input
@@ -147,6 +158,7 @@ const Login = () => {
           label="비밀번호"
           type="password"
           onChange={handlePasswordChange}
+          onKeyDown={(event) => activeEnter(event)}
           crossOrigin={undefined}
           style={{ backgroundColor: '#ffffff' }}
         />

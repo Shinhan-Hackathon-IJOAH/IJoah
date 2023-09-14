@@ -5,6 +5,8 @@ import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberLoginReq
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberModifyRequest;
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberRegistFamilyRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.command.MemberService;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberCreateServiceRequest;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberLoginServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberRegistFamilyServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberChildHomeResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberModifyServiceRequest;
@@ -32,7 +34,7 @@ public class MemberController {
     @PostMapping("/join")
     @ApiOperation(value = "회원 가입")
     public ApiData<String> joinMember(@RequestBody @Valid MemberCreateRequest request){
-        memberService.createMember(request.toServiceRequest());
+        memberService.createMember(MemberCreateServiceRequest.of(request));
 
         return ApiData.of("회원가입에 성공하였습니다!");
     }
@@ -40,7 +42,7 @@ public class MemberController {
     @PostMapping("/login")
     @ApiOperation(value = "로그인")
     public ApiData<MemberTokenResponse> loginMember(@RequestBody @Valid MemberLoginRequest request){
-        return ApiData.of(memberQueryService.loginMember(request.toServiceRequest()));
+        return ApiData.of(memberQueryService.loginMember(MemberLoginServiceRequest.of(request)));
     }
 
     @GetMapping("/parent/{memberId}")
@@ -62,16 +64,5 @@ public class MemberController {
         memberService.updateMember(MemberModifyServiceRequest.of(request), file);
         return ApiData.of("회원 정보 수정이 완료되었습니다!");
     }
-
-    @PostMapping("/family/regist")
-    @ApiOperation(value = "아이 등록")
-    public ApiData<String> registFamily(@RequestBody MemberRegistFamilyRequest request){
-
-        memberService.registFamily(MemberRegistFamilyServiceRequest.of(request));
-        return ApiData.of("아이 등록이 성공하였습니다!");
-    }
-
-
-
 
 }
