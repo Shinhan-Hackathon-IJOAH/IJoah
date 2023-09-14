@@ -25,7 +25,7 @@ export const ButtonContainer = styled.div`
 export const TitleTag = styled.div`
     font-size: 3.2rem;
     font-weight: 600;
-    margin-top:80px;
+
 `
 
 export const InputTag = styled.div`

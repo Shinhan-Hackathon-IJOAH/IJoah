@@ -5,7 +5,7 @@ import ReadDirayButton from "../../../components/ChildMain/ReadDirayButton";
 import WriteDiaryButton from "../../../components/ChildMain/WriteDiaryButton";
 import TradeListButton from "../../../components/ChildMain/TradeListButton";
 import BottomNav from "../../../components/Common/BottomNav";
-import {ChildMainPageContent,Logo,ButtonContainer,SideButtonContainer} from "./ChildMainPageStyles"
+import {ButtonColum,ChildMainPageContent,Logo,ButtonContainer,SideButtonContainer} from "./ChildMainPageStyles"
 import {useUserStore} from "../../../store/UserStore"
 import axios from "axios";
 
@@ -86,6 +86,7 @@ const ChildMainPage = () => {
   return (
     <ChildMainPageContent>
       <Logo />
+      <ButtonColum>
       <ChildInfo />
       <ButtonContainer >
         <SideButtonContainer>
@@ -97,6 +98,7 @@ const ChildMainPage = () => {
           <ChildMissionButton />
         </SideButtonContainer>
       </ButtonContainer>
+      </ButtonColum>
       <BottomNav />
     </ChildMainPageContent>
   );

@@ -36,7 +36,7 @@ const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle
                 미션 보상:{missionamount}원
                 </FontTag>
             </MissionTagContainer>
-            <CompleteButton onClick={complete}>완료 요청</CompleteButton>
+            <CompleteButton onClick={complete}>진행중</CompleteButton>
         </MissionItemContainer>
     );
 };

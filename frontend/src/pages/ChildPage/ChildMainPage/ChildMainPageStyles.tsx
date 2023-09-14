@@ -21,10 +21,8 @@ export const Logo = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  position: absolute;
-  top: 30%;
   height: 50vh;
-  width: 80vw;
+  width: 100%;
 `;
 
 export const SideButtonContainer = styled.div`
@@ -32,4 +30,16 @@ export const SideButtonContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  width:48%;
 `;
+
+export const ButtonColum = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;   
+    top: 10%;
+    height: 76vh;
+    width:330px; 
+`
