@@ -27,7 +27,7 @@ public class MissionService {
         Member parent = findMember(request.getParentId());
         Member child = findMember(request.getChildId());
 
-        Notification.ofMission(parent, child);
+//        Notification.ofMission(parent, child);
     }
 
     private Member findMember(Long id){

@@ -28,6 +28,7 @@ public class AccountResponse {
     }
 
     public static AccountResponse of(Account account){
+        if(account == null) return null;
         return AccountResponse.builder()
                 .accountId(account.getAccountId())
                 .name(account.getName())

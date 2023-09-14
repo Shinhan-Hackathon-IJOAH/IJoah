@@ -83,11 +83,12 @@ public class Notification extends BaseEntity {
         return notification;
     }
 
-    public static Notification ofMission(Member sender, Member receiver, NotificationType){
-         return Notification.builder()
-
-
-    }
+    // TODO: 2023-09-15 미션 알람 추가
+//    public static Notification ofMission(Member sender, Member receiver, NotificationType){
+//         return Notification.builder()
+//
+//
+//    }
 
 //      this.id = id;
 //        this.notificationType = notificationType;

@@ -24,9 +24,7 @@ public class ProfileImageResponse {
     }
 
     public static ProfileImageResponse of(ProfileImage profileImage){
-        if (profileImage == null) {
-            return null;
-        }
+        if (profileImage == null) return null;
         return ProfileImageResponse.builder()
                 .profileImageId(profileImage.getId())
                 .fileName(profileImage.getUploadFile().getStoreFileName())
