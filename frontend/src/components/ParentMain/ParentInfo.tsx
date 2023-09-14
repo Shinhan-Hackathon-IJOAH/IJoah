@@ -17,12 +17,22 @@ const ParentInfo = () => {
                 />
                 <div>
                 <Typography variant="h6">{name}부모님</Typography>
-                <Typography variant="small" color="gray" className="font-normal">
-                    {account}
-                </Typography>
-                <Typography variant="small" color="gray" className="font-normal">
-                    보유 자산: {balance}원
-                </Typography>
+                {account ? (
+                    <>
+                    <Typography variant="small" color="gray" className="font-normal">
+                        계좌를 등록해주세요
+                    </Typography>
+                    </>
+                ) : (
+                    <>
+                    <Typography variant="small" color="gray" className="font-normal">
+                        {account}
+                    </Typography>
+                    <Typography variant="small" color="gray" className="font-normal">
+                        보유 자산: {balance}원
+                    </Typography>
+                    </>
+                )}
                 </div>
             </div>
         </ParentInfoContainer>

@@ -7,12 +7,16 @@ import BottomNav from '../Common/BottomNav';
 
 
 const ParentRegister = () => {
-    const [childaccount, setChildAccount] = useState('');
+    // const [childaccount, setChildAccount] = useState('');
     const [childid, setChildId] = useState('');
-    const {accessToken} =useUserStore()
+    const {accessToken,id} =useUserStore();
+    
     const registerChild=()=>{
         axios
-            .post('https://ijoah01.duckdns.org/api/member/child-regist',{childaccount,childid},{
+            .post('https://j9c210.p.ssafy.io/api1/families/registchild',{
+            parentId:id,
+            childEmail:childid 
+            },{
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                     },

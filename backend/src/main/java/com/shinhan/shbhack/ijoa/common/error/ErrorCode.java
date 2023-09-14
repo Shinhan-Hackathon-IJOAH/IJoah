@@ -20,7 +20,7 @@ public enum ErrorCode {
     LOGIN_INPUT_INVALID(400, "M002", "아이디 비밀번호를 확인해 주세요!"),
     NOTMATCH_MEMBER_EMAIL(400, "M003", "존재하지 않는 회원입니다!"),
     NOTMATCH_MEMBER_PASSWORD(400, "M004", "비밀번호가 일치하지 않습니다!"),
-    NOTMATCH_MEMBER_ID(400, "M005", "존재하지 않는 회원입니다!"),
+    NOTMATCH_MEMBER_ID(400, "M005", "존재하지 않는 회원입니다@@"),
     MEMBER_DUPLICATE(400, "M006", "중복된 회원입니다.@@"),
 
     // Family

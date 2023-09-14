@@ -7,6 +7,7 @@ import { Tab } from "semantic-ui-react";
 import axios from 'axios';
 import {useSelectChildStore} from '../../store/SelectChildStore'
 import {Avatar} from "@material-tailwind/react";
+import {useUserStore} from "../../store/UserStore"
 
 interface Mission {
     compelete: {
@@ -32,11 +33,12 @@ interface Mission {
 const MissionList = () => {
     const {childname,childimg}=useSelectChildStore();
     const [missionlist, setMissionList] = useState<Mission>();
+    const {accessToken} =useUserStore()
     const getMissionList = () =>{
         axios
         .get(`....`, {
             headers: {
-            Authorization: `Bearer`,
+            Authorization: `Bearer ${accessToken}`,
             },
         })
         .then((response) => {

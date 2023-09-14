@@ -5,7 +5,6 @@ import {useSelectChildStore} from '../../store/SelectChildStore'
 
 const GivMissionButton = () => {
     const navigate = useNavigate();
-    const {childname}=useSelectChildStore();
 
     return (
         <GiveMissionContainer

@@ -15,7 +15,7 @@ import BackPageButton from '../Common/BackPageButton';
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
 const TradeList = () => {
-  const { accessToken } = useUserStore();
+  const { accessToken, account } = useUserStore();
   // 더미데이터
   const dummyData = {
     accountNumber: '110111111111',
@@ -40,9 +40,9 @@ const TradeList = () => {
   useEffect(() => {
     axios
       .post(
-        'https://ijoah01.duckdns.org/api/bank/transactions',
+        'https://j9c210.p.ssafy.io/api1/bank/transactions',
         {
-          accountNumber: '110111222222',
+          accountNumber: account,
         },
         {
           headers: {
@@ -58,6 +58,8 @@ const TradeList = () => {
       .catch((err) => {
         console.log(err);
         console.log(accessToken);
+        console.log(typeof account);
+        console.log(account);
       });
   }, []);
 

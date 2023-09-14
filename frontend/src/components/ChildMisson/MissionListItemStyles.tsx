@@ -23,16 +23,9 @@ export const CompleteButton = styled.div`
     color: white;
 `
 export const RequestButton = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:25%;
-    height: 50%;
-    background-color: black;
     font-family: 'HSYuji-Regular';
     font-size: 14px;
-    border-radius: 25px;
-    color: white;
+    color: black;
 `
 export const CompeleteFont= styled.div`
     font-family: 'HSYuji-Regular';
