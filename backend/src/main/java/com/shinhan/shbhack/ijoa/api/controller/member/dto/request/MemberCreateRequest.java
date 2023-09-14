@@ -49,15 +49,4 @@ public class MemberCreateRequest {
     @NotNull
     private MemberRole memberRole;
 
-    public MemberCreateServiceRequest toServiceRequest(){
-        return MemberCreateServiceRequest.builder()
-                .name(name)
-                .email(email)
-                .password(password)
-                .phoneNumber(phoneNumber)
-                .birthDate(birthDate)
-                .gender(gender)
-                .memberRole(memberRole)
-                .build();
-    }
 }

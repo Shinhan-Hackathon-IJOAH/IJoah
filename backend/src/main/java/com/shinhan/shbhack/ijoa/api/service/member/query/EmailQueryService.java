@@ -2,8 +2,10 @@ package com.shinhan.shbhack.ijoa.api.service.member.query;
 
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.EmailCheckServiceRequest;
 import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.exception.EntityNotFoundException;
 import com.shinhan.shbhack.ijoa.common.error.exception.InvalidValueException;
 import com.shinhan.shbhack.ijoa.common.util.RedisUtil;
+import com.shinhan.shbhack.ijoa.domain.member.repository.datajpa.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -28,13 +30,21 @@ import java.util.Random;
 public class EmailQueryService {
 
     private final JavaMailSender emailSender;
+    private final MemberRepository memberRepository;
     private final RedisUtil redisUtil;
 
     public void sendEmail(String email) throws MessagingException, UnsupportedEncodingException {
-        String code = createCode();
-        MimeMessage emailForm = createEmailForm(email, code);
+        if(memberRepository.existsByEmail(email))
+            throw new EntityNotFoundException(ErrorCode.MEMBER_DUPLICATE);
 
-        emailSender.send(emailForm);
+        String code = createCode();
+
+        try {
+            MimeMessage emailForm = createEmailForm(email, code);
+            emailSender.send(emailForm);
+        }catch (Exception e){
+            throw new InvalidValueException(ErrorCode.EMAIL_FORM_ERROR);
+        }
 
         redisUtil.setEmail(email, code);
     }
@@ -87,17 +97,5 @@ public class EmailQueryService {
 
         redisUtil.deleteEmail(request.getEmail());
     }
-
-//    public void sendCodeToEmail(String toEmail) {
-//         이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
-//        redisService.setValues(AUTH_CODE_PREFIX + toEmail,
-//                authCode, Duration.ofMillis(this.authCodeExpirationMillis));
-//    }
-
-
-
-
-
-
 
 }
