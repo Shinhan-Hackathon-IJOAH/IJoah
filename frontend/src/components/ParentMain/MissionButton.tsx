@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import {MissionListContainer} from "./MissionButtonStyles"
+import {MissionListContainer,MissionListImg,FontTag} from "./MissionButtonStyles"
 
 const MissionButton = () => {
     const navigate = useNavigate();
@@ -9,7 +9,8 @@ const MissionButton = () => {
         onClick={() => {
             navigate("/parent/mission");
           }}>
-            부여한 미션내역
+        <MissionListImg/>
+            <FontTag>부여한 미션</FontTag>
         </MissionListContainer>
     );
 };

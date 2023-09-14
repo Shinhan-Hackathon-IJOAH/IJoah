@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import {WriteContainer,WriteImg} from "./WriteDiaryButtonStyles"
+import {WriteContainer,WriteImg,FontTag} from "./WriteDiaryButtonStyles"
 const WriteDiaryButton = () => {
   const navigate = useNavigate();
   return (
@@ -9,7 +9,7 @@ const WriteDiaryButton = () => {
     onClick={() => {
       navigate("/child/write");
     }}>
-      용돈일기장 쓰기
+      <FontTag>용돈일기장 쓰기</FontTag>
       <WriteImg/>
     </WriteContainer>
   );

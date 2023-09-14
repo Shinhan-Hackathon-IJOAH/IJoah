@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import {MissionContainer,MissionImg} from "./ChildMissionButtonStyles"
+import {MissionContainer,MissionImg,FontTag} from "./ChildMissionButtonStyles"
 
 const ChildMissionButton = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const ChildMissionButton = () => {
       navigate("/child/mission");
     }}>
       <MissionImg/>
-        내 미션 확인하기
+      <FontTag>내 미션 확인하기</FontTag>  
       
     </MissionContainer>
   );
