@@ -30,7 +30,7 @@ const ParentRegister = () => {
                 <TitleTag>아이를 등록 해주세요</TitleTag>
                 {/* <InputTag> */}
                 <div className="mt-10 w-64">
-                    <div>
+                    {/* <div>
                     아이 계좌 정보 입력
                     <div className="mt-3">
                 <Input
@@ -42,7 +42,7 @@ const ParentRegister = () => {
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 setChildAccount(event.target.value)} />
                 </div>
-                </div>
+                </div> */}
                 <div className="mt-5">
                 아이 아이디 입력
                 <div className="mt-3">

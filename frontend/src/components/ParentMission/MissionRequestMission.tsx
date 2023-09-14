@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {MissionItemContainer,RequestButton,FontTag,MissionTagContainer} from './MissionListItemStyles'
 import axios from 'axios';
+import { IconButton } from "@material-tailwind/react";
 
 interface MissionListItemProps{
     missionid: string;
@@ -25,7 +26,12 @@ const MissionRequestItem: React.FC<MissionListItemProps> = ({missionid,missionti
                 미션 보상:{missionamount}원
                 </FontTag>
             </MissionTagContainer>
-            <RequestButton >요청중</RequestButton>
+            <IconButton color="green">
+                ✔
+            </IconButton>
+            <IconButton color="red">
+                ✖
+            </IconButton>
         </MissionItemContainer>
     );
 };

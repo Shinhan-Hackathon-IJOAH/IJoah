@@ -5,11 +5,9 @@ export const ChildInfoContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #FFECC8; 
-    position: absolute;   
-    top: 10%;   
-    height: 15vh;
-    width: 80vw;
+    background-color: #FFECC8;    
+    height: 20%;
+    width: 100%;;
     border-radius: 30px;
-    font-family: 'HSYuji-Regular';
+
 `;

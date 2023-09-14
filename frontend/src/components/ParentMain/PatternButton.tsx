@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import {PatternButtonContainer} from "./PatternButtonStyles"
+import {PatternButtonContainer,PatternImg,FontTag} from "./PatternButtonStyles"
 
 const PatternButton = () => {
     const navigate = useNavigate();
@@ -9,7 +9,8 @@ const PatternButton = () => {
         onClick={() => {
             navigate("/parent/pattern");
           }}>
-            내아이소비패턴
+            <PatternImg/>
+            <FontTag>내 아이소비패턴</FontTag>
         </PatternButtonContainer>
     );
 };

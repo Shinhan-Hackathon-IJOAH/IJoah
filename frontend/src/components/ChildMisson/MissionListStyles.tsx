@@ -16,7 +16,7 @@ export const MissionInfoContainer = styled.div`
     background-color: #FFECC8;
     border-radius: 25px;
     height: 15vh;
-    width: 100%;
+    width: 330px;
 `
 
 export const NameTag = styled.div`
