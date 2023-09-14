@@ -25,10 +25,4 @@ public class MemberLoginRequest {
     @NotNull
     private String password;
 
-    public MemberLoginServiceRequest toServiceRequest(){
-        return MemberLoginServiceRequest.builder()
-                .email(email)
-                .password(password)
-                .build();
-    }
 }

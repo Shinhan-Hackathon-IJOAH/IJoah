@@ -22,10 +22,4 @@ public class EmailCheckRequest {
 
     String code;
 
-    public EmailCheckServiceRequest toServiceRequest(){
-        return EmailCheckServiceRequest.builder()
-                .email(email)
-                .code(code)
-                .build();
-    }
 }

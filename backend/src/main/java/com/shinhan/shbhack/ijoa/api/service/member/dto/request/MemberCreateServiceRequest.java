@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.api.service.member.dto.request;
 
+import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MemberCreateRequest;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.ActivateStatus;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.Gender;
@@ -19,7 +20,7 @@ import static javax.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 
 @Getter
-@NoArgsConstructor(access = PROTECTED)
+@NoArgsConstructor
 public class MemberCreateServiceRequest {
 
     private String name;
@@ -45,6 +46,18 @@ public class MemberCreateServiceRequest {
         this.birthDate = birthDate;
         this.gender = gender;
         this.memberRole = memberRole;
+    }
+
+    public static MemberCreateServiceRequest of(MemberCreateRequest request){
+        return MemberCreateServiceRequest.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .phoneNumber(request.getPhoneNumber())
+                .birthDate(request.getBirthDate())
+                .gender(request.getGender())
+                .memberRole(request.getMemberRole())
+                .build();
     }
 
     public Member toEntity(String encodedPassword){
