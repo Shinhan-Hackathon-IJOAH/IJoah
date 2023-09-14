@@ -27,6 +27,9 @@ public class Notification extends BaseEntity {
     private Long id;
 
     @NotNull
+    private String content;
+
+    @NotNull
     @Enumerated(STRING)
     private NotificationType notificationType;
 
@@ -44,11 +47,11 @@ public class Notification extends BaseEntity {
     @JoinColumn(name = "sender_id")
     private Member sender;
 
-    @ManyToOne
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "mission_id")
     private Mission mission;
 
-    private String content;
+
 
     @Builder
     public Notification(Long id, NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, String content) {
@@ -70,5 +73,17 @@ public class Notification extends BaseEntity {
         notification.receiver = alarmNotifyRequest.getReceiver();
         notification.sender = alarmNotifyRequest.getSender();
         return notification;
+    }
+
+    public static Notification ofMission(Member sender, Member receiver){
+         return null;
+    }
+
+    public static Notification ofFriend(Member sender, Member receiver){
+        return null;
+    }
+
+    public static Notification ofFamily(Member sender, Member receiver){
+        return null;
     }
 }

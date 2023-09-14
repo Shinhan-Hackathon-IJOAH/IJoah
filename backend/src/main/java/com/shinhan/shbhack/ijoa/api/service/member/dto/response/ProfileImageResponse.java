@@ -29,7 +29,7 @@ public class ProfileImageResponse {
         }
         return ProfileImageResponse.builder()
                 .profileImageId(profileImage.getId())
-                .fileName(profileImage.getUploadFile().getUploadFileName())
+                .fileName(profileImage.getUploadFile().getStoreFileName())
                 .build();
     }
 }

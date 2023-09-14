@@ -1,11 +1,13 @@
 package com.shinhan.shbhack.ijoa.api.controller.member;
 
+import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MissionCreateRequest;
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MissionListRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MissionListServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MissionListResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MissionResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.query.MissionQueryService;
 import com.shinhan.shbhack.ijoa.common.response.ApiData;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +34,13 @@ public class MissionController {
     @ApiOperation(value = "미션 리스트")
     public ApiData<MissionListResponse> getMissionList(@RequestBody MissionListRequest request){
         return ApiData.of(missionQueryService.getMissionList(MissionListServiceRequest.of(request)));
+    }
+
+    @PostMapping("/create")
+    @ApiOperation(value = "미션 생성")
+    public ApiData<String> createMission(@RequestBody MissionCreateRequest request){
+
+        return ApiData.of("미션 생성에 성공하였습니다.");
     }
 
 }

@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.domain.member.entity;
 
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MissionCreateServiceRequest;
 import com.shinhan.shbhack.ijoa.domain.BaseEntity;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.Accomplishment;
 import lombok.AccessLevel;
@@ -63,8 +64,8 @@ public class Mission extends BaseEntity {
     @JoinColumn(name = "challenger_id")
     private Member challenger;
 
-    @OneToMany(mappedBy = "mission")
-    private List<Notification> notifications = new ArrayList<>();
+    @OneToOne(mappedBy = "mission")
+    private Notification notifications;
 
     @Builder
     public Mission(Long id, String title, String content, Long reward, LocalDate startDate, LocalDate endDate, Accomplishment accomplishment, Member writer, Member challenger, List<Notification> notifications) {
@@ -78,5 +79,19 @@ public class Mission extends BaseEntity {
         this.writer = writer;
         this.challenger = challenger;
         this.notifications = notifications;
+    }
+
+    public static Mission of(MissionCreateServiceRequest request, Member parent, Member child, Notification notification){
+        return Mission.builder()
+                .title(request.getMissionTitle())
+                .content(request.getMissionContent())
+                .reward(request.getMissionReward())
+                .startDate(request.getMissionStartDate())
+                .endDate(request.getMissionEndDate())
+                .accomplishment(Accomplishment.진행)
+                .writer(parent)
+                .challenger(child)
+                .notifications(notification)
+                .build();
     }
 }
