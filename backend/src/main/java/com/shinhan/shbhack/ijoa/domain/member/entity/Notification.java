@@ -71,10 +71,6 @@ public class Notification extends BaseEntity {
         this.parentInfo = parentInfo;
     }
 
-
-
-
-
     public static Notification of(AlarmNotifyRequest alarmNotifyRequest){
         Notification notification = new Notification();
         notification.confirmStatus = alarmNotifyRequest.getConfirmStatus();
@@ -87,15 +83,19 @@ public class Notification extends BaseEntity {
         return notification;
     }
 
-    public static Notification ofMission(Member sender, Member receiver){
-         return null;
+    public static Notification ofMission(Member sender, Member receiver, NotificationType){
+         return Notification.builder()
+
+
     }
 
-    public static Notification ofFriend(Member sender, Member receiver){
-        return null;
-    }
+//      this.id = id;
+//        this.notificationType = notificationType;
+//        this.confirmStatus = confirmStatus;
+//        this.receiver = receiver;
+//        this.sender = sender;
+//        this.mission = mission;
+//        this.content = content;
+//        this.parentInfo = parentInfo;
 
-    public static Notification ofFamily(Member sender, Member receiver){
-        return null;
-    }
 }

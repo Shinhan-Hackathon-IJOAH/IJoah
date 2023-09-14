@@ -65,7 +65,7 @@ public class Mission extends BaseEntity {
     private Member challenger;
 
     @OneToOne(mappedBy = "mission")
-    private Notification notifications;
+    private List<Notification> notifications = new ArrayList<>();
 
     @Builder
     public Mission(Long id, String title, String content, Long reward, LocalDate startDate, LocalDate endDate, Accomplishment accomplishment, Member writer, Member challenger, List<Notification> notifications) {
