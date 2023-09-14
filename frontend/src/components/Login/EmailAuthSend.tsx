@@ -28,7 +28,7 @@ const EmailAuthPage = () => {
   // 사용자로부터 입력받은 이메일 인증을 axios로 보내고 성공하면 isSendEmail을 true로 바꿔준다.
   const sendEmailAuth = () => {
     axios
-      .post('https://ijoah01.duckdns.org/api/emails/send' + `?email=${signUpEmail}`)
+      .post('https://j9c210.p.ssafy.io/api1/emails/send' + `?email=${signUpEmail}`)
       .then((response: any) => {
         console.log(response);
         console.log(response.data);

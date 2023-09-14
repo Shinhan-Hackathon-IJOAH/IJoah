@@ -22,7 +22,7 @@ interface TradeList {
 
 const TradeList = () => {
   const { date } = useDiaryStore();
-  const { accessToken } = useUserStore();
+  const { accessToken, account } = useUserStore();
   // const dummyData = {
   //   accountNumber: '110111222222',
   //   balance: 100000,
@@ -99,10 +99,10 @@ const TradeList = () => {
   useEffect(() => {
     axios
       .post(
-        'https://ijoah01.duckdns.org/api/bank/oneday-transactions',
+        'https://j9c210.p.ssafy.io/api1/bank/oneday-transactions',
         {
           date: date,
-          accountNumber: '110111222222',
+          accountNumber: account,
         },
         {
           headers: {

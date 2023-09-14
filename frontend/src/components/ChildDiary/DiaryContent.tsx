@@ -31,7 +31,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
   // diaryId 값이 바뀔 때마다 axios get 요청하는 함수
   useEffect(() => {
     axios
-      .get(`https://ijoah01.duckdns.org/api/diaries/${diaryId}`, {
+      .get(`https://j9c210.p.ssafy.io/api1/diaries/${diaryId}`, {
         headers: {
           // Accept: "application/json",
           Authorization: `Bearer ${accessToken}`,
@@ -183,7 +183,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
             <img
               className="h-96 w-96 w-full rounded-lg object-contain object-center shadow-xl shadow-blue-gray-900/50"
               key={index}
-              src={`https://ijoah01.duckdns.org/api/diaries/image/${image.storeFileName}`}
+              src={`https://j9c210.p.ssafy.io/api1/diaries/image/${image.storeFileName}`}
               alt={`Selected ${index}`}
             />
           ))}
