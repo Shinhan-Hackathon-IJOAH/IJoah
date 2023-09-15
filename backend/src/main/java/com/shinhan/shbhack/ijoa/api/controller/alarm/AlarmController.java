@@ -5,8 +5,10 @@ import com.shinhan.shbhack.ijoa.api.service.alarm.dto.response.AlarmInfoResponse
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
 
@@ -28,6 +30,11 @@ public class AlarmController {
     public ResponseEntity<?> updateAlarm(@PathVariable Long id){
         alarmService.updateAlarm(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/subscribe/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public SseEmitter subscribe(@PathVariable Long id) {
+        return alarmService.subscribe(id);
     }
 
 }
