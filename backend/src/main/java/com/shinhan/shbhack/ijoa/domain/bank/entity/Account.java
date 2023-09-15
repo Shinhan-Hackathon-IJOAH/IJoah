@@ -33,16 +33,13 @@ public class Account {
     @Column(unique = true)
     String accountNumber;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+
 
     @Builder
-    public Account(Long accountId, String name, Long balance, String accountNumber, Member member) {
+    public Account(Long accountId, String name, Long balance, String accountNumber) {
         this.accountId = accountId;
         this.name = name;
         this.balance = balance;
         this.accountNumber = accountNumber;
-        this.member = member;
     }
 }
