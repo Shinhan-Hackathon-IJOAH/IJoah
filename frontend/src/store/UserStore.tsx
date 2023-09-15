@@ -1,6 +1,6 @@
 // /src/zustand/store.ts
-import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
 
 // 일단 User에 대한 정보 담을 Store 생성해놓음. -> 에러떠서 내일 찾아봐야함.
 interface UserStore {
@@ -28,24 +28,27 @@ interface UserStore {
   setAccount: (account: any) => void;
   balance: any;
   setBalance: (balance: any) => void;
+  alarmData: any;
+  setAlarmData: (alarmData: any) => void;
 }
 
 export const useUserStore = create<UserStore>()(
   devtools(
     persist(
       (set) => ({
-        id: "",
-        name: "",
-        birthDate: "",
-        email: "",
-        phoneNumber: "",
-        address: "",
-        memberRole: "",
-        profileImage: "",
-        account: "",
-        accessToken: "",
-        refreshToken: "",
-        balance:"",
+        id: '',
+        name: '',
+        birthDate: '',
+        email: '',
+        phoneNumber: '',
+        address: '',
+        memberRole: '',
+        profileImage: '',
+        account: '',
+        accessToken: '',
+        refreshToken: '',
+        balance: '',
+        alarmData: [],
         setId: (payload) => set({ id: payload }),
         setName: (payload) => set({ name: payload }),
         setBirthDate: (payload) => set({ birthDate: payload }),
@@ -58,10 +61,11 @@ export const useUserStore = create<UserStore>()(
         setRefreshToken: (payload) => set({ refreshToken: payload }),
         setAccount: (payload) => set({ account: payload }),
         setBalance: (payload) => set({ balance: payload }),
+        setAlarmData: (payload) => set({ alarmData: payload }),
       }),
       {
-        name: "User-storage", // persist key
-      }
-    )
-  )
+        name: 'User-storage', // persist key
+      },
+    ),
+  ),
 );
