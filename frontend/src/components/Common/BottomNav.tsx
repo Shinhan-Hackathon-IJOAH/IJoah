@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../store/UserStore';
@@ -6,32 +6,42 @@ import { BottomNavContent, HomeImg, AlarmImg, MenuImg } from './BottomNavStyles'
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { Icon, Menu, Sidebar, Segment, Header, Image } from 'semantic-ui-react';
 import axios from 'axios';
-
-
+import Swal from 'sweetalert2';
 const BottomNav = () => {
-  const { memberRole,accessToken,email } = useUserStore();
+  const { memberRole, accessToken, email, id } = useUserStore();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [alarmData, setAlarmData] = useState<any[]>([]);
   const count = Object.keys(alarmData).length;
 
-  useEffect(() => {
-    axios
-      .get(`https://j9c210.p.ssafy.io/api1/alarm/${email}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => {
-        console.log('알람 내용 불러오는 거 성공함');
-        console.log(res.data);
-        setAlarmData(res.data);
-      })
-      .catch((err) => {
-        console.log('에러..');
-        console.log(err);
-      });
-  }, []);
+  // SSE 연결을 위한 테스트
+
+  const eventSource = new EventSource(`https://j9c210.p.ssafy.io/api1/alarm/subscribe/${id}`);
+
+  eventSource.addEventListener('sse', (event) => {
+    Swal.fire({
+      icon: 'success',
+      title: '새로운 알람이 도착했습니다!',
+    });
+
+    console.log(event);
+  });
+
+  axios
+    .get(`https://j9c210.p.ssafy.io/api1/alarm/${email}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .then((res) => {
+      console.log('알람 내용 불러오는 거 성공함');
+      console.log(res.data);
+      setAlarmData(res.data);
+    })
+    .catch((err) => {
+      console.log('에러..');
+      console.log(err);
+    });
 
   const handleMenuClick = () => {
     setVisible(!visible);
@@ -49,8 +59,7 @@ const BottomNav = () => {
     }
   };
   const handleRegisterClick = () => {
-     navigate('/parent/register');
-   
+    navigate('/parent/register');
   };
   const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -91,6 +100,10 @@ const BottomNav = () => {
                 아이 등록하기
               </Menu.Item>
             )}
+            <Menu.Item onClick={() => navigate('/register/account')} as="a">
+              <Icon name="sign-out" />
+              로그아웃
+            </Menu.Item>
           </div>
           <div>
             <Menu.Item onClick={() => setVisible(false)} as="a">
@@ -118,12 +131,3 @@ const BottomNav = () => {
 };
 
 export default BottomNav;
-
-// export default function App() {
-//   return (
-//     <div>
-//       <BottomNav />
-
-//     </div>
-//   );
-// }
