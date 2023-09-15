@@ -93,4 +93,8 @@ public class Mission extends BaseEntity {
                 .challenger(child)
                 .build();
     }
+
+    public void changeAccomplishment(Accomplishment accomplishment){
+        this.accomplishment = accomplishment;
+    }
 }

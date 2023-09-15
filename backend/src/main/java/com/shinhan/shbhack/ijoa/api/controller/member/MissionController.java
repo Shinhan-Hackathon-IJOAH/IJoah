@@ -1,8 +1,10 @@
 package com.shinhan.shbhack.ijoa.api.controller.member;
 
+import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MissionCheckRequest;
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MissionCreateRequest;
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MissionListRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.command.MissionService;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MissionCheckServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MissionCreateServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MissionListServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MissionListResponse;
@@ -45,6 +47,14 @@ public class MissionController {
         missionService.createMission((MissionCreateServiceRequest.of(request)));
         return ApiData.of("미션 생성에 성공하였습니다.");
     }
+
+    @PostMapping("/check")
+    @ApiOperation(value = "미션 수락 or 거절")
+    public ApiData<String> checkMission(@RequestBody MissionCheckRequest request){
+        missionService.checkMission(MissionCheckServiceRequest.of(request));
+        return ApiData.of("미션 상태 변환에 성공하였습니다.");
+    }
+
 
 
 
