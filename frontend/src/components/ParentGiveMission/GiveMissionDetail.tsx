@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 const GiveMissionDetail = () => {
     const navigate = useNavigate();
-    const { accessToken, balance } = useUserStore();
+    const { accessToken, balance,id } = useUserStore();
     const pastMonth = new Date();
     const [startDay, setStartDay] = useState<string>('');
     const [endDay, setEndDay] = useState<string>('');
@@ -94,7 +94,15 @@ const GiveMissionDetail = () => {
         else {
             axios
                 .post(
-                    'https://j9c210.p.ssafy.io/api1/mission', { missionTitle, missionDetail, startDay, endDay, missionReward },
+                    'https://j9c210.p.ssafy.io/api1/mission', { 
+                        parentId: id,
+                        childId: childid,
+                        missionTitle: missionTitle,
+                        missionContent: missionDetail,
+                        missionReward: missionReward,
+                        missionStartDate: startDay,
+                        missionEndDate: endDay    
+                    },
                     {
                         headers: {
                             Authorization: `Bearer ${accessToken}`,
@@ -103,6 +111,10 @@ const GiveMissionDetail = () => {
                 )
                 .then((response) => {
                     console.log(response);
+                    Swal.fire({
+                        icon: 'success',
+                        title: '미션 등록 완료',
+                    });
                     navigate('/parent');
                 })
                 .catch((error) => {

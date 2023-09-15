@@ -4,12 +4,14 @@ import {RegisterContainer,ButtonContainer,TitleTag,InputTag} from './ParentRegis
 import { Input } from "@material-tailwind/react";
 import {useUserStore} from "../../store/UserStore"
 import BottomNav from '../Common/BottomNav';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 const ParentRegister = () => {
-    // const [childaccount, setChildAccount] = useState('');
     const [childid, setChildId] = useState('');
     const {accessToken,id} =useUserStore();
+    const navigate = useNavigate();
     
     const registerChild=()=>{
         axios
@@ -23,6 +25,12 @@ const ParentRegister = () => {
             })
             .then((response) =>{
                 console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: '아이 등록 요청 완료',
+                    text: '아이 아이디에서 수락해주세요'
+                });
+                navigate('/parent')
             })
             .catch((error)=>{
                 console.log(error)
@@ -32,21 +40,7 @@ const ParentRegister = () => {
         <RegisterContainer>
             <div className="mt-8 flex items-center justify-center flex-col text-center text-2xl font-['HSYuji-Regular']">
                 <TitleTag>아이를 등록 해주세요</TitleTag>
-                {/* <InputTag> */}
                 <div className="mt-10 w-64">
-                    {/* <div>
-                    아이 계좌 정보 입력
-                    <div className="mt-3">
-                <Input
-                style={{ backgroundColor: "#ffffff" }}
-                color="orange"
-                label="아이 계좌"
-                value={childaccount}
-                crossOrigin={undefined} 
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setChildAccount(event.target.value)} />
-                </div>
-                </div> */}
                 <div className="mt-5">
                 아이 아이디 입력
                 <div className="mt-3">
@@ -61,7 +55,6 @@ const ParentRegister = () => {
                 </div>
                 </div>
                 </div>
-                {/* </InputTag> */}
             </div>
             <ButtonContainer onClick={()=>{registerChild()}}>입력완료</ButtonContainer>
             <BottomNav/>

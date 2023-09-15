@@ -73,6 +73,13 @@ const ParentTradeList = () => {
           shadow={true}
           className="m-0 h-[30vh] grid place-items-center rounded-none md:rounded-xl  px-4 text-center"
         >
+          <div style={{  position: 'absolute', top: '15px', left: '15px' }}>
+          <IconButton 
+              onClick={()=>navigate(-1)}
+              className="rounded-full bg-[#ea4335]  hover:shadow-[#ea4335]/20 focus:shadow-[#ea4335]/20 active:shadow-[#ea4335]/10">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </IconButton>
+          </div>
           <div className="rounded-full border border-white/10 bg-white/10 p-6 text-white">
             <CreditCardIcon className="h-[7vh] w-[7vh]" />
           </div>
