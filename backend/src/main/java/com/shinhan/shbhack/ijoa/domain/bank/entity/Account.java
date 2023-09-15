@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -33,6 +34,8 @@ public class Account {
     @Column(unique = true)
     String accountNumber;
 
+    @OneToOne(fetch = LAZY, mappedBy = "account", cascade = ALL, orphanRemoval = true)
+    private Member member;
 
 
     @Builder
