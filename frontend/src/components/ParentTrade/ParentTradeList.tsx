@@ -12,6 +12,7 @@ import {
 import BackPageButton from '../Common/BackPageButton';
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
+import BottomNav from '../Common/BottomNav';
 
 const ParentTradeList = () => {
   const { accessToken, account } = useUserStore();
@@ -117,6 +118,7 @@ const ParentTradeList = () => {
           ))}
         </List>
       </Card>
+      <BottomNav />
     </div>
   );
 };

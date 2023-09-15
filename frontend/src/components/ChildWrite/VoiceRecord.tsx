@@ -1,26 +1,19 @@
-import React, { useState, useCallback } from "react";
-import { useDiaryStore } from "../../store/DiaryStore";
+import React, { useState, useCallback } from 'react';
+import { useDiaryStore } from '../../store/DiaryStore';
 const AudioRecord = () => {
   const { voice, setVoice } = useDiaryStore();
 
   const [stream, setStream] = useState<MediaStream | undefined>(undefined);
   const [media, setMedia] = useState<MediaRecorder | null>(null);
   const [onRec, setOnRec] = useState<boolean>(true);
-  const [source, setSource] = useState<MediaStreamAudioSourceNode | undefined>(
-    undefined
-  );
-  const [analyser, setAnalyser] = useState<ScriptProcessorNode | undefined>(
-    undefined
-  );
+  const [source, setSource] = useState<MediaStreamAudioSourceNode | undefined>(undefined);
+  const [analyser, setAnalyser] = useState<ScriptProcessorNode | undefined>(undefined);
   const [audioUrl, setAudioUrl] = useState<Blob | null>(null);
   const [disabled, setDisabled] = useState<boolean>(true); // 😀😀😀
-  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(
-    null
-  );
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
   const onRecAudio = () => {
-    const audioCtx = new (window.AudioContext ||
-      (window as any).webkitAudioContext)();
+    const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
     const analyser = audioCtx.createScriptProcessor(0, 1, 1);
     setAnalyser(analyser);
 
@@ -74,34 +67,14 @@ const AudioRecord = () => {
     }
   };
 
-  // const onSubmitAudioFile = useCallback(() => {
-  //   if (audioUrl) {
-  //     console.log(URL.createObjectURL(audioUrl));
-  //   }
-  //   if (audioUrl instanceof Blob) {
-  //     const sound = new File([audioUrl], "녹음파일", {
-  //       lastModified: new Date().getTime(),
-  //       type: "audio/mpeg",
-  //     });
-  //     // 폼데이터 객체 생성 -> append로 file 객체 추가
-  //     // const formData = new FormData();
-  //     // formData.append("file", sound);
-
-  //     console.log(voice)
-  //     console.log(sound)
-  //     setVoice({payload:sound})
-
-  //   }
-  // }, [audioUrl]);
   const onSubmitAudioFile = useCallback(() => {
     if (audioUrl) {
       console.log(URL.createObjectURL(audioUrl));
       // 파일 URL을 스토어에 저장
-      console.log("음성", audioUrl);
+      console.log('음성', audioUrl);
       //파일 자체를 저장해보자.
       setVoice(audioUrl);
-      console.log("음성", voice);
-      // setVoice(URL.createObjectURL(audioUrl));
+      console.log('음성', voice);
     }
   }, [audioUrl]);
 
@@ -127,9 +100,7 @@ const AudioRecord = () => {
   return (
     <>
       {voice}
-      <button onClick={onRec ? onRecAudio : offRecAudio}>
-        {onRec ? "녹음 시작" : "녹음 중지"}
-      </button>
+      <button onClick={onRec ? onRecAudio : offRecAudio}>{onRec ? '녹음 시작' : '녹음 중지'}</button>
 
       <button onClick={play}>녹음한거 듣기</button>
 

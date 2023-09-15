@@ -15,6 +15,7 @@ import { useDiaryStore } from '../../store/DiaryStore';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
+import './CustomDatePicker.css';
 
 const initialValue = dayjs();
 
@@ -137,8 +138,9 @@ export default function DateCalendarServerRequest() {
                 }}
               />
             </LocalizationProvider> */}
-            <div>
+            <div className="custom-react-datepicker__wrapper">
               <DatePicker
+                className="custom-date-picker"
                 locale={ko} // 언어설정
                 dateFormat="yyyy년 MM월 dd일" // 날짜 형태
                 shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
@@ -156,6 +158,8 @@ export default function DateCalendarServerRequest() {
                 }}
                 maxDate={new Date()}
                 includeDates={includeDates} // 여기에 변환한 Date 객체를 전달합니다. -> 이렇게하면 일기 쓴 날만 선택 가능하게 됨.
+                // 배열로 담으면 그곳이 강조됨.
+                highlightDates={includeDates}
                 inline
               />
             </div>
