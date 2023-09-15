@@ -14,6 +14,7 @@ import { Icon } from 'semantic-ui-react';
 import BackPageButton from '../Common/BackPageButton';
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
+import BottomNav from '../Common/BottomNav';
 const TradeList = () => {
   const { accessToken, account } = useUserStore();
   // 더미데이터
@@ -122,6 +123,7 @@ const TradeList = () => {
           ))}
         </List>
       </Card>
+      <BottomNav />
     </div>
   );
 };

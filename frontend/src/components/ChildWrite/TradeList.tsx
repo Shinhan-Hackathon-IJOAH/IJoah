@@ -23,63 +23,6 @@ interface TradeList {
 const TradeList = () => {
   const { date } = useDiaryStore();
   const { accessToken, account } = useUserStore();
-  // const dummyData = {
-  //   accountNumber: '110111222222',
-  //   balance: 100000,
-  //   name: '김신한',
-  //   bankTransactionResponses: [
-  //     {
-  //       date: '2023-09-02',
-  //       time: '14:25:00',
-  //       withdrawAmount: 10000,
-  //       depositAmount: 0,
-  //       content: '다이소',
-  //       transactionBalance: 1200000,
-  //       type: 2,
-  //       category: 2,
-  //     },
-  //     {
-  //       date: '2023-09-02',
-  //       time: '14:25:00',
-  //       withdrawAmount: 10000,
-  //       depositAmount: 0,
-  //       content: '다이소',
-  //       transactionBalance: 1200000,
-  //       type: 2,
-  //       category: 2,
-  //     },
-  //     {
-  //       date: '2023-09-02',
-  //       time: '14:25:00',
-  //       withdrawAmount: 10000,
-  //       depositAmount: 0,
-  //       content: '다이소',
-  //       transactionBalance: 1200000,
-  //       type: 2,
-  //       category: 2,
-  //     },
-  //     {
-  //       date: '2023-09-02',
-  //       time: '14:25:00',
-  //       withdrawAmount: 10000,
-  //       depositAmount: 0,
-  //       content: '다이소',
-  //       transactionBalance: 1200000,
-  //       type: 2,
-  //       category: 2,
-  //     },
-  //     {
-  //       date: '2023-09-02',
-  //       time: '14:25:00',
-  //       withdrawAmount: 10000,
-  //       depositAmount: 0,
-  //       content: '다이소',
-  //       transactionBalance: 1200000,
-  //       type: 2,
-  //       category: 2,
-  //     },
-  //   ],
-  // };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -89,11 +32,6 @@ const TradeList = () => {
   };
 
   const [oneDayTransaction, setOneDayTransaction] = useState<any[]>([]);
-
-  // 이 부분 때문에 무한 루프 에러 뜸.
-  // useEffect(() => {
-  //   setOneDayTransaction(dummyData.bankTransactionResponses);
-  // }, []);
 
   // 날짜 바뀔때마다 useEffect 쏘는 곳.
   useEffect(() => {
@@ -106,7 +44,6 @@ const TradeList = () => {
         },
         {
           headers: {
-            // Accept: "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
         },

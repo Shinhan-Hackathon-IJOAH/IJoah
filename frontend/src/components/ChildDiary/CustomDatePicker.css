@@ -1,0 +1,72 @@
+.react-datepicker {
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+  font-family: 'Noto Sans KR';
+  border: none;
+}
+
+.react-datepicker__month-container {
+}
+
+.react-datepicker__header {
+  background-color: #f8a70c;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+  border-bottom: 0;
+  padding-top: 8px;
+  position: relative;
+}
+
+/* 최상단에 뜨는 연도와 월 */
+.react-datepicker__current-month {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 3px;
+}
+
+/* 요일들 */
+.react-datepicker__day-name {
+  color: white;
+  font-weight: 600;
+}
+
+/* 날짜들을 담는 레이아웃 */
+.react-datepicker__month {
+}
+
+/* day: 주말 날짜 */
+.react-datepicker__day:nth-child(1) {
+  color: #ff5555; /* 일요일 날짜*/
+}
+.react-datepicker__day:nth-child(7) {
+  color: #258fff; /* 토요일 날짜 */
+}
+
+/* day-name: 요일 */
+.react-datepicker__day-name:nth-child(1) {
+  color: #ff5555; /* 일요일 */
+}
+.react-datepicker__day-name:nth-child(7) {
+  color: #258fff; /* 토요일 */
+}
+
+/* 일반 날짜 */
+.react-datepicker__day {
+}
+
+/* 선택된 날짜 */
+.react-datepicker__day--selected {
+  background-color: #f8a70c;
+  border-radius: 50%;
+  color: white;
+}
+
+/* highlighted된 날짜 */
+.react-datepicker__day--highlighted {
+  background-color: #f8a70c !important;
+  border-radius: 50%;
+}
+
+/* 날짜에 마우스를 올릴 때 */
+/* .react-datepicker__day:hover {
+  color: black;
+} */
