@@ -17,10 +17,15 @@ import {
   Select,
   Option,
 } from '@material-tailwind/react';
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 import { BanknotesIcon, CreditCardIcon, LockClosedIcon } from '@heroicons/react/24/solid';
 import { useSignUpStore } from '../../store/SignUpStore';
 import Swal from 'sweetalert2';
-import BackPageButton from '../../components/Common/BackPageButton';
+import { IconButton }   from "@material-tailwind/react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function SignUp() {
@@ -44,7 +49,11 @@ export default function SignUp() {
     setPassword(e.target.value);
   };
   const handlePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhoneNumber(e.target.value);
+    setPhoneNumber(e.target.value
+      .replace(/[^0-9]/g, '')
+      .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/, "$1-$2-$3")
+      .replace(/(\-{1,2})$/, "")
+    );
   };
   const handleAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value);
@@ -127,7 +136,6 @@ export default function SignUp() {
   };
   return (
     <div className="flex justify-center ">
-      <BackPageButton/>
       <Card className="w-full max-w-[32rem] ">
         <CardHeader
           color="orange"
@@ -135,6 +143,13 @@ export default function SignUp() {
           shadow={false}
           className="m-0 grid place-items-center rounded-none md:rounded-xl  py-8 px-4 text-center"
         >
+          <div style={{  position: 'absolute', top: '15px', left: '15px' }}>
+          <IconButton 
+              onClick={()=>navigate(-1)}
+              className="rounded-full bg-[#ea4335]  hover:shadow-[#ea4335]/20 focus:shadow-[#ea4335]/20 active:shadow-[#ea4335]/10">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </IconButton>
+          </div>
           <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
             <BanknotesIcon className="h-10 w-10" />
           </div>
@@ -252,13 +267,18 @@ export default function SignUp() {
                     <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       생년월일을 입력해주세요.
                     </Typography>
-                    <Input
-                      onChange={handleBirthDate}
-                      crossOrigin={undefined}
-                      type="text"
-                      color="orange"
-                      label="BirthDate"
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label='생년월일'
+                      onChange={(newDate: dayjs.Dayjs | null) => {
+                        if (newDate) {
+                          setBirthDate(newDate.format('YYYY-MM-DD'));
+                        }
+                      }}
+                      format='YYYY-MM-DD'
+                      sx={{ width: '100%' }}
                     />
+                    </LocalizationProvider>
                   </div>
 
                   <div>
@@ -271,6 +291,7 @@ export default function SignUp() {
                       type="text"
                       color="orange"
                       label="PhoneNumber"
+                      value={phoneNumber}
                     />
                   </div>
 
@@ -366,13 +387,18 @@ export default function SignUp() {
                     <Typography variant="small" color="blue-gray" className="mb-4 font-medium font-['HSYuji-Regular']">
                       생년월일을 입력해주세요.
                     </Typography>
-                    <Input
-                      onChange={handleBirthDate}
-                      crossOrigin={undefined}
-                      color="orange"
-                      type="text"
-                      label="BirthDate"
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label='생년월일'
+                      onChange={(newDate: dayjs.Dayjs | null) => {
+                        if (newDate) {
+                          setBirthDate(newDate.format('YYYY-MM-DD'));
+                        }
+                      }}
+                      format='YYYY-MM-DD'
+                      sx={{ width: '100%' }}
                     />
+                    </LocalizationProvider>
                   </div>
 
                   <div>
@@ -385,6 +411,7 @@ export default function SignUp() {
                       crossOrigin={undefined}
                       type="text"
                       label="PhoneNumber"
+                      value={phoneNumber}
                     />
                   </div>
 

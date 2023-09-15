@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemPrefix, Avatar, Card, Typography, CardHeader } from '@material-tailwind/react';
 import {
   CircleStackIcon,
@@ -10,13 +11,16 @@ import {
   LockClosedIcon,
 } from '@heroicons/react/24/solid';
 import { Icon } from 'semantic-ui-react';
-
+import { IconButton }   from "@material-tailwind/react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import BackPageButton from '../Common/BackPageButton';
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
 import BottomNav from '../Common/BottomNav';
 const TradeList = () => {
   const { accessToken, account } = useUserStore();
+  const navigate = useNavigate();
   // 더미데이터
   const dummyData = {
     accountNumber: '110111111111',
@@ -75,6 +79,13 @@ const TradeList = () => {
             shadow={true}
             className="m-0 h-[30vh] grid place-items-center rounded-none md:rounded-xl  px-4 text-center"
           >
+            <div style={{  position: 'absolute', top: '15px', left: '15px' }}>
+              <IconButton 
+                  onClick={()=>navigate(-1)}
+                  className="rounded-full bg-[#ea4335]  hover:shadow-[#ea4335]/20 focus:shadow-[#ea4335]/20 active:shadow-[#ea4335]/10">
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </IconButton>
+            </div>
             <div className="rounded-full border border-white/10 bg-white/10 p-6 text-white">
               <CreditCardIcon className="h-[7vh] w-[7vh]" />
             </div>

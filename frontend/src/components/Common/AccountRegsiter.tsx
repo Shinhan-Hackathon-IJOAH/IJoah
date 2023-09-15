@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Input, Typography, Button } from '@material-tailwind/react';
 import { RegisterButton, RegisterContainer } from './AccountRegisterStyles';
+import { useUserStore } from '../../store/UserStore';
+import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
 
 const AccountRegister = () => {
   const [account, SetAccount] = useState<string>('');
   const [showConfirm, setShowConfirm] = useState(false);
   const [confirmTag, setConfifmTag] = useState<string>('');
+  const { accessToken,id,memberRole } = useUserStore();
+  const navigate = useNavigate();
 
   const AccountSend = () => {
     axios
@@ -17,7 +22,7 @@ const AccountRegister = () => {
         },
         {
           headers: {
-            Authorization: `Bearer`,
+            Authorization: `Bearer ${accessToken}`,
           },
         },
       )
@@ -37,16 +42,22 @@ const AccountRegister = () => {
         {
           accountNumber: account,
           message: confirmTag,
+          memberId: id
         },
         {
           headers: {
-            Authorization: `Bearer`,
+            Authorization: `Bearer ${accessToken}`,
           },
         },
       )
       .then((response) => {
         console.log(response);
         setShowConfirm(true);
+        Swal.fire({
+          icon: 'success',
+          title: '계좌 등록 성공',
+      });
+      navigate(-1)
       })
       .catch((error) => {
         console.log(error);
@@ -63,8 +74,7 @@ const AccountRegister = () => {
           <Input
             className="bg-white"
             color="orange"
-            type="number"
-            pattern="\d*"
+            type="string"
             label="등록할 계좌를 입력해주세요."
             value={account}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => SetAccount(event.target.value)}

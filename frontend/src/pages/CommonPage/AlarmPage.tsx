@@ -152,7 +152,7 @@ const AlarmPage = () => {
       <div className="text-gray-500 font-['HSYuji-Regular'] mt-5">'읽음' 버튼을 누르면 알람이 페이지에서 사라져요.</div>
       <div className="mt-10">
         <List className="w-screen lg:w-[40vw]">
-          {dummyData.map((data: any, index: any) => {
+          {alarmData.map((data: any, index: any) => {
             // const imageUrl = imageUrls[data.notificationType as AlarmType];
             const formattedTime = formatDateTime(data.time);
 
