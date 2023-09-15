@@ -81,7 +81,7 @@ public class Mission extends BaseEntity {
         this.notifications = notifications;
     }
 
-    public static Mission of(MissionCreateServiceRequest request, Member parent, Member child, Notification notification){
+    public static Mission of(MissionCreateServiceRequest request, Member parent, Member child){
         return Mission.builder()
                 .title(request.getMissionTitle())
                 .content(request.getMissionContent())
@@ -91,7 +91,6 @@ public class Mission extends BaseEntity {
                 .accomplishment(Accomplishment.진행)
                 .writer(parent)
                 .challenger(child)
-                .notifications(notification)
                 .build();
     }
 }

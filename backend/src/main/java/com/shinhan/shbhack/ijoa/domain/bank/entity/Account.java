@@ -33,7 +33,6 @@ public class Account {
     @Column(unique = true)
     String accountNumber;
 
-    @NotNull
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
