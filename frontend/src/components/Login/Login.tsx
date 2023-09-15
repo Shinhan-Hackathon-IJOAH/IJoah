@@ -80,6 +80,17 @@ const Login = () => {
             icon: 'success',
             title: '로그인에 성공했습니다.',
           });
+          axios
+            .get(`https://j9c210.p.ssafy.io/api1/alarm/subscribe/${response.data.data.id}`)
+            .then((res) => {
+              console.log(res);
+              console.log('알람 구독 성공');
+            })
+            .catch((err) => {
+              console.log(err);
+              console.log('알람 구독 실패');
+            });
+
           if (response.data.data.memberRole === 'PARENT') {
             navigate('/parent');
           } else if (response.data.data.memberRole === 'CHILD') {
