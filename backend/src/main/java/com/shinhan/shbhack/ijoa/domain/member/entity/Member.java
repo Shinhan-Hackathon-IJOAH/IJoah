@@ -134,4 +134,8 @@ public class Member extends BaseEntity {
     public void update(String password){
             this.password = password;
     }
+
+    public void changeAccount(Account account){
+        this.account = account;
+    }
 }
