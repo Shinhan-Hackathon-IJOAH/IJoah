@@ -4,8 +4,10 @@ import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
 import { Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 const MyPage = () => {
-  const { accessToken, email, phoneNumber, name, id } = useUserStore();
+  const { accessToken, email, phoneNumber, name, id, profileImage, memberRole } = useUserStore();
+  const navigate = useNavigate();
 
   // input창 입력값에 따라 state 변경하는 함수들
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,28 +58,46 @@ const MyPage = () => {
       .put('https://j9c210.p.ssafy.io/api1/members/modify', formData)
       .then((res) => {
         console.log(res.data);
+        Swal.fire({
+          icon: 'success',
+          title: '내 정보 변경 완료!',
+        });
+
+        // memberRole에 따라 페이지 이동
+        if (memberRole === 'PARENT') {
+          navigate('/parent');
+        }
+        if (memberRole === 'CHILD') {
+          navigate('/child');
+        }
       })
       .catch((err) => {
-        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: '내 정보 변경 실패',
+        });
       });
   };
   return (
-    <div className="flex flex-col items-center w-[100vw] h-[100vh]">
-      <Typography variant="h2" color="blue-gray" className="font-['HSYuji-Regular']">
-        프로필 변경 페이지
+    <div className="flex flex-col items-center w-[100vw] h-[100vh] mt-10">
+      <Typography variant="h2" color="blue-gray" className="font-['HSYuji-Regular'] text-center">
+        모아일기 <br></br>프로필 변경 페이지
       </Typography>
 
       <div>
         <Card className="mt-10 w-full flex justify-center">
-          <CardHeader color="white" className="">
-            {changeProfileImage ? (
-              <img src={URL.createObjectURL(changeProfileImage)} alt="profile-image" />
-            ) : (
-              <img
-                src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-                alt="profile-image"
-              />
-            )}
+          <CardHeader color="white">
+            <div className="flex justify-center h-64">
+              {changeProfileImage ? (
+                <img src={URL.createObjectURL(changeProfileImage)} alt="profile-image" />
+              ) : (
+                <img
+                  className=""
+                  src={profileImage ? `https://j9c210.p.ssafy.io/api1/diaries/image/${profileImage}` : 'MoaLogo.png'}
+                  alt="profile-image"
+                />
+              )}
+            </div>
           </CardHeader>
           <CardFooter className="mt-5 pt-0 flex justify-center flex-col items-center">
             {/* <div>

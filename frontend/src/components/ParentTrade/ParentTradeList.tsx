@@ -13,8 +13,13 @@ import BackPageButton from '../Common/BackPageButton';
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
 import BottomNav from '../Common/BottomNav';
+import { IconButton } from '@material-tailwind/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const ParentTradeList = () => {
+  const navigate = useNavigate();
   const { accessToken, account } = useUserStore();
   // 더미데이터
   const dummyData = {
