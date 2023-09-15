@@ -12,6 +12,7 @@ import com.shinhan.shbhack.ijoa.domain.member.entity.enums.MemberRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import reactor.util.annotation.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
