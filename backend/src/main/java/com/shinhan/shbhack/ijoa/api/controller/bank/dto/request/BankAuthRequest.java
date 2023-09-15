@@ -11,5 +11,6 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class BankAuthRequest {
     String accountNumber;
+    String memberId;
     String message;
 }

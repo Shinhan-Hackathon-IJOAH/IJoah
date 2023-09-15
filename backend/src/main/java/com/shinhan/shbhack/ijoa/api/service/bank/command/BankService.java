@@ -192,6 +192,9 @@ public class BankService {
         String secretMSG =checkOne.get(bankAuthRequest.getAccountNumber());
         if(secretMSG != null){
             if(secretMSG.equals(bankAuthRequest.getMessage())){
+                Member user = memberRepository.findById(Long.parseLong(bankAuthRequest.getMemberId())).get();
+                Account account = accountRepository.findAccountByAccountNumber(bankAuthRequest.getAccountNumber());
+                user.changeAccount(account);
                 checkOne.remove(bankAuthRequest.getAccountNumber());
                 return true;
             }else{
