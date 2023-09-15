@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
@@ -18,6 +19,11 @@ public class EmitterRepository {
 
     public void delete(Long id){
         emitters.remove(id);
+    }
+
+    public Optional<SseEmitter> get(Long id){
+        SseEmitter result = emitters.get(id);
+        return Optional.ofNullable(result);
     }
 
 

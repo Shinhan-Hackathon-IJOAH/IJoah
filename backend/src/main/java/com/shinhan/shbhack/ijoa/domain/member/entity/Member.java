@@ -103,7 +103,9 @@ public class Member extends BaseEntity {
     @OneToOne(fetch = LAZY, mappedBy = "member", cascade = ALL, orphanRemoval = true)
     private ProfileImage profileImage;
 
-    @OneToOne(fetch = LAZY, mappedBy = "member", cascade = ALL, orphanRemoval = true)
+//    @OneToOne(fetch = LAZY, mappedBy = "member", cascade = ALL, orphanRemoval = true)
+    @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "account_Id")
     private Account account;
 
     @Builder
