@@ -17,9 +17,8 @@ const BottomNav = () => {
 
   useEffect(() => {
     axios
-      .get(`https://ijoah01.duckdns.org/api/diaries/${email}`, {
+      .get(`https://j9c210.p.ssafy.io/api1/alarm/${email}`, {
         headers: {
-          // Accept: "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       })

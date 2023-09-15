@@ -6,11 +6,10 @@ import {MissionItemContainer,FontTag,MissionTagContainer,CompeleteFont} from './
 interface MissionListItemProps{
     missionid: string;
     missiontitle:string;
-    missionnickname:string;
     missionamount:string;
 }
 
-const MissionCompleteItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionnickname,missionamount}) => {
+const MissionCompleteItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionamount}) => {
     const navigate = useNavigate();
 
     const detailClick = ()=>{

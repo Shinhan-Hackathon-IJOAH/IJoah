@@ -20,6 +20,8 @@ import {
 import { BanknotesIcon, CreditCardIcon, LockClosedIcon } from '@heroicons/react/24/solid';
 import { useSignUpStore } from '../../store/SignUpStore';
 import Swal from 'sweetalert2';
+import BackPageButton from '../../components/Common/BackPageButton';
+
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -125,6 +127,7 @@ export default function SignUp() {
   };
   return (
     <div className="flex justify-center ">
+      <BackPageButton/>
       <Card className="w-full max-w-[32rem] ">
         <CardHeader
           color="orange"

@@ -7,11 +7,10 @@ import { IconButton } from "@material-tailwind/react";
 interface MissionListItemProps{
     missionid: string;
     missiontitle:string;
-    missionnickname:string;
     missionamount:string;
 }
 
-const MissionRequestItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionnickname,missionamount}) => {
+const MissionRequestItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionamount}) => {
     const navigate = useNavigate();
     const detailClick = ()=>{
         navigate(`/parent/mission/detail/${missionid}`)
