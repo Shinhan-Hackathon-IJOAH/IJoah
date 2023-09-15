@@ -6,6 +6,7 @@ import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.ConfirmStatus;
 import com.shinhan.shbhack.ijoa.domain.member.entity.enums.NotificationType;
 import lombok.*;
+import org.aspectj.weaver.ast.Not;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -53,13 +54,10 @@ public class Notification extends BaseEntity {
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "mission_id")
     private Mission mission;
-
-
-
+    
     private String parentInfo;
 
     @Builder
-
     public Notification(Long id, NotificationType notificationType, ConfirmStatus confirmStatus, Member receiver, Member sender, Mission mission, String content, String parentInfo) {
         this.id = id;
         this.notificationType = notificationType;
@@ -71,6 +69,8 @@ public class Notification extends BaseEntity {
         this.parentInfo = parentInfo;
     }
 
+    // TODO: 2023-09-15 메서드 하나로 묶기
+    
     public static Notification of(AlarmNotifyRequest alarmNotifyRequest){
         Notification notification = new Notification();
         notification.confirmStatus = alarmNotifyRequest.getConfirmStatus();
@@ -83,20 +83,18 @@ public class Notification extends BaseEntity {
         return notification;
     }
 
-    // TODO: 2023-09-15 미션 알람 추가
-//    public static Notification ofMission(Member sender, Member receiver, NotificationType){
-//         return Notification.builder()
-//
-//
-//    }
-
-//      this.id = id;
-//        this.notificationType = notificationType;
-//        this.confirmStatus = confirmStatus;
-//        this.receiver = receiver;
-//        this.sender = sender;
-//        this.mission = mission;
-//        this.content = content;
-//        this.parentInfo = parentInfo;
+    public static Notification ofMission(Member sender, Member receiver, Mission mission, NotificationType notificationType){
+        return Notification.builder()
+                .notificationType(NotificationType.REGIST_MISSION)
+                .confirmStatus(ConfirmStatus.UNCONFIRMED)
+                .receiver(receiver)
+                .sender(sender)
+                .mission(mission)
+                .content(
+                        notificationType == NotificationType.REGIST_MISSION ?
+                                sender.getName() + " 님이" + mission.getTitle() + " 미션을 등록하였습니다." : null
+                )
+                .build();
+    }
 
 }

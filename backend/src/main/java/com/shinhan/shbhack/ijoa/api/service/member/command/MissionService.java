@@ -4,7 +4,9 @@ import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MissionCreateServ
 import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
 import com.shinhan.shbhack.ijoa.common.error.exception.EntityNotFoundException;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
+import com.shinhan.shbhack.ijoa.domain.member.entity.Mission;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Notification;
+import com.shinhan.shbhack.ijoa.domain.member.entity.enums.NotificationType;
 import com.shinhan.shbhack.ijoa.domain.member.repository.datajpa.MemberRepository;
 import com.shinhan.shbhack.ijoa.domain.member.repository.datajpa.MissionRepository;
 import com.shinhan.shbhack.ijoa.domain.member.repository.datajpa.NotificationRepository;
@@ -27,7 +29,10 @@ public class MissionService {
         Member parent = findMember(request.getParentId());
         Member child = findMember(request.getChildId());
 
-//        Notification.ofMission(parent, child);
+        Mission mission = Mission.of(request, parent, child);
+        missionRepository.save(mission);
+
+        notificationRepository.save( Notification.ofMission(parent, child, mission, NotificationType.REGIST_MISSION));
     }
 
     private Member findMember(Long id){

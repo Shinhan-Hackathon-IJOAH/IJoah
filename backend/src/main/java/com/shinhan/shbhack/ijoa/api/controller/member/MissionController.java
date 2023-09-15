@@ -2,6 +2,8 @@ package com.shinhan.shbhack.ijoa.api.controller.member;
 
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MissionCreateRequest;
 import com.shinhan.shbhack.ijoa.api.controller.member.dto.request.MissionListRequest;
+import com.shinhan.shbhack.ijoa.api.service.member.command.MissionService;
+import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MissionCreateServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MissionListServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MissionListResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MissionResponse;
@@ -21,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MissionController {
 
+    private final MissionService missionService;
     private final MissionQueryService missionQueryService;
 
     @GetMapping("/{missionId}")
@@ -39,8 +42,10 @@ public class MissionController {
     @PostMapping("/create")
     @ApiOperation(value = "미션 생성")
     public ApiData<String> createMission(@RequestBody MissionCreateRequest request){
-
+        missionService.createMission((MissionCreateServiceRequest.of(request)));
         return ApiData.of("미션 생성에 성공하였습니다.");
     }
+
+
 
 }
