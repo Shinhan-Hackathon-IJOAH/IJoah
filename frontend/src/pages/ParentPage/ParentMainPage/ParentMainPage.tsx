@@ -26,12 +26,12 @@ interface Profile {
         name: string;
         balance: number;
         accountNumber: string;
-
+  
     }
     profileImage: {
         profileImageId: number;
         fileName: string;
-
+  
     };
     children:{
         memberId: number
@@ -51,7 +51,7 @@ interface Profile {
             fileName: string;
         };
   }[];
-}
+  }
   
 
   
@@ -123,16 +123,16 @@ const ParentMainPage = () => {
             },
         })
         .then((response) => {
-            setParentProfile(response.data.data); 
+            const parentData = response.data.data
             console.log(response.data.data);
-            setName(response.data.data.name)
-            setBirthDate(response.data.data.birthDate)
-            setAccount(response.data.data.account.accountNumber)
-            setEmail(response.data.data.email)
-            setPhoneNumber(response.data.data.phoneNumber)
-            setProfileImage(response.data.data.profileImage)
-            setMemberRole(response.data.data.memberRole)
-            setBalance(response.data.data.account.balance)
+            setName(parentData?.name || '');
+            setBirthDate(parentData?.birthDate || '');
+            setAccount(parentData?.account?.accountNumber || '');
+            setEmail(parentData?.email || '');
+            setPhoneNumber(parentData?.phoneNumber || '');
+            setProfileImage(parentData?.profileImage || '');
+            setMemberRole(parentData?.memberRole || '');
+            setBalance(parentData?.account?.balance || 0);
         })
         .catch((error) => {
             console.error('데이터 가져오기 오류:', error);

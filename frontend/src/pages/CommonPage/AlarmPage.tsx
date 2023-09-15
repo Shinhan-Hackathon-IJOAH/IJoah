@@ -3,6 +3,7 @@ import { List, ListItem, ListItemPrefix, Avatar, Card, Typography, Button } from
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
 import BottomNav from '../../components/Common/BottomNav';
+import BackPageButton from '../../components/Common/BackPageButton';
 const AlarmPage = () => {
   const dummyData = [
     {
@@ -142,6 +143,7 @@ const AlarmPage = () => {
   }
   return (
     <div className="flex flex-col justify-center items-center ">
+      <BackPageButton/>
       <div className="mt-10 ">
         <Typography className="font-['HSYuji-Regular']" variant="h2">
           알람 페이지

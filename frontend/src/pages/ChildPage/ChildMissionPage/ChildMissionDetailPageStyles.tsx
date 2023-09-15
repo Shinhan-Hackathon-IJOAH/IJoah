@@ -11,8 +11,16 @@ export const DetailContainer = styled.div`
 export const FontTag = styled.div`
     font-family: 'HSYuji-Regular';
     font-size: 14px;
-    margin-top: 45px;
+    margin-top: 3px;
     margin-left: 45px;
+    width:78%
+`
+export const MiniTitle = styled.div`
+    font-family: 'HSYuji-Regular';
+    font-size: 18px;
+    margin-top: 35px;
+    margin-left: 45px;
+    width:78%
 `
 export const Title = styled.div`
     font-family: 'HSYuji-Regular';

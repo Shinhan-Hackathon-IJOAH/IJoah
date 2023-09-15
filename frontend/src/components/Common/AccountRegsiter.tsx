@@ -11,7 +11,7 @@ const AccountRegister = () => {
   const AccountSend = () => {
     axios
       .post(
-        'https://ijoah01.duckdns.org/api/bank/startoneauth',
+        'https://j9c210.p.ssafy.io/api1/bank/startoneauth',
         {
           accountNumber: account,
         },
@@ -33,7 +33,7 @@ const AccountRegister = () => {
   const AccountCofirm = () => {
     axios
       .post(
-        'https://ijoah01.duckdns.org/api/bank/checkoneauth',
+        'https://j9c210.p.ssafy.io/api1/bank/checkoneauth',
         {
           accountNumber: account,
           message: confirmTag,

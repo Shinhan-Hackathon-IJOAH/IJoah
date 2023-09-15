@@ -6,11 +6,10 @@ import axios from 'axios';
 interface MissionListItemProps{
     missionid: string;
     missiontitle:string;
-    missionnickname:string;
     missionamount:string;
 }
 
-const MissionRequestItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionnickname,missionamount}) => {
+const MissionRequestItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionamount}) => {
     const navigate = useNavigate();
     const detailClick = ()=>{
         navigate(`/child/mission/detail/${missionid}`)

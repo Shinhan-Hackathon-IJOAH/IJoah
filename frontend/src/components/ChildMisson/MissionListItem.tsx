@@ -6,11 +6,10 @@ import axios from 'axios';
 interface MissionListItemProps{
     missionid: string;
     missiontitle:string;
-    missionnickname:string;
     missionamount:string;
 }
 
-const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionnickname,missionamount}) => {
+const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionamount}) => {
     const navigate = useNavigate();
     const complete = () => {
         axios

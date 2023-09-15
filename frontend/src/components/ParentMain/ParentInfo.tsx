@@ -17,7 +17,7 @@ const ParentInfo = () => {
                 />
                 <div>
                 <Typography variant="h6">{name}부모님</Typography>
-                {account ? (
+                {account === ''? (
                     <>
                     <Typography variant="small" color="gray" className="font-normal">
                         계좌를 등록해주세요

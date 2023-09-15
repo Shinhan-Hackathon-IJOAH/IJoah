@@ -10,70 +10,107 @@ import {Avatar} from "@material-tailwind/react";
 import {useUserStore} from "../../store/UserStore"
 
 interface Mission {
-    compelete: {
-        id: '';
-        title: '';
-        nickname:'';
-        amount:'';
-        }[];
-    progress: {
-        id: '';
-        title: '';
-        nickname:'';
-        amount:'';
-        }[];
-    request: {
-        id: '';
-        title: '';
-        nickname:'';
-        amount:'';
-        }[];
+    memberId: number;
+    memberName: string;
+    profileImage: {
+      profileImageId: number;
+      fileName: string;
+    };
+    compeleteMissions: {
+      missionid: '';
+      missionTitle: '';
+      missionReword: '';
+    }[];
+    incompleteMissions: {
+      missionid: '';
+      missionTitle: '';
+      missionReword: '';
+    }[];
+    checkingMissions: {
+      missionid: '';
+      missionTitle: '';
+      missionReword: '';
+    }[];
   }
 
 const MissionList = () => {
     const {childname,childimg}=useSelectChildStore();
+    const { id, accessToken, memberRole } = useUserStore();
     const [missionlist, setMissionList] = useState<Mission>();
-    const {accessToken} =useUserStore()
     const getMissionList = () =>{
         axios
-        .get(`....`, {
+        .post(
+          `https://j9c210.p.ssafy.io/api1/missions/list`,
+          {
+            memberId: id,
+            memberRole: memberRole,
+          },
+          {
             headers: {
-            Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${accessToken}`,
             },
-        })
+          }
+        )
         .then((response) => {
-            setMissionList(response.data.data); 
-            console.log(response.data.data);
+          setMissionList(response.data.data);
+          console.log(response.data.data);
+          console.log('미션 불러오기 성공');
         })
         .catch((error) => {
-            console.error('데이터 가져오기 오류:', error);
+          console.error('데이터 가져오기 오류:', error);
         });
     }
     useEffect(()=>{
         getMissionList()
     },[])
     const panes = [
-        { menuItem: "진행미션", render: () => <Tab.Pane>
-            {missionlist?.progress.map((mission)=>(
-                <MissionListItem missionid={mission.id} missiontitle={mission.title} missionamount={mission.amount} missionnickname={mission.nickname}/>
-            ))}
-            <MissionListItem missionid= '1' missiontitle='얼른 api 주세요' missionamount='80808080' missionnickname='김성준'/>
-            <MissionListItem missionid= '1' missiontitle='얼른 api 주세요' missionamount='80808080' missionnickname='김성준'/>
-        </Tab.Pane> },
-        { menuItem: "완료미션", render: () => <Tab.Pane>
-            {missionlist?.compelete.map((mission)=>(
-                <MissionCompleteItem missionid={mission.id} missiontitle={mission.title} missionamount={mission.amount} missionnickname={mission.nickname}/>
-            ))}
-            <MissionCompleteItem missionid='1' missiontitle='얼른 api 주세요' missionamount='80808080' missionnickname='김성준'/>
-        </Tab.Pane> },
-        { menuItem: "요청미션", render: () => <Tab.Pane>
-            {missionlist?.request.map((mission)=>(
-                <MissionRequestItem missionid={mission.id} missiontitle={mission.title} missionamount={mission.amount} missionnickname={mission.nickname}/>
-            ))}
-            <MissionRequestItem missionid='1' missiontitle='얼른 api 주세요' missionamount='80808080' missionnickname='김성준'/>
-        </Tab.Pane>,
+        {
+          menuItem: '진행미션',
+          render: () => (
+            <Tab.Pane>
+              {missionlist?.incompleteMissions?.map((mission) => (
+                <MissionListItem
+                  key={mission.missionid}
+                  missionid={mission.missionid}
+                  missiontitle={mission.missionTitle}
+                  missionamount={mission.missionReword}
+                />
+              ))}
+            </Tab.Pane>
+          ),
+        },
+        {
+          menuItem: '완료미션',
+          render: () => (
+            <Tab.Pane>
+              {missionlist?.compeleteMissions?.map((mission) => (
+                <MissionCompleteItem
+                  key={mission.missionid}
+                  missionid={mission.missionid}
+                  missiontitle={mission.missionTitle}
+                  missionamount={mission.missionReword}
+                />
+              ))}
+            </Tab.Pane>
+          ),
+        },
+        {
+          menuItem: '요청미션',
+          render: () => (
+            <Tab.Pane>
+              {missionlist?.checkingMissions?.map((mission) => (
+                <MissionRequestItem
+                  key={mission.missionid}
+                  missionid={mission.missionid}
+                  missiontitle={mission.missionTitle}
+                  missionamount={mission.missionReword}
+                />
+              ))}
+            </Tab.Pane>
+          ),
         },
       ];
+    
     return (
         <MissionContainer>
             <MissionInfoContainer>

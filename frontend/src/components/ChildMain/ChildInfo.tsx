@@ -16,7 +16,7 @@ const ChildInfo = () => {
         />
         <div>
           <Typography variant="h6">{name}</Typography>
-          {account ? (
+          {account === '' ? (
             <>
               <Typography variant="small" color="gray" className="font-normal">
                 계좌를 등록해주세요
