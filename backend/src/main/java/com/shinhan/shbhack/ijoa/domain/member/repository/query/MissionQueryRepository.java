@@ -25,8 +25,8 @@ public class MissionQueryRepository {
                 .selectFrom(mission)
                 .where(isParent(memberId, memberRole),
                         isStatus(accomplishment),
-                        mission.startDate.goe(LocalDate.now()),
-                        mission.endDate.loe(LocalDate.now())
+                        mission.startDate.loe(LocalDate.now()),
+                        mission.endDate.goe(LocalDate.now())
                 )
                 .fetch();
     }
