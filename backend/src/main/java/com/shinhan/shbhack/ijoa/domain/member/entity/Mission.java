@@ -64,11 +64,11 @@ public class Mission extends BaseEntity {
     @JoinColumn(name = "challenger_id")
     private Member challenger;
 
-    @OneToOne(mappedBy = "mission")
-    private Notification notifications;
+    @OneToMany(mappedBy = "mission")
+    private List<Notification> notifications;
 
     @Builder
-    public Mission(Long id, String title, String content, Long reward, LocalDate startDate, LocalDate endDate, Accomplishment accomplishment, Member writer, Member challenger, Notification notifications) {
+    public Mission(Long id, String title, String content, Long reward, LocalDate startDate, LocalDate endDate, Accomplishment accomplishment, Member writer, Member challenger, List<Notification> notifications) {
         this.id = id;
         this.title = title;
         this.content = content;
