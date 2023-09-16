@@ -97,6 +97,11 @@ const BottomButton = () => {
         className="bg-[#F8A70C]"
         onClick={() => {
           navigate(-1);
+          setTitle('');
+          setContent('');
+          setWeatherMood('');
+          setDate('');
+          setPicture([]);
         }}
       >
         뒤로 가기

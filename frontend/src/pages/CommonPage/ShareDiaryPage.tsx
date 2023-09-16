@@ -1,78 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, Typography, Carousel, Textarea,Button } from '@material-tailwind/react';
-import { useUserStore } from '../../store/UserStore';
-import { Icon } from 'semantic-ui-react';
-import TradeList from '../ChildWrite/TradeList';
-import CopyToClipboard from 'react-copy-to-clipboard';
-
-
-// import {Diary} from './DiaryContentStyles'
 import axios from 'axios';
-interface DiaryContentProps {
-  selectdate: string;
-  diaryId: string;
-}
+import { useParams } from 'react-router-dom';
+import { setDate } from 'date-fns';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+
 interface Diary {
-  diaryId: number;
-  writer: string;
-  title: string;
-  content: string;
-  emotion: string;
-  diaryDate: string;
-  images: {
-    storeFileName: string;
-    diaryImageId: string;
-    uploadFileName: string;
-  }[];
+    diaryId: number;
+    writer: string;
+    title: string;
+    content: string;
+    emotion: string;
+    diaryDate: string;
+    images: {
+      storeFileName: string;
+      diaryImageId: string;
+      uploadFileName: string;
+    }[];
+  
+    record: string;
+  }
 
-  record: string;
-}
+const ShareDiaryPage = () => {
+    const { diaryid } = useParams<{ diaryid: string }>();
+    const [diary, setDiary] = useState<Diary>();
+    const navigate = useNavigate();
 
-const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
-  const { accessToken } = useUserStore();
-  const [diary, setDiary] = useState<Diary>();
-  const [share, setShare] = useState(false)
-  const shareDiary = (()=>{
-    axios 
-      .post(`https://j9c210.p.ssafy.io/api1/diaries/share/${diaryId}`,{},
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        }
-      })
-      .then((response)=>{
-        console.log(response)
-        setShare(true)
-      })
-      .catch((error)=>{
-        console.log(error)
-      })
-  })
-  // diaryId 값이 바뀔 때마다 axios get 요청하는 함수
-  useEffect(() => {
-    axios
-      .get(`https://j9c210.p.ssafy.io/api1/diaries/${diaryId}`, {
-        headers: {
-          // Accept: "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => {
-        console.log('일기 내용 불러오는 거 성공함');
-        console.log(res.data);
-        setDiary(res.data);
-      })
-      .catch((err) => {
-        console.log('에러..');
-        console.log(err);
-      });
-  }, [diaryId]);
-  return (
-    <div className="gap-14 flex flex-col lg:w-[35vw]">
+    const shareDiary=()=>{
+        axios
+            .get(`https://j9c210.p.ssafy.io/api1/shareddiaries/${diaryid}`)
+            .then((res)=> {
+                console.log(res)
+                setDiary(res.data)
+            })
+            .catch((error)=>{
+                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: '일기 공유시간이 지났습니다.',
+                  });
+                navigate('/')
+            })
+    }
+    
+    useEffect(()=>{
+        shareDiary()
+    },[])
+
+    return (
+        <div className="flex flex-col justify-center items-center">
+        <div className="gap-14 flex flex-col justify-center items-center lg:w-[35vw]">
       {/* 일기 쓴 날짜 */}
       <div className="text-center mt-10">
         <Typography className="font-['HSYuji-Regular']" variant="h2">
-          {diary?.diaryDate}의 일기
+          {diary?.writer}의 일기
         </Typography>
       </div>
 
@@ -84,9 +66,6 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
       </div>
       {/* 내용 */}
       {/* 거래내역 */}
-      <div className=" flex justify-center items-center">
-        <TradeList />
-      </div>
       {/* 일기 쓴 날짜의 기분 날씨 */}
       <div className="">
         <div className="text-2xl text-center font-['HSYuji-Regular']">{diary?.diaryDate}의 기분 날씨는 어땠나요 ?</div>
@@ -202,25 +181,11 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
             />
           ))}
         </Carousel>
-        <div className="flex justify-center flex-col items-center">
-        <Button color="orange"className="mb-10 w-56 h-14 text-xl" onClick={shareDiary}>
-              공유하기
-        </Button>
-
-        {share ? (
-            <CopyToClipboard
-              text={`https://j9c210.p.ssafy.io/share/${diaryId}`}
-              onCopy={() => alert("클립보드에 복사되었습니다.")}
-            >
-              <Button color="orange" className="mb-10 w-45 h-12 text-l">
-                복사하기
-              </Button>
-            </CopyToClipboard>
-          ) : null}
-      </div>
       </div>
     </div>
-  );
+    </div>
+    );
 };
 
-export default DiaryContent;
+export default ShareDiaryPage;
+

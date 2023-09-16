@@ -102,7 +102,7 @@ export default function DateCalendarServerRequest() {
     <div className="h-[100vh]">
       {calendarVisible && (
         <div>
-          <div className="flex flex-col justify-center items-center h-screen">
+          <div className="flex flex-col justify-start mt-12 items-center h-screen">
             <div>
               <Typography variant="h3" className="text-center mt-10 font-['HSYuji-Regular']">
                 읽고 싶은 용돈 일기를 <br></br>

@@ -30,6 +30,8 @@ interface UserStore {
   setBalance: (balance: any) => void;
   alarmData: any;
   setAlarmData: (alarmData: any) => void;
+  countDiary: any;
+  setCountDiary: (countDiary: any) => void;
 }
 
 export const useUserStore = create<UserStore>()(
@@ -49,6 +51,7 @@ export const useUserStore = create<UserStore>()(
         refreshToken: '',
         balance: '',
         alarmData: [],
+        countDiary:0,
         setId: (payload) => set({ id: payload }),
         setName: (payload) => set({ name: payload }),
         setBirthDate: (payload) => set({ birthDate: payload }),
@@ -62,6 +65,7 @@ export const useUserStore = create<UserStore>()(
         setAccount: (payload) => set({ account: payload }),
         setBalance: (payload) => set({ balance: payload }),
         setAlarmData: (payload) => set({ alarmData: payload }),
+        setCountDiary: (payload) => set({ countDiary: payload }),
       }),
       {
         name: 'User-storage', // persist key

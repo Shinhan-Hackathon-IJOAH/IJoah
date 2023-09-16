@@ -35,7 +35,7 @@ interface Mission {
 
 const MissionList = () => {
   const { childname, childimg } = useSelectChildStore();
-  const { id, accessToken, memberRole } = useUserStore();
+  const { id, accessToken, memberRole,countDiary } = useUserStore();
   const [missionlist, setMissionList] = useState<Mission>();
   const getMissionList = () => {
     axios
@@ -62,7 +62,7 @@ const MissionList = () => {
   };
   useEffect(() => {
     getMissionList();
-  }, []);
+  }, [countDiary]);
   const panes = [
     {
       menuItem: '진행미션',
