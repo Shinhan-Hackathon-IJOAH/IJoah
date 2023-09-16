@@ -73,6 +73,7 @@ public class MissionService {
             accomplishment = request.isAccept() ? Accomplishment.완료 : Accomplishment.비활성화;
         } else if((mission.getChallenger().getId() == request.getMemberId()) && request.isAccept() && (mission.getAccomplishment() == Accomplishment.진행)){
             accomplishment = Accomplishment.요청;
+            alarmService.sendAlarm(AlarmNotifyRequest.of(mission.getChallenger(), mission.getWriter(), mission, NotificationType.CHECK_MISSION));
         }else{
             throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
         }
@@ -86,6 +87,8 @@ public class MissionService {
                     "미션 보상 출금", "미션 보상 입금"
             ));
         }
+
+
     }
 
 
