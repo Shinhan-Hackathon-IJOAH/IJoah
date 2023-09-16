@@ -50,11 +50,19 @@ public class EmailQueryService {
 
     private String createCode() {
         int lenth = 6;
+        log.info("lenth 선언");
+        log.debug("lenth 선언");
         try {
             Random random = SecureRandom.getInstanceStrong();
+            log.info("random 선언");
+            log.debug("random 선언");
             StringBuilder builder = new StringBuilder();
+            log.info("builder 선언");
+            log.debug("builder 선언");
             for (int i = 0; i < lenth; i++) {
                 builder.append(random.nextInt(10));
+                log.info("반복중:{} ", i);
+                log.debug("반복중:{} ", i);
             }
             return builder.toString();
         } catch (NoSuchAlgorithmException e) {
