@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authorizeRequests()
 //                .antMatchers("/**").permitAll()
                 .antMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
-                .antMatchers("/api1/shareddiaries/**", "/api1/diaries/write", "/api1/alarm/**").permitAll()
+                .antMatchers("/api1/shareddiaries/**", "/api1/diaries/write", "/api1/alarm/**", "/api/diaries/image").permitAll()
                 .antMatchers("/api1/members/join", "/api1/members/login", "/api1/emails/**").permitAll()
 
                 .anyRequest().authenticated().and()

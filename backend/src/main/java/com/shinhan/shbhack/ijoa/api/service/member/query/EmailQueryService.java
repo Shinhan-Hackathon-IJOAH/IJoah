@@ -29,46 +29,60 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class EmailQueryService {
 
-    private final MemberRepository memberRepository;
     private final RedisUtil redisUtil;
+    private final JavaMailSender emailSender;
+    private final MemberRepository memberRepository;
 
-    public String sendEmail(String email) throws MessagingException, UnsupportedEncodingException {
+    public void sendJoinEmail(String email) throws MessagingException, UnsupportedEncodingException {
         if(memberRepository.existsByEmail(email))
             throw new EntityNotFoundException(ErrorCode.MEMBER_DUPLICATE);
 
-        log.info("코드 만들기 전");
-        log.debug("코드 만들기 전");
-
-        String code = createCode();
-
-        log.info("코드 만든 후");
-        log.debug("코드 만들기 후");
-
-        return code;
+        try {
+            MimeMessage emailForm = createEmailForm(email, createCode());
+            emailSender.send(emailForm);
+        } catch (Exception e){
+            throw new InvalidValueException(ErrorCode.EMAIL_FORM_ERROR);
+        }
 
     }
 
     private String createCode() {
         int lenth = 6;
-        log.info("lenth 선언");
-        log.debug("lenth 선언");
         try {
             Random random = new Random();
-            log.info("random 선언");
-            log.debug("random 선언");
             StringBuilder builder = new StringBuilder(lenth);
-            log.info("builder 선언");
-            log.debug("builder 선언");
             for (int i = 0; i < lenth; i++) {
                 builder.append(random.nextInt(10));
-                log.info("반복중:{} ", i);
-                log.debug("반복중:{} ", i);
             }
             return builder.toString();
         } catch (Exception e) {
-            log.debug("랜덤 값 생성 실패");
             throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
         }
+    }
+
+    private MimeMessage createEmailForm(String email, String code) throws MessagingException, UnsupportedEncodingException {
+        String senderEmail = "noreply@moailgi.com"; // Replace with your email address (sender)
+        String senderName = "모아일기"; // Replace with your name (sender)
+
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");
+        helper.setTo(email); // Set recipient email address
+        helper.setFrom(new InternetAddress(senderEmail, senderName)); // Set sender email and name
+        helper.setSubject("Verification Code for Your Account"); // Set email subject
+
+        // Email content with the generated verification code
+        String emailContent = "<html><body style=\"font-family: Arial, sans-serif;\">"
+                + "<h2>안녕하세요!!</h2>"
+                + "<p>모아일기 사이트에 회원가입을 해주셔서 감사합니다!</p>"
+                + "<p>인증코드입니다.:</p>"
+                + "<h3 style=\"background-color: #f0f0f0; padding: 10px;\">" + code + "</h3>"
+                + "<p>Please use this code to verify your account.</p>"
+                + "<p>Best regards,<br/>Your Website Team</p>"
+                + "</body></html>";
+
+        helper.setText(emailContent, true); // Set email content as HTML
+
+        return message;
     }
 
     public void checkEmail(EmailCheckServiceRequest request){
