@@ -37,7 +37,7 @@ public class AlarmService {
         notificationRepository.save(notification);
         AlarmInfoResponse response = new AlarmInfoResponse();
         response.setContent(notification.getContent());
-//        sseService.send(alarmNotifyRequest.getReceiver().getId(), response);
+        sseService.send(alarmNotifyRequest.getReceiver().getId(), response);
 
     }
 
