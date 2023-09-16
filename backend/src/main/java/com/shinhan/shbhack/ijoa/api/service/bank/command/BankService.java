@@ -188,7 +188,7 @@ public class BankService {
     }
 
     public void startOneWonAuth(BankBalanceRequest bankBalanceRequest){
-        if(accountRepository.existsByAccountNumber(bankBalanceRequest.getAccountNumber())){
+        if(memberRepository.existsMemberByAccount_AccountNumber(bankBalanceRequest.getAccountNumber())){
             throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
         }
         Random random = new Random();
