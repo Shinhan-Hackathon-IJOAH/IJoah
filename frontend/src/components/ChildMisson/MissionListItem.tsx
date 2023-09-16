@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {MissionItemContainer,CompleteButton,FontTag,MissionTagContainer} from './MissionListItemStyles'
 import axios from 'axios';
+import { useUserStore } from '../../store/UserStore';
 
 interface MissionListItemProps{
     missionid: string;
@@ -11,9 +12,15 @@ interface MissionListItemProps{
 
 const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionamount}) => {
     const navigate = useNavigate();
+    const {id,memberRole} =useUserStore();
     const complete = () => {
         axios
-            .post('.....',{}
+            .post('https://j9c210.p.ssafy.io/api1/missions/check',{
+                memberId: id,
+                memberRole: memberRole, 
+                missionId: missionid,
+                isAccept: "true"
+            }
             )
             .then((response)=>{
                 console.log(response)

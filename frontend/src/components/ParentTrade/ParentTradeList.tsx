@@ -130,6 +130,7 @@ const ParentTradeList = () => {
           ))}
         </List>
       </Card>
+      <div style={{height:'70px'}}/>
       <BottomNav />
     </div>
   );
