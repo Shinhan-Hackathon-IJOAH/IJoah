@@ -30,13 +30,14 @@ public class AlarmService {
     private final AlarmQueryRepository alarmQueryRepository;
     private final NotificationRepository notificationRepository;
     private final MemberRepository memberRepository;
+    private final SSEService sseService;
 
     public void sendAlarm(AlarmNotifyRequest alarmNotifyRequest){
         Notification notification = Notification.of(alarmNotifyRequest);
         notificationRepository.save(notification);
         AlarmInfoResponse response = new AlarmInfoResponse();
         response.setContent(notification.getContent());
-//        send(alarmNotifyRequest.getReceiver().getId(), response);
+//        sseService.send(alarmNotifyRequest.getReceiver().getId(), response);
 
     }
 
