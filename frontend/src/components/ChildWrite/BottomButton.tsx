@@ -7,14 +7,27 @@ import { Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { useUserStore } from '../../store/UserStore';
 const BottomButton = () => {
-  const { accessToken } = useUserStore();
-  const { title, content, date, weatherMood, picture, voice, file } = useDiaryStore();
+  const { accessToken, id } = useUserStore();
+  const {
+    title,
+    content,
+    date,
+    weatherMood,
+    picture,
+    voice,
+    file,
+    setTitle,
+    setContent,
+    setWeatherMood,
+    setDate,
+    setPicture,
+  } = useDiaryStore();
   const navigate = useNavigate();
 
   const writeDiary = () => {
     const formData = new FormData();
     const info = {
-      memberId: '1',
+      memberId: id,
       title: title,
       emotion: weatherMood,
       content: content,
@@ -29,9 +42,10 @@ const BottomButton = () => {
         console.log(pic);
         formData.append('images', pic);
       }
-    } else {
-      formData.append('images', '');
     }
+    // else {
+    //   formData.append('images', '');
+    // }
 
     const voiceBlob = new Blob([voice]);
     formData.append('record', voiceBlob);
@@ -49,6 +63,11 @@ const BottomButton = () => {
           icon: 'success',
           title: '일기 작성 완료!',
         });
+        setTitle('');
+        setContent('');
+        setWeatherMood('');
+        setDate('');
+        setPicture([]);
         navigate('/child');
       })
       .catch((error: any) => {
