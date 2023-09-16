@@ -45,7 +45,8 @@ public class AlarmNotifyRequest {
                 .mission(mission)
                 .content(
                         notificationType == NotificationType.REGIST_MISSION ?
-                                sender.getName() + " 님이" + mission.getTitle() + " 미션을 등록하였습니다." : null)
+                                sender.getName() + " 님이" + mission.getTitle() + " 미션을 등록하였습니다." : sender.getName() + " 님이" + mission.getTitle() + " 미션 완료요청을 하였습니다."
+                        )
                 .build();
     }
 }
