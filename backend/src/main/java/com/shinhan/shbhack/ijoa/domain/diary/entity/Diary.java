@@ -46,7 +46,7 @@ public class Diary extends BaseEntity {
     // TODO: 2023-09-12 이름 바꿔주세요
     @NotNull
 //    @Column(unique = true) // 여러사람이 같은 날짜 쓸때 에러
-    private LocalDate diary_date;
+    private LocalDate diaryDate;
 
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     private List<DiaryImage> images;
@@ -56,13 +56,13 @@ public class Diary extends BaseEntity {
     private DiaryRecord record;
 
     @Builder
-    public Diary(Long diaryId, Member member, String title, String content, String emotion, LocalDate diary_date, List<DiaryImage> images, DiaryRecord record) {
+    public Diary(Long diaryId, Member member, String title, String content, String emotion, LocalDate diaryDate, List<DiaryImage> images, DiaryRecord record) {
         this.diaryId = diaryId;
         this.member = member;
         this.title = title;
         this.content = content;
         this.emotion = emotion;
-        this.diary_date = diary_date;
+        this.diaryDate = diaryDate;
         this.images = images;
         this.record = record;
     }
@@ -71,7 +71,7 @@ public class Diary extends BaseEntity {
         Diary diary = new Diary();
         diary.setMember(member);
         diary.setTitle(diaryCreateServiceRequest.getTitle());
-        diary.setDiary_date(diaryCreateServiceRequest.getDate());
+        diary.setDiaryDate(diaryCreateServiceRequest.getDate());
         diary.setContent(diaryCreateServiceRequest.getContent());
         diary.setEmotion(diaryCreateServiceRequest.getEmotion());
         return diary;
