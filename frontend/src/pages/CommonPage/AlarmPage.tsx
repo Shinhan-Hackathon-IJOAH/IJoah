@@ -5,7 +5,7 @@ import { useUserStore } from '../../store/UserStore';
 import BottomNav from '../../components/Common/BottomNav';
 import BackPageButton from '../../components/Common/BackPageButton';
 const AlarmPage = () => {
-  const {alarmData, setAlarmData} = useUserStore();
+  const { alarmData, setAlarmData } = useUserStore();
   const dummyData = [
     {
       id: 1,
@@ -144,7 +144,7 @@ const AlarmPage = () => {
   }
   return (
     <div className="flex flex-col justify-center items-center ">
-      <BackPageButton/>
+      <BackPageButton />
       <div className="mt-10 ">
         <Typography className="font-['HSYuji-Regular']" variant="h2">
           알람 페이지

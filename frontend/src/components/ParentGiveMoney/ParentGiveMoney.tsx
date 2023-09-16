@@ -45,6 +45,7 @@ const ParentGiveMoney = () => {
             amount: givemoney,
             withdrawContent: `${childname}에게 용돈`,
             depositContent: `${name}이 주신 용돈`,
+            // balance: "900000",
           },
           {
             headers: {
@@ -64,6 +65,8 @@ const ParentGiveMoney = () => {
         })
         .catch((error) => {
           console.log(error);
+          console.log(typeof balance);
+          console.log(typeof givemoney);
           Swal.fire({
             icon: 'error',
             title: '용돈보내기 실패',

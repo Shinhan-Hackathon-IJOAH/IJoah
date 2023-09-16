@@ -96,7 +96,7 @@ const GiveMissionDetail = () => {
     } else {
       axios
         .post(
-          'https://j9c210.p.ssafy.io/api1/mission',
+          'https://j9c210.p.ssafy.io/api1/missions/create',
           {
             parentId: id,
             childId: childid,

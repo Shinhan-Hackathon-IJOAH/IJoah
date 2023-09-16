@@ -5,6 +5,8 @@ import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryCalenderResp
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryDetailResponse;
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryImageResponse;
 import com.shinhan.shbhack.ijoa.api.service.diary.dto.response.DiaryRecordResponse;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.exception.InvalidValueException;
 import com.shinhan.shbhack.ijoa.common.util.FileUtil;
 import com.shinhan.shbhack.ijoa.domain.UploadFile;
 import com.shinhan.shbhack.ijoa.domain.diary.entity.Diary;
@@ -44,6 +46,10 @@ public class DiaryService {
             Long memberId = Long.parseLong(diaryCreateServiceRequest.getMemberId());
             log.info(memberId.toString());
             Member member = memberRepository.findById(memberId).orElseThrow(()->new RuntimeException("유저 아이디로 멤버 찾기 실패"));
+            if(diaryRepository.existsDiaryByMemberAndDiaryDate(member, diaryCreateServiceRequest.getDate())){
+                throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
+            }
+
             Diary newDiary = Diary.of(diaryCreateServiceRequest, member); // 일기장 생성
 
             List<MultipartFile> originalFiles = diaryCreateServiceRequest.getPhoto();
@@ -58,14 +64,6 @@ public class DiaryService {
             }
 
 
-//            MultipartFile recordInfo = diaryCreateServiceRequest.getRecord();
-//            UploadFile diaryRecord = null;
-//            if(recordInfo != null && !recordInfo.isEmpty()){
-//                log.info("여기까지는 도달");
-//                diaryRecord = fileStore.storeFile(recordInfo);
-//                newDiary.setRecord(DiaryRecord.of(diaryRecord, newDiary));
-//
-//            }
             diaryRepository.save(newDiary);
 
         } catch (IOException e) {
@@ -96,7 +94,7 @@ public class DiaryService {
             modifyDiary.setTitle(diaryCreateServiceRequest.getTitle());
             modifyDiary.setEmotion(diaryCreateServiceRequest.getEmotion());
             modifyDiary.setContent(diaryCreateServiceRequest.getContent());
-            modifyDiary.setDiary_date(diaryCreateServiceRequest.getDate());
+            modifyDiary.setDiaryDate(diaryCreateServiceRequest.getDate());
             List<UploadFile> fileInfos = fileStore.storeFiles(diaryCreateServiceRequest.getPhoto());
             List<DiaryImage> diaryImageList = new ArrayList<>();
             for(UploadFile uploadFile : fileInfos){

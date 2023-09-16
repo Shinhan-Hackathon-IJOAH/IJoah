@@ -32,6 +32,7 @@ const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle
             })
             .catch((error)=>{
                 console.log(error)
+                console.log(missionid)
             })
     }
     const detailClick = ()=>{

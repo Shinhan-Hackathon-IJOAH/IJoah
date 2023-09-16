@@ -17,19 +17,19 @@ interface Mission {
     fileName: string;
   };
   compeleteMissions: {
-    missionid: '';
+    missionId: '';
     missionTitle: '';
-    missionReword: '';
+    missionReward: '';
   }[];
   incompleteMissions: {
-    missionid: '';
+    missionId: '';
     missionTitle: '';
-    missionReword: '';
+    missionReward: '';
   }[];
   checkingMissions: {
-    missionid: '';
+    missionId: '';
     missionTitle: '';
-    missionReword: '';
+    missionReward: '';
   }[];
 }
 
@@ -70,10 +70,10 @@ const MissionList = () => {
         <Tab.Pane>
           {missionlist?.incompleteMissions?.map((mission) => (
             <MissionListItem
-              key={mission.missionid}
-              missionid={mission.missionid}
+              key={mission.missionId}
+              missionid={mission.missionId}
               missiontitle={mission.missionTitle}
-              missionamount={mission.missionReword}
+              missionamount={mission.missionReward}
             />
           ))}
         </Tab.Pane>
@@ -85,10 +85,10 @@ const MissionList = () => {
         <Tab.Pane>
           {missionlist?.compeleteMissions?.map((mission) => (
             <MissionCompleteItem
-              key={mission.missionid}
-              missionid={mission.missionid}
+              key={mission.missionId}
+              missionid={mission.missionId}
               missiontitle={mission.missionTitle}
-              missionamount={mission.missionReword}
+              missionamount={mission.missionReward}
             />
           ))}
         </Tab.Pane>
@@ -100,10 +100,10 @@ const MissionList = () => {
         <Tab.Pane>
           {missionlist?.checkingMissions?.map((mission) => (
             <MissionRequestItem
-              key={mission.missionid}
-              missionid={mission.missionid}
+              key={mission.missionId}
+              missionid={mission.missionId}
               missiontitle={mission.missionTitle}
-              missionamount={mission.missionReword}
+              missionamount={mission.missionReward}
             />
           ))}
         </Tab.Pane>
