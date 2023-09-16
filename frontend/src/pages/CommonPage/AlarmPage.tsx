@@ -6,44 +6,6 @@ import BottomNav from '../../components/Common/BottomNav';
 import BackPageButton from '../../components/Common/BackPageButton';
 const AlarmPage = () => {
   const { alarmData, setAlarmData } = useUserStore();
-  const dummyData = [
-    {
-      id: 1,
-      notificationType: 'WITHDRAWL',
-      confirmStatus: 'UNCONFIRMED',
-      senderName: '김신한',
-      content: '김신한님이 100원을 이체했습니다. ',
-      missionId: null,
-      time: '2023-09-11T23:56:28.616523',
-    },
-    {
-      id: 2,
-      notificationType: 'CHILD_MISSION',
-      confirmStatus: 'UNCONFIRMED',
-      senderName: '김신한',
-      content: '김신한님이 100원을 이체했습니다. ',
-      missionId: null,
-      time: '2023-09-11T23:56:28.616523',
-    },
-    {
-      id: 3,
-      notificationType: 'PARENT_MISSION',
-      confirmStatus: 'UNCONFIRMED',
-      senderName: '김신한',
-      content: '김신한님이 100원을 이체했습니다. ',
-      missionId: null,
-      time: '2023-09-11T23:56:28.616523',
-    },
-    {
-      id: 1212,
-      notificationType: 'CHILD_ENROLL',
-      confirmStatus: 'UNCONFIRMED',
-      senderName: '김신한',
-      content: '김신한님이 당신을 자녀로 등록했습니다. ',
-      missionId: null,
-      time: '2023-09-11T23:56:28.616523',
-    },
-  ];
 
   // 타입 정의
   enum AlarmType {

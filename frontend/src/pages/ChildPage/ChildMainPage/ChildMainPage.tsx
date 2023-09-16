@@ -8,11 +8,16 @@ import BottomNav from '../../../components/Common/BottomNav';
 import { ButtonColum, ChildMainPageContent, Logo, ButtonContainer, SideButtonContainer } from './ChildMainPageStyles';
 import { useUserStore } from '../../../store/UserStore';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+
+
 
 const ChildMainPage = () => {
+  const navigate = useNavigate();
   const {
     id,
     accessToken,
+    memberRole,
     setBalance,
     setName,
     setBirthDate,
@@ -48,6 +53,11 @@ const ChildMainPage = () => {
   };
 
   useEffect(() => {
+    if (memberRole ==='CHILD'){
+      
+    } else{
+      navigate('/')
+    }
     getChildInfo();
   }, []);
 

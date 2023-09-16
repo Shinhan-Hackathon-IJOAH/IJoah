@@ -13,13 +13,11 @@ import {
   TabsBody,
   Tab,
   TabPanel,
-  Select,
-  Option,
 } from '@material-tailwind/react';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { BanknotesIcon, CreditCardIcon, LockClosedIcon } from '@heroicons/react/24/solid';
+import { BanknotesIcon, LockClosedIcon } from '@heroicons/react/24/solid';
 import { useSignUpStore } from '../../store/SignUpStore';
 import Swal from 'sweetalert2';
 import { IconButton } from '@material-tailwind/react';
@@ -28,7 +26,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const { signUpEmail, setSignUpEmail } = useSignUpStore();
+  const { signUpEmail } = useSignUpStore();
   console.log(signUpEmail);
   const [memberRole, setMemberRole] = useState('PARENT');
   const [name, setName] = useState('');
@@ -54,15 +52,7 @@ export default function SignUp() {
         .replace(/(\-{1,2})$/, ''),
     );
   };
-  const handleAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAddress(e.target.value);
-  };
-  const handleBirthDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBirthDate(e.target.value);
-  };
-  const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGender(e.target.value);
-  };
+
   const handlePasswordCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordCheck(e.target.value);
   };

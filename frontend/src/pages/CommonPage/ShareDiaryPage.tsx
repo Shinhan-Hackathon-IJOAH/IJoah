@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, Typography, Carousel, Textarea,Button } from '@material-tailwind/react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { setDate } from 'date-fns';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 

@@ -117,19 +117,7 @@ const MyPage = () => {
             </div>
           </CardHeader>
           <CardFooter className="mt-5 pt-0 flex justify-center flex-col items-center">
-            {/* <div>
-              <Typography color="blue-gray">
-                프로필 사진을 변경하려면 아래 하단의 '파일 선택' 버튼을 누르고 사진을 업로드해주세요.
-              </Typography>
-            </div> */}
             <div>
-              {/* <div className="font-['HSYuji-Regular']">
-                사진 등록하기
-                <IconButton size="large" color="warning" aria-label="upload picture" component="label">
-                  <input hidden accept="image/*" type="file" id="file-input" onChange={handleImageChange} />
-                  <PhotoCamera />
-                </IconButton>
-              </div> */}
               <div className="font-['HSYuji-Regular'] text-center text-2xl font-semibold">
                 <label htmlFor="file-input">
                   {/* 희창이가 이상하다 함. */}
