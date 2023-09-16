@@ -63,6 +63,7 @@ public class BankService {
         Long balance = account.getBalance();
         balance += Long.parseLong(bankDepositRequest.getAmount());
         account.setBalance(balance);
+        log.info("현재 시간 :" +LocalTime.now() );
         transactionRepository.save(Transaction.builder()
                 .accountNumber(account.getAccountNumber())
                 .transactionDay(LocalDate.now())

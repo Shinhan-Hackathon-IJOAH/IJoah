@@ -116,7 +116,10 @@ const TradeList = () => {
                       {transaction.content}
                     </Typography>
                     <Typography variant="small" color="gray" className="font-normal">
-                      {`${transaction.time.slice(0, 2)}:${transaction.time.slice(3, 5)}`}
+                      {`${transaction.date.slice(5, 7)}월 ${transaction.date.slice(8, 10)}일 ${transaction.time.slice(
+                        0,
+                        2,
+                      )}:${transaction.time.slice(3, 5)}`}
                     </Typography>
                   </div>
                   <div>

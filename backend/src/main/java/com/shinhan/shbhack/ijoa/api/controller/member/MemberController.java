@@ -13,10 +13,12 @@ import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberModifyServi
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberParentHomeResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
 import com.shinhan.shbhack.ijoa.api.service.member.query.MemberQueryService;
+import com.shinhan.shbhack.ijoa.common.model.UserDetailsModel;
 import com.shinhan.shbhack.ijoa.common.response.ApiData;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,7 +35,7 @@ public class MemberController {
 
     @PostMapping("/join")
     @ApiOperation(value = "회원 가입")
-    public ApiData<String> joinMember(@RequestBody @Valid MemberCreateRequest request){
+    public ApiData<String> joinMember(@RequestBody MemberCreateRequest request){
         memberService.createMember(MemberCreateServiceRequest.of(request));
 
         return ApiData.of("회원가입에 성공하였습니다!");
@@ -41,19 +43,21 @@ public class MemberController {
 
     @PostMapping("/login")
     @ApiOperation(value = "로그인")
-    public ApiData<MemberTokenResponse> loginMember(@RequestBody @Valid MemberLoginRequest request){
+    public ApiData<MemberTokenResponse> loginMember(@RequestBody MemberLoginRequest request){
         return ApiData.of(memberQueryService.loginMember(MemberLoginServiceRequest.of(request)));
     }
 
     @GetMapping("/parent/{memberId}")
     @ApiOperation(value = "부모 종합 정보")
-    public ApiData<MemberParentHomeResponse> parentHome(@PathVariable Long memberId){
+    public ApiData<MemberParentHomeResponse> parentHome(@PathVariable Long memberId, @AuthenticationPrincipal UserDetailsModel model){
+        log.debug("id: {}, name: {}, email: {}, memberRole: {}", model.getId(), model.getName(), model.getEmail(), model.getRole());
         return ApiData.of(memberService.parentHome(memberId));
     }
 
     @GetMapping("/child/{memberId}")
     @ApiOperation(value = "아이 종합 정보")
-    public ApiData<MemberChildHomeResponse> childHome(@PathVariable Long memberId){
+    public ApiData<MemberChildHomeResponse> childHome(@PathVariable Long memberId, @AuthenticationPrincipal UserDetailsModel model){
+        log.debug("id: {}, name: {}, email: {}, memberRole: {}", model.getId(), model.getName(), model.getEmail(), model.getRole());
         return ApiData.of(memberService.childHome(memberId));
     }
 
