@@ -26,10 +26,11 @@ import static lombok.AccessLevel.PUBLIC;
 @NoArgsConstructor(access = PUBLIC)
 public class DiaryDetailResponse {
     private Long diaryId;
+    private String writer;
     private String title;
     private String content;
     private String emotion;
-    private LocalDate diary_date;
+    private LocalDate diaryDate;
     private List<DiaryImageResponse> images;
     private DiaryRecordResponse record;
 }

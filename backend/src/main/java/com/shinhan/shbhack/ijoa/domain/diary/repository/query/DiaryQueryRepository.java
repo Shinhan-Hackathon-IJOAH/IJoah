@@ -31,7 +31,7 @@ public class DiaryQueryRepository {
     }
 
     public DiaryDetailResponse findDetailById(Long diaryId){
-        return queryFactory.select(Projections.fields(DiaryDetailResponse.class, diary.diaryId, diary.title, diary.content, diary.diaryDate, diary.emotion)).from(diary)
+        return queryFactory.select(Projections.fields(DiaryDetailResponse.class, diary.diaryId, diary.title, diary.content, diary.diaryDate, diary.emotion, diary.member.name.as("writer"))).from(diary)
                 .where(diary.diaryId.eq(diaryId)).fetchOne();
     }
 

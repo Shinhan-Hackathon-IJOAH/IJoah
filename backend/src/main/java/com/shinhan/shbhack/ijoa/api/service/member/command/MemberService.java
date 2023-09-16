@@ -44,7 +44,7 @@ public class MemberService {
             Member member = request.toEntity(encodePassword(request.getPassword()));
             memberRepository.save(member);
 
-            profileImageRepository.save(ProfileImage.of(UploadFile.builder().uploadFileName("default_profile.png").storeFileName("cc1e82eb-7a24-435f-9397-94ff489451b9.png").build(), member));
+            profileImageRepository.save(ProfileImage.of(UploadFile.builder().uploadFileName("default_profile.png").storeFileName("default_profile.png").build(), member));
         } catch (Exception e){
             throw new InvalidValueException(ErrorCode.EMAIL_DUPLICATION);
         }
