@@ -30,4 +30,9 @@ public class EmailController {
         emailQueryService.checkEmail(EmailCheckServiceRequest.of(request));
         return ApiData.of("인증이 성공하엿습니다!");
     }
+
+    @GetMapping("/test")
+    public ApiData<String> testToken(){
+        return ApiData.of("토큰 유효성 검사에 성공했습니다");
+    }
 }
