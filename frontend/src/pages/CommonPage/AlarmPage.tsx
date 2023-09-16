@@ -5,6 +5,7 @@ import { useUserStore } from '../../store/UserStore';
 import BottomNav from '../../components/Common/BottomNav';
 import BackPageButton from '../../components/Common/BackPageButton';
 const AlarmPage = () => {
+  const {alarmData, setAlarmData} = useUserStore();
   const dummyData = [
     {
       id: 1,
@@ -61,7 +62,7 @@ const AlarmPage = () => {
   };
 
   // Axios 쏘고 담을 알람 데이터
-  const [alarmData, setAlarmData] = useState<any[]>([]);
+  // const [alarmData, setAlarmData] = useState<any[]>([]);
 
   // 알람 삭제하는 것을 카운트 하는 state를 만들고, 이 변수값이 올라갈 때마다 다시 알람 페이지 렌더링하기.
   const [deleteAlarmCount, setDeleteAlarmCount] = useState(0);
