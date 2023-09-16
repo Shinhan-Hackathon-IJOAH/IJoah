@@ -38,7 +38,7 @@ const ParentInfo = () => {
                 {account}
               </Typography>
               <Typography variant="small" color="gray" className="font-normal">
-                보유 자산: {balance}원
+                보유 자산: {balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
               </Typography>
             </>
           )}
