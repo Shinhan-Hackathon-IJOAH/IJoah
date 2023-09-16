@@ -109,32 +109,7 @@ export default function DateCalendarServerRequest() {
                 아래에서 골라주세요.{' '}
               </Typography>
             </div>
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateCalendar
-              disableFuture
-              ={true}
-                defaultValue={initialValue}
-                loading={isLoading}
-                onMonthChange={handleMonthChange}
-                renderLoading={() => <DayCalendarSkeleton />}
-               
 
-                
-                onChange={(newDate: dayjs.Dayjs | null) => {
-                  if (newDate) {
-                    // 스토어의 data 값도 바꿔주기
-                    setDate(newDate.format('YYYY-MM-DD'));
-                    setSelectDate(newDate.format('YYYY-MM-DD'));
-                    // 선택한 날짜와 일치하는 id 추출하는 함수
-                    findIdByDate(diaryList, selectdate);
-                    // id값 불러오기
-                    console.log(diaryId);
-                    setContentVisible(true); // 컨텐츠 보이기
-                    setCalendarVisible(false); // 달력 숨기기
-                  }
-                }}
-              />
-            </LocalizationProvider> */}
             <DatePicker
               className="custom-date-picker"
               locale={ko} // 언어설정
@@ -168,9 +143,6 @@ export default function DateCalendarServerRequest() {
             <DiaryContent selectdate={selectdate} diaryId={diaryId} />
           </div>
           <div className="mb-10">
-            {/* <Button color="orange" onClick={handleShowCalendar} className="mb-4">
-              달력보기
-      </Button>*/}
             <Button color="orange" onClick={handleShowCalendar} className="mb-10 w-56 h-14 text-xl">
               달력보기&nbsp;
               <Icon name="calendar check" className="h-24" onClick={handleShowCalendar}></Icon>
