@@ -14,7 +14,6 @@ import axios from 'axios';
 import { useUserStore } from '../../../store/UserStore';
 import { useSelectChildStore } from '../../../store/SelectChildStore';
 
-
 interface Profile {
   memberId: number;
   name: string;
@@ -53,7 +52,7 @@ interface Profile {
 }
 
 const ParentMainPage = () => {
-  const { setChildName, setChildAccount, setChildImg} = useSelectChildStore();
+  const { setChildName, setChildAccount, setChildImg, setChildId } = useSelectChildStore();
   const {
     id,
     accessToken,
@@ -104,12 +103,12 @@ const ParentMainPage = () => {
       <ButtonColum>
         <ParentInfo />
         <div className="flex items-center w-full ">
-
           {parentprofile?.children.map((child) => (
             <button
               onClick={() => {
-                setChildAccount(child.account);
+                setChildAccount(child.account.accountNumber);
                 setChildName(child.name);
+                setChildId(child.memberId);
                 if (child.profileImage) {
                   setChildImg(child.profileImage.fileName);
                 }

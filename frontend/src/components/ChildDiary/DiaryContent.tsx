@@ -52,14 +52,14 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
       {/* 일기 쓴 날짜 */}
       <div className="text-center mt-10">
         <Typography className="font-['HSYuji-Regular']" variant="h2">
-          날짜: 2023-09-16 {diary?.diary_date}
+          {diary?.diary_date}의 일기
         </Typography>
       </div>
 
       {/* 제목 */}
       <div className="text-center mx-5 -mb-7">
         <Typography className="font-['HSYuji-Regular']" variant="h3">
-          오늘은 잠을 못 잘 것 같습니다. {diary?.title}
+          {diary?.title}
         </Typography>
       </div>
       {/* 내용 */}
@@ -69,9 +69,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
       </div>
       {/* 일기 쓴 날짜의 기분 날씨 */}
       <div className="">
-        <div className="text-2xl text-center font-['HSYuji-Regular']">
-          {diary?.diary_date} 9월 16일의 기분 날씨는 어땠나요 ?
-        </div>
+        <div className="text-2xl text-center font-['HSYuji-Regular']">{diary?.diary_date}의 기분 날씨는 어땠나요 ?</div>
         <div className="flex mt-5 gap-4 justify-center">
           <div>
             <Avatar
@@ -129,11 +127,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ selectdate, diaryId }) => {
             일기 내용
           </Typography>
           <div className="border rounded-lg border-[3px] border-orange-500 p-5 md:w-[50vw] lg:w-[35vw] bg-white">
-            <Typography className="text-lg font-['HSYuji-Regular']">
-              가나다라마바사 아자차카타파하 아자창ㄹ머ㅣ퍼ㅏㄴ아ㅓㄹㄴㅁ어ㅏ러ㅣㄴㅁㄹ머ㅏ이러아머ㅏㄴㅇ 동해물과
-              백두산이 마르고 닳도록, 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이
-              보전하세.
-            </Typography>
+            <Typography className="text-lg font-['HSYuji-Regular']">{diary?.content}</Typography>
           </div>
         </div>
         {/* <Textarea color="blue" label="Textarea Blue" className="bg-white" readOnly>
