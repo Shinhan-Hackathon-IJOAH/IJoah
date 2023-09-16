@@ -57,7 +57,12 @@ const AccountRegister = () => {
           icon: 'success',
           title: '계좌 등록 성공',
       });
-      navigate(-1)
+      if (memberRole === 'PARENT') {
+          navigate('/parent');
+        }
+        if (memberRole === 'CHILD') {
+          navigate('/child');
+        }
       })
       .catch((error) => {
         console.log(error);

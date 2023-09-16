@@ -136,6 +136,7 @@ const TradeList = () => {
             ))}
           </List>
         </Card>
+        <div style={{height:'70px'}}/>
         <BottomNav />
       </div>
     </div>
