@@ -139,7 +139,7 @@ const ParentMainPage = () => {
         setAccount(parentData?.account?.accountNumber || '');
         setEmail(parentData?.email || '');
         setPhoneNumber(parentData?.phoneNumber || '');
-        setProfileImage(parentData?.profileImage.fileName || '');
+        setProfileImage(parentData?.profileImage?.fileName || '');
         setMemberRole(parentData?.memberRole || '');
         setBalance(parentData?.account?.balance || 0);
       })

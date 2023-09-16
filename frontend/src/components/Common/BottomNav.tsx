@@ -20,36 +20,42 @@ const BottomNav = () => {
   const eventSource = new EventSource(`https://j9c210.p.ssafy.io/api1/alarm/subscribe/${id}`);
 
   eventSource.addEventListener('sse', (event) => {
-    axios
-      .get(`https://j9c210.p.ssafy.io/api1/alarm/${email}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => {
-        console.log('알람 내용 불러오는 거 성공함');
-        console.log(res.data);
-        setAlarmData(res.data);
-      })
-      .catch((err) => {
-        console.log('에러..');
-        console.log(err);
+    if (event.data === 'connect completed') {
+      console.log('SSE 연결 성공함');
+      return;
+    } else {
+      axios
+        .get(`https://j9c210.p.ssafy.io/api1/alarm/${email}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((res) => {
+          console.log('알람 내용 불러오는 거 성공함');
+          console.log(res.data);
+          setAlarmData(res.data);
+        })
+        .catch((err) => {
+          console.log('에러..');
+          console.log(err);
+        });
+
+      Swal.fire({
+        icon: 'success',
+        title: '새로운 알람이 도착했습니다!',
+        text: event.data,
+        confirmButtonColor: '#f8a70c',
+      }).then((result) => {
+        // 만약 Promise리턴을 받으면,
+        if (result.isConfirmed) {
+          // 만약 모달창에서 confirm 버튼을 눌렀다면
+
+          navigate('/alarm'); // 알람 페이지로 이동
+        }
       });
 
-    Swal.fire({
-      icon: 'success',
-      title: '새로운 알람이 도착했습니다!',
-      confirmButtonColor: '#f8a70c',
-    }).then((result) => {
-      // 만약 Promise리턴을 받으면,
-      if (result.isConfirmed) {
-        // 만약 모달창에서 confirm 버튼을 눌렀다면
-
-        navigate('/alarm'); // 알람 페이지로 이동
-      }
-    });
-
-    console.log('sse통해 넘어오는 이벤트 데이터', event);
+      console.log('sse통해 넘어오는 이벤트 데이터', event);
+    }
   });
 
   const handleMenuClick = () => {
