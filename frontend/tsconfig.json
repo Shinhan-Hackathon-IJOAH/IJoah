@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     // tailwindcss를 사용하기 위한 설정
-    "typeRoots": ["./node_modules/@types", "./src"], // 이 경로를 적절히 조정
-    "types": ["tailwindcss"],
+    // "typeRoots": ["./node_modules/@types", "./src"], // 이 경로를 적절히 조정
+    // "types": ["tailwindcss"],
 
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

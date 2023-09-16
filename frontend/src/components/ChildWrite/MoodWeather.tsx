@@ -4,7 +4,6 @@ import { useDiaryStore } from '../../store/DiaryStore';
 
 const MoodWeather = () => {
   const { weatherMood, setWeatherMood } = useDiaryStore();
-  const [selectedMood, setSelectedMood] = useState<string | null>(null);
 
   const handleMoodClick = (mood: string) => {
     if (weatherMood === mood) {
@@ -82,7 +81,6 @@ const MoodWeather = () => {
             size="lg"
             alt="avatar"
             src="/weather/thunder.png"
-            //보더 넣을거면 참고하기 className="border border-green-500 shadow-xl shadow-green-900/20 ring-4 ring-green-500/30"
             className={`border border-[#F8A70C] p-1 shadow-md shadow-[#F8A70C] ring-2 ring-[#F8A70C] ${
               isMoodSelected('thunder') ? 'ring-[red] border-[red]' : ''
             }`}

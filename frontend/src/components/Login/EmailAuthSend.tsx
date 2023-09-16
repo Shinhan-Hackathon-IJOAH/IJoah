@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useSignUpStore } from '../../store/SignUpStore';
 import Swal from 'sweetalert2';
 const EmailAuthPage = () => {
-  const { isSendEmail, setIsSendEmail, signUpEmail, setSignUpEmail } = useSignUpStore();
+  const { setIsSendEmail, signUpEmail, setSignUpEmail } = useSignUpStore();
   const [isloadingAxios, setIsLoadingText] = React.useState(false);
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {

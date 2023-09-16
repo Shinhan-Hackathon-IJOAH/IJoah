@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 const ParentGiveMoney = () => {
   const navigate = useNavigate();
   const [givemoney, setGivemoney] = useState<number>(0);
-  const { childid, childname, childaccount, childimg } = useSelectChildStore();
+  const { childname, childaccount, childimg } = useSelectChildStore();
   const { balance, name, accessToken, account } = useUserStore();
   const formattedMoney = givemoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
@@ -45,7 +45,6 @@ const ParentGiveMoney = () => {
             amount: givemoney,
             withdrawContent: `${childname}에게 용돈`,
             depositContent: `${name}이 주신 용돈`,
-            // balance: "900000",
           },
           {
             headers: {

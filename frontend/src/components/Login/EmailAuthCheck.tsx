@@ -6,16 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 const EmailAuthCheck = () => {
   const navigate = useNavigate();
-  const {
-    isSendEmail,
-    setIsSendEmail,
-    realAuthCode,
-    setRealAuthCode,
-    isAuthEmail,
-    setIsAuthEmail,
-    signUpEmail,
-    setSignUpEmail,
-  } = useSignUpStore();
+  const { setIsAuthEmail, signUpEmail } = useSignUpStore();
   const [inputAuthCode, setInputAuthCode] = useState('');
 
   // 사용자가 입력한 인증번호 저장하기
@@ -38,7 +29,6 @@ const EmailAuthCheck = () => {
         Swal.fire({
           icon: 'success',
           title: '이메일 인증에 성공했습니다.',
-          // text: '모아일기에 오신 것을 환영합니다.',
         });
         navigate('/signup');
       })
@@ -56,11 +46,6 @@ const EmailAuthCheck = () => {
     <div className="flex justify-center items-center h-[100vh]">
       <Card className="w-[100vw] lg:w-[32vw]">
         <CardHeader shadow={false} floated={false} className="h-[22rem] shadow-md">
-          {/* <img
-            src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80"
-            alt="card-image"
-            className="h-full w-full object-cover"
-          /> */}
           <img src="/auth/authCheckEmail.gif" alt="card-image" className="h-full w-full object-cover" />
         </CardHeader>
         <CardBody className="justify-center items-center flex flex-col">

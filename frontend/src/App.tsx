@@ -6,7 +6,6 @@ import ChildDiaryPage from './pages/ChildPage/ChildDiaryPage/ChildDiaryPage';
 import ChildMainPage from './pages/ChildPage/ChildMainPage/ChildMainPage';
 import ChildMissionPage from './pages/ChildPage/ChildMissionPage/ChildMissionPage';
 import ChildMissionDetailPage from './pages/ChildPage/ChildMissionPage/ChildMissionDetailPage';
-import ChildRegisterPage from './pages/ChildPage/ChildRegisterPage/ChildRegisterPage';
 import ChildTradePage from './pages/ChildPage/ChildTradePage/ChildTradePage';
 import ChildWritePage from './pages/ChildPage/ChildWritePage/ChildWritePage';
 import ParentGiveMissionPage from './pages/ParentPage/ParentGiveMissionPage/ParentGiveMissionPage';
@@ -23,7 +22,6 @@ import EmailAuthPage from './pages/LoginPage/EmailAuthPage';
 import AccountRegisterPage from './pages/CommonPage/AccountRegisterPage';
 import ShareDiaryPage from './pages/CommonPage/ShareDiaryPage';
 import { Page404 } from './pages/CommonPage/Page404';
-import DiaryCalendar2 from './components/ChildDiary/DiaryCalendar2';
 
 function App() {
   return (
@@ -35,9 +33,7 @@ function App() {
         <Route path="/child/diary" element={<ChildDiaryPage />} />
         <Route path="/child/mission" element={<ChildMissionPage />} />
         <Route path="/child/mission/detail/:missionid" element={<ChildMissionDetailPage />} />
-        <Route path="/child/register" element={<ChildRegisterPage />} />
         <Route path="/child/trade" element={<ChildTradePage />} />
-        <Route path="/child/write" element={<ChildWritePage />} />
         <Route path="/parent" element={<ParentMainPage />} />
         <Route path="/parent/givemission" element={<ParentGiveMissionPage />} />
         <Route path="/parent/givemoney" element={<ParentGiveMoneyPage />} />
@@ -50,7 +46,6 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/emailauth" element={<EmailAuthPage />} />
         {/* 테스트용 라우터 추후에 삭제 필수 */}
-        <Route path="/calendar" element={<DiaryCalendar2 />} />
         <Route path="/register/account" element={<AccountRegisterPage />} />
         <Route path="/share/:diaryid" element={<ShareDiaryPage />} />
         {/* 404 Not Found 예외 처리를 위한 페이지 추가 */}

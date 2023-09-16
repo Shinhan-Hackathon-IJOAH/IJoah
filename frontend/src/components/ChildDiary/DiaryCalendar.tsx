@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
-import Badge from '@mui/material/Badge';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
+
 import DiaryContent from './DiaryContent';
 import axios from 'axios';
 import { Button, select, Typography } from '@material-tailwind/react';
@@ -17,15 +12,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import './CustomDatePicker.css';
 
-const initialValue = dayjs();
-
 export default function DateCalendarServerRequest() {
   const { date, setDate } = useDiaryStore();
   const { accessToken, id } = useUserStore();
   const [selectdate, setSelectDate] = useState('');
   const requestAbortController = React.useRef<AbortController | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = useState<any[]>(['2023-09-12', '2023-09-13']);
   const [diaryId, setDiaryId] = useState<any>(null);
   const [diaryList, setDiaryList] = useState<any[]>([
     {
@@ -41,7 +33,7 @@ export default function DateCalendarServerRequest() {
       id: 4,
       date: '2023-09-01',
     },
-  ]); // 초기값을 null로 설정
+  ]);
   const includeDates = diaryList.map((diary) => new Date(diary.date)); //날짜들을 map함수를 사용해 Date 객체로 변환!
   // highlightedDates 배열에 일기가 있는 날짜를 설정
   const [contentVisible, setContentVisible] = useState(false); // 컨텐츠 보이기/숨기기 상태 추가
@@ -51,19 +43,17 @@ export default function DateCalendarServerRequest() {
     setCalendarVisible(true); // 달력 보이기
   };
 
-  //
-  // 일기 리스트 get 요청 ( 지우면 안 돼)
+  // 일기 리스트 get 요청 하는 함수
   const readDiaryList = () => {
     axios
       .get(`https://j9c210.p.ssafy.io/api1/diaries/list/${id}`, {
         headers: {
-          // Accept: "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       })
 
       .then((res) => {
-        console.log('일기 리스트 불러오는 거 성공함');
+        console.log('일기 리스트 불러오는 거 성공!');
         console.log(res.data);
         setDiaryList(res.data);
       })
@@ -87,14 +77,6 @@ export default function DateCalendarServerRequest() {
     return selectDiary ? setDiaryId(selectDiary.id) : setDiaryId(null);
   };
 
-  const handleMonthChange = (date: Dayjs) => {
-    if (requestAbortController.current) {
-      requestAbortController.current.abort();
-    }
-
-    setIsLoading(true);
-    // setHighlightedDays([]);
-  };
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   // includeDates 테스트 ( 여기 적힌 날들만 선택 가능하게 하는 것)

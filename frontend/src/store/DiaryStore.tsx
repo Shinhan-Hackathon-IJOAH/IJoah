@@ -1,8 +1,6 @@
-// /src/zustand/store.ts
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-// store 업데이트 했으면 쿠키 날려야함.
 interface DiaryStore {
   title: any;
   setTitle: (title: any) => void;
@@ -31,8 +29,7 @@ export const useDiaryStore = create<DiaryStore>()(
       weatherMood: '',
       file: null,
       setWeatherMood: (payload) => set({ weatherMood: payload }),
-      // setPicture: (payload) => set({ picture: payload }),
-      // 배열을 받기 위한 store
+
       setPicture: (payload) => set({ picture: [...payload] }),
       setVoice: (payload) => set({ voice: payload }),
       setContent: (payload) => set({ content: payload }),

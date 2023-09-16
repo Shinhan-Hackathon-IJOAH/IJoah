@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemPrefix, Avatar, Card, Typography, CardHeader } from '@material-tailwind/react';
-import {
-  CircleStackIcon,
-  BellIcon,
-  ArchiveBoxIcon,
-  CurrencyDollarIcon,
-  BanknotesIcon,
-  CreditCardIcon,
-  LockClosedIcon,
-} from '@heroicons/react/24/solid';
+import { CreditCardIcon } from '@heroicons/react/24/solid';
 import { Icon } from 'semantic-ui-react';
 import { IconButton } from '@material-tailwind/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,31 +10,25 @@ import BackPageButton from '../Common/BackPageButton';
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
 import BottomNav from '../Common/BottomNav';
-interface Trade{
-  accountNumber: any,
-  balance: any,
-  name: any,
-  bankTransactionResponses: 
-    {
-      date: any,
-        time: any,
-        withdrawAccount: any,
-        depositAccount: any,
-        content: any,
-        transactionBalance: any, //잔액
-        type: any, // 입출금 구분 1: 입금, 2:출금
-        category: any,
-      }[];
-
+interface Trade {
+  accountNumber: any;
+  balance: any;
+  name: any;
+  bankTransactionResponses: {
+    date: any;
+    time: any;
+    withdrawAccount: any;
+    depositAccount: any;
+    content: any;
+    transactionBalance: any; //잔액
+    type: any; // 입출금 구분 1: 입금, 2:출금
+    category: any;
+  }[];
 }
 
 const TradeList = () => {
   const { accessToken, account } = useUserStore();
   const navigate = useNavigate();
-  // 더미데이터
-
-
-  console.log(accessToken);
   const [res, setRes] = useState<Trade>();
   useEffect(() => {
     axios
@@ -64,9 +50,6 @@ const TradeList = () => {
       })
       .catch((err) => {
         console.log(err);
-        console.log(accessToken);
-        console.log(typeof account);
-        console.log(account);
       });
   }, []);
 

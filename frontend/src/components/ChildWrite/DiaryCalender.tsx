@@ -10,11 +10,7 @@ import { useUserStore } from '../../store/UserStore';
 import { set } from 'date-fns';
 const DiaryCalendar = () => {
   // 초기 상태를 설정합니다. 선택한 날짜는 null로 시작합니다.
-  // const { accessToken } = useUserStore();
   const { date, setDate } = useDiaryStore();
-  // 날짜가 선택될 때 호출되는 함수를 정의합니다.
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2023-09-05'));
-  //const dateFormat = dayjs(date).format("YYYY-MM-DD"); 이렇게 하면 2021-09-23 이런식으로 변환됨. 참고하자
 
   return (
     <div className="flex justify-center mt-2 ">
