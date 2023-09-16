@@ -36,10 +36,7 @@ export default function DateCalendarServerRequest() {
       id: 2,
       date: '2023-09-10',
     },
-    {
-      id: 3,
-      date: '2023-09-08',
-    },
+
     {
       id: 4,
       date: '2023-09-01',
@@ -138,31 +135,29 @@ export default function DateCalendarServerRequest() {
                 }}
               />
             </LocalizationProvider> */}
-            <div className="custom-react-datepicker__wrapper">
-              <DatePicker
-                className="custom-date-picker"
-                locale={ko} // 언어설정
-                dateFormat="yyyy년 MM월 dd일" // 날짜 형태
-                shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
-                selected={selectedDate}
-                onChange={(e) => {
-                  const formattedDate = dayjs(e).format('YYYY-MM-DD');
-                  setSelectedDate(e); // 선택한 날짜를 상태에 업데이트합니다.
-                  setSelectDate(formattedDate); // 선택한 날짜를 상태에 업데이트합니다.
-                  setDate(formattedDate); // 스토어의 data 값도 업데이트합니다.
-                  findIdByDate(diaryList, selectdate);
-                  console.log(e); // 선택한 날짜를 콘솔에 출력합니다.
-                  console.log(date);
-                  setContentVisible(true); // 컨텐츠 보이기
-                  setCalendarVisible(false); // 달력 숨기기
-                }}
-                maxDate={new Date()}
-                includeDates={includeDates} // 여기에 변환한 Date 객체를 전달합니다. -> 이렇게하면 일기 쓴 날만 선택 가능하게 됨.
-                // 배열로 담으면 그곳이 강조됨.
-                highlightDates={includeDates}
-                inline
-              />
-            </div>
+            <DatePicker
+              className="custom-date-picker"
+              locale={ko} // 언어설정
+              dateFormat="yyyy년 MM월 dd일" // 날짜 형태
+              shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
+              selected={selectedDate}
+              onChange={(e) => {
+                const formattedDate = dayjs(e).format('YYYY-MM-DD');
+                setSelectedDate(e); // 선택한 날짜를 상태에 업데이트합니다.
+                setSelectDate(formattedDate); // 선택한 날짜를 상태에 업데이트합니다.
+                setDate(formattedDate); // 스토어의 data 값도 업데이트합니다.
+                findIdByDate(diaryList, selectdate);
+                console.log(e); // 선택한 날짜를 콘솔에 출력합니다.
+                console.log(date);
+                setContentVisible(true); // 컨텐츠 보이기
+                setCalendarVisible(false); // 달력 숨기기
+              }}
+              maxDate={new Date()}
+              includeDates={includeDates} // 여기에 변환한 Date 객체를 전달합니다. -> 이렇게하면 일기 쓴 날만 선택 가능하게 됨.
+              // 배열로 담으면 그곳이 강조됨.
+              highlightDates={includeDates}
+              inline
+            />
           </div>
         </div>
       )}

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const ChildInfo = () => {
   const navigate = useNavigate();
   const { balance, name, account, profileImage } = useUserStore();
+
   return (
     <ChildInfoContainer>
       <div className="flex items-center gap-12">
@@ -37,7 +38,7 @@ const ChildInfo = () => {
                 {account}
               </Typography>
               <Typography variant="small" color="gray" className="font-normal">
-                보유 자산: {balance}원
+                보유 자산: {balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
               </Typography>
             </>
           )}
