@@ -5,6 +5,8 @@ import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.*;
 import com.shinhan.shbhack.ijoa.api.service.alarm.command.AlarmService;
 import com.shinhan.shbhack.ijoa.api.service.alarm.dto.request.AlarmNotifyRequest;
 import com.shinhan.shbhack.ijoa.api.service.bank.dto.response.*;
+import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
+import com.shinhan.shbhack.ijoa.common.error.exception.InvalidValueException;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Account;
 import com.shinhan.shbhack.ijoa.domain.bank.entity.Transaction;
 import com.shinhan.shbhack.ijoa.domain.bank.repository.datajpa.AccountRepository;
@@ -17,6 +19,7 @@ import com.shinhan.shbhack.ijoa.domain.member.entity.enums.NotificationType;
 import com.shinhan.shbhack.ijoa.domain.member.repository.datajpa.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,6 +92,9 @@ public class BankService {
         4. 이체하는 사람 돈 업데이트
         5. 이체받는 사람 돈 업데이트
          */
+        log.info(bankTransferRequest.getWithdrawAccount());
+        log.info(bankTransferRequest.getDepositAccount());
+
         Account sender =  accountRepository.findAccountByAccountNumber(bankTransferRequest.getWithdrawAccount());
         Account receiver =  accountRepository.findAccountByAccountNumber(bankTransferRequest.getDepositAccount());
         log.info(bankTransferRequest.getWithdrawAccount());
@@ -182,6 +188,9 @@ public class BankService {
     }
 
     public void startOneWonAuth(BankBalanceRequest bankBalanceRequest){
+        if(accountRepository.existsByAccountNumber(bankBalanceRequest.getAccountNumber())){
+            throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
+        }
         Random random = new Random();
         int randomNumber = random.nextInt(list.size());
         if(checkOne.get(bankBalanceRequest.getAccountNumber()) !=null){
