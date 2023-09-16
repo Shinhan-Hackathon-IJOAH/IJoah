@@ -18,7 +18,6 @@ import ParentPatternPage from './pages/ParentPage/ParentPatternPage/ParentPatter
 import ParentRegisterPage from './pages/ParentPage/ParentRegisterPage/ParentRegisterPage';
 import ParentTradePage from './pages/ParentPage/ParentTradePage/ParentTradePage';
 import AlarmPage from './pages/CommonPage/AlarmPage';
-import MenuPage from './pages/CommonPage/MenuPage';
 import MyPage from './pages/CommonPage/MyPage';
 import EmailAuthPage from './pages/LoginPage/EmailAuthPage';
 import AccountRegisterPage from './pages/CommonPage/AccountRegisterPage';
@@ -48,7 +47,6 @@ function App() {
         <Route path="/parent/register" element={<ParentRegisterPage />} />
         <Route path="/parent/trade" element={<ParentTradePage />} />
         <Route path="/alarm" element={<AlarmPage />} />
-        <Route path="/menu" element={<MenuPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/emailauth" element={<EmailAuthPage />} />
         {/* 테스트용 라우터 추후에 삭제 필수 */}

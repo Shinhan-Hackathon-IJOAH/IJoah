@@ -4,11 +4,11 @@ import { styled } from '@mui/material/styles';
 import { useUserStore } from '../../store/UserStore';
 import { BottomNavContent, HomeImg, AlarmImg, MenuImg } from './BottomNavStyles';
 import Badge, { BadgeProps } from '@mui/material/Badge';
-import { Icon, Menu, Sidebar, Segment, Header, Image } from 'semantic-ui-react';
+import { Icon, Menu, Sidebar, } from 'semantic-ui-react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 const BottomNav = () => {
-  const { memberRole, accessToken, email, id, alarmData, setAlarmData, refreshToken } = useUserStore();
+  const { memberRole, accessToken, email, id, alarmData, setAlarmData,  } = useUserStore();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   // const [alarmData, setAlarmData] = useState<any[]>([]);
@@ -43,14 +43,8 @@ const BottomNav = () => {
         Swal.fire({
           icon: 'success',
           title: '새로운 알람이 도착했습니다!',
-          text: event.data,
+          text: event.data.content,
           confirmButtonColor: '#f8a70c',
-        }).then((result) => {
-          // 만약 Promise 리턴을 받으면,
-          if (result.isConfirmed) {
-            // 만약 모달창에서 confirm 버튼을 눌렀다면
-            navigate('/alarm'); // 알람 페이지로 이동
-          }
         });
 
         console.log('sse통해 넘어오는 이벤트 데이터', event);
@@ -62,47 +56,6 @@ const BottomNav = () => {
       eventSource.close();
     };
   }, []);
-
-  // // 이거 오류 많이 나는 코드
-  // const eventSource = new EventSource(`https://j9c210.p.ssafy.io/api1/alarm/${email}`);
-  // eventSource.addEventListener('sse', (event) => {
-  //   if (event.data === 'connect completed') {
-  //     console.log('SSE 연결 성공함');
-  //     return;
-  //   } else {
-  //     axios
-  //       .get(`https://j9c210.p.ssafy.io/api1/alarm/${email}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         console.log('알람 내용 불러오는 거 성공함');
-  //         console.log(res.data);
-  //         setAlarmData(res.data);
-  //       })
-  //       .catch((err) => {
-  //         console.log('에러..');
-  //         console.log(err);
-  //       });
-
-  //     Swal.fire({
-  //       icon: 'success',
-  //       title: '새로운 알람이 도착했습니다!',
-  //       text: event.data,
-  //       confirmButtonColor: '#f8a70c',
-  //     }).then((result) => {
-  //       // 만약 Promise리턴을 받으면,
-  //       if (result.isConfirmed) {
-  //         // 만약 모달창에서 confirm 버튼을 눌렀다면
-
-  //         navigate('/alarm'); // 알람 페이지로 이동
-  //       }
-  //     });
-
-  //     console.log('sse통해 넘어오는 이벤트 데이터', event);
-  //   }
-  // });
 
   const handleMenuClick = () => {
     setVisible(!visible);
@@ -129,6 +82,25 @@ const BottomNav = () => {
       padding: '0 4px',
     },
   }));
+
+  useEffect(()=>{
+    axios
+      .get(`https://j9c210.p.ssafy.io/api1/tests/test`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(() => {
+      })
+      .catch((error) => {
+        console.error('데이터 가져오기 오류:', error);
+        if (error.response && error.response.status === 403) {
+          navigate('/');
+        } else {
+          console.log('axios요류', error);
+        }
+      });
+  },[])
 
   const handleLogoutClick = () => {
     localStorage.removeItem('accessToken');

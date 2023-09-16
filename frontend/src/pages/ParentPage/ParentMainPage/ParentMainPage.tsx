@@ -55,6 +55,7 @@ const ParentMainPage = () => {
   const { setChildName, setChildAccount, setChildImg, setChildId } = useSelectChildStore();
   const {
     id,
+    memberRole,
     accessToken,
     setBalance,
     setName,
@@ -90,10 +91,20 @@ const ParentMainPage = () => {
       })
       .catch((error) => {
         console.error('데이터 가져오기 오류:', error);
+        if (error.response && error.response.status === 403) {
+          navigate('/');
+        } else {
+          console.log('axios요류', error);
+        }
       });
   };
 
   useEffect(() => {
+    if (memberRole ==='PARENT'){
+      
+    } else{
+      navigate('/')
+    }
     getParentInfo();
   }, []);
 
