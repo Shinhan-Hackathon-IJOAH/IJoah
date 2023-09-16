@@ -73,12 +73,13 @@ const ParentTradeList = () => {
           shadow={true}
           className="m-0 h-[30vh] grid place-items-center rounded-none md:rounded-xl  px-4 text-center"
         >
-          <div style={{  position: 'absolute', top: '15px', left: '15px' }}>
-          <IconButton 
-              onClick={()=>navigate(-1)}
-              className="rounded-full bg-[#ea4335]  hover:shadow-[#ea4335]/20 focus:shadow-[#ea4335]/20 active:shadow-[#ea4335]/10">
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </IconButton>
+          <div style={{ position: 'absolute', top: '15px', left: '15px' }}>
+            <IconButton
+              onClick={() => navigate(-1)}
+              className="rounded-full bg-[#ea4335]  hover:shadow-[#ea4335]/20 focus:shadow-[#ea4335]/20 active:shadow-[#ea4335]/10"
+            >
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </IconButton>
           </div>
           <div className="rounded-full border border-white/10 bg-white/10 p-6 text-white">
             <CreditCardIcon className="h-[7vh] w-[7vh]" />
@@ -91,7 +92,7 @@ const ParentTradeList = () => {
               신한은행 {res.accountNumber}
             </Typography>
             <Typography variant="h4" color="white" className="mt-0">
-              {res.balance}원
+              {res.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
             </Typography>
           </div>
         </CardHeader>
@@ -114,15 +115,19 @@ const ParentTradeList = () => {
                   {transaction.type === 1 ? (
                     // 원단위 절삭
                     <Typography variant="h6" color="green" className="text-end">
-                      {transaction.depositAmount}원
+                      {transaction.depositAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
                     </Typography>
                   ) : (
                     <Typography variant="h6" color="red" className="text-end">
-                      -{transaction.withdrawAmount}원
+                      {transaction.withdrawAmount === undefined
+                        ? '0원'
+                        : `-${transaction.withdrawAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`}
                     </Typography>
                   )}
                   <Typography variant="small" color="blue-gray" className="font-normal text-end">
-                    {transaction.transactionBalance}원
+                    {transaction.transactionBalance === undefined
+                      ? '0원'
+                      : `${transaction.transactionBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`}
                   </Typography>
                 </div>
               </div>
