@@ -1,6 +1,8 @@
 package com.shinhan.shbhack.ijoa.api.service.member.command;
 
 import com.shinhan.shbhack.ijoa.api.controller.bank.dto.request.BankTransferRequest;
+import com.shinhan.shbhack.ijoa.api.service.alarm.command.AlarmService;
+import com.shinhan.shbhack.ijoa.api.service.alarm.dto.request.AlarmNotifyRequest;
 import com.shinhan.shbhack.ijoa.api.service.bank.command.BankService;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MissionCheckServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MissionCreateServiceRequest;
@@ -32,7 +34,7 @@ public class MissionService {
     private final MissionRepository missionRepository;
     private final NotificationRepository notificationRepository;
     private final BankService bankService;
-    private final AccountRepository accountRepository;
+    private final AlarmService alarmService;
 
     public void createMission(MissionCreateServiceRequest request){
         Member parent = findMember(request.getParentId());
@@ -41,7 +43,9 @@ public class MissionService {
         Mission mission = Mission.of(request, parent, child);
         missionRepository.save(mission);
 
-        notificationRepository.save( Notification.ofMission(parent, child, mission, NotificationType.REGIST_MISSION));
+        alarmService.sendAlarm(AlarmNotifyRequest.of(parent, child, mission, NotificationType.REGIST_MISSION));
+
+//        notificationRepository.save( Notification.ofMission(parent, child, mission, NotificationType.REGIST_MISSION));
     }
 
     private Member findMember(Long id){
