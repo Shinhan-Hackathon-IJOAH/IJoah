@@ -1,10 +1,3 @@
----
-name: Merge template
-about: Merge 요청시 작성하는 템플릿입니다.
-title: "[MERGE] "
-assignees: ""
----
-
 ## 구현 기능
 
 -   구현한 기능을 적습니다.

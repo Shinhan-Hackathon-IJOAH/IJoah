@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    // tailwindcss를 사용하기 위한 설정
+    // "typeRoots": ["./node_modules/@types", "./src"], // 이 경로를 적절히 조정
+    // "types": ["tailwindcss"],
+
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["src"]
+}
