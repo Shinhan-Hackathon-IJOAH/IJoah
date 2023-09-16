@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
 import { Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';import { IconButton }   from "@material-tailwind/react";
+import { useNavigate } from 'react-router-dom';
+import { IconButton } from '@material-tailwind/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import BottomNav from '../../components/Common/BottomNav';
@@ -59,7 +60,11 @@ const MyPage = () => {
     // }
 
     axios
-      .put('https://j9c210.p.ssafy.io/api1/members/modify', formData)
+      .put('https://j9c210.p.ssafy.io/api1/members/modify', formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         Swal.fire({
@@ -84,13 +89,14 @@ const MyPage = () => {
   };
   return (
     <div className="flex flex-col items-center w-[100vw] h-[100vh] mt-10">
-      <div style={{  position: 'absolute', top: '15px', left: '15px' }}>
-              <IconButton 
-                  onClick={()=>navigate(-1)}
-                  className="rounded-full bg-[#ea4335]  hover:shadow-[#ea4335]/20 focus:shadow-[#ea4335]/20 active:shadow-[#ea4335]/10">
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </IconButton>
-            </div>
+      <div style={{ position: 'absolute', top: '15px', left: '15px' }}>
+        <IconButton
+          onClick={() => navigate(-1)}
+          className="rounded-full bg-[#ea4335]  hover:shadow-[#ea4335]/20 focus:shadow-[#ea4335]/20 active:shadow-[#ea4335]/10"
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </IconButton>
+      </div>
       <Typography variant="h2" color="blue-gray" className="font-['HSYuji-Regular'] text-center">
         모아일기 <br></br>프로필 변경 페이지
       </Typography>
@@ -195,10 +201,10 @@ const MyPage = () => {
             </Button>
           </div>
         </Card>
-        <div style={{height:'70px'}}/>
+        <div style={{ height: '70px' }} />
       </div>
-      
-      <BottomNav/>
+
+      <BottomNav />
     </div>
   );
 };

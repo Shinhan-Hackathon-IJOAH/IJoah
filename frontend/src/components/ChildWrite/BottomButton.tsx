@@ -5,7 +5,9 @@ import { useDiaryStore } from '../../store/DiaryStore';
 import axios from 'axios';
 import { Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import { useUserStore } from '../../store/UserStore';
 const BottomButton = () => {
+  const { accessToken } = useUserStore();
   const { title, content, date, weatherMood, picture, voice, file } = useDiaryStore();
   const navigate = useNavigate();
 
@@ -37,7 +39,11 @@ const BottomButton = () => {
     console.log(formData);
 
     axios
-      .post('https://j9c210.p.ssafy.io/api1/diaries/', formData)
+      .post('https://j9c210.p.ssafy.io/api1/diaries/', formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
       .then((response: any) => {
         Swal.fire({
           icon: 'success',
