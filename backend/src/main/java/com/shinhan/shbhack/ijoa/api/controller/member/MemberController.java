@@ -15,9 +15,11 @@ import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenRespo
 import com.shinhan.shbhack.ijoa.api.service.member.query.MemberQueryService;
 import com.shinhan.shbhack.ijoa.common.model.UserDetailsModel;
 import com.shinhan.shbhack.ijoa.common.response.ApiData;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.GeneratorType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +47,13 @@ public class MemberController {
     @ApiOperation(value = "로그인")
     public ApiData<MemberTokenResponse> loginMember(@RequestBody MemberLoginRequest request){
         return ApiData.of(memberQueryService.loginMember(MemberLoginServiceRequest.of(request)));
+    }
+
+    @GetMapping("/logout")
+    @ApiOperation(value = "로그아웃")
+    public ApiData<String> logoutMember(@AuthenticationPrincipal UserDetailsModel model){
+
+        return ApiData.of("로그아웃에 성공하였습니다.");
     }
 
     @GetMapping("/parent/{memberId}")
