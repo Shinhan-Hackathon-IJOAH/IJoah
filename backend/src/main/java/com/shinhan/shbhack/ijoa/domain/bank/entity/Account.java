@@ -45,4 +45,15 @@ public class Account {
         this.balance = balance;
         this.accountNumber = accountNumber;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", name='" + name + '\'' +
+                ", balance=" + balance +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", member=" + member +
+                '}';
+    }
 }

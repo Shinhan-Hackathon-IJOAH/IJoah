@@ -88,13 +88,13 @@ public class BankService {
         4. 이체하는 사람 돈 업데이트
         5. 이체받는 사람 돈 업데이트
          */
-
         Account sender =  accountRepository.findAccountByAccountNumber(bankTransferRequest.getWithdrawAccount());
         Account receiver =  accountRepository.findAccountByAccountNumber(bankTransferRequest.getDepositAccount());
         log.info(bankTransferRequest.getWithdrawAccount());
         log.info(bankTransferRequest.getDepositAccount());
 //        BankBalanceResponse sender = transactionQueryRepository.findBalanceByAccount(bankTransferRequest.getWithdrawAccount());
 //        BankBalanceResponse receiver = transactionQueryRepository.findBalanceByAccount(bankTransferRequest.getDepositAccount());
+
         Long senderMoney = sender.getBalance();
         String senderMSG = bankTransferRequest.getWithdrawContent();
         Long reciverMoney = receiver.getBalance();
@@ -143,9 +143,12 @@ public class BankService {
         sender.setBalance(senderMoney);
         receiver.setBalance(reciverMoney);
 
+        Account receiverAccount = accountRepository.findAccountByAccountNumber(bankTransferRequest.getDepositAccount());
+        Account senderAccount = accountRepository.findAccountByAccountNumber(bankTransferRequest.getWithdrawAccount());
+
         /* 알람 서비스 이용 */
-        Member receiveMember = memberRepository.findByAccount(bankTransferRequest.getDepositAccount()).get();
-        Member sendMember =  memberRepository.findByAccount(bankTransferRequest.getWithdrawAccount()).get();
+        Member receiveMember = memberRepository.findByAccount(receiverAccount).get();
+        Member sendMember =  memberRepository.findByAccount(senderAccount).get();
         String content = sendMember.getName()+"님이 "+bankTransferRequest.getAmount().toString()+"원을 이체했습니다. ";
         alarmService.sendAlarm(AlarmNotifyRequest.builder()
                 .sender(sendMember)
