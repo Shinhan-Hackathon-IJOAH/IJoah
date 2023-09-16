@@ -1,8 +1,6 @@
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import Stack from '@mui/material/Stack';
-import { Container } from '@mui/material';
 import { useDiaryStore } from '../../store/DiaryStore';
 import { Carousel } from '@material-tailwind/react';
 interface State {
@@ -36,8 +34,6 @@ const FileUpload: React.FC = () => {
       }
     }
   };
-
-  ///////////////////////////File///////////////////////////////
 
   return (
     <div className="w-[100vw]">

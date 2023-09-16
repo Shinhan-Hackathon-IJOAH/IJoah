@@ -35,7 +35,7 @@ interface Mission {
 
 const MissionList = () => {
   const { childname, childimg } = useSelectChildStore();
-  const { id, accessToken, memberRole,countDiary } = useUserStore();
+  const { id, accessToken, memberRole, countDiary } = useUserStore();
   const [missionlist, setMissionList] = useState<Mission>();
   const getMissionList = () => {
     axios
@@ -54,7 +54,6 @@ const MissionList = () => {
       .then((response) => {
         setMissionList(response.data.data);
         console.log(response.data.data);
-        console.log('미션 불러오기 성공');
       })
       .catch((error) => {
         console.error('데이터 가져오기 오류:', error);

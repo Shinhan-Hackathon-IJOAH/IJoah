@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import { WriteContainer, WriteImg, FontTag } from './WriteDiaryButtonStyles';
 import { useUserStore } from '../../store/UserStore';

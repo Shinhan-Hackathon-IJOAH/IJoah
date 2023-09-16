@@ -38,19 +38,14 @@ const BottomButton = () => {
     // 사진이 1개 이상인 경우에만 for문 돌려서 사진 formData에 담기
     if (file !== null) {
       for (let i = 0; i < file.length; i++) {
-        const pic = file[i]; // 각 파일은 file 객체입니다.
+        const pic = file[i];
         console.log(pic);
         formData.append('images', pic);
       }
     }
-    // else {
-    //   formData.append('images', '');
-    // }
 
     const voiceBlob = new Blob([voice]);
     formData.append('record', voiceBlob);
-    console.log(voiceBlob);
-    console.log(formData);
 
     axios
       .post('https://j9c210.p.ssafy.io/api1/diaries/', formData, {
@@ -71,14 +66,6 @@ const BottomButton = () => {
         navigate('/child');
       })
       .catch((error: any) => {
-        console.log('제목', title, typeof title);
-        console.log('내용', content, typeof content);
-        console.log('날짜', date, typeof date);
-        console.log('기분', weatherMood, typeof weatherMood);
-        console.log('사진', file, typeof picture);
-        console.log('음성', voice, typeof voice);
-
-        console.log('되겠냐');
         console.log(error);
       });
   };

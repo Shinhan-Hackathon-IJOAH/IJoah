@@ -14,39 +14,6 @@ interface CategoryData {
     value: number;
   }[];
 }
-// const dumydata=[
-//     {
-//       "id": "hack",
-//       "label": "hack",
-//       "value": 431,
-//       "color": "hsl(159, 70%, 50%)"
-//     },
-//     {
-//       "id": "erlang",
-//       "label": "erlang",
-//       "value": 241,
-//       "color": "hsl(1, 70%, 50%)"
-//     },
-//     {
-//       "id": "lisp",
-//       "label": "lisp",
-//       "value": 148,
-//       "color": "hsl(272, 70%, 50%)"
-//     },
-//     {
-//       "id": "scala",
-//       "label": "scala",
-//       "value": 215,
-//       "color": "hsl(98, 70%, 50%)"
-//     },
-//     {
-//       "id": "haskell",
-//       "label": "haskell",
-//       "value": 500,
-//       "color": "hsl(28, 70%, 50%)"
-//     }
-//   ]
-
 const PatternGraph = () => {
   const colortag = [' #7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0', '#f0027f', '#bf5b17', '#666666'];
   const [category, setCategory] = useState<CategoryData>();
@@ -69,7 +36,6 @@ const PatternGraph = () => {
       .then((response) => {
         console.log(response);
         setCategory(response.data);
-        console.log(category);
       })
       .catch((error) => {
         console.log(error);

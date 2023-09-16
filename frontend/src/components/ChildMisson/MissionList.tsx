@@ -34,9 +34,9 @@ interface Mission {
 }
 
 const MissionList = () => {
-  const { id, accessToken, memberRole,countDiary } = useUserStore();
+  const { id, accessToken, memberRole, countDiary } = useUserStore();
   const [missionlist, setMissionList] = useState<Mission | undefined>(undefined);
-  const{childimg}=useSelectChildStore()
+  const { childimg } = useSelectChildStore();
   const getMissionList = () => {
     axios
       .post(
@@ -49,12 +49,11 @@ const MissionList = () => {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       )
       .then((response) => {
         setMissionList(response.data.data);
         console.log(response.data.data);
-        console.log('미션 불러오기 성공');
       })
       .catch((error) => {
         console.error('데이터 가져오기 오류:', error);
@@ -121,7 +120,7 @@ const MissionList = () => {
           alt="avatar"
           variant="circular"
           className="border-2 border-white hover:z-10 focus:z-10"
-          src={`https://j9c210.p.ssafy.io/api1/diaries/image/${childimg}`}
+          src={`https://j9c210.p.ssafy.io/api1/diaries/image/${missionlist?.profileImage.fileName}`}
         />
         <NameTag className="text-2xl text-center font-['HSYuji-Regular']">나의 미션</NameTag>
       </MissionInfoContainer>

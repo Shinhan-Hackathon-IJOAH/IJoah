@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MissionItemContainer, RequestButton, FontTag, MissionTagContainer } from './MissionListItemStyles';
+import { MissionItemContainer, FontTag, MissionTagContainer } from './MissionListItemStyles';
 import axios from 'axios';
 import { IconButton } from '@material-tailwind/react';
 import { useUserStore } from '../../store/UserStore';
@@ -13,7 +13,7 @@ interface MissionListItemProps {
 }
 
 const MissionRequestItem: React.FC<MissionListItemProps> = ({ missionid, missiontitle, missionamount }) => {
-  const { id, memberRole, accessToken,countDiary,setCountDiary } = useUserStore();
+  const { id, memberRole, accessToken, countDiary, setCountDiary } = useUserStore();
   const navigate = useNavigate();
   const detailClick = () => {
     navigate(`/parent/mission/detail/${missionid}`);
@@ -40,7 +40,7 @@ const MissionRequestItem: React.FC<MissionListItemProps> = ({ missionid, mission
           icon: 'success',
           title: '미션 완료',
         });
-        setCountDiary(countDiary+1)
+        setCountDiary(countDiary + 1);
       })
       .catch((error) => {
         console.log(error);
@@ -68,7 +68,7 @@ const MissionRequestItem: React.FC<MissionListItemProps> = ({ missionid, mission
           icon: 'error',
           title: '미션 실패',
         });
-        setCountDiary(countDiary-1)
+        setCountDiary(countDiary - 1);
       })
       .catch((error) => {
         console.log(error);

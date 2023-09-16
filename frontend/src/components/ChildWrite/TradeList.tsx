@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Timeline,
-  TimelineItem,
-  TimelineConnector,
-  TimelineIcon,
-  Typography,
-  TimelineHeader,
-} from '@material-tailwind/react';
+import { Typography } from '@material-tailwind/react';
 import { BellIcon, ArchiveBoxIcon, CurrencyDollarIcon } from '@heroicons/react/24/solid';
 
 import axios from 'axios';

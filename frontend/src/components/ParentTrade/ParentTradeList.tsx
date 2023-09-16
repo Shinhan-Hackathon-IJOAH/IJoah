@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { List, ListItem, ListItemPrefix, Avatar, Card, Typography, CardHeader } from '@material-tailwind/react';
-import {
-  CircleStackIcon,
-  BellIcon,
-  ArchiveBoxIcon,
-  CurrencyDollarIcon,
-  BanknotesIcon,
-  CreditCardIcon,
-  LockClosedIcon,
-} from '@heroicons/react/24/solid';
+import { CreditCardIcon } from '@heroicons/react/24/solid';
 import BackPageButton from '../Common/BackPageButton';
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';

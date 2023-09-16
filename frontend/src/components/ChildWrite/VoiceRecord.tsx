@@ -70,11 +70,7 @@ const AudioRecord = () => {
   const onSubmitAudioFile = useCallback(() => {
     if (audioUrl) {
       console.log(URL.createObjectURL(audioUrl));
-      // 파일 URL을 스토어에 저장
-      console.log('음성', audioUrl);
-      //파일 자체를 저장해보자.
       setVoice(audioUrl);
-      console.log('음성', voice);
     }
   }, [audioUrl]);
 

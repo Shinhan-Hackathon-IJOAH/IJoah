@@ -1,6 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-import logo from '../../asset/logo.png';
-// import logo2 from 'auth/logo2.gif';
 
 const gelatineAnimation = keyframes`
     from, to {
