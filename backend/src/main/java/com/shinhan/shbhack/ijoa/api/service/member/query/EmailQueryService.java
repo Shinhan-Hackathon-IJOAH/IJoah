@@ -36,7 +36,15 @@ public class EmailQueryService {
         if(memberRepository.existsByEmail(email))
             throw new EntityNotFoundException(ErrorCode.MEMBER_DUPLICATE);
 
-        return createCode();
+        log.info("코드 만들기 전");
+        log.debug("코드 만들기 전");
+
+        String code = createCode();
+
+        log.info("코드 만든 후");
+        log.debug("코드 만들기 후");
+
+        return code;
 
     }
 

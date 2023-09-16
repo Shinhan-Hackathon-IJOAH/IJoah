@@ -24,7 +24,6 @@ import java.util.List;
 
 @Slf4j
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class AlarmService {
     private final AlarmQueryRepository alarmQueryRepository;
