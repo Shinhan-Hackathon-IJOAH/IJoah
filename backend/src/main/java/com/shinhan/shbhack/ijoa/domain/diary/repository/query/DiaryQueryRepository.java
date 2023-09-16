@@ -26,12 +26,12 @@ public class DiaryQueryRepository {
     private final JPAQueryFactory queryFactory;
 
     public List<DiaryCalenderResponse> findByMember(Long memberID){
-        return queryFactory.select(Projections.fields(DiaryCalenderResponse.class, diary.diaryId.as("id"), diary.diary_date.as("date"))).from(diary)
-                .join(diary.member, member).where(diary.member.id.eq(memberID)).orderBy(diary.diary_date.asc()).fetch();
+        return queryFactory.select(Projections.fields(DiaryCalenderResponse.class, diary.diaryId.as("id"), diary.diaryDate.as("date"))).from(diary)
+                .join(diary.member, member).where(diary.member.id.eq(memberID)).orderBy(diary.diaryDate.asc()).fetch();
     }
 
     public DiaryDetailResponse findDetailById(Long diaryId){
-        return queryFactory.select(Projections.fields(DiaryDetailResponse.class, diary.diaryId, diary.title, diary.content, diary.diary_date, diary.emotion)).from(diary)
+        return queryFactory.select(Projections.fields(DiaryDetailResponse.class, diary.diaryId, diary.title, diary.content, diary.diaryDate, diary.emotion)).from(diary)
                 .where(diary.diaryId.eq(diaryId)).fetchOne();
     }
 
