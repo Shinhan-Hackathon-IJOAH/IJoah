@@ -100,7 +100,7 @@ const ParentTradeList = () => {
           {res.bankTransactionResponses.map((transaction: any, index: any) => (
             <ListItem key={index}>
               <ListItemPrefix>
-                <Avatar variant="circular" alt="candice" src="/img/face-1.jpg" />
+                <Avatar variant="square" className="p-1" alt="candice" src={`/trade/${transaction.category}.png`} />
               </ListItemPrefix>
               <div className="w-full flex justify-between">
                 <div>
@@ -135,7 +135,7 @@ const ParentTradeList = () => {
           ))}
         </List>
       </Card>
-      <div style={{height:'70px'}}/>
+      <div style={{ height: '70px' }} />
       <BottomNav />
     </div>
   );

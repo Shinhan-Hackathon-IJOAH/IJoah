@@ -38,7 +38,7 @@ const ChildMainPage = () => {
         setAccount(childData?.account?.accountNumber || '');
         setEmail(childData?.email || '');
         setPhoneNumber(childData?.phoneNumber || '');
-        setProfileImage(childData?.profileImage.fileName || '');
+        setProfileImage(childData?.profileImage?.fileName || '');
         setMemberRole(childData?.memberRole || '');
         setBalance(childData?.account?.balance || 0);
       })
