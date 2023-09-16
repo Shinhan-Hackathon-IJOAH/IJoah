@@ -34,6 +34,7 @@ function App() {
         <Route path="/child/mission" element={<ChildMissionPage />} />
         <Route path="/child/mission/detail/:missionid" element={<ChildMissionDetailPage />} />
         <Route path="/child/trade" element={<ChildTradePage />} />
+        <Route path="/child/write" element={<ChildWritePage />} />
         <Route path="/parent" element={<ParentMainPage />} />
         <Route path="/parent/givemission" element={<ParentGiveMissionPage />} />
         <Route path="/parent/givemoney" element={<ParentGiveMoneyPage />} />
@@ -45,7 +46,6 @@ function App() {
         <Route path="/alarm" element={<AlarmPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/emailauth" element={<EmailAuthPage />} />
-        {/* 테스트용 라우터 추후에 삭제 필수 */}
         <Route path="/register/account" element={<AccountRegisterPage />} />
         <Route path="/share/:diaryid" element={<ShareDiaryPage />} />
         {/* 404 Not Found 예외 처리를 위한 페이지 추가 */}
