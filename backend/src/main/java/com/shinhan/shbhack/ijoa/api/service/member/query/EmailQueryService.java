@@ -37,12 +37,16 @@ public class EmailQueryService {
         if(memberRepository.existsByEmail(email))
             throw new EntityNotFoundException(ErrorCode.MEMBER_DUPLICATE);
 
+        String code = createCode();
+
         try {
-            MimeMessage emailForm = createEmailForm(email, createCode());
+            MimeMessage emailForm = createEmailForm(email, code);
             emailSender.send(emailForm);
         } catch (Exception e){
             throw new InvalidValueException(ErrorCode.EMAIL_FORM_ERROR);
         }
+
+        redisUtil.setEmail(email, code);
 
     }
 

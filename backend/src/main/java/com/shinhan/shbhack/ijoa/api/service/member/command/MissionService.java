@@ -79,7 +79,7 @@ public class MissionService {
                 writer.getAccount().getAccountNumber(),
                     challenger.getAccount().getAccountNumber(),
                     mission.getReward().toString(),
-                    "", ""
+                    "미션 보상 출금", "미션 보상 입금"
             ));
         }
     }

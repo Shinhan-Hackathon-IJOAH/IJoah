@@ -18,6 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -52,43 +53,42 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
+            Long requestId = jwtUtil.getId(token);
 
-            // TODO: 2023-09-10 리팩토링 필요
-            String loginEmail = jwtUtil.getEmail(token);
+            if(redisUtil.getLogout(requestId).isPresent()){
+                filterChain.doFilter(request, response);
+                return;
+            }
 
-            UserDetailsModel userDetailsModel = memberQueryService.loadUserByEmail(loginEmail);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetailsModel, null, userDetailsModel.getAuthorities()
-            );
-
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            userAuthorization(request, requestId);
 
         } else if(token.startsWith("Refresh ")){
             token = token.substring(8);
 
-            String refreshToken = redisUtil.getToken(jwtUtil.getEmail(token)).orElseThrow(
+            String refreshToken = redisUtil.getToken(jwtUtil.getId(token)).orElseThrow(
                     () -> new InvalidValueException(ErrorCode.NOT_FOUND_TOKEN)
             );
 
             if(!token.equals(refreshToken)) throw new InvalidValueException(ErrorCode.INVALID_TOKEN);
 
-            String accessToken = jwtUtil.generateToken(jwtUtil.extractAllClaims(refreshToken), (long) (1000 * 60 * 60));
+            String accessToken = jwtUtil.generateAccessToken(jwtUtil.extractAllClaims(refreshToken), (long) (1000 * 60 * 60));
             response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
 
-            // TODO: 2023-09-10 리팩토링 필요
-            String loginEmail = jwtUtil.getEmail(token);
-
-            UserDetailsModel userDetailsModel = memberQueryService.loadUserByEmail(loginEmail);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetailsModel, null, userDetailsModel.getAuthorities()
-            );
-
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            userAuthorization(request, jwtUtil.getId(token));
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private void userAuthorization(HttpServletRequest request, Long id){
+
+        UserDetailsModel userDetailsModel = memberQueryService.loadUserById(id);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                userDetailsModel, null, userDetailsModel.getAuthorities()
+        );
+
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 
 
