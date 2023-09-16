@@ -1,6 +1,7 @@
 package com.shinhan.shbhack.ijoa.domain.member.repository.datajpa;
 
 
+import com.shinhan.shbhack.ijoa.domain.bank.entity.Account;
 import com.shinhan.shbhack.ijoa.domain.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,5 +13,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmail(String email);
 
-    Optional<Member> findByAccount(String account);
+    Optional<Member> findByAccount(Account account);
 }
