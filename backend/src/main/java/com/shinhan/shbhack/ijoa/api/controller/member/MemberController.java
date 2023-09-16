@@ -35,7 +35,7 @@ public class MemberController {
 
     @PostMapping("/join")
     @ApiOperation(value = "회원 가입")
-    public ApiData<String> joinMember(@RequestBody @Valid MemberCreateRequest request){
+    public ApiData<String> joinMember(@RequestBody MemberCreateRequest request){
         memberService.createMember(MemberCreateServiceRequest.of(request));
 
         return ApiData.of("회원가입에 성공하였습니다!");
@@ -43,7 +43,7 @@ public class MemberController {
 
     @PostMapping("/login")
     @ApiOperation(value = "로그인")
-    public ApiData<MemberTokenResponse> loginMember(@RequestBody @Valid MemberLoginRequest request){
+    public ApiData<MemberTokenResponse> loginMember(@RequestBody MemberLoginRequest request){
         return ApiData.of(memberQueryService.loginMember(MemberLoginServiceRequest.of(request)));
     }
 
