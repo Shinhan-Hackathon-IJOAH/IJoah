@@ -13,7 +13,7 @@ import { ParentMainPageContent, Logo, ButtonContainer, SideButtonContainer, Butt
 import axios from 'axios';
 import { useUserStore } from '../../../store/UserStore';
 import { useSelectChildStore } from '../../../store/SelectChildStore';
-import { set } from 'date-fns';
+
 
 interface Profile {
   memberId: number;
@@ -52,62 +52,8 @@ interface Profile {
   }[];
 }
 
-// const dummyProfile: Profile = {
-//     memberId: 3,
-//     name: "John Doe",
-//     email: "john.doe@example.com",
-//     phoneNumber: "123-456-7890",
-//     birthDate: "1990-01-01",
-//     account: {
-//       accountId: 1,
-//       name: "John Doe Account",
-//       balance: 5000.00,
-//       accountNumber: "123456789",
-//     },
-//     profileImage: {
-//       profileImageId: 1,
-//       fileName: "john-doe-profile.jpg",
-//     },
-//     children: [
-//       {
-//         memberId: 3,
-//         name: "Child 1",
-//         email: "child1@example.com",
-//         phoneNumber: "111-222-3333",
-//         birthDate: "2010-05-15",
-//         account: {
-//           accountId: 2,
-//           name: "Child 1 Account",
-//           balance: 1000.00,
-//           accountNumber: "987654321",
-//         },
-//         profileImage: {
-//           profileImageId: 2,
-//           fileName: "child1-profile.jpg",
-//         },
-//       },
-//       {
-//         memberId: 4,
-//         name: "Child 2",
-//         email: "child2@example.com",
-//         phoneNumber: "111-222-3333",
-//         birthDate: "2010-05-15",
-//         account: {
-//           accountId: 4,
-//           name: "Child 1 Account",
-//           balance: 1000.00,
-//           accountNumber: "987654321",
-//         },
-//         profileImage: {
-//           profileImageId: 2,
-//           fileName: "child1-profile.jpg",
-//         },
-//       },
-//     ],
-//   };
-
 const ParentMainPage = () => {
-  const { setChildName, setChildAccount, setChildImg, childimg } = useSelectChildStore();
+  const { setChildName, setChildAccount, setChildImg} = useSelectChildStore();
   const {
     id,
     accessToken,
@@ -150,14 +96,6 @@ const ParentMainPage = () => {
 
   useEffect(() => {
     getParentInfo();
-    // setParentProfile(dummyProfile);
-    // setName(dummyProfile?.name)
-    // setBirthDate(dummyProfile?.birthDate)
-    // setAccount(dummyProfile?.account.accountNumber)
-    // setEmail(dummyProfile?.email)
-    // setPhoneNumber(dummyProfile?.phoneNumber)
-    // setProfileImage(dummyProfile?.profileImage)
-    // setBalance(dummyProfile?.account.balance)
   }, []);
 
   return (
@@ -166,20 +104,7 @@ const ParentMainPage = () => {
       <ButtonColum>
         <ParentInfo />
         <div className="flex items-center w-full ">
-          {/* {dummyProfile?.children.map((child) => (
-                    <button 
-                        onClick={() => {
-                        setChildAccount(child.account);
-                        setChildName(child.name);
-                        setChildImg(child.profileImage);
-                    }}>
-                    <Avatar
-                    variant="circular"
-                    className="border-2 border-white hover:z-10 focus:z-10"
-                    src={child.profileImage.fileName}
-                    />
-                    </button>
-                ))} */}
+
           {parentprofile?.children.map((child) => (
             <button
               onClick={() => {
@@ -198,7 +123,6 @@ const ParentMainPage = () => {
                     ? `https://j9c210.p.ssafy.io/api1/diaries/image/${child.profileImage.fileName}`
                     : 'Moa_64.png'
                 }
-                // src={child.profileImage.fileName}
               />
             </button>
           ))}

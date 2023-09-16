@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// import { useCountries } from "use-react-countries";
 import {
   Card,
   CardHeader,
@@ -90,7 +89,6 @@ export default function SignUp() {
         phoneNumber: phoneNumber,
         birthDate: birthDate,
         gender: gender,
-        // address: "얘 날릴 거임.",
         memberRole: memberRole,
       })
       .then((response: any) => {
@@ -104,7 +102,6 @@ export default function SignUp() {
         });
       })
       .catch((error: any) => {
-        console.log('되겠냐');
         console.log(error);
         console.log('name', name);
         console.log('email', signUpEmail);
@@ -121,8 +118,6 @@ export default function SignUp() {
         });
       });
   }
-
-  // 탭을 옮겼을 때 모두 비우는 함수-> useEffect 써야하나
 
   const clearAll = () => {
     setName('');
