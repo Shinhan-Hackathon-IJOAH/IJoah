@@ -31,12 +31,6 @@ public class DiaryController {
     private final DiaryService diaryService;
     @Value("${file.dir}")
     public String basicPath;
-//    @PostMapping("")
-//    public ResponseEntity<?> writeDiary(@RequestBody DiaryCreateRequest diaryCreateRequest){
-//
-//        diaryService.writeDiary(new DiaryCreateServiceRequest(diaryCreateRequest));
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
 
 
 
