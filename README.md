@@ -117,6 +117,113 @@
 <br>
 
 ## 📦 프로젝트 파일 구조
+### FrontEnd
+```
+SRC
+├─asset
+│  └─background
+├─components
+│  ├─ChildDiary
+│  ├─ChildMain
+│  ├─ChildMisson
+│  ├─ChildTrade
+│  ├─ChildWrite
+│  ├─Common
+│  ├─Login
+│  ├─ParentGiveMission
+│  ├─ParentGiveMoney
+│  ├─ParentMain
+│  ├─ParentMission
+│  ├─ParentPattern
+│  ├─ParentRegister
+│  └─ParentTrade
+├─pages
+│  ├─ChildPage
+│  │  ├─ChildDiaryPage
+│  │  ├─ChildMainPage
+│  │  ├─ChildMissionPage
+│  │  ├─ChildTradePage
+│  │  └─ChildWritePage
+│  ├─CommonPage
+│  ├─LoginPage
+│  └─ParentPage
+│      ├─ParentGiveMissionPage
+│      ├─ParentGiveMoneyPage
+│      ├─ParentMainPage
+│      ├─ParentMissionPage
+│      ├─ParentPatternPage
+│      ├─ParentRegisterPage
+│      └─ParentTradePage
+└─store
+```
+<br>
+
+### BackEnd
+```
+
+ijoa
+ ├─api
+ │  ├─controller
+ │  │  ├─alarm
+ │  │  │  └─dto
+ │  │  │      └─request
+ │  │  ├─bank
+ │  │  │  └─dto
+ │  │  │      └─request
+ │  │  ├─diary
+ │  │  │  └─dto
+ │  │  │      └─request
+ │  │  └─member
+ │  │      └─dto
+ │  │          └─request
+ │  └─service
+ │      ├─alarm
+ │      │  ├─command
+ │      │  └─dto
+ │      │      ├─request
+ │      │      └─response
+ │      ├─bank
+ │      │  ├─command
+ │      │  └─dto
+ │      │      └─response
+ │      ├─diary
+ │      │  ├─command
+ │      │  ├─dto
+ │      │  │  ├─request
+ │      │  │  └─response
+ │      │  └─query
+ │      └─member
+ │          ├─command
+ │          ├─dto
+ │          │  ├─request
+ │          │  └─response
+ │          └─query
+ ├─common
+ │  ├─config
+ │  ├─error
+ │  │  └─exception
+ │  ├─filter
+ │  ├─model
+ │  ├─response
+ │  └─util
+ └─domain
+     ├─bank
+     │  ├─entity
+     │  └─repository
+     │      ├─datajpa
+     │      └─query
+     ├─diary
+     │  ├─entity
+     │  └─repository
+     │      ├─datajpa
+     │      └─query
+     └─member
+         ├─entity
+         │  └─enums
+         └─repository
+             ├─datajpa
+             └─query
+```
 
 <br>
 
