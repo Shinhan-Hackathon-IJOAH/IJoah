@@ -34,9 +34,9 @@ interface Mission {
 }
 
 const MissionList = () => {
-  const { id, accessToken, memberRole } = useUserStore();
+  const { id, accessToken, memberRole,countDiary } = useUserStore();
   const [missionlist, setMissionList] = useState<Mission | undefined>(undefined);
-
+  const{childimg}=useSelectChildStore()
   const getMissionList = () => {
     axios
       .post(
@@ -63,7 +63,7 @@ const MissionList = () => {
 
   useEffect(() => {
     getMissionList();
-  }, []);
+  }, [countDiary]);
 
   const panes = [
     {
@@ -121,7 +121,7 @@ const MissionList = () => {
           alt="avatar"
           variant="circular"
           className="border-2 border-white hover:z-10 focus:z-10"
-          src="https://mblogthumb-phinf.pstatic.net/MjAxOTEyMTdfMTc1/MDAxNTc2NTYxNTQ3NzIx.p8eX1YYqm9QGjYLNCrlkBmCfzoj1wTOowHbEfYLv5zgg.mctQlrrCcMBGbMcxxwtApGnqVZGCf2AeqLUm0dF9rZkg.PNG.imagecompany/%EC%9C%A0%EC%95%84%ED%94%84%EB%A1%9C%ED%95%84%EC%82%AC%EC%A7%84_2.png?type=w800"
+          src={`https://j9c210.p.ssafy.io/api1/diaries/image/${childimg}`}
         />
         <NameTag className="text-2xl text-center font-['HSYuji-Regular']">나의 미션</NameTag>
       </MissionInfoContainer>

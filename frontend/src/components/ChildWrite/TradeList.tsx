@@ -68,7 +68,7 @@ const TradeList = () => {
 
           {oneDayTransaction.length === 0 ? (
             <Typography className="text-center" variant="h6">
-              아직 거래 내역이 없어요 !
+              거래 내역이 없어요 !
             </Typography>
           ) : (
             oneDayTransaction.map((transaction, index) => (

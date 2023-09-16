@@ -22,6 +22,7 @@ import MenuPage from './pages/CommonPage/MenuPage';
 import MyPage from './pages/CommonPage/MyPage';
 import EmailAuthPage from './pages/LoginPage/EmailAuthPage';
 import AccountRegisterPage from './pages/CommonPage/AccountRegisterPage';
+import ShareDiaryPage from './pages/CommonPage/ShareDiaryPage';
 import { Page404 } from './pages/CommonPage/Page404';
 import DiaryCalendar2 from './components/ChildDiary/DiaryCalendar2';
 
@@ -53,6 +54,7 @@ function App() {
         {/* 테스트용 라우터 추후에 삭제 필수 */}
         <Route path="/calendar" element={<DiaryCalendar2 />} />
         <Route path="/register/account" element={<AccountRegisterPage />} />
+        <Route path="/share/:diaryid" element={<ShareDiaryPage />} />
         {/* 404 Not Found 예외 처리를 위한 페이지 추가 */}
         <Route path="*" element={<Page404 />} />
       </Routes>
