@@ -52,7 +52,7 @@ public class MemberController {
     @GetMapping("/logout")
     @ApiOperation(value = "로그아웃")
     public ApiData<String> logoutMember(@AuthenticationPrincipal UserDetailsModel model){
-
+        memberQueryService.logoutMember(model);
         return ApiData.of("로그아웃에 성공하였습니다.");
     }
 
@@ -69,6 +69,10 @@ public class MemberController {
         log.debug("id: {}, name: {}, email: {}, memberRole: {}", model.getId(), model.getName(), model.getEmail(), model.getRole());
         return ApiData.of(memberService.childHome(memberId));
     }
+
+//    @GetMapping("/info")
+//    @ApiOperation(value = "종합 정보")
+//    public ApiData<Member>
 
     @PutMapping("/modify")
     @ApiOperation(value = "회원 정보 수정")

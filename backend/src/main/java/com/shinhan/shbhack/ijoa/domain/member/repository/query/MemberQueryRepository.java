@@ -17,7 +17,7 @@ public class MemberQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public Optional<UserDetailsModel> findUserInfoModelByEmail(String email){
+    public Optional<UserDetailsModel> findUserInfoModelById(Long id){
         return Optional.ofNullable(queryFactory
                 .select(Projections.constructor(UserDetailsModel.class,
                         member.id,
@@ -26,7 +26,7 @@ public class MemberQueryRepository {
                         member.memberRole
                         ))
                 .from(member)
-                .where(member.email.eq(email))
+                .where(member.id.eq(id))
                 .fetchOne());
     }
 

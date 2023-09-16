@@ -36,7 +36,7 @@ public class JwtUtil {
         return MemberTokenResponse.of(accessToken, refreshToken, model);
     }
 
-    public String generateToken(Claims claims, Long expireTime){
+    public String generateAccessToken(Claims claims, Long expireTime){
         Date now = new Date();
         Date expireDate = new Date(now.getTime() + expireTime);
 

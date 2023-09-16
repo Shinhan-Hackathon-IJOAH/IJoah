@@ -1,5 +1,6 @@
 package com.shinhan.shbhack.ijoa.api.service.member.query;
 
+import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.request.MemberLoginServiceRequest;
 import com.shinhan.shbhack.ijoa.api.service.member.dto.response.MemberTokenResponse;
 import com.shinhan.shbhack.ijoa.common.error.ErrorCode;
@@ -40,13 +41,25 @@ public class MemberQueryService {
         if(!bCryptPasswordEncoder.matches(request.getPassword(), member.getPassword()))
             throw new InvalidValueException(ErrorCode.NOTMATCH_MEMBER_PASSWORD);
 
-        return jwtUtil.generateAllToken(JwtCreateModel.of(member));
+        MemberTokenResponse response =  jwtUtil.generateAllToken(JwtCreateModel.of(member));
+
+        redisUtil.deleteLogout(response.getId());
+        redisUtil.setUser(loadUserById(response.getId()));
+        redisUtil.setToken(response.getId(), response.getRefreshToken());
+
+        return response;
     }
 
-    public UserDetailsModel loadUserByEmail(String email){
-        return redisUtil.getUser(email).orElseGet(
-                () -> memberQueryRepository.findUserInfoModelByEmail(email).orElseThrow(
+    public UserDetailsModel loadUserById(Long id){
+        return redisUtil.getUser(id).orElseGet(
+                () -> memberQueryRepository.findUserInfoModelById(id).orElseThrow(
                         () -> new EntityNotFoundException(ErrorCode.NOTMATCH_MEMBER_EMAIL))
                 );
+    }
+
+    public void logoutMember(UserDetailsModel model){
+        redisUtil.deleteToken(model.getId());
+        redisUtil.deleteUser(model.getId());
+        redisUtil.setLogout(model.getId());
     }
 }
