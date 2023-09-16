@@ -75,18 +75,22 @@ const ParentMissionDetailPage = () => {
       <BackPageButton />
       <Title>{missioninfo?.challenger.name}에게 부여한 미션</Title>
       <BackGroundContainer>
-        <MiniTitle>미션제목</MiniTitle>
+        <div className="h-10"></div>
+        <MiniTitle>미션 이름</MiniTitle>
         <FontTag>{missioninfo?.title}</FontTag>
-        <MiniTitle>미션 세부내용</MiniTitle>
+        <MiniTitle>미션 내용</MiniTitle>
         <FontTag>{missioninfo?.content}</FontTag>
-        <MiniTitle>미션 시작 날짜</MiniTitle>
-        <FontTag>{missioninfo?.startDate}</FontTag>
-        <MiniTitle>미션 끝나는 날짜</MiniTitle>
-        <FontTag>{missioninfo?.endDate}</FontTag>
+        <MiniTitle>주어진 미션 기간</MiniTitle>
+        <FontTag>
+          {missioninfo?.startDate} ~ {missioninfo?.startDate}{' '}
+        </FontTag>
+
         <MiniTitle>미션 상태</MiniTitle>
         <FontTag>{missioninfo?.accomplishment}</FontTag>
         <MiniTitle>미션 보상</MiniTitle>
-        <FontTag>{missioninfo?.reward}원</FontTag>
+        <FontTag>
+          <div className="text-4xl">{missioninfo?.reward}원</div>
+        </FontTag>
       </BackGroundContainer>
       <BottomNav />
     </DetailContainer>

@@ -84,7 +84,7 @@ export default function SignUp() {
       .post('https://j9c210.p.ssafy.io/api1/members/join', {
         name: name,
         // email: signUpEmail,
-        email: 'gkxm0443@naver.com',
+        email: signUpEmail,
         password: password,
         phoneNumber: phoneNumber,
         birthDate: birthDate,
@@ -222,7 +222,7 @@ export default function SignUp() {
                       crossOrigin={undefined}
                       type="password"
                       color="orange"
-                      label="Password"
+                      label="re_Password"
                     />
                   </div>
 

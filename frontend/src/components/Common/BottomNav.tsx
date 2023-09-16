@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
 import { useUserStore } from '../../store/UserStore';
 import { BottomNavContent, HomeImg, AlarmImg, MenuImg } from './BottomNavStyles';
 import Badge, { BadgeProps } from '@mui/material/Badge';
@@ -8,17 +8,63 @@ import { Icon, Menu, Sidebar, Segment, Header, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 const BottomNav = () => {
-  const { memberRole, accessToken, email, id } = useUserStore();
+  const { memberRole, accessToken, email, id, alarmData, setAlarmData, refreshToken } = useUserStore();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   // const [alarmData, setAlarmData] = useState<any[]>([]);
-  const { alarmData, setAlarmData } = useUserStore();
   const count = Object.keys(alarmData).length;
 
   // SSE 연결을 위한 테스트
+  useEffect(() => {
+    const eventSource = new EventSource(`https://j9c210.p.ssafy.io/api1/alarm/subscribe/${id}`);
 
-  // const eventSource = new EventSource(`https://j9c210.p.ssafy.io/api1/alarm/subscribe/${id}`);
+    eventSource.addEventListener('sse', (event) => {
+      if (event.data === 'connect completed') {
+        console.log('SSE 연결 성공함');
+        return;
+      } else {
+        console.log(event);
+        axios
+          .get(`https://j9c210.p.ssafy.io/api1/alarm/${email}`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then((res) => {
+            console.log('알람 내용 불러오는 거 성공함');
+            console.log(res.data);
+            setAlarmData(res.data);
+          })
+          .catch((err) => {
+            console.log('에러..');
+            console.log(err);
+          });
 
+        Swal.fire({
+          icon: 'success',
+          title: '새로운 알람이 도착했습니다!',
+          text: event.data,
+          confirmButtonColor: '#f8a70c',
+        }).then((result) => {
+          // 만약 Promise 리턴을 받으면,
+          if (result.isConfirmed) {
+            // 만약 모달창에서 confirm 버튼을 눌렀다면
+            navigate('/alarm'); // 알람 페이지로 이동
+          }
+        });
+
+        console.log('sse통해 넘어오는 이벤트 데이터', event);
+      }
+    });
+
+    // 컴포넌트가 언마운트될 때 SSE 연결을 닫습니다.
+    return () => {
+      eventSource.close();
+    };
+  }, []);
+
+  // // 이거 오류 많이 나는 코드
+  // const eventSource = new EventSource(`https://j9c210.p.ssafy.io/api1/alarm/${email}`);
   // eventSource.addEventListener('sse', (event) => {
   //   if (event.data === 'connect completed') {
   //     console.log('SSE 연결 성공함');
@@ -84,6 +130,27 @@ const BottomNav = () => {
     },
   }));
 
+  const handleLogoutClick = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+
+    axios
+      .get(`https://j9c210.p.ssafy.io/api1/members/logout`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        console.log('로그아웃 성공');
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('로그아웃 실패');
+      });
+  };
+
   return (
     <div>
       {/* 사이드바 */}
@@ -115,7 +182,7 @@ const BottomNav = () => {
                 아이 등록하기
               </Menu.Item>
             )}
-            <Menu.Item onClick={() => navigate('/register/account')} as="a">
+            <Menu.Item onClick={handleLogoutClick} as="a">
               <Icon name="sign-out" />
               로그아웃
             </Menu.Item>

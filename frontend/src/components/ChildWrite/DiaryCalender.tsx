@@ -7,7 +7,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { select } from '@material-tailwind/react';
 import { useDiaryStore } from '../../store/DiaryStore';
 import { useUserStore } from '../../store/UserStore';
-import axios from 'axios';
 import { set } from 'date-fns';
 const DiaryCalendar = () => {
   // 초기 상태를 설정합니다. 선택한 날짜는 null로 시작합니다.
@@ -22,9 +21,8 @@ const DiaryCalendar = () => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={['DatePicker']}>
           <DatePicker
-          // 미래는 선택 못하는 옵션.
-          disableFuture
-          ={true}
+            // 미래는 선택 못하는 옵션.
+            disableFuture={true}
             label="날짜를 선택해주세요"
             onChange={(newDate: dayjs.Dayjs | null) => {
               if (newDate) {
