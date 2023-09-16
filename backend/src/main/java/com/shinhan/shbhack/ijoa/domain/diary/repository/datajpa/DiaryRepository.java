@@ -8,5 +8,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
-    boolean existsDiaryByMemberAndDiaryDate(Member member, LocalDate diary_date);
+    boolean existsDiaryByMemberAndDiaryDate(Member member, LocalDate diaryDate);
 }
