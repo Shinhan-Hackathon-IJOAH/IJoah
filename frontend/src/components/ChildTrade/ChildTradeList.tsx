@@ -18,30 +18,32 @@ import BackPageButton from '../Common/BackPageButton';
 import axios from 'axios';
 import { useUserStore } from '../../store/UserStore';
 import BottomNav from '../Common/BottomNav';
+interface Trade{
+  accountNumber: any,
+  balance: any,
+  name: any,
+  bankTransactionResponses: 
+    {
+      date: any,
+        time: any,
+        withdrawAccount: any,
+        depositAccount: any,
+        content: any,
+        transactionBalance: any, //잔액
+        type: any, // 입출금 구분 1: 입금, 2:출금
+        category: any,
+      }[];
+
+}
+
 const TradeList = () => {
   const { accessToken, account } = useUserStore();
   const navigate = useNavigate();
   // 더미데이터
-  const dummyData = {
-    accountNumber: '110111111111',
-    balance: '331551',
-    name: '김신한',
-    bankTransactionResponses: [
-      {
-        date: '20230318',
-        time: '154602',
-        withdrawAccount: '0',
-        depositAccount: '1404',
-        content: '거래내역1',
-        transactionBalance: '331551', //잔액
-        type: '1', // 입출금 구분 1: 입금, 2:출금
-        category: '1',
-      },
-    ],
-  };
+
 
   console.log(accessToken);
-  const [res, setRes] = useState<any>(dummyData);
+  const [res, setRes] = useState<Trade>();
   useEffect(() => {
     axios
       .post(
@@ -92,18 +94,18 @@ const TradeList = () => {
             </div>
             <div className="flex flex-col">
               <Typography variant="h3" color="white">
-                {res.name}님의 거래내역
+                {res?.name}님의 거래내역
               </Typography>
               <Typography variant="small" color="white" className="underline mb-0">
-                신한은행 {res.accountNumber}
+                신한은행 {res?.accountNumber}
               </Typography>
               <Typography variant="h4" color="white" className="mt-0">
-                {res.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+                {res?.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
               </Typography>
             </div>
           </CardHeader>
           <List>
-            {res.bankTransactionResponses.map((transaction: any, index: any) => (
+            {res?.bankTransactionResponses.map((transaction: any, index: any) => (
               <ListItem key={index}>
                 <ListItemPrefix>
                   <Avatar variant="square" className="p-1" alt="candice" src={`/trade/${transaction.category}.png`} />

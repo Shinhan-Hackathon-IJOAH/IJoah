@@ -81,7 +81,13 @@ const Login = () => {
             title: '로그인에 성공했습니다.',
           });
           axios
-            .get(`https://j9c210.p.ssafy.io/api1/alarm/subscribe/${response.data.data.id}`)
+            .get(`https://j9c210.p.ssafy.io/api1/alarm/subscribe/${response.data.data.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+            )
             .then((res) => {
               console.log(res);
               console.log('알람 구독 성공');

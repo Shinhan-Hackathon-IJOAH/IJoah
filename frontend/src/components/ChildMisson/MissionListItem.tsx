@@ -12,7 +12,7 @@ interface MissionListItemProps{
 
 const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionamount}) => {
     const navigate = useNavigate();
-    const {id,memberRole} =useUserStore();
+    const {id,memberRole,accessToken} =useUserStore();
     const complete = () => {
         axios
             .post('https://j9c210.p.ssafy.io/api1/missions/check',{
@@ -20,7 +20,12 @@ const MissionListItem: React.FC<MissionListItemProps> = ({missionid,missiontitle
                 memberRole: memberRole, 
                 missionId: missionid,
                 isAccept: "true"
-            }
+            },
+            {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              },
             )
             .then((response)=>{
                 console.log(response)
