@@ -4,7 +4,7 @@ import {MissionItemContainer,RequestButton,FontTag,MissionTagContainer} from './
 import axios from 'axios';
 import { IconButton } from "@material-tailwind/react";
 import { useUserStore } from '../../store/UserStore';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; 
 
 interface MissionListItemProps{
     missionid: string;
@@ -13,7 +13,7 @@ interface MissionListItemProps{
 }
 
 const MissionRequestItem: React.FC<MissionListItemProps> = ({missionid,missiontitle,missionamount}) => {
-    const {id,memberRole} =useUserStore();
+    const {id,memberRole,accessToken} =useUserStore();
     const navigate = useNavigate();
     const detailClick = ()=>{
         navigate(`/parent/mission/detail/${missionid}`)
@@ -25,7 +25,12 @@ const MissionRequestItem: React.FC<MissionListItemProps> = ({missionid,missionti
                 memberRole: memberRole, 
                 missionId: missionid,
                 isAccept: "true"
-            }
+            },
+            {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              },
             )
             .then((response)=>{
                 console.log(response)
