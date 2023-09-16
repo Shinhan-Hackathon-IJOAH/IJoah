@@ -53,10 +53,10 @@ public class EmailQueryService {
         log.info("lenth 선언");
         log.debug("lenth 선언");
         try {
-            Random random = SecureRandom.getInstanceStrong();
+            Random random = new Random();
             log.info("random 선언");
             log.debug("random 선언");
-            StringBuilder builder = new StringBuilder();
+            StringBuilder builder = new StringBuilder(lenth);
             log.info("builder 선언");
             log.debug("builder 선언");
             for (int i = 0; i < lenth; i++) {
@@ -65,7 +65,7 @@ public class EmailQueryService {
                 log.debug("반복중:{} ", i);
             }
             return builder.toString();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             log.debug("랜덤 값 생성 실패");
             throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
         }
