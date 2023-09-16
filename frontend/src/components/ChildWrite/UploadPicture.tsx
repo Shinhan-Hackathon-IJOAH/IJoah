@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useState, useEffect } from "react";
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import Stack from "@mui/material/Stack";
-import { Container } from "@mui/material";
-import { useDiaryStore } from "../../store/DiaryStore";
-import { Carousel } from "@material-tailwind/react";
+import React, { ChangeEvent, useState, useEffect } from 'react';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
+import { Container } from '@mui/material';
+import { useDiaryStore } from '../../store/DiaryStore';
+import { Carousel } from '@material-tailwind/react';
 interface State {
   selectedImages: string[];
 }
@@ -39,23 +39,19 @@ const FileUpload: React.FC = () => {
 
   ///////////////////////////File///////////////////////////////
 
-  console.log(picture);
-
   return (
     <div className="w-[100vw]">
-      <div className="mt-10 text-2xl text-center font-['HSYuji-Regular']">
-        오늘 특별히 기록할 사진이 있나요 ?
-      </div>
+      <div className="mt-10 text-2xl text-center font-['HSYuji-Regular']">오늘 특별히 기록할 사진이 있나요 ?</div>
       {/*  */}
       <Carousel
         className="rounded-xl"
         navigation={({ setActiveIndex, activeIndex, length }) => (
           <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
-            {new Array(length).fill("").map((_, i) => (
+            {new Array(length).fill('').map((_, i) => (
               <span
                 key={i}
                 className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-                  activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
+                  activeIndex === i ? 'w-8 bg-white' : 'w-4 bg-white/50'
                 }`}
                 onClick={() => setActiveIndex(i)}
               />
@@ -79,20 +75,8 @@ const FileUpload: React.FC = () => {
         <label htmlFor="file-input">
           <div className="font-['HSYuji-Regular']">
             사진 등록하기
-            <IconButton
-              size="large"
-              color="warning"
-              aria-label="upload picture"
-              component="label"
-            >
-              <input
-                hidden
-                accept="image/*"
-                type="file"
-                id="file-input"
-                multiple
-                onChange={handleImageChange}
-              />
+            <IconButton size="large" color="warning" aria-label="upload picture" component="label">
+              <input hidden accept="image/*" type="file" id="file-input" multiple onChange={handleImageChange} />
               <PhotoCamera />
             </IconButton>
           </div>

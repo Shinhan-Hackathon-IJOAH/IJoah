@@ -23,10 +23,9 @@ import dayjs from 'dayjs';
 import { BanknotesIcon, CreditCardIcon, LockClosedIcon } from '@heroicons/react/24/solid';
 import { useSignUpStore } from '../../store/SignUpStore';
 import Swal from 'sweetalert2';
-import { IconButton }   from "@material-tailwind/react";
+import { IconButton } from '@material-tailwind/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -49,10 +48,11 @@ export default function SignUp() {
     setPassword(e.target.value);
   };
   const handlePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhoneNumber(e.target.value
-      .replace(/[^0-9]/g, '')
-      .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/, "$1-$2-$3")
-      .replace(/(\-{1,2})$/, "")
+    setPhoneNumber(
+      e.target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/, '$1-$2-$3')
+        .replace(/(\-{1,2})$/, ''),
     );
   };
   const handleAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +84,8 @@ export default function SignUp() {
     axios
       .post('https://j9c210.p.ssafy.io/api1/members/join', {
         name: name,
-        email: signUpEmail,
+        // email: signUpEmail,
+        email: 'gkxm0443@naver.com',
         password: password,
         phoneNumber: phoneNumber,
         birthDate: birthDate,
@@ -96,11 +97,10 @@ export default function SignUp() {
         console.log('성공');
         console.log(response.data);
         console.log(response);
-        navigate('/parent');
+        navigate('/');
         Swal.fire({
           icon: 'success',
           title: '회원가입에 성공했습니다',
-          text: '모아일기에 오신 것을 진심으로 환영합니다!',
         });
       })
       .catch((error: any) => {
@@ -143,12 +143,13 @@ export default function SignUp() {
           shadow={false}
           className="m-0 grid place-items-center rounded-none md:rounded-xl  py-8 px-4 text-center"
         >
-          <div style={{  position: 'absolute', top: '15px', left: '15px' }}>
-          <IconButton 
-              onClick={()=>navigate(-1)}
-              className="rounded-full bg-[#ea4335]  hover:shadow-[#ea4335]/20 focus:shadow-[#ea4335]/20 active:shadow-[#ea4335]/10">
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </IconButton>
+          <div style={{ position: 'absolute', top: '15px', left: '15px' }}>
+            <IconButton
+              onClick={() => navigate(-1)}
+              className="rounded-full bg-[#ea4335]  hover:shadow-[#ea4335]/20 focus:shadow-[#ea4335]/20 active:shadow-[#ea4335]/10"
+            >
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </IconButton>
           </div>
           <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
             <BanknotesIcon className="h-10 w-10" />
@@ -268,16 +269,16 @@ export default function SignUp() {
                       생년월일을 입력해주세요.
                     </Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      label='생년월일'
-                      onChange={(newDate: dayjs.Dayjs | null) => {
-                        if (newDate) {
-                          setBirthDate(newDate.format('YYYY-MM-DD'));
-                        }
-                      }}
-                      format='YYYY-MM-DD'
-                      sx={{ width: '100%' }}
-                    />
+                      <DatePicker
+                        label="생년월일"
+                        onChange={(newDate: dayjs.Dayjs | null) => {
+                          if (newDate) {
+                            setBirthDate(newDate.format('YYYY-MM-DD'));
+                          }
+                        }}
+                        format="YYYY-MM-DD"
+                        sx={{ width: '100%' }}
+                      />
                     </LocalizationProvider>
                   </div>
 
@@ -388,16 +389,16 @@ export default function SignUp() {
                       생년월일을 입력해주세요.
                     </Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      label='생년월일'
-                      onChange={(newDate: dayjs.Dayjs | null) => {
-                        if (newDate) {
-                          setBirthDate(newDate.format('YYYY-MM-DD'));
-                        }
-                      }}
-                      format='YYYY-MM-DD'
-                      sx={{ width: '100%' }}
-                    />
+                      <DatePicker
+                        label="생년월일"
+                        onChange={(newDate: dayjs.Dayjs | null) => {
+                          if (newDate) {
+                            setBirthDate(newDate.format('YYYY-MM-DD'));
+                          }
+                        }}
+                        format="YYYY-MM-DD"
+                        sx={{ width: '100%' }}
+                      />
                     </LocalizationProvider>
                   </div>
 

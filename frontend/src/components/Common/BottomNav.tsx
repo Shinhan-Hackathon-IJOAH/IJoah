@@ -49,7 +49,7 @@ const BottomNav = () => {
       }
     });
 
-    console.log('sse통해 넘어오는 이벤트', event);
+    console.log('sse통해 넘어오는 이벤트 데이터', event);
   });
 
   const handleMenuClick = () => {
