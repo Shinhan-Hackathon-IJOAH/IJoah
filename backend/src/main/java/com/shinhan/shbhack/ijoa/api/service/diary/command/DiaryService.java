@@ -46,22 +46,26 @@ public class DiaryService {
             Member member = memberRepository.findById(memberId).orElseThrow(()->new RuntimeException("유저 아이디로 멤버 찾기 실패"));
             Diary newDiary = Diary.of(diaryCreateServiceRequest, member); // 일기장 생성
 
-            List<UploadFile> fileInfos = fileStore.storeFiles(diaryCreateServiceRequest.getPhoto());
-            List<DiaryImage> diaryImageList = new ArrayList<>();
-            for(UploadFile uploadFile : fileInfos){
-                diaryImageList.add(DiaryImage.of(uploadFile, newDiary));
-            } // 다이어리 이미지 객체 생성
-            newDiary.setImages(diaryImageList); // 다이어리에 이미지 리스트 지정
+            List<MultipartFile> originalFiles = diaryCreateServiceRequest.getPhoto();
+            if(originalFiles != null){
+                List<UploadFile> fileInfos = fileStore.storeFiles(originalFiles);
 
-            MultipartFile recordInfo = diaryCreateServiceRequest.getRecord();
-            UploadFile diaryRecord = null;
-            if(recordInfo != null && !recordInfo.isEmpty()){
-                log.info("여기까지는 도달");
-                diaryRecord = fileStore.storeFile(recordInfo);
-                newDiary.setRecord(DiaryRecord.of(diaryRecord, newDiary));
-
+                List<DiaryImage> diaryImageList = new ArrayList<>();
+                for(UploadFile uploadFile : fileInfos){
+                    diaryImageList.add(DiaryImage.of(uploadFile, newDiary));
+                } // 다이어리 이미지 객체 생성
+                newDiary.setImages(diaryImageList); // 다이어리에 이미지 리스트 지정
             }
-            log.info("도달도달");
+
+
+//            MultipartFile recordInfo = diaryCreateServiceRequest.getRecord();
+//            UploadFile diaryRecord = null;
+//            if(recordInfo != null && !recordInfo.isEmpty()){
+//                log.info("여기까지는 도달");
+//                diaryRecord = fileStore.storeFile(recordInfo);
+//                newDiary.setRecord(DiaryRecord.of(diaryRecord, newDiary));
+//
+//            }
             diaryRepository.save(newDiary);
 
         } catch (IOException e) {

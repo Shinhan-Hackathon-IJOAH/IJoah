@@ -25,20 +25,18 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AlarmService {
     private final AlarmQueryRepository alarmQueryRepository;
     private final NotificationRepository notificationRepository;
     private final MemberRepository memberRepository;
 
-    private final static String ALARM_NAME = "alarm";
-    private final EmitterRepository emitterRepository;
-    private static final Long DEFAULT_TIMEOUT = 60L * 1000 * 60;
     public void sendAlarm(AlarmNotifyRequest alarmNotifyRequest){
         Notification notification = Notification.of(alarmNotifyRequest);
         notificationRepository.save(notification);
         AlarmInfoResponse response = new AlarmInfoResponse();
         response.setContent(notification.getContent());
-        send(alarmNotifyRequest.getReceiver().getId(), response);
+//        send(alarmNotifyRequest.getReceiver().getId(), response);
 
     }
 
@@ -48,7 +46,10 @@ public class AlarmService {
 
     public void updateAlarm(Long alarmId){
         Notification notification = notificationRepository.findById(alarmId).orElseThrow();
+
         notification.setConfirmStatus(ConfirmStatus.CONFIRMED);
+        log.info(notification.getId().toString());
+        log.info(notification.getConfirmStatus().toString());
     }
 
     public void updateEnrollAlarm(Long id){
@@ -64,37 +65,5 @@ public class AlarmService {
         }
     }
 
-    public void send(Long id, AlarmInfoResponse response) {
-        emitterRepository.get(id).ifPresentOrElse(it -> {
-                    try {
-                        it.send(SseEmitter.event()
-                                .name("sse")
-                                .data(response));
-                        log.info("성공적으로 보냈어요");
-                    } catch (IOException exception) {
-                        log.info("delete를 하려고 할 때 발생한 에러");
-                        emitterRepository.delete(id);
-                        throw new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND);
-                    }
-                },
-                () -> log.info("No emitter found")
-        );
-    }
 
-    public SseEmitter subscribe(Long id) {
-        SseEmitter emitter = new SseEmitter(DEFAULT_TIMEOUT);
-        emitterRepository.save(id, emitter);
-        emitter.onCompletion(() -> emitterRepository.delete(id));
-        emitter.onTimeout(() -> emitterRepository.delete(id));
-        try {
-            log.info("connect: " + id);
-            emitter.send(SseEmitter.event()
-                    .id("id")
-                    .name("sse")
-                    .data("connect completed"));
-        } catch (IOException exception) {
-            throw new InvalidValueException(ErrorCode.INTERNAL_SERVER_ERROR);
-        }
-        return emitter;
-    }
 }

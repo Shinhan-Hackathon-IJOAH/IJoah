@@ -1,6 +1,7 @@
 package com.shinhan.shbhack.ijoa.api.controller.alarm;
 
 import com.shinhan.shbhack.ijoa.api.service.alarm.command.AlarmService;
+import com.shinhan.shbhack.ijoa.api.service.alarm.command.SSEService;
 import com.shinhan.shbhack.ijoa.api.service.alarm.dto.response.AlarmInfoResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AlarmController {
     private final AlarmService alarmService;
+    private final SSEService sseService;
 
     @GetMapping("/{email}")
     public ResponseEntity<?> getList(@PathVariable String email){
@@ -34,7 +36,7 @@ public class AlarmController {
 
     @GetMapping(value = "/subscribe/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter subscribe(@PathVariable Long id) {
-        return alarmService.subscribe(id);
+        return sseService.subscribe(id);
     }
 
 }
