@@ -15,7 +15,7 @@ public class InvalidTokenEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setContentType("application/json");
-        response.setStatus(401);
+        response.setStatus(403);
         response.getWriter().write(ApiError.of(ErrorCode.INVALID_TOKEN).toString());
     }
 }
