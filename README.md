@@ -86,32 +86,20 @@
 <br>
 
 ### 일기장
-<<<<<<< HEAD
-![](./docs/images/diary.gif)
-=======
-<img width="40%" src="./docs/images/일기장.png"/>
+<img width="40%" src="./docs/images/diary.gif"/>
 
->>>>>>> d94b678e45e0c5fb9e645dde108d3dee81ae175f
 
 <br>
 
 ### 미션 등록
-<<<<<<< HEAD
-![](./docs/images/mission.gif)
-=======
-<img width="40%" src="./docs/images/미션%20등록.png"/>
+<img width="40%" src="./docs/images/mission.gif"/>
 
->>>>>>> d94b678e45e0c5fb9e645dde108d3dee81ae175f
 
 <br>
 
 ### 계좌 등록
-<<<<<<< HEAD
-![](./docs/images/regist-account.gif)
-=======
-<img width="40%" src="./docs/images/계좌등록.jpg"/>
+<img width="40%" src="./docs/images/regist-account.gif"/>
 
->>>>>>> d94b678e45e0c5fb9e645dde108d3dee81ae175f
 
 <br>
 
