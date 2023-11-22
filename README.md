@@ -87,17 +87,17 @@
 <br>
 
 ### 일기장
-![](./docs/images/일기장.png)
+![](./docs/images/diary.gif)
 
 <br>
 
 ### 미션 등록
-![](./docs/images/미션%20등록.png)
+![](./docs/images/mission.gif)
 
 <br>
 
 ### 계좌 등록
-![](./docs/images/계좌등록.jpg)
+![](./docs/images/regist-account.gif)
 
 <br>
 

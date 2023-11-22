@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
 //                .antMatchers("/**").permitAll()
-                .antMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .antMatchers("/swagger-ui/**", "/swagger-ui.html/**", "/**").permitAll()
                 .antMatchers("/api1/shareddiaries/**", "/api1/diaries/write", "/api1/alarm/**", "/api1/diaries/image/**").permitAll()
                 .antMatchers("/api1/members/join", "/api1/members/login", "/api1/emails/**").permitAll()
 
