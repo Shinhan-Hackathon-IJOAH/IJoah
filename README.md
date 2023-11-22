@@ -82,37 +82,54 @@
 ### 🎬[시연영상](./docs/images/시연영상.mp4)
 
 ### 로딩
-![](./docs/images/로딩.gif)
-
+<img width="40%" src="./docs/images/로딩.gif"/>
 <br>
 
 ### 일기장
+<<<<<<< HEAD
 ![](./docs/images/diary.gif)
+=======
+<img width="40%" src="./docs/images/일기장.png"/>
+
+>>>>>>> d94b678e45e0c5fb9e645dde108d3dee81ae175f
 
 <br>
 
 ### 미션 등록
+<<<<<<< HEAD
 ![](./docs/images/mission.gif)
+=======
+<img width="40%" src="./docs/images/미션%20등록.png"/>
+
+>>>>>>> d94b678e45e0c5fb9e645dde108d3dee81ae175f
 
 <br>
 
 ### 계좌 등록
+<<<<<<< HEAD
 ![](./docs/images/regist-account.gif)
+=======
+<img width="40%" src="./docs/images/계좌등록.jpg"/>
+
+>>>>>>> d94b678e45e0c5fb9e645dde108d3dee81ae175f
 
 <br>
 
 ### 프로필 변경
-![](./docs/images/프로필변경.jpg)
+<img width="40%" src="./docs/images/프로필변경.jpg"/>
+
 
 <br>
 
 ### 내역 조회
-![](./docs/images/내역조회.jpg)
+<img width="40%" src="./docs/images/내역조회.jpg"/>
+
 
 <br>
 
 ### 메인페이지
-![](./docs/images/메인페이지.jpg)
+<img width="40%" src="./docs/images/메인페이지.jpg"/>
+
 
 <br>
 
