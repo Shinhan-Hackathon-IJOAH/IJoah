@@ -52,7 +52,7 @@ React.js, TypeScript, PWA, Zustand, Tailwind CSS, Styled-Components
 
 AWS EC2, Nignx, Docker, Jenkins
 
-### 🔐 Authencation
+### 🔐 Authentication
 
 JWT
 
